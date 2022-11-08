@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
+import com.ming6464.ungdungquanlykhachsanmctl.DTO.Categories;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.DichVuFragment;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.HoaDonFragment;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.KhachHangFragment;
@@ -22,15 +23,28 @@ public class MainActivity extends AppCompatActivity implements Action {
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
     private NavigationView navigationView;
-    private FragmentTransaction transaction;
     private FragmentManager manager;
+    private KhachSanDAO dao;
+    private KhachSanSharedPreferences share;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         anhXa();
-        chuyenFragment(SoDoPhongFragment.newInstance(),manager);
         addToolbarNavi();
+        addData();
+        chuyenFragment(SoDoPhongFragment.newInstance(),manager);
+    }
+
+    private void addData() {
+        if(!share.booleangetCheckLoaiPhong()){
+            dao.insertOfLoaiPhong(new Categories("Standard (STD)",600000,2));
+            dao.insertOfLoaiPhong(new Categories("Superior (SUP)",880000,3));
+            dao.insertOfLoaiPhong(new Categories("Deluxe (DLX)",1420000,2));
+            dao.insertOfLoaiPhong(new Categories("Suite (SUT)",2350000,4));
+            share.setCheckLoaiPhong(true);
+        }
+
     }
 
     private void addToolbarNavi() {
@@ -64,11 +78,13 @@ public class MainActivity extends AppCompatActivity implements Action {
         toolbar = findViewById(R.id.actiMain_tb);
         navigationView = findViewById(R.id.actiMain_nv);
         manager = getSupportFragmentManager();
+        dao = KhachSanDB.getInstance(this).getDAO();
+        share = new KhachSanSharedPreferences(this);
     }
 
     @Override
     public void chuyenFragment(Fragment fragment, FragmentManager manager) {
-        transaction = manager.beginTransaction();
+        FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.actiMain_layout_linear,fragment);
         transaction.commit();
     }

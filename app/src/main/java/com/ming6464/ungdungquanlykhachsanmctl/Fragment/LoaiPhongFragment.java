@@ -2,15 +2,29 @@ package com.ming6464.ungdungquanlykhachsanmctl.Fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ming6464.ungdungquanlykhachsanmctl.Adapter.LoaiPhongAdapter;
+import com.ming6464.ungdungquanlykhachsanmctl.DTO.Categories;
+import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDAO;
+import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDB;
 import com.ming6464.ungdungquanlykhachsanmctl.R;
 
-public class LoaiPhongFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.List;
+
+public class LoaiPhongFragment extends Fragment{
+    private LoaiPhongAdapter loaiPhongAdapter;
+    private KhachSanDAO dao;
     public static LoaiPhongFragment newInstance() {
         LoaiPhongFragment fragment = new LoaiPhongFragment();
         return fragment;
@@ -26,4 +40,22 @@ public class LoaiPhongFragment extends Fragment {
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_loai_phong, container, false);
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        dao = KhachSanDB.getInstance(requireContext()).getDAO();
+        RecyclerView recyclerView = requireView().findViewById(R.id.fragLoaiPhong_rc);
+        loaiPhongAdapter = new LoaiPhongAdapter();
+        recyclerView.setAdapter(loaiPhongAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        List<Categories> listLoaiPhong = dao.getAllOfLoaiPhong();
+        loaiPhongAdapter.setData(listLoaiPhong);
+    }
+
 }
