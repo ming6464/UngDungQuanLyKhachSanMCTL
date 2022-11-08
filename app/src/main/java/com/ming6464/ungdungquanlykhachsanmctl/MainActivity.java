@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
     private NavigationView navigationView;
+    private FragmentTransaction transaction;
     private FragmentManager manager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void replaceFragment(Fragment fragment) {
-        FragmentTransaction transaction = manager.beginTransaction();
+        transaction = manager.beginTransaction();
         transaction.replace(R.id.actiMain_layout_linear,fragment);
         transaction.commit();
     }
