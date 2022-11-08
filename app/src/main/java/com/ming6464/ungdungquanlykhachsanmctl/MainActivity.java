@@ -18,7 +18,7 @@ import com.ming6464.ungdungquanlykhachsanmctl.Fragment.HoaDonFragment;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.KhachHangFragment;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.SoDoPhongFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Action {
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
     private NavigationView navigationView;
@@ -29,14 +29,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         anhXa();
-        replaceFragment(SoDoPhongFragment.newInstance());
+        chuyenFragment(SoDoPhongFragment.newInstance(),manager);
         addToolbarNavi();
-    }
-
-    private void replaceFragment(Fragment fragment) {
-        transaction = manager.beginTransaction();
-        transaction.replace(R.id.actiMain_layout_linear,fragment);
-        transaction.commit();
     }
 
     private void addToolbarNavi() {
@@ -45,18 +39,19 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(item -> {
+            manager = getSupportFragmentManager();
             switch (item.getItemId()){
                 case R.id.naviMenu_nv_soDoPhong:
-                    replaceFragment(SoDoPhongFragment.newInstance());
+                    chuyenFragment(SoDoPhongFragment.newInstance(),manager);
                     break;
                 case R.id.naviMenu_nv_dichVu:
-                    replaceFragment(DichVuFragment.newInstance());
+                    chuyenFragment(DichVuFragment.newInstance(),manager);
                     break;
                 case R.id.naviMenu_nv_hoaDon:
-                    replaceFragment(HoaDonFragment.newInstance());
+                    chuyenFragment(HoaDonFragment.newInstance(),manager);
                     break;
                 case R.id.naviMenu_nv_khachHang:
-                    replaceFragment(KhachHangFragment.newInstance());
+                    chuyenFragment(KhachHangFragment.newInstance(),manager);
                     break;
             }
             drawerLayout.closeDrawer(navigationView);
@@ -69,5 +64,12 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.actiMain_tb);
         navigationView = findViewById(R.id.actiMain_nv);
         manager = getSupportFragmentManager();
+    }
+
+    @Override
+    public void chuyenFragment(Fragment fragment, FragmentManager manager) {
+        transaction = manager.beginTransaction();
+        transaction.replace(R.id.actiMain_layout_linear,fragment);
+        transaction.commit();
     }
 }
