@@ -5,6 +5,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Categories;
+import com.ming6464.ungdungquanlykhachsanmctl.DTO.Services;
 
 import java.util.List;
 
@@ -14,4 +15,10 @@ public abstract class KhachSanDAO {
     public abstract List<Categories> getAllOfLoaiPhong();
     @Insert
     public abstract void insertOfLoaiPhong(Categories obj);
+
+    @Insert
+    public abstract void insertOfService(Services services);
+
+    @Query("SELECT * FROM Services")
+    public abstract List<Services> getAllService();
 }
