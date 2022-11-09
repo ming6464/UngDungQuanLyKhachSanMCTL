@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Categories;
+import com.ming6464.ungdungquanlykhachsanmctl.DTO.Services;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.DichVuFragment;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.HoaDonFragment;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.KhachHangFragment;
@@ -43,6 +44,11 @@ public class MainActivity extends AppCompatActivity implements Action {
             dao.insertOfLoaiPhong(new Categories("Deluxe (DLX)",1420000,2));
             dao.insertOfLoaiPhong(new Categories("Suite (SUT)",2350000,4));
             share.setCheckLoaiPhong(true);
+            dao.insertOfService(new Services("Giat Đồ",99999));
+            dao.insertOfService(new Services("Xe Đưa Đón Sân Bay",1823));
+            dao.insertOfService(new Services("Hội Họp, Văn Phòng",2374324));
+            dao.insertOfService(new Services("Dịch vụ Spa",800000));
+            dao.insertOfService(new Services("Fitness center",1000000));
         }
 
     }

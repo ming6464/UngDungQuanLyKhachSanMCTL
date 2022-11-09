@@ -7,9 +7,10 @@ import androidx.room.PrimaryKey;
 public class Services {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private String name,price;
+    private String name;
+    private int price;
 
-    public Services(String name, String price) {
+    public Services(String name, int price) {
         this.name = name;
         this.price = price;
     }
@@ -30,11 +31,11 @@ public class Services {
         this.name = name;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 }
