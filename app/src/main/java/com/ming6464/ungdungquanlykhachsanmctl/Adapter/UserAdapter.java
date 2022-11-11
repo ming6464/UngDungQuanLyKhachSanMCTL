@@ -52,6 +52,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             return;
         }
         holder.tvName.setText(user.getUsername());
+        holder.tvSex.setText(user.getSex());
+        holder.tvSdt.setText(user.getSdt());
+        holder.tvCccd.setText(user.getCccd());
         holder.tvAddress.setText(user.getAddress());
         holder.btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,12 +79,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     }
 
     public class UserViewHolder extends RecyclerView.ViewHolder{
-        TextView tvAddress;
-        TextView tvName;
+        TextView tvAddress,tvName,tvSex,tvSdt,tvCccd;
         private Button btnUpdate, btnDelete;
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_user);
+            tvSex = itemView.findViewById(R.id.tv_sex);
+            tvSdt = itemView.findViewById(R.id.tv_sdt);
+            tvCccd = itemView.findViewById(R.id.tv_cccd);
             tvAddress = itemView.findViewById(R.id.tv_address);
             btnUpdate = itemView.findViewById(R.id.btn_update);
             btnDelete = itemView.findViewById(R.id.btn_delete);

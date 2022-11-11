@@ -20,13 +20,37 @@
             android:textColor="@color/black"/>
 
         <TextView
-            android:id="@+id/tv_address"
+            android:id="@+id/tv_sex"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
             android:layout_marginTop="4dp"
             android:textSize="14dp"
             android:textColor="#393C3C"/>
+        <TextView
+            android:id="@+id/tv_sdt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="16dp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/tv_cccd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:layout_marginTop="4dp"
+            android:textSize="14dp"
+            android:textColor="#393C3C"/>
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="16dp"
+            android:textColor="@color/black"/>
+
     </LinearLayout>
 
     <Button
