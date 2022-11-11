@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Categories;
+import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Services;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.DichVuFragment;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.HoaDonFragment;
@@ -36,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements Action {
         addData();
         chuyenFragment(SoDoPhongFragment.newInstance(),manager);
     }
-
     private void addData() {
         if(!share.booleangetCheckLoaiPhong()){
             dao.insertOfLoaiPhong(new Categories("Standard (STD)",600000,2));
@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements Action {
             dao.insertOfService(new Services("Dịch vụ Spa",800000));
             dao.insertOfService(new Services("Fitness center",1000000));
         }
-
     }
 
     private void addToolbarNavi() {
@@ -78,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements Action {
             return true;
         });
     }
-
     private void anhXa() {
         drawerLayout = findViewById(R.id.actiMain_layut_drawer);
         toolbar = findViewById(R.id.actiMain_tb);
@@ -87,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements Action {
         dao = KhachSanDB.getInstance(this).getDAO();
         share = new KhachSanSharedPreferences(this);
     }
-
     @Override
     public void chuyenFragment(Fragment fragment, FragmentManager manager) {
         FragmentTransaction transaction = manager.beginTransaction();
