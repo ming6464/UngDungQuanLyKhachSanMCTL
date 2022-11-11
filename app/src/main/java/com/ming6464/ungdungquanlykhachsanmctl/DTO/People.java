@@ -3,19 +3,20 @@ package com.ming6464.ungdungquanlykhachsanmctl.DTO;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity
-public class People {
+public class People implements Serializable {
     @PrimaryKey (autoGenerate = true)
     private int id;
     private String fullName,SDT,CCCD,address,passowrd;
     private int sex,status;
 
-    public People(String fullName, String SDT, String CCCD, String address, String passowrd, int sex, int status) {
+    public People(String fullName, String SDT, String CCCD, String address,  int sex, int status) {
         this.fullName = fullName;
         this.SDT = SDT;
         this.CCCD = CCCD;
         this.address = address;
-        this.passowrd = passowrd;
         this.sex = sex;
         this.status = status;
     }
