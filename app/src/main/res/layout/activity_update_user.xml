@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".UpdateUserActivity"
+    android:background="#ffff">
+
+    <EditText
+        android:id="@+id/edt_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:hint="Username"/>
+
+    <EditText
+        android:id="@+id/edt_sex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:layout_marginTop="14dp"
+        android:textSize="16dp"
+        android:hint="Sex"/>
+    <EditText
+        android:id="@+id/edt_sdt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:layout_marginTop="14dp"
+        android:textSize="16dp"
+        android:hint="SDT"/>
+    <EditText
+        android:id="@+id/edt_cccd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:layout_marginTop="14dp"
+        android:textSize="16dp"
+        android:hint="CCCD"/>
+    <EditText
+        android:id="@+id/edt_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:layout_marginTop="14dp"
+        android:textSize="16dp"
+        android:hint="Address"/>
+
+    <Button
+        android:id="@+id/btn_update_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/teal_200"
+        android:textSize="16dp"
+        android:text="Update User"
+        android:layout_marginTop="20dp"/>
+
+</LinearLayout>
