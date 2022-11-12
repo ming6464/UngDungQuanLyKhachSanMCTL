@@ -26,7 +26,7 @@ public abstract class KhachSanDAO {
     public abstract List<Services> getAllService();
 
     @Insert
-    public abstract void inserUser(People people);
+    public abstract void insertOfUser(People people);
 
     @Query("SELECT * FROM people")
     public abstract List<People>getListUser();

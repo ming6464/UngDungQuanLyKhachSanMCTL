@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
@@ -21,60 +22,76 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     private Context mContext;
     private List<People> mListUser;
     private IClickItemUser iClickItemUser;
+
     public UserAdapter(IClickItemUser iClickItemUser) {
         this.iClickItemUser = iClickItemUser;
     }
-    public interface IClickItemUser{
+
+    public interface IClickItemUser {
         void updateUser(People people);
+
         void deleteUser(People people);
     }
+
     public UserAdapter(Context mContext) {
         this.mContext = mContext;
     }
-    public void setData(List<People> list){
+
+    public void setData(List<People> list) {
         this.mListUser = list;
         notifyDataSetChanged();
     }
+
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user_chua, parent, false);
         return new UserViewHolder(view);
     }
+
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         People people = mListUser.get(position);
         if (people == null) {
             return;
         }
-        holder.tvName.setText(people.getFullName());
-        holder.tvSex.setText(String.valueOf(people.getSex()));
-        holder.tvSdt.setText(people.getSDT());
-        holder.tvCccd.setText(people.getCCCD());
-        holder.tvAddress.setText(people.getAddress());
-        holder.btnUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                iClickItemUser.updateUser(people);
-            }
-        });
+        holder.tvName.setText("Name: " + people.getFullName());
+        holder.tvSex.setText("Sex: " + (people.getSex()));
+        holder.tvSdt.setText("Number: " + people.getSDT());
+        holder.tvCccd.setText("CCCD: " + people.getCCCD());
+        holder.tvAddress.setText("Address: " + people.getAddress());
+//        holder.btnUpdate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                iClickItemUser.updateUser(people);
+//            }
+//        });
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 iClickItemUser.deleteUser(people);
             }
         });
+        holder.update_user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iClickItemUser.updateUser(people);
+            }
+        });
     }
+
     @Override
     public int getItemCount() {
-        if (mListUser != null){
+        if (mListUser != null) {
             return mListUser.size();
         }
         return 0;
     }
-    public class UserViewHolder extends RecyclerView.ViewHolder{
-        TextView tvAddress,tvName,tvSex,tvSdt,tvCccd;
+
+    public class UserViewHolder extends RecyclerView.ViewHolder {
+        TextView tvAddress, tvName, tvSex, tvSdt, tvCccd;
         private Button btnUpdate, btnDelete;
+        CardView update_user;
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_user);
@@ -82,8 +99,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             tvSdt = itemView.findViewById(R.id.tv_sdt);
             tvCccd = itemView.findViewById(R.id.tv_cccd);
             tvAddress = itemView.findViewById(R.id.tv_address);
-            btnUpdate = itemView.findViewById(R.id.btn_update);
-            btnDelete = itemView.findViewById(R.id.btn_delete);
+            update_user = itemView.findViewById(R.id.card_update_user);
+            btnDelete = itemView.findViewById(R.id.btnDelete_user);
         }
     }
 }

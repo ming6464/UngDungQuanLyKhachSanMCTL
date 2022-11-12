@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ming6464.ungdungquanlykhachsanmctl.Adapter.UserAdapter;
@@ -36,10 +37,13 @@ public class KhachHangFragment extends Fragment {
     public RecyclerView rcvUser;
     private UserAdapter userAdapter;
     private List<People> mListUser;
+    private People mUser;
+
     public static KhachHangFragment newInstance() {
         KhachHangFragment fragment = new KhachHangFragment();
         return fragment;
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,15 +54,18 @@ public class KhachHangFragment extends Fragment {
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_khach_hang, container, false);
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rcvUser = view.findViewById(R.id.rcv_user);
+
         userAdapter = new UserAdapter(new UserAdapter.IClickItemUser() {
             @Override
             public void updateUser(People people) {
                 clickUpdateUser(people);
             }
+
             @Override
             public void deleteUser(People people) {
                 clickDeleteUser(people);
@@ -70,7 +77,9 @@ public class KhachHangFragment extends Fragment {
         rcvUser.setLayoutManager(linearLayoutManager);
         rcvUser.setAdapter(userAdapter);
         loatData();
+
     }
+
     private void clickDeleteUser(People people) {
         new AlertDialog.Builder(getContext())
                 .setTitle("Xac nhan xoa nguoi dung")
@@ -87,21 +96,74 @@ public class KhachHangFragment extends Fragment {
                 .setNegativeButton("No", null)
                 .show();
     }
+
     private void clickUpdateUser(People people) {
-        Intent intent = new Intent(getContext(), UpdateUserActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("obj_user", people);
-        intent.putExtras(bundle);
-        startActivityForResult(intent, MY_REQUEST_CODE);
+//        Intent intent = new Intent(getContext(), UpdateUserActivity.class);
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("obj_user", people);
+//        intent.putExtras(bundle);
+//        startActivityForResult(intent, MY_REQUEST_CODE);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.item_update_user, null);
+        EditText edtUsername = view.findViewById(R.id.edt_username);
+        EditText edtSex = view.findViewById(R.id.edt_sex);
+        EditText edtSDT = view.findViewById(R.id.edt_sdt);
+        EditText edtCCCD = view.findViewById(R.id.edt_cccd);
+        EditText edtAddress = view.findViewById(R.id.edt_address);
+        //set data
+        edtUsername.setText(people.getFullName());
+        edtSex.setText(people.getSex() + "");
+        edtSDT.setText(people.getSDT());
+        edtCCCD.setText(people.getCCCD());
+        edtAddress.setText(people.getAddress());
+        builder.setView(view);
+        builder.setNegativeButton("Update", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String strUsername = edtUsername.getText().toString().trim();
+                String strSex = edtSex.getText().toString().trim();
+                String strSDT = edtSDT.getText().toString().trim();
+                String strCCCD = edtCCCD.getText().toString().trim();
+                String strAddress = edtAddress.getText().toString().trim();
+                //
+//                edtUsername.setText(mUser.getFullName());
+//                edtSex.setText(String.valueOf(mUser.getSex()));
+//                edtSDT.setText(mUser.getSDT());
+//                edtCCCD.setText(mUser.getCCCD());
+//                edtAddress.setText(mUser.getAddress());
+
+                //
+                people.setFullName(strUsername);
+                people.setSex(Integer.parseInt(strSex));
+                people.setSDT(strSDT);
+                people.setCCCD(strCCCD);
+                people.setAddress(strAddress);
+                KhachSanDB.getInstance(getContext()).getDAO().UpdateUser(people);
+                Toast.makeText(getContext(), "Update Thành Công", Toast.LENGTH_SHORT).show();
+                loatData();
+            }
+        });
+        builder.setPositiveButton("Cancle", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
+
     private void loatData() {
         mListUser = KhachSanDB.getInstance(getContext()).getDAO().getListUser();
         userAdapter.setData(mListUser);
     }
+
     public boolean isUserExist(People people) {
         List<People> list = KhachSanDB.getInstance(getContext()).getDAO().checkUser(people.getFullName());
         return list != null && !list.isEmpty();
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
