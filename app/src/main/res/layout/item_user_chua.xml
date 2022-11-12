@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_update_user"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp">
+    android:layout_margin="20dp"
+    app:cardCornerRadius="20dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="10dp"
-        android:layout_toStartOf="@+id/btn_update"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/tv_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
+            android:text="Name:"
             android:textColor="@color/black"
             android:textSize="16dp" />
 
@@ -25,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="@string/app_name"
+            android:text="Gioi Tính: "
             android:textColor="#393C3C"
             android:textSize="14dp" />
 
@@ -33,7 +34,7 @@
             android:id="@+id/tv_sdt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
+            android:text="Number: "
             android:textColor="@color/black"
             android:textSize="16dp" />
 
@@ -42,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="@string/app_name"
+            android:text="CCCD: "
             android:textColor="#393C3C"
             android:textSize="14dp" />
 
@@ -50,26 +51,18 @@
             android:id="@+id/tv_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
+            android:text="Address: "
             android:textColor="@color/black"
             android:textSize="16dp" />
-
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_update"
-        android:layout_width="wrap_content"
+        android:id="@+id/btnDelete_user"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="5dp"
-        android:layout_toStartOf="@+id/btn_delete"
-        android:text="Update" />
-
-    <Button
-        android:id="@+id/btn_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
+        android:layout_marginLeft="240dp"
+        android:layout_marginTop="35dp"
         android:text="Delete" />
-</RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

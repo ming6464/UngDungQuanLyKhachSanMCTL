@@ -5,14 +5,12 @@
     android:layout_height="match_parent"
     android:background="@color/purple_500"
     android:orientation="vertical"
-    android:padding="16dp"
     tools:context=".Fragment.KhachHangFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcv_user"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dp" />
+        android:layout_height="match_parent" />
 
 
 </LinearLayout>
