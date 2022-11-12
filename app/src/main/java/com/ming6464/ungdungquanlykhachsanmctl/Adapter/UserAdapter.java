@@ -60,12 +60,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.tvSdt.setText("Number: " + people.getSDT());
         holder.tvCccd.setText("CCCD: " + people.getCCCD());
         holder.tvAddress.setText("Address: " + people.getAddress());
-//        holder.btnUpdate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                iClickItemUser.updateUser(people);
-//            }
-//        });
+
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

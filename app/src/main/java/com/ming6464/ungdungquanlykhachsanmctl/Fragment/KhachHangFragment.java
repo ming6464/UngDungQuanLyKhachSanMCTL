@@ -22,7 +22,6 @@ import com.ming6464.ungdungquanlykhachsanmctl.Adapter.UserAdapter;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDB;
 import com.ming6464.ungdungquanlykhachsanmctl.R;
-import com.ming6464.ungdungquanlykhachsanmctl.UpdateUserActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,12 +125,6 @@ public class KhachHangFragment extends Fragment {
                 String strSDT = edtSDT.getText().toString().trim();
                 String strCCCD = edtCCCD.getText().toString().trim();
                 String strAddress = edtAddress.getText().toString().trim();
-                //
-//                edtUsername.setText(mUser.getFullName());
-//                edtSex.setText(String.valueOf(mUser.getSex()));
-//                edtSDT.setText(mUser.getSDT());
-//                edtCCCD.setText(mUser.getCCCD());
-//                edtAddress.setText(mUser.getAddress());
 
                 //
                 people.setFullName(strUsername);
@@ -147,7 +140,7 @@ public class KhachHangFragment extends Fragment {
         builder.setPositiveButton("Cancle", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                dialog.dismiss();
             }
         });
         AlertDialog dialog = builder.create();
@@ -159,16 +152,5 @@ public class KhachHangFragment extends Fragment {
         userAdapter.setData(mListUser);
     }
 
-    public boolean isUserExist(People people) {
-        List<People> list = KhachSanDB.getInstance(getContext()).getDAO().checkUser(people.getFullName());
-        return list != null && !list.isEmpty();
-    }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == MY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            loatData();
-        }
-    }
 }

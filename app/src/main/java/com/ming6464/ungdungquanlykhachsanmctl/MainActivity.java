@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements Action {
             dao.insertOfService(new Services("Dịch vụ Spa",800000));
             dao.insertOfService(new Services("Fitness center",1000000));
             //insert khach hang
-            dao.insertOfUser(new People("Nguyễn Văn A","0882341343","32427432","Hà Nội",1,1));
+
         }
     }
 
