@@ -8,13 +8,12 @@ public class Rooms {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String name;
-    private int status,floor,categoryID;
+    private int status,categoryID;
 
-    public Rooms(String name,int categoryID, int floor) {
+    public Rooms(String name,int categoryID) {
         this.categoryID = categoryID;
         this.name = name;
         this.status = 0;
-        this.floor = floor;
     }
 
     public int getId() {
@@ -41,19 +40,21 @@ public class Rooms {
         this.status = status;
     }
 
-    public int getFloor() {
-        return floor;
-    }
-
-    public void setFloor(int floor) {
-        this.floor = floor;
-    }
-
     public int getCategoryID() {
         return categoryID;
     }
 
     public void setCategoryID(int categoryID) {
         this.categoryID = categoryID;
+    }
+
+    @Override
+    public String toString() {
+        return "Rooms{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", status=" + status +
+                ", categoryID=" + categoryID +
+                '}';
     }
 }

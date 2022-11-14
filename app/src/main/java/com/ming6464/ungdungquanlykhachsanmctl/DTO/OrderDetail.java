@@ -76,4 +76,15 @@ public class OrderDetail {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
+
+    @Override
+    public String toString() {
+        return "id=" + id +
+                ", roomID=" + roomID +
+                ", orderID=" + orderID +
+                ", status=" + status +
+                ", amountOfPeople=" + amountOfPeople +
+                ", startDate=" + startDate.toString() +
+                ", endDate=" + endDate.toString();
+    }
 }
