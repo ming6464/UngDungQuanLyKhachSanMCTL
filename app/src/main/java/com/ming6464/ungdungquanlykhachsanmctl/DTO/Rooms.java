@@ -8,11 +8,12 @@ public class Rooms {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String name;
-    private int status,floor;
+    private int status,floor,categoryID;
 
-    public Rooms(String name, int status, int floor) {
+    public Rooms(String name,int categoryID, int floor) {
+        this.categoryID = categoryID;
         this.name = name;
-        this.status = status;
+        this.status = 0;
         this.floor = floor;
     }
 
@@ -46,5 +47,13 @@ public class Rooms {
 
     public void setFloor(int floor) {
         this.floor = floor;
+    }
+
+    public int getCategoryID() {
+        return categoryID;
+    }
+
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
     }
 }
