@@ -13,11 +13,11 @@ public class Orders {
     @Nullable
     private String note;
 
-    public Orders(int customID, int UID, int total, @Nullable String note) {
+    public Orders(int customID, int UID, @Nullable String note) {
         this.customID = customID;
         this.UID = UID;
         this.status = 0;
-        this.total = total;
+        this.total = 0;
         this.note = note;
     }
 
@@ -68,5 +68,15 @@ public class Orders {
 
     public void setNote(@Nullable String note) {
         this.note = note;
+    }
+
+    @Override
+    public String toString() {
+        return "id=" + id +
+                ", customID=" + customID +
+                ", UID=" + UID +
+                ", status=" + status +
+                ", total=" + total +
+                ", note='" + note;
     }
 }
