@@ -9,15 +9,14 @@ public class Orders {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    private int roomID,customID,UID,status,total;
+    private int customID,UID,status,total;
     @Nullable
     private String note;
 
-    public Orders(int roomID, int customID, int UID, int status, int total, @Nullable String note) {
-        this.roomID = roomID;
+    public Orders(int customID, int UID, int total, @Nullable String note) {
         this.customID = customID;
         this.UID = UID;
-        this.status = status;
+        this.status = 0;
         this.total = total;
         this.note = note;
     }
@@ -28,14 +27,6 @@ public class Orders {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getRoomID() {
-        return roomID;
-    }
-
-    public void setRoomID(int roomID) {
-        this.roomID = roomID;
     }
 
     public int getCustomID() {
