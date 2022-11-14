@@ -8,6 +8,7 @@ import androidx.room.Update;
 
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Categories;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
+import com.ming6464.ungdungquanlykhachsanmctl.DTO.Rooms;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Services;
 
 import java.util.List;
@@ -39,4 +40,11 @@ public abstract class KhachSanDAO {
 
     @Delete
     public abstract void DeleteUser(People people);
+
+    @Query("SELECT * FROM rooms")
+    public abstract List<Rooms>getListRooms();
+
+    @Insert
+    public abstract void insertRooms(Rooms rooms);
+
 }

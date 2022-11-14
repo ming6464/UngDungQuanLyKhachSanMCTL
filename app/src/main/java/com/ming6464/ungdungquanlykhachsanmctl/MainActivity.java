@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.google.android.material.navigation.NavigationView;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Categories;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
+import com.ming6464.ungdungquanlykhachsanmctl.DTO.Rooms;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Services;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.DichVuFragment;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.HoaDonFragment;
@@ -50,7 +51,10 @@ public class MainActivity extends AppCompatActivity implements Action {
             dao.insertOfService(new Services("Dịch vụ Spa",800000));
             dao.insertOfService(new Services("Fitness center",1000000));
             //insert khach hang
-
+            dao.insertRooms(new Rooms("102",0));
+            dao.insertRooms(new Rooms("304",2));
+            dao.insertRooms(new Rooms("203",1));
+            dao.insertRooms(new Rooms("206",2));
         }
     }
 

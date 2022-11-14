@@ -97,11 +97,6 @@ public class KhachHangFragment extends Fragment {
     }
 
     private void clickUpdateUser(People people) {
-//        Intent intent = new Intent(getContext(), UpdateUserActivity.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("obj_user", people);
-//        intent.putExtras(bundle);
-//        startActivityForResult(intent, MY_REQUEST_CODE);
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.item_update_user, null);
@@ -151,6 +146,4 @@ public class KhachHangFragment extends Fragment {
         mListUser = KhachSanDB.getInstance(getContext()).getDAO().getListUser();
         userAdapter.setData(mListUser);
     }
-
-
 }
