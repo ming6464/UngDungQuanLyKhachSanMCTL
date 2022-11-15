@@ -191,4 +191,7 @@ public abstract class KhachSanDAO {
         }
         return list;
     }
+
+
+
 }

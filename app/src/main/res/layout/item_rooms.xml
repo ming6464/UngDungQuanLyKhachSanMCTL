@@ -7,17 +7,28 @@
     android:layout_marginTop="10dp"
     android:layout_marginEnd="10dp"
     android:id="@+id/card_rooms">
-
-        <TextView
-            android:id="@+id/tv_room_name"
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Name:"
-            android:textColor="@color/black"
-            android:textSize="30dp"
+            android:orientation="vertical"
             android:gravity="center"
-            android:textStyle="bold"/>
-
-
+            android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/tv_room_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Name:"
+                    android:textColor="@color/black"
+                    android:textSize="32dp"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:textStyle="bold"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:textSize="16sp"
+                    android:textColor="#1E1E1E"
+                    android:layout_width="wrap_content"
+                    android:text="abc"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_room_category"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.cardview.widget.CardView>

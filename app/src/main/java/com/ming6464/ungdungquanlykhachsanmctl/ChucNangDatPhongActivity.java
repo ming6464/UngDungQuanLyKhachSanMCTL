@@ -23,6 +23,7 @@ import com.ming6464.ungdungquanlykhachsanmctl.DTO.OrderDetail;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Orders;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Rooms;
+import com.ming6464.ungdungquanlykhachsanmctl.Fragment.PhongFragment;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -56,7 +57,7 @@ public class ChucNangDatPhongActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chuc_nang_dat_phong);
         dao = KhachSanDB.getInstance(this).getDAO();
         share = new KhachSanSharedPreferences(this);
-        objRoom = dao.getWithIDOfRooms(getIntent().getIntExtra("",4));
+        objRoom = dao.getWithIDOfRooms(getIntent().getIntExtra(PhongFragment.KEY_MAPHONG,4));
         anhXa();
         addDate();
         loadTotal();
@@ -91,7 +92,7 @@ public class ChucNangDatPhongActivity extends AppCompatActivity {
         userListString = dao.getListAdapterOfUser(userList);
         roomsList = dao.getListWithStatusOfRooms(0);
         roomsListString = dao.getListAdapterOfURooms(roomsList);
-        userAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,userListString);
+        userAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item,userListString);
         sp_khachHang.setAdapter(userAdapter);
         if(userList.size() > 0)
             objPeople = userList.get(0);
@@ -136,6 +137,7 @@ public class ChucNangDatPhongActivity extends AppCompatActivity {
             }
             dao.insertOfOrderDetail(new OrderDetail(objRoom.getId(),dao.getIdWithPeopleIdOfOrder(objPeople.getId()),2,ngayHienTai,ngayDi));
             Toast.makeText(this, "Đặt thành công !", Toast.LENGTH_SHORT).show();
+            finish();
         } catch (Exception e) {
             e.printStackTrace();
         }

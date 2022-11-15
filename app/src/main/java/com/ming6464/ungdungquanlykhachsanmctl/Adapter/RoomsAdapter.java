@@ -1,5 +1,6 @@
 package com.ming6464.ungdungquanlykhachsanmctl.Adapter;
 
+import android.content.Context;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,9 +25,12 @@ import java.util.List;
 public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.RoomsViewHolder>{
 
     private List<Rooms> mListRooms;
+    private List<String> listCategory;
     private IClickItemRooms iClickItemRooms;
-    public void setData(List<Rooms> list){
+
+    public void setData(List<Rooms> list,List<String> listCategory){
         this.mListRooms = list;
+        this.listCategory = listCategory;
         notifyDataSetChanged();
     }
     public RoomsAdapter(IClickItemRooms iClickItemRooms) {
@@ -50,21 +54,29 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.RoomsViewHol
             return;
         }
         holder.tv_room_name.setText("" + rooms.getName());
+        holder.tv_room_catogory.setText(listCategory.get(position));
         if (rooms.getStatus() == 0){
             holder.cardView.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.phongTrong));
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    iClickItemRooms.datPhong(rooms);
+                }
+            });
         }else if (rooms.getStatus() == 1){
             holder.cardView.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.coNguoi));
         }
         else if (rooms.getStatus() == 2){
             holder.cardView.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.datTruoc));
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    iClickItemRooms.datPhong(rooms);
+                }
+            });
         }
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                iClickItemRooms.datPhong(rooms);
-            }
-        });
+
     }
     @Override
     public int getItemCount() {
@@ -76,13 +88,14 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.RoomsViewHol
 
     public class RoomsViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView tv_room_name;
+        private TextView tv_room_name,tv_room_catogory;
         CardView cardView;
 
         public RoomsViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_room_name = itemView.findViewById(R.id.tv_room_name);
             cardView = itemView.findViewById(R.id.card_rooms);
+            tv_room_catogory = itemView.findViewById(R.id.tv_room_category);
         }
     }
 }
