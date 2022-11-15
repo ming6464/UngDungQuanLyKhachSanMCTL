@@ -181,6 +181,17 @@ public abstract class KhachSanDAO {
         return "#" + id;
     }
 
+    @Query("SELECT name FROM Categories WHERE id = (SELECT categoryID FROM Rooms WHERE id = :id)")
+    public abstract String getNameCategoryWithRoomId(int id);
+
+    public List<String> getListNameCategoryWithRoomId(List<Rooms> roomsList){
+        List<String> list = new ArrayList<>();
+        for(Rooms x : roomsList){
+            list.add(getNameCategoryWithRoomId(x.getId()));
+        }
+        return list;
+    }
+
 
 
 }

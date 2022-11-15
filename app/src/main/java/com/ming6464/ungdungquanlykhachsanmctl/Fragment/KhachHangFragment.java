@@ -71,7 +71,6 @@ public class KhachHangFragment extends Fragment {
             }
         });
         mListUser = new ArrayList<>();
-        userAdapter.setData(mListUser);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rcvUser.setLayoutManager(linearLayoutManager);
         rcvUser.setAdapter(userAdapter);
@@ -143,7 +142,7 @@ public class KhachHangFragment extends Fragment {
     }
 
     private void loatData() {
-        mListUser = KhachSanDB.getInstance(getContext()).getDAO().getListUser();
+        mListUser = KhachSanDB.getInstance(getContext()).getDAO().getListWithStatusOfUser(0);
         userAdapter.setData(mListUser);
     }
 }
