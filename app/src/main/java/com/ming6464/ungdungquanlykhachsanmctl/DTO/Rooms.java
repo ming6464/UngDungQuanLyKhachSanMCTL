@@ -8,11 +8,12 @@ public class Rooms {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String name;
-    private int status;
+    private int status,categoryID;
 
-    public Rooms(String name, int status) {
+    public Rooms(String name,int categoryID) {
+        this.categoryID = categoryID;
         this.name = name;
-        this.status = status;
+        this.status = 0;
     }
 
     public int getId() {
@@ -37,5 +38,23 @@ public class Rooms {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getCategoryID() {
+        return categoryID;
+    }
+
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
+    }
+
+    @Override
+    public String toString() {
+        return "Rooms{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", status=" + status +
+                ", categoryID=" + categoryID +
+                '}';
     }
 }

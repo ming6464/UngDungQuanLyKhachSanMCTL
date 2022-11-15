@@ -9,15 +9,24 @@ import java.util.Date;
 public class OrderDetail {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private int roomID,orderID,status;
+    private int roomID,orderID,status,amountOfPeople;
     private Date startDate,endDate;
 
-    public OrderDetail(int roomID, int orderID, int status, Date startDate, Date endDate) {
+    public OrderDetail(int roomID, int orderID, int amountOfPeople, Date startDate, Date endDate) {
         this.roomID = roomID;
         this.orderID = orderID;
-        this.status = status;
+        this.status = 0;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.amountOfPeople = amountOfPeople;
+    }
+
+    public int getAmountOfPeople() {
+        return amountOfPeople;
+    }
+
+    public void setAmountOfPeople(int amountOfPeople) {
+        this.amountOfPeople = amountOfPeople;
     }
 
     public int getId() {
@@ -66,5 +75,16 @@ public class OrderDetail {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    @Override
+    public String toString() {
+        return "id=" + id +
+                ", roomID=" + roomID +
+                ", orderID=" + orderID +
+                ", status=" + status +
+                ", amountOfPeople=" + amountOfPeople +
+                ", startDate=" + startDate.toString() +
+                ", endDate=" + endDate.toString();
     }
 }
