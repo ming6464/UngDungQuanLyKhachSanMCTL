@@ -21,9 +21,6 @@ import com.ming6464.ungdungquanlykhachsanmctl.DTO.Services;
 @Database(entities = {Categories.class, OrderDetail.class, Orders.class,
         People.class, Services.class, ServiceCategory.class, Rooms.class}, version = 1)
 public abstract class KhachSanDB extends RoomDatabase {
-
-
-
     private static final String KHACHSAN_NAME = "khachsanmtcl";
     private static KhachSanDB instance;
 

@@ -68,7 +68,13 @@ public class MainActivity extends AppCompatActivity implements Action {
             dao.insertOfService(new Services("Xe Đưa Đón Sân Bay",100000));
             dao.insertOfService(new Services("Ăn tại phòng",100000));
             dao.insertOfService(new Services("Hội Họp, Văn Phòng",500000));
+            //rooms
+            dao.insertOfRooms(new Rooms("102",0));
+            dao.insertOfRooms(new Rooms("304",2));
+            dao.insertOfRooms(new Rooms("203",1));
+            dao.insertOfRooms(new Rooms("206",2));
             //
+
             dao.insertOfServiceCategory(new ServiceCategory(1,1));
             dao.insertOfServiceCategory(new ServiceCategory(1,2));
             dao.insertOfServiceCategory(new ServiceCategory(1,3));
