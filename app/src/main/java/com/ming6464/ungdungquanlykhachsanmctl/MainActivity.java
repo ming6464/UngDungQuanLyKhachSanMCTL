@@ -49,16 +49,10 @@ public class MainActivity extends AppCompatActivity implements Action {
     private void addData() {
         if(!share.booleangetCheckLoaiPhong()){
             share.setCheckLoaiPhong(true);
-            //
-            People people = new People("minh","03123","123123","hn",1,1);
-            people.setPassowrd("123");
-            share.setAccount(people,true);
-            dao.insertOfUser(people);
-            //
-            dao.insertOfLoaiPhong(new Categories("Standard (STD)",600000,2));
-            dao.insertOfLoaiPhong(new Categories("Superior (SUP)",880000,3));
-            dao.insertOfLoaiPhong(new Categories("Deluxe (DLX)",1420000,2));
-            dao.insertOfLoaiPhong(new Categories("Suite (SUT)",2350000,4));
+            dao.insertOfLoaiPhong(new Categories("Standard",600000,2));
+            dao.insertOfLoaiPhong(new Categories("Superior",880000,3));
+            dao.insertOfLoaiPhong(new Categories("Deluxe",1420000,2));
+            dao.insertOfLoaiPhong(new Categories("Suite",2350000,4));
             //
             dao.insertOfService(new Services("Trông trẻ",100000));
             dao.insertOfService(new Services("Đánh giày",20000));
@@ -68,6 +62,23 @@ public class MainActivity extends AppCompatActivity implements Action {
             dao.insertOfService(new Services("Xe Đưa Đón Sân Bay",100000));
             dao.insertOfService(new Services("Ăn tại phòng",100000));
             dao.insertOfService(new Services("Hội Họp, Văn Phòng",500000));
+            //rooms
+            dao.insertOfRooms(new Rooms("101",1));
+            dao.insertOfRooms(new Rooms("102",2));
+            dao.insertOfRooms(new Rooms("103",3));
+            dao.insertOfRooms(new Rooms("104",4));
+            dao.insertOfRooms(new Rooms("201",1));
+            dao.insertOfRooms(new Rooms("202",2));
+            dao.insertOfRooms(new Rooms("203",3));
+            dao.insertOfRooms(new Rooms("204",4));
+            dao.insertOfRooms(new Rooms("205",1));
+            dao.insertOfRooms(new Rooms("206",2));
+            dao.insertOfRooms(new Rooms("301",3));
+            dao.insertOfRooms(new Rooms("302",4));
+            dao.insertOfRooms(new Rooms("303",3));
+            dao.insertOfRooms(new Rooms("304",4));
+            dao.insertOfRooms(new Rooms("305",3));
+            dao.insertOfRooms(new Rooms("306",4));
             //
             dao.insertOfServiceCategory(new ServiceCategory(1,1));
             dao.insertOfServiceCategory(new ServiceCategory(1,2));
@@ -92,6 +103,40 @@ public class MainActivity extends AppCompatActivity implements Action {
             dao.insertOfServiceCategory(new ServiceCategory(4,6));
             dao.insertOfServiceCategory(new ServiceCategory(4,7));
             dao.insertOfServiceCategory(new ServiceCategory(4,8));
+            //nhân viên
+            People people = new People("admin full name","03123","123123","hn",1,1);
+            people.setPassowrd("123");
+            share.setAccount(people,true);
+            dao.insertOfUser(people);
+            //user
+            dao.insertOfUser(new People("ten1","sdt1","cccd1","hn",1,0));
+            dao.insertOfUser(new People("ten2","sdt2","cccd2","hn1",0,0));
+            dao.insertOfUser(new People("ten3","sdt3","cccd3","hn2",1,0));
+            dao.insertOfUser(new People("ten4","sdt4","cccd4","hn3",0,0));
+            dao.insertOfUser(new People("ten5","sdt5","cccd5","hn4",1,0));
+            //orders
+            dao.insertOfOrders(new Orders(1,Integer.parseInt(share.getID2()),null));
+            dao.insertOfOrders(new Orders(2,Integer.parseInt(share.getID2()),null));
+            dao.insertOfOrders(new Orders(3,Integer.parseInt(share.getID2()),null));
+            dao.insertOfOrders(new Orders(4,Integer.parseInt(share.getID2()),null));
+            dao.insertOfOrders(new Orders(5,Integer.parseInt(share.getID2()),null));
+            //
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            Date d1 = null,d2 = null;
+            try {
+                d1 = sdf.parse("14/11/2022");
+                d2 = sdf.parse("16/11/2022");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            //
+            //orderDetail
+            dao.insertOfOrderDetail(new OrderDetail(1,1,2,d1,d2));
+            dao.insertOfOrderDetail(new OrderDetail(2,2,2,d1,d2));
+            dao.insertOfOrderDetail(new OrderDetail(6,3,2,d1,d2));
+            dao.insertOfOrderDetail(new OrderDetail(8,4,2,d1,d2));
+            dao.insertOfOrderDetail(new OrderDetail(14,5,2,d1,d2));
         }
     }
 
