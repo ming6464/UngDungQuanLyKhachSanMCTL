@@ -6,17 +6,22 @@ import androidx.core.content.ContextCompat;
 import androidx.room.RoomDatabase;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.OrderDetail;
@@ -27,29 +32,28 @@ import com.ming6464.ungdungquanlykhachsanmctl.Fragment.PhongFragment;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class ChucNangDatPhongActivity extends AppCompatActivity {
-    private List<People> userList;
-    private List<Rooms> roomsList;
-    private List<String> userListString,roomsListString;
-    private Rooms objRoom;
+    private int idRoom;
+    private List<String> amountOfPeopleList,userListString;
+    private ArrayAdapter amountOfPeopleAdapter;
     private Calendar calendar;
     private DatePickerDialog datePickerDialog;
-    private SimpleDateFormat sdf;
-    private Spinner sp_khachHang,sp_phong;
-    private EditText ed_ngayDen,ed_ngayDi;
+    private TimePickerDialog timePickerDialog;
+    private SimpleDateFormat sdf,sdf1;
+    private Spinner sp_customer,sp_rooms,sp_amountOfPeople;
+    private EditText ed_checkIn,ed_checkOut,ed_hourCheckIn,ed_hourCheckOut,ed_fullName,ed_phoneNumber,ed_CCCD,ed_address;
     private TextView tv_total;
-    private ImageButton imgBtn_themKH;
+    private RadioButton rdo_male,rdo_book,rdo_newCustomer;
     private boolean check = false;
     private KhachSanDAO dao;
-    private People objPeople;
-    private Date ngayHienTai,ngayDen,ngayDi;
-    private final String TAG = "tao.z";
-    private ArrayAdapter userAdapter;
+    private Date now,checkIn,checkOut;
+    private final String TAG = "test.zz";
     private KhachSanSharedPreferences share;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +61,7 @@ public class ChucNangDatPhongActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chuc_nang_dat_phong);
         dao = KhachSanDB.getInstance(this).getDAO();
         share = new KhachSanSharedPreferences(this);
-        objRoom = dao.getWithIDOfRooms(getIntent().getIntExtra(PhongFragment.KEY_MAPHONG,4));
+        idRoom = getIntent().getIntExtra(PhongFragment.KEY_MAPHONG,dao.getNewIdOfUser());
         anhXa();
         addDate();
         loadTotal();
@@ -67,107 +71,174 @@ public class ChucNangDatPhongActivity extends AppCompatActivity {
     private void addDate() {
         calendar = Calendar.getInstance();
         sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf1 = new SimpleDateFormat("dd/MM/yyyy HH");
+        checkIn = new Date();
+        checkOut = new Date();
+        now = new Date();
         try {
-            ngayHienTai = sdf.parse(calendar.get(Calendar.DATE) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.YEAR));
-        } catch (ParseException e) {
+            now.setTime(calendar.getTime().getTime() + 2400000* 36);
+            calendar.setTime(now);
+            checkOut = now;
+            int hour = calendar.get(Calendar.HOUR_OF_DAY) + 12,hour1;
+            if(hour > 24)
+                hour -= 24;
+            if(calendar.get(Calendar.MINUTE) > 35){
+                hour += 1;
+            }
+            hour1 = hour + 1;
+            if(hour == 25)
+                hour = 1;
+            else if(hour == 24){
+                hour = 0;
+                hour1 = 1;
+            }
+            ed_checkIn.setText(sdf.format(now));
+            ed_checkOut.setText(sdf.format(checkOut));
+            ed_hourCheckIn.setText(String.valueOf(hour));
+            ed_hourCheckOut.setText(String.valueOf(hour1)); 
+            loadTotal();
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        ngayDi = new Date(ngayHienTai.getTime() + 1000);
-        ed_ngayDen.setText(sdf.format(ngayHienTai));
-        ed_ngayDi.setText(sdf.format(ngayDi));
 
     }
 
     private void anhXa() {
-        ed_ngayDen = findViewById(R.id.actiCNDP_ed_ngayDen);
-        ed_ngayDi = findViewById(R.id.actiCNDP_ed_ngayDi);
-        sp_khachHang = findViewById(R.id.actiCNDP_sp_khachHang);
-        sp_phong = findViewById(R.id.actiCNDP_sp_phong);
-        imgBtn_themKH = findViewById(R.id.actiCNDP_imgBtn_khachHangMoi);
+        ed_fullName = findViewById(R.id.actiCNDP_ed_fullName);
+        ed_CCCD = findViewById(R.id.actiCNDP_ed_CCCD);
+        ed_address = findViewById(R.id.actiCNDP_ed_address);
+        ed_phoneNumber = findViewById(R.id.actiCNDP_ed_phoneNumber);
+        rdo_male = findViewById(R.id.actiCNDP_rdo_male);
+        rdo_book = findViewById(R.id.actiCNDP_rdo_book);
+        rdo_newCustomer = findViewById(R.id.actiCNDP_rdo_newCustomer);
+        ed_checkIn = findViewById(R.id.actiCNDP_ed_checkIn);
+        ed_checkOut = findViewById(R.id.actiCNDP_ed_checkOut);
+        ed_hourCheckIn = findViewById(R.id.actiCNDP_ed_hourCheckIn);
+        ed_hourCheckOut = findViewById(R.id.actiCNDP_ed_hourCheckOut);
+        sp_customer = findViewById(R.id.actiCNDP_sp_customer);
+        sp_rooms = findViewById(R.id.actiCNDP_sp_rooms);
+        sp_amountOfPeople = findViewById(R.id.actiCNDP_sp_amountOfPeople);
         tv_total = findViewById(R.id.actiCNDP_tv_total);
+        amountOfPeopleList = new ArrayList<>();
     }
 
     private void addSpinner() {
-        userList = dao.getListWithStatusOfUser(0);
-        userListString = dao.getListAdapterOfUser(userList);
-        roomsList = dao.getListWithStatusOfRooms(0);
-        roomsListString = dao.getListAdapterOfURooms(roomsList);
-        userAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item,userListString);
-        sp_khachHang.setAdapter(userAdapter);
-        if(userList.size() > 0)
-            objPeople = userList.get(0);
-
-        sp_khachHang.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                objPeople = userList.get(position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Log.d(TAG,"nothing selected");
-            }
-        });
-
-        ArrayAdapter roomAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item,roomsListString);
-        sp_phong.setAdapter(roomAdapter);
+        userListString = dao.getListAdapterOfUser(dao.getListWithStatusOfUser(0));
+        List<Rooms> roomsList = dao.getListWithStatusOfRooms(0);
+        roomsList.addAll(dao.getListWithStatusOfRooms(2));
+        List<String> roomsListString = dao.getListAdapterOfURooms(roomsList);
+        ArrayAdapter arr_adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, userListString);
+        sp_customer.setAdapter(arr_adapter);
+        ArrayAdapter roomAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, roomsListString);
+        sp_rooms.setAdapter(roomAdapter);
         int index = 0;
         for(Rooms x : roomsList){
-            if(x.getId() == objRoom.getId())
+            if(idRoom == x.getId())
                 break;
             index ++;
         }
-        sp_phong.setSelection(index);
-        sp_phong.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        sp_rooms.setSelection(index);
+        sp_rooms.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                objRoom = roomsList.get(position);
+                updateListAmountOfPeople(dao.getAmountOfPeopleCategoryWithRoomId(roomsList.get(position).getId()));
                 loadTotal();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+        amountOfPeopleAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item,amountOfPeopleList);
+        sp_amountOfPeople.setAdapter(amountOfPeopleAdapter);
+    }
+
+    public void hanlderActionRdoOldCustomer(View view){
+        if(userListString.size() > 0){
+            findViewById(R.id.actiCNDP_layout_oldCustomer).setVisibility(View.VISIBLE);
+            findViewById(R.id.actiCNDP_layout_newCustomer).setVisibility(View.GONE);
+        }else{
+            rdo_newCustomer.setChecked(true);
+            Toast.makeText(this, "Không có khách hàng cũ !", Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
+    public void hanlderActionRdoNewCustomer(View view){
+        findViewById(R.id.actiCNDP_layout_oldCustomer).setVisibility(View.GONE);
+        findViewById(R.id.actiCNDP_layout_newCustomer).setVisibility(View.VISIBLE);
+    }
+
+    public void hanlderActionRdoBook (View view){
+        ed_checkIn.setFocusable(false);
+        check =false;
+        ed_checkIn.setText(sdf.format(now));
+        loadTotal();
+    }
+    public void hanlderActionRdoReserve (View view){
+        ed_checkIn.setFocusable(true);
+        check = true;
     }
 
     public void hanlderActionBtnSave(View view) {
-        try {
-            if(objPeople.getStatus() == 3){
-                dao.insertOfOrders(new Orders(objPeople.getId(),Integer.parseInt(share.getID2()),null));
+        String text = sp_rooms.getSelectedItem().toString();
+        idRoom = Integer.parseInt(text.substring(1,text.indexOf(" ")));
+        int idCustomer,status = 0,amountOfPeople = Integer.parseInt(sp_amountOfPeople.getSelectedItem().toString());
+        if(!rdo_book.isChecked())
+            status = 2;
+        if(rdo_newCustomer.isChecked()){
+            String fullName = ed_fullName.getText().toString(),
+                    phoneNumber = ed_phoneNumber.getText().toString(),
+                    cccd = ed_CCCD.getText().toString(),
+                    address = ed_address.getText().toString();
+            if(fullName.isEmpty() || phoneNumber.isEmpty() || cccd.isEmpty() || address.isEmpty()){
+                Toast.makeText(this, "Thông tin khách hàng không được bỏ trống !", Toast.LENGTH_SHORT).show();
+                return;
             }
-            dao.insertOfOrderDetail(new OrderDetail(objRoom.getId(),dao.getIdWithPeopleIdOfOrder(objPeople.getId()),2,ngayHienTai,ngayDi));
-            Toast.makeText(this, "Đặt thành công !", Toast.LENGTH_SHORT).show();
-            finish();
-        } catch (Exception e) {
-            e.printStackTrace();
+            int sex = 0;
+            if(rdo_male.isChecked())
+                sex = 1;
+            dao.insertOfUser(new People(fullName,phoneNumber, cccd,address,sex,status));
+            idCustomer = dao.getNewIdOfUser();
+            Orders orders = new Orders(idCustomer,Integer.parseInt(share.getID2()),null);
+            orders.setStatus(status);
+            dao.insertOfOrders(orders);
+        }else {
+            text = sp_customer.getSelectedItem().toString();
+            idCustomer = Integer.parseInt(text.substring(1,text.indexOf(" ")));
         }
+        OrderDetail orderDetail = new OrderDetail(idRoom,dao.getIdWithPeopleIdOfOrder(idCustomer),
+                amountOfPeople,checkIn,checkOut);
+        orderDetail.setStatus(status);
+        dao.insertOfOrderDetail(orderDetail);
+        Toast.makeText(this, "Đặt thành công !", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     public void hanlderActionBtnCancel(View view) {
         finish();
     }
 
-    private void loadTotal(){
-        int soNgay = (int) TimeUnit.DAYS.convert(ngayDi.getTime() - ngayHienTai.getTime(),TimeUnit.MILLISECONDS);
-        tv_total.setText("Tổng Tiền : " + dao.getPriceWithIdOfRooms(objRoom.getId())  * soNgay);
-    }
-
-    public void hanlderActionEdNgayDen(View view) {
+    public void hanlderActionEdCheckIn(View view) {
         if(check){
-
+            datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    ed_checkIn.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+                    loadTotal();
+                }
+            },calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DATE));
+            datePickerDialog.show();
         }
     }
 
-    public void hanlderActionEdNgayDi(View view) {
+    public void hanlderActionEdCheckOut(View view) {
         datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                ed_ngayDi.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
-                try {
-                    ngayDi = sdf.parse(ed_ngayDi.getText().toString());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+                ed_checkOut.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
                 loadTotal();
             }
         },calendar.get(Calendar.YEAR),
@@ -175,4 +246,52 @@ public class ChucNangDatPhongActivity extends AppCompatActivity {
                 calendar.get(Calendar.DATE));
         datePickerDialog.show();
     }
+    public void hanlderActionEdHourCheckIn(View view){
+        timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                ed_hourCheckIn.setText(String.valueOf(hourOfDay));
+                loadTotal();
+            }
+        },calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),true);
+        timePickerDialog.show();
+
+    }
+    public void hanlderActionEdHourCheckOut(View view){
+        timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                ed_hourCheckOut.setText(String.valueOf(hourOfDay));
+                loadTotal();
+            }
+        },calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),true);
+        timePickerDialog.show();
+    }
+    private void loadTotal(){
+        try {
+            checkIn = sdf1.parse(getTimeCheckIn());
+            checkOut = sdf1.parse(getTimeCheckOut());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        int soGio = (int) (checkOut.getTime() - checkIn.getTime())/3600000;
+        tv_total.setText("Tổng Tiền : " + dao.getPriceWithIdOfRooms(idRoom)  * soGio);
+    }
+
+    public String getTimeCheckIn(){
+        return ed_checkIn.getText().toString().trim() + " " + ed_hourCheckIn.getText().toString().trim();
+    }
+
+    public String getTimeCheckOut (){
+        return ed_checkOut.getText().toString().trim() + " " + ed_hourCheckOut.getText().toString().trim();
+    }
+
+    public void updateListAmountOfPeople(int amount){
+        amountOfPeopleList.clear();
+        for(int x = 1; x <= amount; x ++){
+            amountOfPeopleList.add(String.valueOf(x));
+        }
+        amountOfPeopleAdapter.notifyDataSetChanged();
+    }
+
 }

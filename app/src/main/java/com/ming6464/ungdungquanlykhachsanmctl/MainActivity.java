@@ -108,35 +108,35 @@ public class MainActivity extends AppCompatActivity implements Action {
             people.setPassowrd("123");
             share.setAccount(people,true);
             dao.insertOfUser(people);
-            //user
-            dao.insertOfUser(new People("ten1","sdt1","cccd1","hn",1,0));
-            dao.insertOfUser(new People("ten2","sdt2","cccd2","hn1",0,0));
-            dao.insertOfUser(new People("ten3","sdt3","cccd3","hn2",1,0));
-            dao.insertOfUser(new People("ten4","sdt4","cccd4","hn3",0,0));
-            dao.insertOfUser(new People("ten5","sdt5","cccd5","hn4",1,0));
-            //orders
-            dao.insertOfOrders(new Orders(1,Integer.parseInt(share.getID2()),null));
-            dao.insertOfOrders(new Orders(2,Integer.parseInt(share.getID2()),null));
-            dao.insertOfOrders(new Orders(3,Integer.parseInt(share.getID2()),null));
-            dao.insertOfOrders(new Orders(4,Integer.parseInt(share.getID2()),null));
-            dao.insertOfOrders(new Orders(5,Integer.parseInt(share.getID2()),null));
-            //
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            Date d1 = null,d2 = null;
-            try {
-                d1 = sdf.parse("14/11/2022");
-                d2 = sdf.parse("16/11/2022");
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            //
-            //orderDetail
-            dao.insertOfOrderDetail(new OrderDetail(1,1,2,d1,d2));
-            dao.insertOfOrderDetail(new OrderDetail(2,2,2,d1,d2));
-            dao.insertOfOrderDetail(new OrderDetail(6,3,2,d1,d2));
-            dao.insertOfOrderDetail(new OrderDetail(8,4,2,d1,d2));
-            dao.insertOfOrderDetail(new OrderDetail(14,5,2,d1,d2));
+//            //user
+//            dao.insertOfUser(new People("ten1","sdt1","cccd1","hn",1,0));
+//            dao.insertOfUser(new People("ten2","sdt2","cccd2","hn1",0,0));
+//            dao.insertOfUser(new People("ten3","sdt3","cccd3","hn2",1,0));
+//            dao.insertOfUser(new People("ten4","sdt4","cccd4","hn3",0,0));
+//            dao.insertOfUser(new People("ten5","sdt5","cccd5","hn4",1,0));
+//            //orders
+//            dao.insertOfOrders(new Orders(1,Integer.parseInt(share.getID2()),null));
+//            dao.insertOfOrders(new Orders(2,Integer.parseInt(share.getID2()),null));
+//            dao.insertOfOrders(new Orders(3,Integer.parseInt(share.getID2()),null));
+//            dao.insertOfOrders(new Orders(4,Integer.parseInt(share.getID2()),null));
+//            dao.insertOfOrders(new Orders(5,Integer.parseInt(share.getID2()),null));
+//            //
+//            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//            Date d1 = null,d2 = null;
+//            try {
+//                d1 = sdf.parse("14/11/2022");
+//                d2 = sdf.parse("16/11/2022");
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+//
+//            //
+//            //orderDetail
+//            dao.insertOfOrderDetail(new OrderDetail(1,1,2,d1,d2));
+//            dao.insertOfOrderDetail(new OrderDetail(2,2,2,d1,d2));
+//            dao.insertOfOrderDetail(new OrderDetail(6,3,2,d1,d2));
+//            dao.insertOfOrderDetail(new OrderDetail(8,4,2,d1,d2));
+//            dao.insertOfOrderDetail(new OrderDetail(14,5,2,d1,d2));
         }
     }
 

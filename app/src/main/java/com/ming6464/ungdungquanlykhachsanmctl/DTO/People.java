@@ -84,4 +84,16 @@ public class People implements Serializable {
     public void setStatus(int status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return id +
+                ", fullName='" + fullName + '\'' +
+                ", SDT='" + SDT + '\'' +
+                ", CCCD='" + CCCD + '\'' +
+                ", address='" + address + '\'' +
+                ", passowrd='" + passowrd + '\'' +
+                ", sex=" + sex +
+                ", status=" + status;
+    }
 }
