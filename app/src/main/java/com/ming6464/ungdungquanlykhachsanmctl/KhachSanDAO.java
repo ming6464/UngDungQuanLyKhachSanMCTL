@@ -45,6 +45,8 @@ public abstract class KhachSanDAO {
 
     @Query("SELECT * FROM People")
     public abstract List<People> getListUser();
+    @Query("SELECT MAX(id) FROM people")
+    public abstract int getNewIdOfUser();
 
     public List<String> getListAdapterOfUser(List<People> peopleList){
         List<People> list = peopleList;
@@ -157,8 +159,10 @@ public abstract class KhachSanDAO {
     public void insertOfOrderDetail (OrderDetail obj){
         insertObjOfOrderDetail(obj);
         updateStatusWithIdOfRooms(obj.getRoomID(), 1);
+        if(obj.getStatus() == 2)
+            updateStatusWithIdOfRooms(obj.getRoomID(), 2);
         int priceRooms = getPriceWithIdOfRooms(obj.getRoomID());
-        int day = (int)TimeUnit.DAYS.convert(obj.getEndDate().getTime() - obj.getStartDate().getTime(),TimeUnit.MILLISECONDS);
+        int day = (int)(obj.getEndDate().getTime() - obj.getStartDate().getTime())/3600000;
         updateTotalOfOrders(obj.getOrderID(),priceRooms * day);
     }
 
@@ -191,6 +195,9 @@ public abstract class KhachSanDAO {
         }
         return list;
     }
+
+    @Query("SELECT amountOfPeople FROM categories WHERE id = (SELECT categoryID FROM Rooms WHERE id = :id)")
+    public abstract int getAmountOfPeopleCategoryWithRoomId(int id);
 
 
 
