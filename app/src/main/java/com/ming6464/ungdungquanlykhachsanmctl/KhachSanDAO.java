@@ -15,6 +15,7 @@ import com.ming6464.ungdungquanlykhachsanmctl.DTO.Orders;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Rooms;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.ServiceCategory;
+import com.ming6464.ungdungquanlykhachsanmctl.DTO.ServiceOrder;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Services;
 
 import java.util.ArrayList;
@@ -29,11 +30,24 @@ public abstract class KhachSanDAO {
     @Insert
     public abstract void insertOfLoaiPhong(Categories obj);
 
+    //services
     @Insert
     public abstract void insertOfService(Services services);
+    @Query("SELECT * FROM services WHERE id = :id")
+    public abstract Services getWithIdOfServices(int id);
 
     @Query("SELECT * FROM Services")
     public abstract List<Services> getAllService();
+
+    public List<String> getListAdapterOfServices(List<Services> listService){
+        List<String> list = new ArrayList<>();
+        for(Services x : listService){
+            list.add(x.getName());
+        }
+        return list;
+    }
+
+
 
 
     //User
@@ -178,6 +192,21 @@ public abstract class KhachSanDAO {
         updateTotalOfOrders(obj.getOrderID(),getPriceWithIdOfRooms(obj.getRoomID()) * (-1));
         deleteObjOfOrderDetail(obj);
     }
+
+    @Query("SELECT MAX(id) FROM orderdetail")
+    public abstract int getNewIdOfOrderDetail();
+
+    //serviceOrder
+    @Insert
+    public abstract void insertObjOfServiceOrder(ServiceOrder obj);
+
+    public void insertOfServiceOrder(ServiceOrder obj){
+        insertObjOfServiceOrder(obj);
+        updateTotalOfOrders(getIdOrderWithIdOrderDetail(obj.getOrderDetailID()),getWithIdOfServices(obj.getServiceId()).getPrice());
+    }
+
+
+
     ////
     public String formatId(int id){
         if(id < 10)
@@ -187,6 +216,9 @@ public abstract class KhachSanDAO {
 
     @Query("SELECT name FROM Categories WHERE id = (SELECT categoryID FROM Rooms WHERE id = :id)")
     public abstract String getNameCategoryWithRoomId(int id);
+
+    @Query("SELECT * FROM services WHERE id in (SELECT serviceID FROM servicecategory WHERE categoryID = (SELECT categoryID FROM Rooms WHERE id = :id))")
+    public abstract List<Services> getListServiceCategoryWithRoomId(int id);
 
     public List<String> getListNameCategoryWithRoomId(List<Rooms> roomsList){
         List<String> list = new ArrayList<>();
@@ -198,6 +230,9 @@ public abstract class KhachSanDAO {
 
     @Query("SELECT amountOfPeople FROM categories WHERE id = (SELECT categoryID FROM Rooms WHERE id = :id)")
     public abstract int getAmountOfPeopleCategoryWithRoomId(int id);
+
+    @Query("SELECT orderID FROM orderdetail WHERE id = :id")
+    public abstract int getIdOrderWithIdOrderDetail(int id);
 
 
 

@@ -10,7 +10,7 @@ public class ServiceCategory {
 
     private int serviceID,categoryID;
 
-    public ServiceCategory(int serviceID, int categoryID) {
+    public ServiceCategory(int categoryID, int serviceID) {
         this.serviceID = serviceID;
         this.categoryID = categoryID;
     }
