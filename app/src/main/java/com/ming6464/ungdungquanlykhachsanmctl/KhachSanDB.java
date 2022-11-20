@@ -15,11 +15,12 @@ import com.ming6464.ungdungquanlykhachsanmctl.DTO.Orders;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Rooms;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.ServiceCategory;
+import com.ming6464.ungdungquanlykhachsanmctl.DTO.ServiceOrder;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Services;
 
 @TypeConverters({Converters.class})
 @Database(entities = {Categories.class, OrderDetail.class, Orders.class,
-        People.class, Services.class, ServiceCategory.class, Rooms.class}, version = 1)
+        People.class, Services.class, ServiceCategory.class, Rooms.class, ServiceOrder.class}, version = 1)
 public abstract class KhachSanDB extends RoomDatabase {
     private static final String KHACHSAN_NAME = "khachsanmtcl";
     private static KhachSanDB instance;
