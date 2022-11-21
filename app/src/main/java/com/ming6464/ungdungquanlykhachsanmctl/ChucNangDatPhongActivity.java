@@ -10,6 +10,7 @@ import androidx.room.RoomDatabase;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -60,6 +61,8 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
     private ServiceOrderAdapter serviceOrderAdapter;
     private RecyclerView rc_service;
     private Date now,checkIn,checkOut;
+    private int roomStatus;
+    private List<OrderDetail> roomReserveList;
     private final String TAG = "test.zz";
     private KhachSanSharedPreferences share;
     @Override
@@ -69,6 +72,9 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
         dao = KhachSanDB.getInstance(this).getDAO();
         share = new KhachSanSharedPreferences(this);
         idRoom = getIntent().getIntExtra(PhongFragment.KEY_MAPHONG,dao.getNewIdOfUser());
+        roomStatus = getIntent().getIntExtra(PhongFragment.KEY_STATUS,0);
+        if(roomStatus == 2)
+            roomReserveList = dao.getAllWithStatusOfOrderDetail(roomStatus,idRoom);
         anhXa();
         tv_room.setText(dao.getWithIDOfRooms(idRoom).getName());
         handlerDate();
@@ -138,6 +144,7 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
         tv_total = findViewById(R.id.actiCNDP_tv_total);
         tv_room = findViewById(R.id.actiCNDP_tv_room);
         rc_service = findViewById(R.id.actiCNDP_rc_service);
+
     }
 
     private void handlerSpinner() {
@@ -146,6 +153,17 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
         userListString = dao.getListAdapterOfUser(dao.getListWithStatusOfUser(0));
         ArrayAdapter userAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, userListString);
         sp_customer.setAdapter(userAdapter);
+        sp_customer.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                loadInfoOldCustom();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         List<String> amountOfPeopleList = new ArrayList<>();
         for(int x = 1; x <= dao.getAmountOfPeopleCategoryWithRoomId(idRoom); x ++){
             amountOfPeopleList.add(String.valueOf(x));
@@ -163,18 +181,24 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
     public void hanlderActionRdoOldCustomer(View view){
         if(userListString.size() > 0){
             findViewById(R.id.actiCNDP_layout_oldCustomer).setVisibility(View.VISIBLE);
-            findViewById(R.id.actiCNDP_layout_newCustomer).setVisibility(View.GONE);
-        }else{
-            rdo_newCustomer.setChecked(true);
-            Toast.makeText(this, "Không có khách hàng cũ !", Toast.LENGTH_SHORT).show();
+            setFocusInfomation(false);
+            loadInfoOldCustom();
+            return;
         }
+        rdo_newCustomer.setChecked(true);
+        Toast.makeText(this, "Không có khách hàng cũ !", Toast.LENGTH_SHORT).show();
 
 
     }
 
     public void hanlderActionRdoNewCustomer(View view){
+        setFocusInfomation(true);
         findViewById(R.id.actiCNDP_layout_oldCustomer).setVisibility(View.GONE);
-        findViewById(R.id.actiCNDP_layout_newCustomer).setVisibility(View.VISIBLE);
+        ed_address.setText("");
+        ed_CCCD.setText("");
+        ed_fullName.setText("");
+        ed_phoneNumber.setText("");
+
     }
 
     public void hanlderActionRdoBook (View view){
@@ -197,6 +221,18 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
                     address = ed_address.getText().toString();
             if(fullName.isEmpty() || phoneNumber.isEmpty() || cccd.isEmpty() || address.isEmpty()){
                 Toast.makeText(this, "Thông tin khách hàng không được bỏ trống !", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(!fullName.matches("^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s\\W|_]+$")){
+                Toast.makeText(this, "Tên không phù hợp", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(!phoneNumber.matches("^0\\d{9}")){
+                Toast.makeText(this, "Số điện thoại không đúng !", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(cccd.length() < 12){
+                Toast.makeText(this, "CCCD/CMND Không chính xác !", Toast.LENGTH_SHORT).show();
                 return;
             }
             int sex = 0;
@@ -312,5 +348,30 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
         totalService -= serviceList2.get(position).getPrice();
         serviceList2.remove(position);
         loadTotal();
+    }
+
+    private void setFocusInfomation(boolean b){
+        ed_fullName.setFocusableInTouchMode(b);
+        ed_CCCD.setFocusableInTouchMode(b);
+        ed_address.setFocusableInTouchMode(b);
+        ed_phoneNumber.setFocusableInTouchMode(b);
+        rdo_male.setEnabled(b);
+        findViewById(R.id.actiCNDP_rdo_feMale).setEnabled(b);
+    }
+    private void loadInfoOldCustom() {
+        String text = sp_customer.getSelectedItem().toString();
+        int id = Integer.parseInt(text.substring(1,text.indexOf(" ")));
+        People people = dao.getWithIdOfUser(id);
+        ed_phoneNumber.setText(people.getSDT());
+        ed_fullName.setText(people.getFullName());
+        ed_CCCD.setText(people.getCCCD());
+        ed_address.setText(people.getAddress());
+        if(people.getSex() == 1)
+            rdo_male.setChecked(true);
+        else{
+            RadioButton rdo_feMale = findViewById(R.id.actiCNDP_rdo_feMale);
+            rdo_feMale.setChecked(true);
+        }
+
     }
 }

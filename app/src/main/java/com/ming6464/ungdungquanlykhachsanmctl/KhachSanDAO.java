@@ -79,6 +79,8 @@ public abstract class KhachSanDAO {
 
     @Delete
     public abstract void DeleteUser(People people);
+    @Query("SELECT * FROM people WHERE id = :id")
+    public abstract People getWithIdOfUser(int id);
 
 
     //serviceCategory
@@ -166,6 +168,12 @@ public abstract class KhachSanDAO {
     public abstract List<OrderDetail> getAllWithOrdersIdOfOrderDetail (int id);
     @Update
     public abstract void updateOfOrderDetail(OrderDetail obj);
+
+    @Query("SELECT * FROM orderdetail WHERE status = :status")
+    public abstract List<OrderDetail> getAllWithStatusOfOrderDetail(int status);
+
+    @Query("SELECT * FROM orderdetail WHERE status = :status AND roomID = :roomId")
+    public abstract List<OrderDetail> getAllWithStatusOfOrderDetail(int status,int roomId);
 
     @Query("SELECT * FROM orderdetail")
     public abstract List<OrderDetail> getAllOfOrderDetail();
