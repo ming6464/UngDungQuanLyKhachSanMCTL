@@ -104,11 +104,20 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
             Dialog dialog = new Dialog(requireContext());
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_phong_conguoi);
-            Button btn_checkOut = dialog.findViewById(R.id.dialogPCN_btn_checkOut)
+            Button btn_checkOut = dialog.findViewById(R.id.dialogPCN_btn_checkOut),
+                    btn_schedule = dialog.findViewById(R.id.dialogPCN_btn_schedule)
                     ,btn_detail = dialog.findViewById(R.id.dialogPCN_btn_detail);
             btn_checkOut.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Toast.makeText(requireContext(), "Trả phòng !", Toast.LENGTH_SHORT).show();
+                    dialog.cancel();
+                }
+            });
+            btn_schedule.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(requireContext(), "Xem lịch đặt trước !", Toast.LENGTH_SHORT).show();
                     dialog.cancel();
                 }
             });
@@ -132,8 +141,16 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.dialog_phong_dattruoc);
             Button btn_booked = dialog.findViewById(R.id.dialogPDT_btn_booked)
+                    ,btn_checkIn = dialog.findViewById(R.id.dialogPDT_btn_checkIn)
                     ,btn_schedule = dialog.findViewById(R.id.dialogPDT_btn_schedule)
                     ,btn_detail = dialog.findViewById(R.id.dialogPDT_btn_detail);
+            btn_checkIn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(requireContext(), "Nhận phòng !", Toast.LENGTH_SHORT).show();
+                    dialog.cancel();
+                }
+            });
             btn_booked.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -32,6 +32,19 @@
         app:fontFamily="@font/roboto" />
     <androidx.appcompat.widget.AppCompatButton
         android:textAllCaps="false"
+        android:drawableLeft="@drawable/list_27"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/dialogPCN_btn_schedule"
+        android:text="  Lịch đặt trước"
+        app:fontFamily="@font/roboto"
+        android:textColor="@color/black"
+        android:gravity="left"
+        android:textSize="18sp"
+        android:background="@drawable/btn_dat_truoc"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:textAllCaps="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="  Xem chi tiết"
