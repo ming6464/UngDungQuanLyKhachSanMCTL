@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_hoa_don"
+    android:layout_margin="20dp"
+    app:cardCornerRadius="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white">
+        <TextView
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hóa Đơn Khách Hàng"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            />
+        <TextView
+            android:id="@+id/tv_hd_tenKH"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name: Nguyen Van A"
+            android:textSize="16dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/black"/>
+       <LinearLayout
+           android:layout_marginTop="5dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal">
+           <TextView
+               android:id="@+id/tv_hd_ngayNhan"
+               android:layout_weight="1"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Ngày nhận: 17/11/2022"
+               android:textSize="16dp"
+               android:textColor="@color/black"/>
+           <TextView
+               android:id="@+id/tv_hd_ngayTra"
+               android:layout_weight="1"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Ngày trả: 17/11/2022"
+               android:textSize="16dp"
+               android:textColor="@color/black"/>
+       </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tv_hd_tenPhong"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tên phòng: Phòng 01"
+                android:textSize="16dp"
+                android:textColor="@color/black"/>
+            <TextView
+                android:id="@+id/tv_hd_dichVu"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dịch vụ: Phòng 01"
+                android:textSize="16dp"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+        <TextView
+            android:layout_marginTop="5dp"
+            android:id="@+id/tv_hd_trangThai"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trạng thái: Đặt trước"
+            android:textSize="16dp"
+            android:textColor="@color/black"/>
+        <TextView
+            android:layout_marginTop="5dp"
+            android:id="@+id/tv_hd_tongTien"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tổng tiền: 12345"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+        <Button
+            android:id="@+id/btn_hd_chiTiet"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:text="Chi Tiết" />
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

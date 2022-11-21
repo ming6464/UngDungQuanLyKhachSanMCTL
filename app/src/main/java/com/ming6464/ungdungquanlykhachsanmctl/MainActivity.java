@@ -15,6 +15,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Categories;
+import com.ming6464.ungdungquanlykhachsanmctl.DTO.HoaDon;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.OrderDetail;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Orders;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
@@ -137,6 +138,13 @@ public class MainActivity extends AppCompatActivity implements Action {
             dao.insertOfOrderDetail(new OrderDetail(6,3,2,d1,d2));
             dao.insertOfOrderDetail(new OrderDetail(8,4,2,d1,d2));
             dao.insertOfOrderDetail(new OrderDetail(14,5,2,d1,d2));
+
+            //hoaDon
+            dao.insertHoaDon(new HoaDon(1,"toi","17/11/2022","20/11/2022","phong 201","phong 01","Đặt trước",200000));
+            dao.insertHoaDon(new HoaDon(2,"chien","19/11/2022","23/11/2022","phong 202","phong 02","Hủy phòng",2400000));
+            dao.insertHoaDon(new HoaDon(3,"tu","22/11/2022","23/11/2022","phong 203","phong 03","Thanh toán",250000));
+            dao.insertHoaDon(new HoaDon(4,"quy","20/11/2022","26/11/2022","phong 204","phong 04","Chưa thanh toán",370000));
+            dao.insertHoaDon(new HoaDon(5,"hien","20/11/2022","22/11/2022","phong 205","phong 05","Thanh toán",220000));
         }
     }
 

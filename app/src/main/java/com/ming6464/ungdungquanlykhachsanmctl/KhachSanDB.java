@@ -10,6 +10,7 @@ import androidx.room.TypeConverters;
 
 
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Categories;
+import com.ming6464.ungdungquanlykhachsanmctl.DTO.HoaDon;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.OrderDetail;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Orders;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
@@ -19,7 +20,7 @@ import com.ming6464.ungdungquanlykhachsanmctl.DTO.Services;
 
 @TypeConverters({Converters.class})
 @Database(entities = {Categories.class, OrderDetail.class, Orders.class,
-        People.class, Services.class, ServiceCategory.class, Rooms.class}, version = 1)
+        People.class, Services.class, ServiceCategory.class, Rooms.class, HoaDon.class}, version = 1)
 public abstract class KhachSanDB extends RoomDatabase {
     private static final String KHACHSAN_NAME = "khachsanmtcl";
     private static KhachSanDB instance;

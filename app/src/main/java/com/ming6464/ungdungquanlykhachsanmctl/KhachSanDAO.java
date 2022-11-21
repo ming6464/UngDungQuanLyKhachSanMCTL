@@ -10,6 +10,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Categories;
+import com.ming6464.ungdungquanlykhachsanmctl.DTO.HoaDon;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.OrderDetail;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Orders;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
@@ -60,6 +61,9 @@ public abstract class KhachSanDAO {
 
     @Update
     public abstract void UpdateUser(People people);
+
+    @Insert
+    public abstract void insertHoaDon(OrderDetail orderDetail);
 
     @Delete
     public abstract void DeleteUser(People people);
@@ -174,12 +178,15 @@ public abstract class KhachSanDAO {
         updateTotalOfOrders(obj.getOrderID(),getPriceWithIdOfRooms(obj.getRoomID()) * (-1));
         deleteObjOfOrderDetail(obj);
     }
+    @Query("SELECT * FROM OrderDetail")
+    public abstract List<OrderDetail> getOrderDetail();
     ////
     public String formatId(int id){
         if(id < 10)
             return "#0" + id;
         return "#" + id;
     }
+
 
     @Query("SELECT name FROM Categories WHERE id = (SELECT categoryID FROM Rooms WHERE id = :id)")
     public abstract String getNameCategoryWithRoomId(int id);
@@ -192,6 +199,12 @@ public abstract class KhachSanDAO {
         return list;
     }
 
+    //HoaDon
+    @Insert
+    public abstract void insertHoaDon(HoaDon hoaDon);
+
+    @Query("SELECT * FROM HoaDon")
+    public abstract List<HoaDon> getListHoaDon();
 
 
 }

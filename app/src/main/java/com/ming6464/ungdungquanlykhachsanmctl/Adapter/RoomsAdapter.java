@@ -63,6 +63,7 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.RoomsViewHol
                     iClickItemRooms.datPhong(rooms);
                 }
             });
+
         }else if (rooms.getStatus() == 1){
             holder.cardView.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.coNguoi));
         }
