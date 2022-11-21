@@ -55,26 +55,19 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.RoomsViewHol
         }
         holder.tv_room_name.setText("" + rooms.getName());
         holder.tv_room_catogory.setText(listCategory.get(position));
-        if (rooms.getStatus() == 0){
+        if (rooms.getStatus() == 0)
             holder.cardView.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.phongTrong));
-            holder.cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    iClickItemRooms.datPhong(rooms);
-                }
-            });
-        }else if (rooms.getStatus() == 1){
+        else if (rooms.getStatus() == 1)
             holder.cardView.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.coNguoi));
-        }
-        else if (rooms.getStatus() == 2){
+        else
             holder.cardView.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.datTruoc));
-            holder.cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    iClickItemRooms.datPhong(rooms);
-                }
-            });
-        }
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iClickItemRooms.datPhong(rooms);
+            }
+        });
 
 
     }
