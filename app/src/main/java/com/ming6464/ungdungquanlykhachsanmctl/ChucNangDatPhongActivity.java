@@ -202,16 +202,19 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
     }
 
     public void hanlderActionRdoBook (View view){
-        ed_checkIn.setFocusable(false);
+        ed_checkIn.setFocusableInTouchMode(false);
         ed_checkIn.setText(sdf.format(now));
+        findViewById(R.id.actiCNDP_layout_services).setVisibility(View.VISIBLE);
         loadTotal();
     }
     public void hanlderActionRdoReserve (View view){
-        ed_checkIn.setFocusable(true);
+        ed_checkIn.setFocusableInTouchMode(true);
+        findViewById(R.id.actiCNDP_layout_services).setVisibility(View.GONE);
     }
 
     public void hanlderActionBtnSave(View view) {
-        int idCustomer,status = 0,amountOfPeople = Integer.parseInt(sp_amountOfPeople.getSelectedItem().toString()),idOrderDetail;
+        int idCustomer,status = 0,
+                amountOfPeople = Integer.parseInt(sp_amountOfPeople.getSelectedItem().toString()),idOrderDetail;
         if(!rdo_book.isChecked())
             status = 2;
         if(rdo_newCustomer.isChecked()){
@@ -246,15 +249,21 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
         }else {
             String text = sp_customer.getSelectedItem().toString();
             idCustomer = Integer.parseInt(text.substring(1,text.indexOf(" ")));
+            if(status == 2){
+                Orders orders = new Orders(idCustomer,Integer.parseInt(share.getID2()),null);
+                orders.setStatus(status);
+                dao.insertOfOrders(orders);
+            }
         }
-        OrderDetail orderDetail = new OrderDetail(idRoom,dao.getIdWithPeopleIdOfOrder(idCustomer),
+        OrderDetail orderDetail = new OrderDetail(idRoom,dao.getIdWithPeopleIdOfOrder(idCustomer,status),
                 amountOfPeople,checkIn,checkOut);
         orderDetail.setStatus(status);
         dao.insertOfOrderDetail(orderDetail);
         idOrderDetail = dao.getNewIdOfOrderDetail();
-        for(Services x : serviceList2){
-            dao.insertOfServiceOrder(new ServiceOrder(x.getId(),idOrderDetail));
-        }
+        if(status != 2)
+            for(Services x : serviceList2){
+                dao.insertOfServiceOrder(new ServiceOrder(x.getId(),idOrderDetail));
+            }
         Toast.makeText(this, "Đặt thành công !", Toast.LENGTH_SHORT).show();
         for(Orders x : dao.getAllOfOrders()){
             Log.d(TAG, x.toString());
