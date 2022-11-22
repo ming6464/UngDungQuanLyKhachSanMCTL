@@ -11,4 +11,9 @@
     <color name="phongTrong">#27CD2E</color>
     <color name="coNguoi">#F41A0A</color>
     <color name="datTruoc">#F4DC07</color>
+    <color name="hoadon_dattruoc">#1215DCF8</color>
+    <color name="hoadon_huyphong">#12020202</color>
+    <color name="hoadon_thanhtoan">#1200FF38</color>
+    <color name="hoadon_chuathanhtoan">#12FF0000</color>
+
 </resources>

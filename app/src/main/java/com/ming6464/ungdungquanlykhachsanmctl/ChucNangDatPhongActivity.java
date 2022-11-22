@@ -186,7 +186,7 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
             return;
         }
         rdo_newCustomer.setChecked(true);
-        Toast.makeText(this, "Không có khách hàng cũ !", Toast.LENGTH_SHORT).show();
+        CustomToast.makeText(this, "Không có khách hàng cũ !", false).show();
 
 
     }
@@ -202,16 +202,19 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
     }
 
     public void hanlderActionRdoBook (View view){
-        ed_checkIn.setFocusable(false);
+        ed_checkIn.setFocusableInTouchMode(false);
         ed_checkIn.setText(sdf.format(now));
+        findViewById(R.id.actiCNDP_layout_services).setVisibility(View.VISIBLE);
         loadTotal();
     }
     public void hanlderActionRdoReserve (View view){
-        ed_checkIn.setFocusable(true);
+        ed_checkIn.setFocusableInTouchMode(true);
+        findViewById(R.id.actiCNDP_layout_services).setVisibility(View.GONE);
     }
 
     public void hanlderActionBtnSave(View view) {
-        int idCustomer,status = 0,amountOfPeople = Integer.parseInt(sp_amountOfPeople.getSelectedItem().toString()),idOrderDetail;
+        int idCustomer,status = 0,
+                amountOfPeople = Integer.parseInt(sp_amountOfPeople.getSelectedItem().toString()),idOrderDetail;
         if(!rdo_book.isChecked())
             status = 2;
         if(rdo_newCustomer.isChecked()){
@@ -220,19 +223,19 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
                     cccd = ed_CCCD.getText().toString(),
                     address = ed_address.getText().toString();
             if(fullName.isEmpty() || phoneNumber.isEmpty() || cccd.isEmpty() || address.isEmpty()){
-                Toast.makeText(this, "Thông tin khách hàng không được bỏ trống !", Toast.LENGTH_SHORT).show();
+                CustomToast.makeText(this, "Thông tin khách hàng không được bỏ trống !", false).show();
                 return;
             }
             if(!fullName.matches("^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s\\W|_]+$")){
-                Toast.makeText(this, "Tên không phù hợp", Toast.LENGTH_SHORT).show();
+                CustomToast.makeText(this, "Tên không phù hợp", false).show();
                 return;
             }
             if(!phoneNumber.matches("^0\\d{9}")){
-                Toast.makeText(this, "Số điện thoại không đúng !", Toast.LENGTH_SHORT).show();
+                CustomToast.makeText(this, "Số điện thoại không đúng !", false).show();
                 return;
             }
             if(cccd.length() < 12){
-                Toast.makeText(this, "CCCD/CMND Không chính xác !", Toast.LENGTH_SHORT).show();
+                CustomToast.makeText(this, "CCCD/CMND Không chính xác !", false).show();
                 return;
             }
             int sex = 0;
@@ -246,16 +249,22 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
         }else {
             String text = sp_customer.getSelectedItem().toString();
             idCustomer = Integer.parseInt(text.substring(1,text.indexOf(" ")));
+            if(status == 2){
+                Orders orders = new Orders(idCustomer,Integer.parseInt(share.getID2()),null);
+                orders.setStatus(status);
+                dao.insertOfOrders(orders);
+            }
         }
-        OrderDetail orderDetail = new OrderDetail(idRoom,dao.getIdWithPeopleIdOfOrder(idCustomer),
+        OrderDetail orderDetail = new OrderDetail(idRoom,dao.getIdWithPeopleIdOfOrder(idCustomer,status),
                 amountOfPeople,checkIn,checkOut);
         orderDetail.setStatus(status);
         dao.insertOfOrderDetail(orderDetail);
         idOrderDetail = dao.getNewIdOfOrderDetail();
-        for(Services x : serviceList2){
-            dao.insertOfServiceOrder(new ServiceOrder(x.getId(),idOrderDetail));
-        }
-        Toast.makeText(this, "Đặt thành công !", Toast.LENGTH_SHORT).show();
+        if(status != 2)
+            for(Services x : serviceList2){
+                dao.insertOfServiceOrder(new ServiceOrder(x.getId(),idOrderDetail));
+            }
+        CustomToast.makeText(this, "Đặt thành công !", true).show();
         for(Orders x : dao.getAllOfOrders()){
             Log.d(TAG, x.toString());
         }

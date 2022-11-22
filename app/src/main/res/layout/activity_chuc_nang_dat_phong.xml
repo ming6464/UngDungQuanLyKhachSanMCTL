@@ -364,7 +364,7 @@
                         android:hint="Ngày Đặt">
                         <androidx.appcompat.widget.AppCompatEditText
                             android:textSize="20sp"
-                            android:focusable="false"
+                            android:focusableInTouchMode="false"
                             android:fontFamily="@font/roboto"
                             android:onClick="hanlderActionEdCheckIn"
                             android:id="@+id/actiCNDP_ed_checkIn"
@@ -451,49 +451,57 @@
                 </androidx.appcompat.widget.LinearLayoutCompat>
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="13"
-                    android:gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="0dp"
-                        android:textSize="20sp"
-                        android:fontFamily="@font/roboto"
-                        android:textColor="@color/black"
+                    android:layout_height="0dp"
+                    android:id="@+id/actiCNDP_layout_services"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:text="Dịch vụ"
-                        />
-                    <androidx.appcompat.widget.AppCompatSpinner
-                        android:layout_width="0dp"
-                        android:layout_weight="7"
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/background_spinner"
-                        android:layout_height="39dp"
-                        android:id="@+id/actiCNDP_sp_service"
-                        />
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:layout_width="0dp"
-                        android:layout_weight="3"
-                        android:text="+"
-                        android:fontFamily="@font/roboto"
-                        android:textStyle="bold"
+                        android:weightSum="13"
                         android:gravity="center"
-                        android:onClick="hanlderActionBtnAddService"
-                        android:textSize="30sp"
-                        android:id="@+id/actiCNDP_btn_addService"
-                        android:background="@drawable/green_rippleblack_corner7"
-                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:textSize="20sp"
+                            android:fontFamily="@font/roboto"
+                            android:textColor="@color/black"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:text="Dịch vụ"
+                            />
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:layout_width="0dp"
+                            android:layout_weight="7"
+                            android:layout_marginEnd="10dp"
+                            android:background="@drawable/background_spinner"
+                            android:layout_height="39dp"
+                            android:id="@+id/actiCNDP_sp_service"
+                            />
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:layout_width="0dp"
+                            android:layout_weight="3"
+                            android:text="+"
+                            android:fontFamily="@font/roboto"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:onClick="hanlderActionBtnAddService"
+                            android:textSize="30sp"
+                            android:id="@+id/actiCNDP_btn_addService"
+                            android:background="@drawable/green_rippleblack_corner7"
+                            android:layout_height="40dp"
+                            />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:minHeight="30dp"
+                        android:layout_height="match_parent"
+                        android:id="@+id/actiCNDP_rc_service"
                         />
+
                 </androidx.appcompat.widget.LinearLayoutCompat>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
-                    android:minHeight="30dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/actiCNDP_rc_service"
-                    />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>

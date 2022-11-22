@@ -19,6 +19,7 @@ import com.ming6464.ungdungquanlykhachsanmctl.DTO.ServiceOrder;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -98,18 +99,6 @@ public abstract class KhachSanDAO {
     @Query("SELECT * FROM Rooms")
     public abstract List<Rooms> getAllOfRooms();
 
-    public List<String> getListAdapterOfURooms(List<Rooms> roomsList){
-        List<Rooms> list = roomsList;
-        List<String> stringList = new ArrayList<>();
-        for(Rooms x : list){
-            stringList.add(formatId(x.getId()) + "  " + x.getName());
-        }
-        return stringList;
-    }
-
-    @Query("SELECT * FROM Rooms WHERE status = :status")
-    public abstract List<Rooms> getListWithStatusOfRooms(int status);
-
     @Update
     public abstract void updateOfRooms (Rooms obj);
 
@@ -122,6 +111,9 @@ public abstract class KhachSanDAO {
         updateOfRooms(rooms);
     }
 
+    @Query("SELECT * FROM rooms WHERE id in (SELECT roomID FROM orderdetail WHERE orderID = :id)")
+    public abstract List<Rooms> getListWithOrderIdOfRooms(int id);
+
     //Orders
     @Insert
     public abstract  void insertOfOrders (Orders obj);
@@ -132,8 +124,8 @@ public abstract class KhachSanDAO {
     @Query("SELECT MAX(id) FROM Orders")
     public abstract  int getNewIdOfOrders ();
 
-    @Query("SELECT id FROM Orders WHERE customID = :id")
-    public abstract int getIdWithPeopleIdOfOrder (int id);
+    @Query("SELECT MAX(id) FROM Orders WHERE customID = :id AND status = :status")
+    public abstract int getIdWithPeopleIdOfOrder (int id, int status);
 
     public void updateTotalOfOrders(int id,int money){
         Orders obj = getWithIdOfOrders(id);
@@ -156,6 +148,16 @@ public abstract class KhachSanDAO {
             }
         }
     }
+    @Query("SELECT * FROM orderdetail WHERE orderID = :id")
+    public abstract List<OrderDetail> getListWithIdOrderOfOrderDetail(int id);
+
+    @Query("SELECT MIN(startDate) FROM orderdetail WHERE orderID = :id")
+    public abstract Date getMinStatDateWithIdOrderOfOrderDetail(int id);
+
+    @Query("SELECT MAX(endDate) FROM orderdetail WHERE orderID = :id")
+    public abstract Date getMaxEndDateWithIdOrderOfOrderDetail(int id);
+
+
 
     //OrderDetail
     @Insert
