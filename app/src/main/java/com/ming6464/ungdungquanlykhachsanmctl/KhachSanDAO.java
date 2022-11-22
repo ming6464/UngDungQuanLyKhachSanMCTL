@@ -47,9 +47,6 @@ public abstract class KhachSanDAO {
         return list;
     }
 
-
-
-
     //User
     @Insert
     public abstract void insertOfUser(People people);
@@ -213,8 +210,6 @@ public abstract class KhachSanDAO {
         updateTotalOfOrders(getIdOrderWithIdOrderDetail(obj.getOrderDetailID()),getWithIdOfServices(obj.getServiceId()).getPrice());
     }
 
-
-
     ////
     public String formatId(int id){
         if(id < 10)
@@ -241,7 +236,4 @@ public abstract class KhachSanDAO {
 
     @Query("SELECT orderID FROM orderdetail WHERE id = :id")
     public abstract int getIdOrderWithIdOrderDetail(int id);
-
-
-
 }
