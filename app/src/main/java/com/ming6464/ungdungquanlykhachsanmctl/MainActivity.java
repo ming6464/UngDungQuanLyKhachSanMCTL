@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -28,6 +29,7 @@ import com.ming6464.ungdungquanlykhachsanmctl.Fragment.SoDoFragment;
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private KhachSanDAO dao;
+    private TextView tv_titleTb;
     private KhachSanSharedPreferences share;
     private BottomNavigationView bottomNavigationView;
     @Override
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setItemIconTintList(null);
         goiPhonFragment();
         setSupportActionBar(toolbar);
-        toolbar.setTitle("                  Sơ Đồ Phòng");
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.setLogo(R.drawable.home_25);
         addData();
         Click();
@@ -122,34 +124,34 @@ public class MainActivity extends AppCompatActivity {
                 int logo = 0;
                 switch (item.getItemId()) {
                     case R.id.menu_bottom1:
-                        title = "                  Sơ Đồ Phòng";
-                        logo = R.drawable.ic_home_24;
+                        title = "Sơ Đồ Phòng";
+                        logo = R.drawable.home_25;
                         fragment = new SoDoFragment();
                         break;
                     case R.id.menu_bottom2:
-                        title = "                  Khách Hàng";
+                        title = "Khách Hàng";
                         logo = R.drawable.customer_25;
                         fragment = new KhachHangFragment();
                         break;
                     case R.id.menu_bottom3:
-                        title = "                  Dịch Vụ";
+                        title = "Dịch Vụ";
                         logo = R.drawable.services_24;
                         fragment = new DichVuFragment();
                         break;
                     case R.id.menu_bottom4:
-                        title = "                  Hóa Đơn";
-                        logo = R.drawable.order_24;
+                        title = "Hóa Đơn";
+                        logo = R.drawable.order_25;
                         fragment = new HoaDonFragment();
                         break;
                     case R.id.menu_bottom5:
-                        title = "                  Tài Khoản";
-                        logo = R.drawable.order_24;
+                        title = "Tài Khoản";
+                        logo = R.drawable.yourselt_25;
                         fragment = new FragmentTaiKhoan();
                         Toast.makeText(MainActivity.this, "Đang Update", Toast.LENGTH_SHORT).show();
                         break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
-                toolbar.setTitle(title);
+                tv_titleTb.setText(title);
                 toolbar.setLogo(logo);
                 return true;
             }
@@ -160,5 +162,6 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.actiMain_tb);
         dao = KhachSanDB.getInstance(this).getDAO();
         share = new KhachSanSharedPreferences(this);
+        tv_titleTb = findViewById(R.id.actiMain_tv_titleTb);
     }
 }
