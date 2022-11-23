@@ -2,34 +2,51 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/actiMain_layut_drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/actiMain_layut_drawer"
     tools:context=".MainActivity">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
         <androidx.appcompat.widget.Toolbar
+            app:titleTextColor="#097DD8"
+            android:gravity="center"
+            android:id="@+id/actiMain_tb"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
-            android:id="@+id/actiMain_tb"
+
             />
-        <androidx.appcompat.widget.LinearLayoutCompat
+
+        <!--        <androidx.appcompat.widget.LinearLayoutCompat-->
+        <!--            android:id="@+id/actiMain_layout_linear"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            android:layout_weight="1" />-->
+        <FrameLayout
+            android:id="@+id/frameLayout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:id="@+id/actiMain_layout_linear"
-            />
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            app:itemIconTint="@color/custom_color_menu"
+            app:itemTextColor="@color/custom_color_menu"
+            app:menu="@menu/menu_bottom_menu" />
     </androidx.appcompat.widget.LinearLayoutCompat>
+
     <com.google.android.material.navigation.NavigationView
-        android:layout_gravity="start"
+        android:id="@+id/actiMain_nv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:menu="@menu/navi_menu"
-        android:id="@+id/actiMain_nv"
-        />
+        android:layout_gravity="start"
+        app:menu="@menu/navi_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

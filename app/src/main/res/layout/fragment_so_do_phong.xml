@@ -14,14 +14,14 @@
         android:layout_weight="12"
         android:id="@+id/fragSoDoPhong_viewpager"
         />
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:menu="@menu/fragment_so_do_phong_menu"
-        android:layout_weight="1"
-        android:background="@drawable/corner_16"
-        android:id="@+id/fragSoDoPhong_bottomNavi"
-        />
+<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:menu="@menu/fragment_so_do_phong_menu"-->
+<!--        android:layout_weight="1"-->
+<!--        android:background="@drawable/corner_16"-->
+<!--        android:id="@+id/fragSoDoPhong_bottomNavi"-->
+<!--        />-->
 
 
 </LinearLayout>

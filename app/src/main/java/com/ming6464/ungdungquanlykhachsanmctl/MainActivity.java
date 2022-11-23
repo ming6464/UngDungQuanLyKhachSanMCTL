@@ -12,7 +12,9 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Categories;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.OrderDetail;
@@ -22,29 +24,37 @@ import com.ming6464.ungdungquanlykhachsanmctl.DTO.Rooms;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.ServiceCategory;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Services;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.DichVuFragment;
+import com.ming6464.ungdungquanlykhachsanmctl.Fragment.FragmentTaiKhoan;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.HoaDonFragment;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.KhachHangFragment;
+import com.ming6464.ungdungquanlykhachsanmctl.Fragment.PhongFragment;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.SoDoPhongFragment;
+import com.ming6464.ungdungquanlykhachsanmctl.Fragment.SoDo_Frm;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity implements Action {
+public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
     private NavigationView navigationView;
     private FragmentManager manager;
     private KhachSanDAO dao;
     private KhachSanSharedPreferences share;
+    private BottomNavigationView bottomNavigationView;
+    private Fragment fragment = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         anhXa();
-        addToolbarNavi();
+//        addToolbarNavi();
+        setSupportActionBar(toolbar);
+        goiPhonFragment();
         addData();
-        chuyenFragment(SoDoPhongFragment.newInstance(),manager);
+//        chuyenFragment(SoDoPhongFragment.newInstance(),manager);
+        Click();
     }
     private void addData() {
         if(!share.booleangetCheckLoaiPhong()){
@@ -110,33 +120,82 @@ public class MainActivity extends AppCompatActivity implements Action {
             dao.insertOfUser(people);
         }
     }
+    //sk gọi frm
+    private void goiPhonFragment() {
+        fragment = new PhongFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.frameLayout, fragment).commit();
+    }
 
-    private void addToolbarNavi() {
-        setSupportActionBar(toolbar);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open_navi,R.string.close_navi);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-        navigationView.setNavigationItemSelectedListener(item -> {
-            manager = getSupportFragmentManager();
-            switch (item.getItemId()){
-                case R.id.naviMenu_nv_soDoPhong:
-                    chuyenFragment(SoDoPhongFragment.newInstance(),manager);
-                    break;
-                case R.id.naviMenu_nv_dichVu:
-                    chuyenFragment(DichVuFragment.newInstance(),manager);
-                    break;
-                case R.id.naviMenu_nv_hoaDon:
-                    chuyenFragment(HoaDonFragment.newInstance(),manager);
-                    break;
-                case R.id.naviMenu_nv_khachHang:
-                    chuyenFragment(KhachHangFragment.newInstance(),manager);
-                    break;
+    //sk click
+    private void Click() {
+        bottomNavigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
+                Fragment fragment = null;
+                switch (item.getItemId()) {
+                    case R.id.menu_bottom1:
+                        toolbar.setTitle("                  Sơ Đồ Phòng");
+                        toolbar.setLogo(R.drawable.ic_home_24);
+                        fragment = new SoDo_Frm();
+                        break;
+                    case R.id.menu_bottom2:
+                        toolbar.setTitle("                  Khách Hàng");
+                        toolbar.setLogo(R.drawable.ic_person_24);
+                        fragment = new KhachHangFragment();
+                        break;
+                    case R.id.menu_bottom3:
+                        toolbar.setTitle("                   Dịch Vụ");
+                        toolbar.setLogo(R.drawable.services_24);
+                        fragment = new DichVuFragment();
+                        break;
+                    case R.id.menu_bottom4:
+                        toolbar.setTitle("                   Hóa Đơn");
+                        toolbar.setLogo(R.drawable.order_24);
+                        fragment = new HoaDonFragment();
+                        break;
+                    case R.id.menu_bottom5:
+                        toolbar.setTitle("                  Tài Khoản");
+                        toolbar.setLogo(R.drawable.order_24);
+                        fragment = new FragmentTaiKhoan();
+                        Toast.makeText(MainActivity.this, "Đang Update", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.frameLayout, fragment).commit();
+//                toolbar.setTitle(item.getTitle());
             }
-            drawerLayout.closeDrawer(navigationView);
-            return true;
         });
     }
+
+//    private void addToolbarNavi() {
+//        setSupportActionBar(toolbar);
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open_navi,R.string.close_navi);
+//        drawerLayout.addDrawerListener(toggle);
+//        toggle.syncState();
+//        navigationView.setNavigationItemSelectedListener(item -> {
+//            manager = getSupportFragmentManager();
+//            switch (item.getItemId()){
+//                case R.id.naviMenu_nv_soDoPhong:
+//                    chuyenFragment(SoDoPhongFragment.newInstance(),manager);
+//                    break;
+//                case R.id.naviMenu_nv_dichVu:
+//                    chuyenFragment(DichVuFragment.newInstance(),manager);
+//                    break;
+//                case R.id.naviMenu_nv_hoaDon:
+//                    chuyenFragment(HoaDonFragment.newInstance(),manager);
+//                    break;
+//                case R.id.naviMenu_nv_khachHang:
+//                    chuyenFragment(KhachHangFragment.newInstance(),manager);
+//                    break;
+//            }
+//            drawerLayout.closeDrawer(navigationView);
+//            return true;
+//        });
+//    }
     private void anhXa() {
+        bottomNavigationView = findViewById(R.id.bottomNavMenu);
+        toolbar = findViewById(R.id.actiMain_tb);
         drawerLayout = findViewById(R.id.actiMain_layut_drawer);
         toolbar = findViewById(R.id.actiMain_tb);
         navigationView = findViewById(R.id.actiMain_nv);
@@ -144,10 +203,10 @@ public class MainActivity extends AppCompatActivity implements Action {
         dao = KhachSanDB.getInstance(this).getDAO();
         share = new KhachSanSharedPreferences(this);
     }
-    @Override
-    public void chuyenFragment(Fragment fragment, FragmentManager manager) {
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.actiMain_layout_linear,fragment);
-        transaction.commit();
-    }
+//    @Override
+//    public void chuyenFragment(Fragment fragment, FragmentManager manager) {
+//        FragmentTransaction transaction = manager.beginTransaction();
+//        transaction.replace(R.id.actiMain_layout_linear,fragment);
+//        transaction.commit();
+//    }
 }

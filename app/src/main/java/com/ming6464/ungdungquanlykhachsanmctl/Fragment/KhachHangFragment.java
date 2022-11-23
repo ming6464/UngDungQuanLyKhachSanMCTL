@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -104,6 +105,8 @@ public class KhachHangFragment extends Fragment {
         EditText edtSDT = view.findViewById(R.id.edt_sdt);
         EditText edtCCCD = view.findViewById(R.id.edt_cccd);
         EditText edtAddress = view.findViewById(R.id.edt_address);
+        Button btnUpdate = view.findViewById(R.id.btnSaveLS);
+        Button btnCancle = view.findViewById(R.id.btnCancelLS);
         //set data
         edtUsername.setText(people.getFullName());
         edtSex.setText(people.getSex() + "");
@@ -111,9 +114,11 @@ public class KhachHangFragment extends Fragment {
         edtCCCD.setText(people.getCCCD());
         edtAddress.setText(people.getAddress());
         builder.setView(view);
-        builder.setNegativeButton("Update", new DialogInterface.OnClickListener() {
+        //
+        AlertDialog dialog = builder.create();
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View v) {
                 String strUsername = edtUsername.getText().toString().trim();
                 String strSex = edtSex.getText().toString().trim();
                 String strSDT = edtSDT.getText().toString().trim();
@@ -131,13 +136,12 @@ public class KhachHangFragment extends Fragment {
                 loatData();
             }
         });
-        builder.setPositiveButton("Cancle", new DialogInterface.OnClickListener() {
+        btnCancle.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View v) {
                 dialog.dismiss();
             }
         });
-        AlertDialog dialog = builder.create();
         dialog.show();
     }
 
