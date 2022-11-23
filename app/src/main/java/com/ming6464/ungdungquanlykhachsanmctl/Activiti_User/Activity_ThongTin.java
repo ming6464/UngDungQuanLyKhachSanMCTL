@@ -22,7 +22,6 @@ public class Activity_ThongTin extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar_thong_tin);
         toolbar.setTitle("Thông Tin Người Dùng");
         toolbar.setTitleTextColor(Color.WHITE);
-        //
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);

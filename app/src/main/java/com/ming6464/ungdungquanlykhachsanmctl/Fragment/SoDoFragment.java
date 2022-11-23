@@ -12,15 +12,15 @@ import android.view.ViewGroup;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ViewFragment;
+import com.ming6464.ungdungquanlykhachsanmctl.Adapter.FragmentAdapter;
 import com.ming6464.ungdungquanlykhachsanmctl.R;
 
 
-public class SoDo_Frm extends Fragment {
+public class SoDoFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager2 viewPager2;
 
-    public SoDo_Frm() {
+    public SoDoFragment() {
         // Required empty public constructor
     }
 
@@ -29,11 +29,11 @@ public class SoDo_Frm extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_so_do__frm, container, false);
+        View view = inflater.inflate(R.layout.fragment_so_do, container, false);
         tabLayout = view.findViewById(R.id.tab1);
         viewPager2 = view.findViewById(R.id.view1);
-        ViewFragment adapter2 = new ViewFragment(getActivity());
-        viewPager2.setAdapter(adapter2);
+        FragmentAdapter adapter = new FragmentAdapter(requireActivity(),new Fragment[]{PhongFragment.newInstance(),LoaiPhongFragment.newInstance()});
+        viewPager2.setAdapter(adapter);
         new TabLayoutMediator(tabLayout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {

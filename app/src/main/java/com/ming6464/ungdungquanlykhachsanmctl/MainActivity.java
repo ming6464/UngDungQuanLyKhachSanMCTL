@@ -1,24 +1,20 @@
 package com.ming6464.ungdungquanlykhachsanmctl;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Categories;
-import com.ming6464.ungdungquanlykhachsanmctl.DTO.OrderDetail;
-import com.ming6464.ungdungquanlykhachsanmctl.DTO.Orders;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Rooms;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.ServiceCategory;
@@ -27,33 +23,24 @@ import com.ming6464.ungdungquanlykhachsanmctl.Fragment.DichVuFragment;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.FragmentTaiKhoan;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.HoaDonFragment;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.KhachHangFragment;
-import com.ming6464.ungdungquanlykhachsanmctl.Fragment.PhongFragment;
-import com.ming6464.ungdungquanlykhachsanmctl.Fragment.SoDoPhongFragment;
-import com.ming6464.ungdungquanlykhachsanmctl.Fragment.SoDo_Frm;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.ming6464.ungdungquanlykhachsanmctl.Fragment.SoDoFragment;
 
 public class MainActivity extends AppCompatActivity {
-    private DrawerLayout drawerLayout;
     private Toolbar toolbar;
-    private NavigationView navigationView;
-    private FragmentManager manager;
     private KhachSanDAO dao;
     private KhachSanSharedPreferences share;
     private BottomNavigationView bottomNavigationView;
-    private Fragment fragment = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         anhXa();
-//        addToolbarNavi();
-        setSupportActionBar(toolbar);
+        bottomNavigationView.setItemIconTintList(null);
         goiPhonFragment();
+        setSupportActionBar(toolbar);
+        toolbar.setTitle("                  Sơ Đồ Phòng");
+        toolbar.setLogo(R.drawable.home_25);
         addData();
-//        chuyenFragment(SoDoPhongFragment.newInstance(),manager);
         Click();
     }
     private void addData() {
@@ -122,91 +109,56 @@ public class MainActivity extends AppCompatActivity {
     }
     //sk gọi frm
     private void goiPhonFragment() {
-        fragment = new PhongFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.frameLayout, fragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new SoDoFragment()).commit();
     }
 
     //sk click
     private void Click() {
-        bottomNavigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
-            public void onNavigationItemReselected(@NonNull MenuItem item) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fragment = null;
+                String title = null;
+                int logo = 0;
                 switch (item.getItemId()) {
                     case R.id.menu_bottom1:
-                        toolbar.setTitle("                  Sơ Đồ Phòng");
-                        toolbar.setLogo(R.drawable.ic_home_24);
-                        fragment = new SoDo_Frm();
+                        title = "                  Sơ Đồ Phòng";
+                        logo = R.drawable.ic_home_24;
+                        fragment = new SoDoFragment();
                         break;
                     case R.id.menu_bottom2:
-                        toolbar.setTitle("                  Khách Hàng");
-                        toolbar.setLogo(R.drawable.ic_person_24);
+                        title = "                  Khách Hàng";
+                        logo = R.drawable.customer_25;
                         fragment = new KhachHangFragment();
                         break;
                     case R.id.menu_bottom3:
-                        toolbar.setTitle("                   Dịch Vụ");
-                        toolbar.setLogo(R.drawable.services_24);
+                        title = "                  Dịch Vụ";
+                        logo = R.drawable.services_24;
                         fragment = new DichVuFragment();
                         break;
                     case R.id.menu_bottom4:
-                        toolbar.setTitle("                   Hóa Đơn");
-                        toolbar.setLogo(R.drawable.order_24);
+                        title = "                  Hóa Đơn";
+                        logo = R.drawable.order_24;
                         fragment = new HoaDonFragment();
                         break;
                     case R.id.menu_bottom5:
-                        toolbar.setTitle("                  Tài Khoản");
-                        toolbar.setLogo(R.drawable.order_24);
+                        title = "                  Tài Khoản";
+                        logo = R.drawable.order_24;
                         fragment = new FragmentTaiKhoan();
                         Toast.makeText(MainActivity.this, "Đang Update", Toast.LENGTH_SHORT).show();
                         break;
                 }
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.frameLayout, fragment).commit();
-//                toolbar.setTitle(item.getTitle());
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
+                toolbar.setTitle(title);
+                toolbar.setLogo(logo);
+                return true;
             }
         });
     }
-
-//    private void addToolbarNavi() {
-//        setSupportActionBar(toolbar);
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open_navi,R.string.close_navi);
-//        drawerLayout.addDrawerListener(toggle);
-//        toggle.syncState();
-//        navigationView.setNavigationItemSelectedListener(item -> {
-//            manager = getSupportFragmentManager();
-//            switch (item.getItemId()){
-//                case R.id.naviMenu_nv_soDoPhong:
-//                    chuyenFragment(SoDoPhongFragment.newInstance(),manager);
-//                    break;
-//                case R.id.naviMenu_nv_dichVu:
-//                    chuyenFragment(DichVuFragment.newInstance(),manager);
-//                    break;
-//                case R.id.naviMenu_nv_hoaDon:
-//                    chuyenFragment(HoaDonFragment.newInstance(),manager);
-//                    break;
-//                case R.id.naviMenu_nv_khachHang:
-//                    chuyenFragment(KhachHangFragment.newInstance(),manager);
-//                    break;
-//            }
-//            drawerLayout.closeDrawer(navigationView);
-//            return true;
-//        });
-//    }
     private void anhXa() {
         bottomNavigationView = findViewById(R.id.bottomNavMenu);
         toolbar = findViewById(R.id.actiMain_tb);
-        drawerLayout = findViewById(R.id.actiMain_layut_drawer);
-        toolbar = findViewById(R.id.actiMain_tb);
-        navigationView = findViewById(R.id.actiMain_nv);
-        manager = getSupportFragmentManager();
         dao = KhachSanDB.getInstance(this).getDAO();
         share = new KhachSanSharedPreferences(this);
     }
-//    @Override
-//    public void chuyenFragment(Fragment fragment, FragmentManager manager) {
-//        FragmentTransaction transaction = manager.beginTransaction();
-//        transaction.replace(R.id.actiMain_layout_linear,fragment);
-//        transaction.commit();
-//    }
 }
