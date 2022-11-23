@@ -86,11 +86,9 @@ public class KhachHangFragment extends Fragment {
 
     private void handlerSpinner() {
         List<String> statusList = new ArrayList<>();
-        statusList.add("Tất Cả");
-        statusList.add("Chưa Thanh Toán");
-        statusList.add("Thanh Toán");
+        statusList.add("Tất cả");
+        statusList.add("Bình Thường");
         statusList.add("Đặt Trước");
-        statusList.add("Huỷ");
         ArrayAdapter arrayAdapter = new ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item,statusList);
         sp_status.setAdapter(arrayAdapter);
         sp_status.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

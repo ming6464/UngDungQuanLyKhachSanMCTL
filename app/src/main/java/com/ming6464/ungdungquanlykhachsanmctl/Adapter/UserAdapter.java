@@ -62,19 +62,23 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.tvAddress.setText("Address: " + people.getAddress());
         String status = "";
         if (people.getStatus()==0){
-            holder.cardView.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.user_chuathanhtoan));
-            status = "Chưa Thanh Toán";
+            holder.cardView.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.user_binhThuong));
+            status = "Bình Thường";
+        }
+        else if (people.getStatus()==1){
+            holder.cardView.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.user_moiTao));
+            status = "Mới Tạo";
         }
         else if (people.getStatus()==2){
-            holder.cardView.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.user_dattruoc));
-            status = "Đặt Trước";
+            holder.cardView.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.datTruoc));
+            status = "Đặt trước";
         }
         else if (people.getStatus()==3){
-            holder.cardView.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.user_huyphong));
-            status = "Huỷ";
+            holder.cardView.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.user_nhanVien));
+            status = "Nhân Viên";
         }else {
-            holder.cardView.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.user_thanhtoan));
-            status = "Thanh Toán";
+            holder.cardView.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.user_addmin));
+            status = "Admin";
         }
         holder.tvStatus.setText("Trạng Thái: "+status);
 
