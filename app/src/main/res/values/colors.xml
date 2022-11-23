@@ -15,5 +15,9 @@
     <color name="hoadon_huyphong">#12020202</color>
     <color name="hoadon_thanhtoan">#1200FF38</color>
     <color name="hoadon_chuathanhtoan">#12FF0000</color>
+    <color name="user_dattruoc">#1215DCF8</color>
+    <color name="user_huyphong">#12020202</color>
+    <color name="user_thanhtoan">#1200FF38</color>
+    <color name="user_chuathanhtoan">#12FF0000</color>
 
 </resources>

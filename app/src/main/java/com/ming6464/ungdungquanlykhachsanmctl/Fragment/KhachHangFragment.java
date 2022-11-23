@@ -15,10 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.ming6464.ungdungquanlykhachsanmctl.Adapter.UserAdapter;
+import com.ming6464.ungdungquanlykhachsanmctl.DTO.Orders;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDB;
 import com.ming6464.ungdungquanlykhachsanmctl.R;
@@ -32,7 +36,7 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class KhachHangFragment extends Fragment {
-    private static final int MY_REQUEST_CODE = 10;
+    private Spinner sp_status;
     public RecyclerView rcvUser;
     private UserAdapter userAdapter;
     private List<People> mListUser;
@@ -58,6 +62,7 @@ public class KhachHangFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rcvUser = view.findViewById(R.id.rcv_user);
+        sp_status = view.findViewById(R.id.fragUser_sp_status);
 
         userAdapter = new UserAdapter(new UserAdapter.IClickItemUser() {
             @Override
@@ -75,7 +80,29 @@ public class KhachHangFragment extends Fragment {
         rcvUser.setLayoutManager(linearLayoutManager);
         rcvUser.setAdapter(userAdapter);
         loatData();
+        handlerSpinner();
 
+    }
+
+    private void handlerSpinner() {
+        List<String> statusList = new ArrayList<>();
+        statusList.add("Tất Cả");
+        statusList.add("Chưa Thanh Toán");
+        statusList.add("Thanh Toán");
+        statusList.add("Đặt Trước");
+        statusList.add("Huỷ");
+        ArrayAdapter arrayAdapter = new ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item,statusList);
+        sp_status.setAdapter(arrayAdapter);
+        sp_status.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
     private void clickDeleteUser(People people) {

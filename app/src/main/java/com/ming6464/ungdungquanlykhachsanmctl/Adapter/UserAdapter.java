@@ -60,6 +60,23 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.tvSdt.setText("Number: " + people.getSDT());
         holder.tvCccd.setText("CCCD: " + people.getCCCD());
         holder.tvAddress.setText("Address: " + people.getAddress());
+        String status = "";
+        if (people.getStatus()==0){
+            holder.cardView.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.user_chuathanhtoan));
+            status = "Chưa Thanh Toán";
+        }
+        else if (people.getStatus()==2){
+            holder.cardView.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.user_dattruoc));
+            status = "Đặt Trước";
+        }
+        else if (people.getStatus()==3){
+            holder.cardView.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.user_huyphong));
+            status = "Huỷ";
+        }else {
+            holder.cardView.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.user_thanhtoan));
+            status = "Thanh Toán";
+        }
+        holder.tvStatus.setText("Trạng Thái: "+status);
 
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +84,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
                 iClickItemUser.deleteUser(people);
             }
         });
-        holder.update_user.setOnClickListener(new View.OnClickListener() {
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 iClickItemUser.updateUser(people);
@@ -84,9 +101,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     }
 
     public class UserViewHolder extends RecyclerView.ViewHolder {
-        TextView tvAddress, tvName, tvSex, tvSdt, tvCccd;
+        TextView tvAddress, tvName, tvSex, tvSdt, tvCccd,tvStatus;
         private Button btnUpdate, btnDelete;
-        CardView update_user;
+        CardView cardView;
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_user);
@@ -94,7 +111,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             tvSdt = itemView.findViewById(R.id.tv_sdt);
             tvCccd = itemView.findViewById(R.id.tv_cccd);
             tvAddress = itemView.findViewById(R.id.tv_address);
-            update_user = itemView.findViewById(R.id.card_update_user);
+            tvStatus = itemView.findViewById(R.id.tv_status);
+            cardView = itemView.findViewById(R.id.card_update_user);
             btnDelete = itemView.findViewById(R.id.btnDelete_user);
         }
     }
