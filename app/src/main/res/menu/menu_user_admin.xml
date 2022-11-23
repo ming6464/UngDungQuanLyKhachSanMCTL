@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Tài Khoản Của Tôi">
+        <menu>
+            <item
+                android:id="@+id/menu_1"
+                android:icon="@drawable/ic_person_24"
+                android:title="Thông Tin Người Dùng" />
+            <item
+                android:id="@+id/menu_2"
+                android:icon="@drawable/ic_baseline_change_circle_24"
+                android:title="Đổi Mật Khẩu" />
+            <item
+                android:id="@+id/menu_3"
+                android:icon="@drawable/ic_baseline_arrow_back_24"
+                android:title="Đăng Xuất" />
+        </menu>
+    </item>
+    <item android:title="Các Chức Năng Chính">
+        <menu>
+            <item
+                android:id="@+id/menu_4"
+                android:icon="@drawable/ic_baseline_analytics_24"
+                android:title="Thiết Lập Khách Sạn" />
+            <item
+                android:id="@+id/menu_5"
+                android:icon="@drawable/ic_baseline_co_present_24"
+                android:title="Quản Lý Nhân Viên" />
+            <item
+                android:id="@+id/menu_6"
+                android:icon="@drawable/ic_baseline_align_vertical_bottom_24"
+                android:title="Thống Kê" />
+        </menu>
+    </item>
+</menu>
