@@ -74,6 +74,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
                 iClickItemUser.updateUser(people);
             }
         });
+        if(people.getSex() == 1){
+            holder.tvSex.setText("Sex: Nam");
+        }else{
+            holder.tvSex.setText("Nữ");
+        }
     }
 
     @Override
