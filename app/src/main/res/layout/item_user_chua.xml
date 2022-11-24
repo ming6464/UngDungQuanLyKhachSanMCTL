@@ -1,68 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/card_update_user"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="20dp"
-    app:cardCornerRadius="20dp">
+    app:cardCornerRadius="5dp"
+    android:layout_marginTop="10dp">
 
     <LinearLayout
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:background="@drawable/borderblack12_corner8"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_user"
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Name:"
-            android:textColor="@color/black"
-            android:textSize="16dp" />
+            android:id="@+id/layout_user"
+            android:background="#0A000000"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:fontFamily="@font/roboto"
+                    android:textAllCaps="true"
+                    android:id="@+id/tv_user"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text="TÊN: "
+                    android:textColor="@color/black"
+                    android:textSize="15dp" />
+                <TextView
+                    android:fontFamily="@font/roboto"
+                    android:textAllCaps="true"
+                    android:id="@+id/tv_sex"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Giới tính: "
+                    android:textColor="#000000"
+                    android:textSize="15dp" />
+            </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_sex"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Gioi Tính: "
-            android:textColor="#393C3C"
-            android:textSize="14dp" />
+            <TextView
+                android:fontFamily="@font/roboto"
+                android:textAllCaps="true"
+                android:layout_marginTop="10dp"
+                android:id="@+id/tv_sdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Number: "
+                android:textColor="#000000"
+                android:textSize="15dp" />
 
-        <TextView
-            android:id="@+id/tv_sdt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Number: "
-            android:textColor="@color/black"
-            android:textSize="16dp" />
+            <TextView
+                android:fontFamily="@font/roboto"
+                android:textAllCaps="true"
+                android:layout_marginTop="10dp"
+                android:id="@+id/tv_cccd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CCCD: "
+                android:textColor="#000000"
+                android:textSize="15dp" />
 
-        <TextView
-            android:id="@+id/tv_cccd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="CCCD: "
-            android:textColor="#393C3C"
-            android:textSize="14dp" />
-
-        <TextView
-            android:id="@+id/tv_address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Address: "
-            android:textColor="@color/black"
-            android:textSize="16dp" />
+            <TextView
+                android:fontFamily="@font/roboto"
+                android:textAllCaps="true"
+                android:layout_marginTop="10dp"
+                android:id="@+id/tv_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Address: "
+                android:textColor="#000000"
+                android:textSize="15dp" />
+            <TextView
+                android:fontFamily="@font/roboto"
+                android:textAllCaps="true"
+                android:layout_marginTop="10dp"
+                android:id="@+id/tv_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Trạng thái: "
+                android:textColor="#000000"
+                android:textSize="15dp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btnDelete_user"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="240dp"
-        android:layout_marginTop="35dp"
-        android:text="Delete" />
-
 
 </androidx.cardview.widget.CardView>

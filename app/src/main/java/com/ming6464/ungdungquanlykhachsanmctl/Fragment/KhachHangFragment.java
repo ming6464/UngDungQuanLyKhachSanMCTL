@@ -1,9 +1,7 @@
 package com.ming6464.ungdungquanlykhachsanmctl.Fragment;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,28 +13,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.ming6464.ungdungquanlykhachsanmctl.Adapter.UserAdapter;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
+import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDAO;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDB;
 import com.ming6464.ungdungquanlykhachsanmctl.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link KhachHangFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class KhachHangFragment extends Fragment {
-    private static final int MY_REQUEST_CODE = 10;
+    private Spinner sp_status;
     public RecyclerView rcvUser;
     private UserAdapter userAdapter;
     private List<People> mListUser;
+    private KhachSanDAO dao;
     private People mUser;
 
     public static KhachHangFragment newInstance() {
@@ -59,16 +56,12 @@ public class KhachHangFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rcvUser = view.findViewById(R.id.rcv_user);
+        sp_status = view.findViewById(R.id.fragUser_sp_status);
 
         userAdapter = new UserAdapter(new UserAdapter.IClickItemUser() {
             @Override
             public void updateUser(People people) {
                 clickUpdateUser(people);
-            }
-
-            @Override
-            public void deleteUser(People people) {
-                clickDeleteUser(people);
             }
         });
         mListUser = new ArrayList<>();
@@ -76,7 +69,35 @@ public class KhachHangFragment extends Fragment {
         rcvUser.setLayoutManager(linearLayoutManager);
         rcvUser.setAdapter(userAdapter);
         loatData();
+        handlerSpinner();
 
+    }
+
+    private void handlerSpinner() {
+        List<String> statusList = new ArrayList<>();
+        statusList.add("Tất cả");
+        statusList.add("Bình Thường");
+        statusList.add("Đặt Trước");
+        ArrayAdapter arrayAdapter = new ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item,statusList);
+        sp_status.setAdapter(arrayAdapter);
+        sp_status.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 0){
+                    mListUser = dao.getListWithStatusOfUser(0);
+                    mListUser.addAll(dao.getListWithStatusOfUser(2));
+                }
+                else if(position == 1)
+                    mListUser = dao.getListWithStatusOfUser(0);
+                else
+                    mListUser = dao.getListWithStatusOfUser(2);
+                userAdapter.setData(mListUser);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
     private void clickDeleteUser(People people) {
@@ -105,8 +126,6 @@ public class KhachHangFragment extends Fragment {
         EditText edtSDT = view.findViewById(R.id.edt_sdt);
         EditText edtCCCD = view.findViewById(R.id.edt_cccd);
         EditText edtAddress = view.findViewById(R.id.edt_address);
-        Button btnUpdate = view.findViewById(R.id.btnSaveLS);
-        Button btnCancle = view.findViewById(R.id.btnCancelLS);
         //set data
         edtUsername.setText(people.getFullName());
         edtSex.setText(people.getSex() + "");
@@ -114,11 +133,9 @@ public class KhachHangFragment extends Fragment {
         edtCCCD.setText(people.getCCCD());
         edtAddress.setText(people.getAddress());
         builder.setView(view);
-        //
-        AlertDialog dialog = builder.create();
-        btnUpdate.setOnClickListener(new View.OnClickListener() {
+        builder.setNegativeButton("Update", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(DialogInterface dialog, int which) {
                 String strUsername = edtUsername.getText().toString().trim();
                 String strSex = edtSex.getText().toString().trim();
                 String strSDT = edtSDT.getText().toString().trim();
@@ -131,22 +148,25 @@ public class KhachHangFragment extends Fragment {
                 people.setSDT(strSDT);
                 people.setCCCD(strCCCD);
                 people.setAddress(strAddress);
-                KhachSanDB.getInstance(getContext()).getDAO().UpdateUser(people);
+                dao.UpdateUser(people);
                 Toast.makeText(getContext(), "Update Thành Công", Toast.LENGTH_SHORT).show();
                 loatData();
             }
         });
-        btnCancle.setOnClickListener(new View.OnClickListener() {
+        builder.setPositiveButton("Cancle", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
             }
         });
+        AlertDialog dialog = builder.create();
         dialog.show();
     }
 
     private void loatData() {
-        mListUser = KhachSanDB.getInstance(getContext()).getDAO().getListWithStatusOfUser(0);
+        dao = KhachSanDB.getInstance(getContext()).getDAO();
+        mListUser = dao.getListWithStatusOfUser(0);
+        mListUser.addAll(dao.getListWithStatusOfUser(2));
         userAdapter.setData(mListUser);
     }
 }
