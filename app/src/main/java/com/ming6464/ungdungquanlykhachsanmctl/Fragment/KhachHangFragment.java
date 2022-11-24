@@ -1,9 +1,7 @@
 package com.ming6464.ungdungquanlykhachsanmctl.Fragment;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,22 +22,19 @@ import android.widget.Toast;
 import com.ming6464.ungdungquanlykhachsanmctl.Adapter.UserAdapter;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Orders;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
+import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDAO;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDB;
 import com.ming6464.ungdungquanlykhachsanmctl.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link KhachHangFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class KhachHangFragment extends Fragment {
     private Spinner sp_status;
     public RecyclerView rcvUser;
     private UserAdapter userAdapter;
     private List<People> mListUser;
+    private KhachSanDAO dao;
     private People mUser;
 
     public static KhachHangFragment newInstance() {
@@ -69,11 +64,6 @@ public class KhachHangFragment extends Fragment {
             public void updateUser(People people) {
                 clickUpdateUser(people);
             }
-
-            @Override
-            public void deleteUser(People people) {
-                clickDeleteUser(people);
-            }
         });
         mListUser = new ArrayList<>();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -94,7 +84,15 @@ public class KhachHangFragment extends Fragment {
         sp_status.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                if(position == 0){
+                    mListUser = dao.getListWithStatusOfUser(0);
+                    mListUser.addAll(dao.getListWithStatusOfUser(2));
+                }
+                else if(position == 1)
+                    mListUser = dao.getListWithStatusOfUser(0);
+                else
+                    mListUser = dao.getListWithStatusOfUser(2);
+                userAdapter.setData(mListUser);
             }
 
             @Override
@@ -151,7 +149,7 @@ public class KhachHangFragment extends Fragment {
                 people.setSDT(strSDT);
                 people.setCCCD(strCCCD);
                 people.setAddress(strAddress);
-                KhachSanDB.getInstance(getContext()).getDAO().UpdateUser(people);
+                dao.UpdateUser(people);
                 Toast.makeText(getContext(), "Update Thành Công", Toast.LENGTH_SHORT).show();
                 loatData();
             }
@@ -167,7 +165,9 @@ public class KhachHangFragment extends Fragment {
     }
 
     private void loatData() {
-        mListUser = KhachSanDB.getInstance(getContext()).getDAO().getListWithStatusOfUser(0);
+        dao = KhachSanDB.getInstance(getContext()).getDAO();
+        mListUser = dao.getListWithStatusOfUser(0);
+        mListUser.addAll(dao.getListWithStatusOfUser(2));
         userAdapter.setData(mListUser);
     }
 }

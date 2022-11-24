@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,7 +20,6 @@ import com.ming6464.ungdungquanlykhachsanmctl.R;
 import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
-    private Context mContext;
     private List<People> mListUser;
     private IClickItemUser iClickItemUser;
 
@@ -30,11 +30,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     public interface IClickItemUser {
         void updateUser(People people);
 
-        void deleteUser(People people);
-    }
-
-    public UserAdapter(Context mContext) {
-        this.mContext = mContext;
     }
 
     public void setData(List<People> list) {
@@ -45,8 +40,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user_chua, parent, false);
-        return new UserViewHolder(view);
+        return new UserViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user_chua, parent, false));
     }
 
     @Override
@@ -55,40 +49,26 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         if (people == null) {
             return;
         }
-        holder.tvName.setText("Name: " + people.getFullName());
-        holder.tvSex.setText("Sex: " + (people.getSex()));
-        holder.tvSdt.setText("Number: " + people.getSDT());
-        holder.tvCccd.setText("CCCD: " + people.getCCCD());
-        holder.tvAddress.setText("Address: " + people.getAddress());
+        String gioiTinh = "nam";
+        if(people.getSex() == 0)
+            gioiTinh = "nữ";
+        holder.tvName.setText("tên: " + people.getFullName());
+        holder.tvSex.setText("giới tính: " + gioiTinh);
+        holder.tvSdt.setText("sô điện thoại: " + people.getSDT());
+        holder.tvCccd.setText("cmnd/CCCD: " + people.getCCCD());
+        holder.tvAddress.setText("địa chỉ: " + people.getAddress());
         String status = "";
         if (people.getStatus()==0){
-            holder.cardView.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.user_binhThuong));
+            holder.layoutUser.setBackgroundResource(R.color.user_binhThuong);
             status = "Bình Thường";
         }
-        else if (people.getStatus()==1){
-            holder.cardView.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.user_moiTao));
-            status = "Mới Tạo";
-        }
         else if (people.getStatus()==2){
-            holder.cardView.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.datTruoc));
+            holder.layoutUser.setBackgroundResource(R.color.hoadon_chuathanhtoan);
             status = "Đặt trước";
-        }
-        else if (people.getStatus()==3){
-            holder.cardView.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.user_nhanVien));
-            status = "Nhân Viên";
-        }else {
-            holder.cardView.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.user_addmin));
-            status = "Admin";
         }
         holder.tvStatus.setText("Trạng Thái: "+status);
 
-        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                iClickItemUser.deleteUser(people);
-            }
-        });
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
+        holder.layoutUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 iClickItemUser.updateUser(people);
@@ -106,8 +86,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     public class UserViewHolder extends RecyclerView.ViewHolder {
         TextView tvAddress, tvName, tvSex, tvSdt, tvCccd,tvStatus;
-        private Button btnUpdate, btnDelete;
-        CardView cardView;
+        LinearLayoutCompat layoutUser;
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_user);
@@ -116,8 +95,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             tvCccd = itemView.findViewById(R.id.tv_cccd);
             tvAddress = itemView.findViewById(R.id.tv_address);
             tvStatus = itemView.findViewById(R.id.tv_status);
-            cardView = itemView.findViewById(R.id.card_update_user);
-            btnDelete = itemView.findViewById(R.id.btnDelete_user);
+            layoutUser = itemView.findViewById(R.id.layout_user);
         }
     }
 }
