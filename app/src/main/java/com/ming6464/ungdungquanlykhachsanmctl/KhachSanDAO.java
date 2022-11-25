@@ -34,8 +34,6 @@ public abstract class KhachSanDAO {
     //services
     @Insert
     public abstract void insertOfService(Services services);
-    @Delete
-    public abstract void deleteDichVu(Services services);
     @Query("SELECT * FROM services WHERE id = :id")
     public abstract Services getWithIdOfServices(int id);
 

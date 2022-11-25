@@ -57,26 +57,7 @@ public class AdapterDichVu extends RecyclerView.Adapter<AdapterDichVu.ViewHolder
         }
         holder.tvPrice.setText("Price: " + listService.get(holder.getAdapterPosition()).getPrice());
         holder.tvName.setText("Name: " + listService.get(holder.getAdapterPosition()).getName());
-        holder.btn_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(v.getContext())
-                        .setTitle("Xác nhận xóa dịch vụ")
-                        .setMessage("Bạn chắc chắn muốn xóa không?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                KhachSanDB.getInstance(v.getContext()).getDAO().deleteDichVu(services);
-                                CustomToast.makeText(v.getContext(), "Xóa thành công!", true).show();
 
-                                listService = KhachSanDB.getInstance(v.getContext()).getDAO().getAllService();
-                                setData(listService);
-                            }
-                        })
-                        .setNegativeButton("No",null)
-                        .show();
-            }
-        });
 
     }
 
@@ -88,14 +69,12 @@ public class AdapterDichVu extends RecyclerView.Adapter<AdapterDichVu.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvName, tvPrice;
         CardView cardViewService;
-        Button btn_delete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvName);
             tvPrice = itemView.findViewById(R.id.tvPrice);
             cardViewService = itemView.findViewById(R.id.cardViewService);
-            btn_delete = itemView.findViewById(R.id.btn_delete_dichvu);
         }
     }
 }
