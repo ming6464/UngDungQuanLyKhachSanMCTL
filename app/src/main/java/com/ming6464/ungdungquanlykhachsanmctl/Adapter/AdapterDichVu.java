@@ -55,8 +55,8 @@ public class AdapterDichVu extends RecyclerView.Adapter<AdapterDichVu.ViewHolder
         if (services == null) {
             return;
         }
-        holder.tvPrice.setText("Price: " + listService.get(holder.getAdapterPosition()).getPrice());
-        holder.tvName.setText("Name: " + listService.get(holder.getAdapterPosition()).getName());
+        holder.tvPrice.setText("Price :  " + listService.get(holder.getAdapterPosition()).getPrice());
+        holder.tvName.setText("Name :  " + listService.get(holder.getAdapterPosition()).getName());
 
 
     }
