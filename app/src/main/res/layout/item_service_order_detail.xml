@@ -12,7 +12,7 @@
         android:id="@+id/itemServiceOrderDetail_tv_name"
         android:textColor="@color/black"
         android:textSize="16dp"
-        android:fontFamily="@font/roboto"
+        android:fontFamily="@font/overpass_bold"
         />
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
@@ -24,7 +24,7 @@
         android:id="@+id/itemServiceOrderDetail_tv_amount"
         android:textColor="@color/black"
         android:textSize="16dp"
-        android:fontFamily="@font/roboto"
+        android:fontFamily="@font/overpass_bold"
         />
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
@@ -35,6 +35,6 @@
         android:id="@+id/itemServiceOrderDetail_tv_price"
         android:textColor="@color/black"
         android:textSize="16dp"
-        android:fontFamily="@font/roboto"
+        android:fontFamily="@font/overpass_bold"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

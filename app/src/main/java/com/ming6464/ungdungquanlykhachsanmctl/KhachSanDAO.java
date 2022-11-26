@@ -290,4 +290,6 @@ public abstract class KhachSanDAO {
     public abstract int getTotalServiceWithOrderId(int id);
     @Query("SELECT SUM(PRICE * AMOUNT) FROM SERVICES AS A, SERVICEORDER WHERE A.ID = SERVICEID AND ORDERDETAILID = :id")
     public abstract int getTotalServiceWithOrderDetailId(int id);
+    @Query("SELECT * FROM ROOMS WHERE id NOT IN (SELECT ROOMID FROM ORDERDETAIL WHERE (:checkInt BETWEEN STARTDATE AND ENDDATE) OR (STARTDATE BETWEEN :checkInt AND :checkOut))")
+    public abstract List<Rooms> getListRoomWithTime (Date checkInt,Date checkOut);
 }

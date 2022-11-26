@@ -22,7 +22,7 @@
                 android:layout_height="50dp"
                 android:gravity="center"
                 android:textSize="20sp"
-                android:fontFamily="@font/roboto_medium"
+                android:fontFamily="@font/overpass_semibold"
                 android:textStyle="bold"
                 android:id="@+id/itemOrderDetail_tv_room"
                 android:layout_marginEnd="10dp"
@@ -43,7 +43,7 @@
                     android:text="Check In :  15/9/2022  10 h"
                     android:textColor="#124E7E"
                     android:textStyle="bold"
-                    android:fontFamily="@font/roboto_medium"
+                    android:fontFamily="@font/overpass_semibold"
                     android:textSize="16sp"
                     android:id="@+id/itemOrderDetail_tv_checkIn"
                     />
@@ -53,7 +53,7 @@
                     android:text="Check Out : 15/9/2022  10 h"
                     android:textColor="#124E7E"
                     android:textStyle="bold"
-                    android:fontFamily="@font/roboto_medium"
+                    android:fontFamily="@font/overpass_semibold"
                     android:textSize="16sp"
                     android:id="@+id/itemOrderDetail_tv_checkOut"
                     />
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:text="Dịch Vụ"
             android:textSize="18sp"
-            android:fontFamily="@font/roboto_medium"
+            android:fontFamily="@font/overpass_semibold"
             android:textColor="#124E7E"
             android:textStyle="bold"
             />
@@ -94,7 +94,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:textSize="18sp"
-                android:fontFamily="@font/roboto_medium"
+                android:fontFamily="@font/overpass_semibold"
                 android:textColor="#124E7E"
                 android:textStyle="bold"
                 />
@@ -108,7 +108,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:textSize="18sp"
-                android:fontFamily="@font/roboto_medium"
+                android:fontFamily="@font/overpass_semibold"
                 android:textColor="#E6E80303"
                 />
             <androidx.appcompat.widget.AppCompatTextView
@@ -119,7 +119,7 @@
                 android:text="Tiền Phòng"
                 android:layout_marginTop="5dp"
                 android:textSize="18sp"
-                android:fontFamily="@font/roboto_medium"
+                android:fontFamily="@font/overpass_semibold"
                 android:textColor="#124E7E"
                 android:textStyle="bold"
                 />
@@ -133,7 +133,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/itemOrderDetail_tv_serviceFee"
                 android:textSize="18sp"
-                android:fontFamily="@font/roboto_medium"
+                android:fontFamily="@font/overpass_semibold"
                 android:textColor="#E6E80303"
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>

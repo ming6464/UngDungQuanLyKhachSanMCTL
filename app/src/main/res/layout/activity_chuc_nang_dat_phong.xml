@@ -16,7 +16,7 @@
         android:id="@+id/thongtin"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:fontFamily="@font/roboto"
+        android:fontFamily="@font/overpass_semibold"
         android:text="Thông Tin Phòng Đặt"
         app:layout_constraintTop_toTopOf="parent"
         android:gravity="center"
@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:fitsSystemWindows="true"
         android:layout_height="0dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="17dp"
         app:layout_constraintBottom_toTopOf="@id/actiCNDP_layout_chucNang"
         app:layout_constraintTop_toBottomOf="@id/thongtin">
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -46,10 +46,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Thông Tin Khách Hàng"
-                    android:textSize="23sp"
+                    android:textSize="25sp"
                     android:textColor="#394CF1"
                     android:textStyle="bold"
-                    android:fontFamily="@font/roboto"
+                    android:fontFamily="@font/overpass_semibold"
                     />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -96,7 +96,7 @@
                         <androidx.appcompat.widget.AppCompatEditText
                             android:layout_width="match_parent"
                             android:textSize="20dp"
-                            android:fontFamily="@font/roboto"
+                            android:fontFamily="@font/overpass_semibold"
                             android:id="@+id/actiCNDP_ed_fullName"
                             android:textColor="@color/black"
                             android:layout_height="match_parent"/>
@@ -108,7 +108,7 @@
                         <androidx.appcompat.widget.AppCompatRadioButton
                             android:layout_width="wrap_content"
                             android:text="Nam"
-                            android:fontFamily="@font/roboto"
+                            android:fontFamily="@font/overpass_semibold"
                             android:id="@+id/actiCNDP_rdo_male"
                             android:textSize="17sp"
                             android:textColor="@color/black"
@@ -118,11 +118,12 @@
                         <androidx.appcompat.widget.AppCompatRadioButton
                             android:layout_width="wrap_content"
                             android:text="Nữ"
-                            android:fontFamily="@font/roboto"
+                            android:fontFamily="@font/overpass_semibold"
                             android:id="@+id/actiCNDP_rdo_feMale"
                             android:textSize="17sp"
                             android:textColor="@color/black"
                             android:layout_height="wrap_content"/>
+
                     </RadioGroup>
 
 
@@ -145,7 +146,7 @@
                         <androidx.appcompat.widget.AppCompatEditText
                             android:layout_width="match_parent"
                             android:textSize="20dp"
-                            android:fontFamily="@font/roboto"
+                            android:fontFamily="@font/overpass_semibold"
                             android:maxLength="10"
                             android:id="@+id/actiCNDP_ed_phoneNumber"
                             android:inputType="numberDecimal"
@@ -171,7 +172,7 @@
                         <androidx.appcompat.widget.AppCompatEditText
                             android:layout_width="match_parent"
                             android:textSize="20dp"
-                            android:fontFamily="@font/roboto"
+                            android:fontFamily="@font/overpass_semibold"
                             android:maxLength="13"
                             android:id="@+id/actiCNDP_ed_CCCD"
                             android:inputType="numberDecimal"
@@ -192,13 +193,14 @@
                         app:startIconDrawable="@drawable/address_30"
                         app:endIconMode="clear_text"
                         android:layout_height="wrap_content">
+
                         <androidx.appcompat.widget.AppCompatEditText
-                            android:layout_width="match_parent"
-                            android:textSize="20dp"
-                            android:fontFamily="@font/roboto"
                             android:id="@+id/actiCNDP_ed_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/overpass_semibold"
                             android:textColor="@color/black"
-                            android:layout_height="match_parent"/>
+                            android:textSize="20dp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -213,9 +215,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/overpass_semibold"
+                    android:textColor="#085FA6"
                     android:layout_marginEnd="15dp"
-                    android:textColor="@color/black"
-                    android:text="Thể loại khách:"
+                    android:text="Loại khách:"
                     />
                 <RadioGroup
                     android:layout_width="wrap_content"
@@ -226,10 +230,11 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/actiCNDP_rdo_oldCustomer"
                         android:text="Cũ"
+                        android:fontFamily="@font/overpass_semibold"
                         android:onClick="hanlderActionRdoOldCustomer"
                         android:layout_marginEnd="30dp"
                         android:textSize="17sp"
-                        android:textColor="@color/black"
+                        android:textColor="#0C4573"
                         />
                     <androidx.appcompat.widget.AppCompatRadioButton
                         android:layout_width="wrap_content"
@@ -239,7 +244,8 @@
                         android:id="@+id/actiCNDP_rdo_newCustomer"
                         android:checked="true"
                         android:textSize="17sp"
-                        android:textColor="@color/black"
+                        android:fontFamily="@font/overpass_semibold"
+                        android:textColor="#0C4573"
                         />
                 </RadioGroup>
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -256,16 +262,17 @@
                     android:orientation="horizontal"
                     >
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:textSize="20sp"
                         android:layout_marginEnd="10dp"
-                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/overpass_semibold"
+                        android:textColor="#085FA6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Phòng "
                         />
                     <TextView
-                        android:fontFamily="@font/roboto"
+                        android:fontFamily="@font/overpass_semibold"
                         android:textSize="21sp"
                         android:layout_marginEnd="10dp"
                         android:textColor="@color/coNguoi"
@@ -276,18 +283,72 @@
                         android:text="402"
                         />
                 </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="17dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/overpass_semibold"
+                        android:text="Check In :  "
+                        android:textColor="#085FA6"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:id="@+id/actiCNDP_tv_checkIn"
+                        android:fontFamily="@font/overpass_semibold"
+                        android:text="30/09/2022  10h"
+                        android:textColor="#0C4573"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toEndOf="@+id/textView"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:layout_marginTop="17dp"
+                        android:id="@+id/textView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/overpass_semibold"
+                        android:text="Check Out :  "
+                        android:textColor="#085FA6"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/actiCNDP_tv_checkIn" />
+
+                    <TextView
+                        android:layout_marginTop="17dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:id="@+id/actiCNDP_tv_checkOut"
+                        android:fontFamily="@font/overpass_semibold"
+                        android:text="30/09/2022  10h"
+                        android:textColor="#0C4573"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toEndOf="@+id/textView1"
+                        app:layout_constraintTop_toBottomOf="@id/actiCNDP_tv_checkIn" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="17dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     >
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:textSize="20sp"
                         android:layout_marginEnd="10dp"
-                        android:textColor="@color/black"
+                        android:fontFamily="@font/overpass_semibold"
+                        android:textColor="#085FA6"
+                        android:textStyle="bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Số người ở "
@@ -301,154 +362,7 @@
                         android:id="@+id/actiCNDP_sp_amountOfPeople"
                         />
                 </androidx.appcompat.widget.LinearLayoutCompat>
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:fontFamily="@font/roboto"
-                        android:layout_marginEnd="15dp"
-                        android:textColor="@color/black"
-                        android:text="Hình thức:"
-                        />
-                    <RadioGroup
-                        android:layout_width="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_height="wrap_content">
-                        <androidx.appcompat.widget.AppCompatRadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Đặt phòng"
-                            android:fontFamily="@font/roboto"
-                            android:onClick="hanlderActionRdoBook"
-                            android:id="@+id/actiCNDP_rdo_book"
-                            android:checked="true"
-                            android:layout_marginEnd="30dp"
-                            android:textSize="17sp"
-                            android:textColor="@color/black"
-                            />
-                        <androidx.appcompat.widget.AppCompatRadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Đặt trước"
-                            android:fontFamily="@font/roboto"
-                            android:onClick="hanlderActionRdoReserve"
-                            android:id="@+id/actiCNDP_rdo_reserve"
-                            android:textSize="17sp"
-                            android:textColor="@color/black"
-                            />
-                    </RadioGroup>
-                </androidx.appcompat.widget.LinearLayoutCompat>
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="11"
-                    android:layout_marginBottom="5dp"
-                    >
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="7"
-                        android:layout_marginEnd="15dp"
-                        app:boxBackgroundColor="@color/white"
-                        android:layout_height="wrap_content"
-                        app:boxCornerRadiusBottomEnd="5dp"
-                        app:boxCornerRadiusTopEnd="5dp"
-                        app:boxCornerRadiusTopStart="5dp"
-                        app:boxCornerRadiusBottomStart="5dp"
-                        app:boxBackgroundMode="outline"
-                        android:hint="Ngày Đặt">
-                        <androidx.appcompat.widget.AppCompatEditText
-                            android:textSize="20sp"
-                            android:focusableInTouchMode="false"
-                            android:fontFamily="@font/roboto"
-                            android:onClick="hanlderActionEdCheckIn"
-                            android:id="@+id/actiCNDP_ed_checkIn"
-                            android:textColor="@color/black"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="4"
-                        app:boxBackgroundColor="@color/white"
-                        android:layout_height="wrap_content"
-                        app:boxCornerRadiusBottomEnd="5dp"
-                        app:boxCornerRadiusTopEnd="5dp"
-                        app:boxCornerRadiusTopStart="5dp"
-                        app:boxCornerRadiusBottomStart="5dp"
-                        app:boxBackgroundMode="outline"
-                        android:hint="Giờ Đặt">
-                        <androidx.appcompat.widget.AppCompatEditText
-                            android:textSize="20sp"
-                            android:focusable="false"
-                            android:onClick="hanlderActionEdHourCheckIn"
-                            android:id="@+id/actiCNDP_ed_hourCheckIn"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/roboto"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-                </androidx.appcompat.widget.LinearLayoutCompat>
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="11"
-                    android:layout_marginBottom="15dp"
-                    >
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="7"
-                        android:layout_height="wrap_content"
-                        app:boxBackgroundMode="outline"
-                        app:boxCornerRadiusBottomEnd="5dp"
-                        app:boxCornerRadiusTopEnd="5dp"
-                        app:boxCornerRadiusTopStart="5dp"
-                        app:boxCornerRadiusBottomStart="5dp"
-                        android:layout_marginEnd="15dp"
-                        app:boxBackgroundColor="@color/white"
-                        android:hint="Ngày Trả">
-                        <androidx.appcompat.widget.AppCompatEditText
-                            android:textSize="20sp"
-                            android:id="@+id/actiCNDP_ed_checkOut"
-                            android:focusable="false"
-                            android:fontFamily="@font/roboto"
-                            android:onClick="hanlderActionEdCheckOut"
-                            android:textColor="@color/black"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="4"
-                        app:boxBackgroundColor="@color/white"
-                        android:layout_height="wrap_content"
-                        app:boxCornerRadiusBottomEnd="5dp"
-                        app:boxCornerRadiusTopEnd="5dp"
-                        app:boxCornerRadiusTopStart="5dp"
-                        app:boxCornerRadiusBottomStart="5dp"
-                        app:boxBackgroundMode="outline"
-                        android:hint="Giờ Trả">
-                        <androidx.appcompat.widget.AppCompatEditText
-                            android:textSize="20sp"
-                            android:focusable="false"
-                            android:fontFamily="@font/roboto"
-                            android:onClick="hanlderActionEdHourCheckOut"
-                            android:id="@+id/actiCNDP_ed_hourCheckOut"
-                            android:textColor="@color/black"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-                </androidx.appcompat.widget.LinearLayoutCompat>
+
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -460,13 +374,14 @@
                         android:layout_height="wrap_content"
                         android:weightSum="13"
                         android:gravity="center"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="17dp"
                         android:orientation="horizontal">
                         <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="0dp"
                             android:textSize="20sp"
-                            android:fontFamily="@font/roboto"
-                            android:textColor="@color/black"
+                            android:fontFamily="@font/overpass_semibold"
+                            android:textColor="#085FA6"
+                            android:textStyle="bold"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
                             android:text="Dịch vụ"
@@ -483,7 +398,7 @@
                             android:layout_width="0dp"
                             android:layout_weight="3"
                             android:text="+"
-                            android:fontFamily="@font/roboto"
+                            android:fontFamily="@font/overpass_semibold"
                             android:textStyle="bold"
                             android:gravity="center"
                             android:onClick="hanlderActionBtnAddService"
@@ -494,7 +409,7 @@
                             />
                     </androidx.appcompat.widget.LinearLayoutCompat>
                     <androidx.recyclerview.widget.RecyclerView
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="17dp"
                         android:layout_width="match_parent"
                         android:minHeight="30dp"
                         android:layout_height="match_parent"
@@ -510,7 +425,7 @@
         android:layout_height="70dp"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="17dp"
         android:background="@drawable/background_total"
         android:id="@+id/actiCNDP_layout_chucNang"
         app:layout_constraintBottom_toTopOf="@id/actiCNDP_layout_chucNang1">
@@ -518,24 +433,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tổng Tiền"
-            android:fontFamily="@font/roboto"
+            android:fontFamily="@font/overpass_semibold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:textSize="20sp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:textColor="@color/black"
-            />
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:id="@+id/actiCNDP_tv_total"
+            android:textSize="23sp"
+            android:textColor="#08477A"
             android:textStyle="bold"
-            android:fontFamily="@font/roboto"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/actiCNDP_tv_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/overpass_semibold"
+            android:textColor="#E6E80303"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -555,8 +472,8 @@
             android:layout_height="60dp"
             android:layout_marginEnd="5dp"
             android:layout_weight="5"
-            android:background="@drawable/btn_1"
-            android:fontFamily="@font/roboto"
+            android:background="@drawable/btn_3"
+            android:fontFamily="@font/overpass_semibold"
             android:onClick="hanlderActionBtnSave"
             android:text="Đặt Phòng"
             android:textAllCaps="false"
@@ -564,14 +481,14 @@
             android:textSize="17sp" />
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="0dp"
-            android:background="@drawable/btn_1"
+            android:background="@drawable/btn_3"
             android:layout_weight="5"
             android:layout_marginStart="5dp"
             android:layout_height="60dp"
             android:text="Huỷ"
             android:textSize="17sp"
             android:textColor="#FFFDFD"
-            android:fontFamily="@font/roboto"
+            android:fontFamily="@font/overpass_semibold"
             android:onClick="hanlderActionBtnCancel"
             android:textAllCaps="false"
             android:id="@+id/actiCNDP_btn_cancel"

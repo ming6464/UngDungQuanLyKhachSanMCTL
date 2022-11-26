@@ -29,10 +29,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Welcome To Admin"
+                android:fontFamily="@font/overpass_bold"
                 android:textColor="@color/white"
                 android:textSize="18dp" />
 
             <TextView
+                android:fontFamily="@font/overpass_bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="2dp"

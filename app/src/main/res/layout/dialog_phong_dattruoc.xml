@@ -26,7 +26,7 @@
         android:gravity="left"
         android:id="@+id/dialogPDT_btn_checkIn"
         android:text="  Nhận phòng"
-        android:drawableLeft="@drawable/checkint_27"
+        android:drawableLeft="@drawable/checkin_27"
         android:textColor="@color/black"
         android:textSize="18sp"
         app:fontFamily="@font/roboto" />
