@@ -1,17 +1,25 @@
 package com.ming6464.ungdungquanlykhachsanmctl.Adapter;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ming6464.ungdungquanlykhachsanmctl.CustomToast;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Services;
+import com.ming6464.ungdungquanlykhachsanmctl.Fragment.DichVuFragment;
+import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDAO;
+import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDB;
 import com.ming6464.ungdungquanlykhachsanmctl.R;
 
 import java.util.ArrayList;
@@ -49,6 +57,7 @@ public class AdapterDichVu extends RecyclerView.Adapter<AdapterDichVu.ViewHolder
         }
         holder.tvPrice.setText("Price: " + listService.get(holder.getAdapterPosition()).getPrice());
         holder.tvName.setText("Name: " + listService.get(holder.getAdapterPosition()).getName());
+
 
     }
 
