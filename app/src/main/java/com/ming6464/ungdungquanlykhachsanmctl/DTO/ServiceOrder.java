@@ -8,14 +8,23 @@ public class ServiceOrder {
     @PrimaryKey (autoGenerate = true)
     private int id;
 
-    private int serviceId,orderDetailID;
+    private int serviceId,orderDetailID, amount;
 
-    public ServiceOrder(int serviceId, int orderDetailID) {
+    public ServiceOrder(int serviceId, int orderDetailID, int amount) {
         this.serviceId = serviceId;
         this.orderDetailID = orderDetailID;
+        this.amount = amount;
     }
 
     public ServiceOrder() {
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     public int getId() {

@@ -33,6 +33,7 @@ import com.ming6464.ungdungquanlykhachsanmctl.DTO.OrderDetail;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Orders;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Rooms;
+import com.ming6464.ungdungquanlykhachsanmctl.DTO.ServiceCategory;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.ServiceOrder;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Services;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.PhongFragment;
@@ -47,8 +48,9 @@ import java.util.concurrent.TimeUnit;
 
 public class ChucNangDatPhongActivity extends AppCompatActivity implements ServiceOrderAdapter.EventOfServiceOrder {
     private int idRoom,totalService = 0;
-    private List<String> userListString,serviceListString;
-    private List<Services> serviceList1,serviceList2;
+    private List<String> userListString,serviceListString,serviceListString2;
+    private List<Services> serviceList1;
+    private List<ServiceOrder> serviceOrderList;
     private Calendar calendar;
     private DatePickerDialog datePickerDialog;
     private TimePickerDialog timePickerDialog;
@@ -148,7 +150,7 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
     }
 
     private void handlerSpinner() {
-        serviceList2 = new ArrayList<>();
+        serviceOrderList = new ArrayList<>();
         serviceListString = new ArrayList<>();
         userListString = dao.getListAdapterOfUser(dao.getListWithStatusOfUser(0));
         ArrayAdapter userAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, userListString);
@@ -171,12 +173,14 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
         ArrayAdapter amountOfPeopleAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, amountOfPeopleList);
         sp_amountOfPeople.setAdapter(amountOfPeopleAdapter);
         serviceList1 = dao.getListServiceCategoryWithRoomId(idRoom);
+        serviceListString2 = new ArrayList<>();
         List<String> serviceString = dao.getListAdapterOfServices(serviceList1);
         ArrayAdapter servicesAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, serviceString);
         sp_service.setAdapter(servicesAdapter);
+        for (Services x : serviceList1){
+            serviceOrderList.add(new ServiceOrder(x.getId(),idRoom,0));
+        }
     }
-
-    
 
     public void hanlderActionRdoOldCustomer(View view){
         if(userListString.size() > 0){
@@ -187,8 +191,6 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
         }
         rdo_newCustomer.setChecked(true);
         CustomToast.makeText(this, "Không có khách hàng cũ !", false).show();
-
-
     }
 
     public void hanlderActionRdoNewCustomer(View view){
@@ -213,7 +215,7 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
     }
 
     public void hanlderActionBtnSave(View view) {
-        int idCustomer,status = 0,
+        int idCustomer,status = 0,idOrder,
                 amountOfPeople = Integer.parseInt(sp_amountOfPeople.getSelectedItem().toString()),idOrderDetail;
         if(!rdo_book.isChecked())
             status = 2;
@@ -246,23 +248,33 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
             Orders orders = new Orders(idCustomer,Integer.parseInt(share.getID2()),null);
             orders.setStatus(status);
             dao.insertOfOrders(orders);
-        }else {
+            idOrder = dao.getNewIdOfOrders();
+        }
+        else {
             String text = sp_customer.getSelectedItem().toString();
             idCustomer = Integer.parseInt(text.substring(1,text.indexOf(" ")));
-            if(status == 2){
+            Orders orders1 = dao.getWithPeopleIdAndStatusOrderOfOrders(idCustomer,status);
+            if(orders1 == null){
                 Orders orders = new Orders(idCustomer,Integer.parseInt(share.getID2()),null);
                 orders.setStatus(status);
                 dao.insertOfOrders(orders);
+                idOrder = dao.getNewIdOfOrders();
+            }else{
+                idOrder = orders1.getId();
             }
         }
-        OrderDetail orderDetail = new OrderDetail(idRoom,dao.getIdWithPeopleIdOfOrder(idCustomer,status),
+        OrderDetail orderDetail = new OrderDetail(idRoom,idOrder,
                 amountOfPeople,checkIn,checkOut);
         orderDetail.setStatus(status);
         dao.insertOfOrderDetail(orderDetail);
         idOrderDetail = dao.getNewIdOfOrderDetail();
         if(status != 2)
-            for(Services x : serviceList2){
-                dao.insertOfServiceOrder(new ServiceOrder(x.getId(),idOrderDetail));
+            for(ServiceOrder x : serviceOrderList){
+                if(x.getAmount() != 0){
+                    x.setOrderDetailID(idOrderDetail);
+                    dao.insertOfServiceOrder(x);
+                }
+
             }
         CustomToast.makeText(this, "Đặt thành công !", true).show();
         for(Orders x : dao.getAllOfOrders()){
@@ -325,10 +337,18 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
     }
     public void hanlderActionBtnAddService(View view){
         int index = sp_service.getSelectedItemPosition();
-        serviceListString.add(serviceList1.get(index).getName());
-        serviceList2.add(serviceList1.get(index));
+        Services sv = serviceList1.get(index);
+        serviceListString.add(sv.getName());
+        serviceListString2.add(String.valueOf(sv.getId()));
+        serviceListString2.add(String.valueOf(sv.getPrice()));
         serviceOrderAdapter.notifyDataSetChanged();
         totalService += serviceList1.get(index).getPrice();
+        for(int i = 0; i < serviceOrderList.size(); i++){
+            if(serviceOrderList.get(i).getServiceId() == sv.getId()){
+                serviceOrderList.get(i).setAmount(serviceOrderList.get(i).getAmount() + 1);
+                break;
+            }
+        }
         loadTotal();
     }
     private void loadTotal(){
@@ -354,8 +374,15 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
     public void cancel(int position) {
         serviceListString.remove(position);
         serviceOrderAdapter.notifyDataSetChanged();
-        totalService -= serviceList2.get(position).getPrice();
-        serviceList2.remove(position);
+        totalService -= Integer.parseInt(serviceListString2.get(position*2));
+        for(int i = 0; i < serviceOrderList.size(); i++){
+            if(serviceOrderList.get(i).getServiceId() == Integer.parseInt(serviceListString2.get(position * 2 -1))){
+                serviceOrderList.get(i).setAmount(serviceOrderList.get(i).getAmount() - 1);
+                break;
+            }
+        }
+        serviceListString2.remove(position * 2);
+        serviceListString2.remove(position * 2 - 1);
         loadTotal();
     }
 
