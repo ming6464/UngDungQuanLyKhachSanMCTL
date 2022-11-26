@@ -1,5 +1,6 @@
 package com.ming6464.ungdungquanlykhachsanmctl.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import android.widget.Spinner;
 
 import com.ming6464.ungdungquanlykhachsanmctl.Adapter.OrderAdapter;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Orders;
+import com.ming6464.ungdungquanlykhachsanmctl.HoaDonChiTietActivity;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDAO;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDB;
 import com.ming6464.ungdungquanlykhachsanmctl.R;
@@ -27,9 +29,10 @@ import java.util.List;
 public class HoaDonFragment extends Fragment implements OrderAdapter.EventOfOrderAdapter {
     private Spinner sp_status;
     private RecyclerView rc_hoaDon;
-    private List<Orders> orderList,orderList2;
+    private List<Orders> orderList;
     private OrderAdapter orderAdapter;
     private KhachSanDAO dao;
+    public static final String KEY_ORDER = "KEY_ORDER";
     public static HoaDonFragment newInstance() {
         HoaDonFragment fragment = new HoaDonFragment();
         return fragment;
@@ -69,14 +72,10 @@ public class HoaDonFragment extends Fragment implements OrderAdapter.EventOfOrde
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(position == 0){
-                    orderList = orderList2;
+                    orderList = dao.getAllOfOrders();
                     orderAdapter.setData(orderList);
                 }else {
-                    orderList = new ArrayList<>();
-                    for(Orders x : orderList2){
-                        if(x.getStatus() == (position - 1))
-                            orderList.add(x);
-                    }
+                    orderList = dao.getListWithStatusOfOrders(position - 1);
                     orderAdapter.setData(orderList);
                 }
             }
@@ -91,14 +90,20 @@ public class HoaDonFragment extends Fragment implements OrderAdapter.EventOfOrde
         orderAdapter = new OrderAdapter(requireContext(),this);
         rc_hoaDon.setAdapter(orderAdapter);
         rc_hoaDon.setLayoutManager(new LinearLayoutManager(requireContext()));
-        orderList = dao.getAllOfOrders();
-        orderAdapter.setData(orderList);
-        orderList2 = orderList;
     }
 
 
     @Override
     public void show(int position) {
+        Intent intent = new Intent(requireContext(), HoaDonChiTietActivity.class);
+        intent.putExtra(KEY_ORDER,orderList.get(position));
+        startActivity(intent);
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        orderList = dao.getAllOfOrders();
+        orderAdapter.setData(orderList);
     }
 }

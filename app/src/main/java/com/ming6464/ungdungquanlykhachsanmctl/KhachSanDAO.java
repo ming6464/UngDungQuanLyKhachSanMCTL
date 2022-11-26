@@ -48,6 +48,15 @@ public abstract class KhachSanDAO {
         return list;
     }
 
+    public List<Services> getListWithOrderDetailIdOfService(int id){
+        List<Services> list = new ArrayList<>();
+        for (ServiceOrder x : getListWithOrderDetailIdOfServiceOrder(id)){
+            list.add(getWithIdOfServices(x.getServiceId()));
+        }
+        return list;
+    }
+
+
     //User
     @Insert
     public abstract void insertOfUser(People people);
@@ -148,8 +157,23 @@ public abstract class KhachSanDAO {
             }
         }
     }
+
+    public void checkOutRoomOfOrder(int id){
+        Orders obj = getWithIdOfOrders(id);
+        obj.setStatus(1);
+        updateOfOrders(obj);
+        for(OrderDetail x : getListWithOrderIdOfOrderDetail(obj.getId())){
+            checkOutRoomOfOrderDetail(x);
+        }
+    }
+    @Query("SELECT * FROM Orders WHERE status = :status")
+    public abstract List<Orders> getListWithStatusOfOrders(int status);
+
+    @Query("SELECT * FROM ORDERS WHERE customID = :peopleId and status = :status")
+    public abstract Orders getWithPeopleIdAndStatusOrderOfOrders(int peopleId,int status);
+    //OrderDetail
     @Query("SELECT * FROM orderdetail WHERE orderID = :id")
-    public abstract List<OrderDetail> getListWithIdOrderOfOrderDetail(int id);
+    public abstract List<OrderDetail> getListWithOrderIdOfOrderDetail(int id);
 
     @Query("SELECT MIN(startDate) FROM orderdetail WHERE orderID = :id")
     public abstract Date getMinStatDateWithIdOrderOfOrderDetail(int id);
@@ -157,9 +181,6 @@ public abstract class KhachSanDAO {
     @Query("SELECT MAX(endDate) FROM orderdetail WHERE orderID = :id")
     public abstract Date getMaxEndDateWithIdOrderOfOrderDetail(int id);
 
-
-
-    //OrderDetail
     @Insert
     public abstract void insertObjOfOrderDetail (OrderDetail obj);
 
@@ -203,16 +224,37 @@ public abstract class KhachSanDAO {
     @Query("SELECT MAX(id) FROM orderdetail")
     public abstract int getNewIdOfOrderDetail();
 
+    public void checkOutRoomOfOrderDetail(OrderDetail obj){
+        obj.setStatus(1);
+        Rooms rooms = getWithIDOfRooms(obj.getRoomID());
+        rooms.setStatus(0);
+        updateOfOrderDetail(obj);
+        updateOfRooms(rooms);
+    }
+
     //serviceOrder
     @Insert
     public abstract void insertObjOfServiceOrder(ServiceOrder obj);
 
-
+    @Query("SELECT * FROM SERVICEORDER WHERE serviceId = :idService AND  orderDetailID = :idOrderDetail")
+    public abstract ServiceOrder getObjOfServiceOrder(int idService,int idOrderDetail);
 
     public void insertOfServiceOrder(ServiceOrder obj){
-        insertObjOfServiceOrder(obj);
-        updateTotalOfOrders(getIdOrderWithIdOrderDetail(obj.getOrderDetailID()),getWithIdOfServices(obj.getServiceId()).getPrice());
+        ServiceOrder x = getObjOfServiceOrder(obj.getServiceId(),obj.getOrderDetailID());
+        if(x != null){
+            x.setAmount(x.getAmount() + obj.getAmount());
+            updateOfServiceOrder(x);
+        }else{
+            insertObjOfServiceOrder(obj);
+        }
+        updateTotalOfOrders(getIdOrderWithIdOrderDetail(obj.getOrderDetailID()),getWithIdOfServices(obj.getServiceId()).getPrice() * obj.getAmount());
     }
+
+    @Update
+    public abstract void updateOfServiceOrder(ServiceOrder obj);
+
+    @Query("SELECT * FROM SERVICEORDER WHERE ORDERDETAILID = :id")
+    public abstract List<ServiceOrder> getListWithOrderDetailIdOfServiceOrder(int id);
 
     ////
     public String formatId(int id){
@@ -221,8 +263,8 @@ public abstract class KhachSanDAO {
         return "#" + id;
     }
 
-    @Query("SELECT name FROM Categories WHERE id = (SELECT categoryID FROM Rooms WHERE id = :id)")
-    public abstract String getNameCategoryWithRoomId(int id);
+    @Query("SELECT * FROM Categories WHERE id = (SELECT categoryID FROM Rooms WHERE id = :id)")
+    public abstract Categories getCategoryWithRoomId(int id);
 
     @Query("SELECT * FROM services WHERE id in (SELECT serviceID FROM servicecategory WHERE categoryID = (SELECT categoryID FROM Rooms WHERE id = :id))")
     public abstract List<Services> getListServiceCategoryWithRoomId(int id);
@@ -230,7 +272,7 @@ public abstract class KhachSanDAO {
     public List<String> getListNameCategoryWithRoomId(List<Rooms> roomsList){
         List<String> list = new ArrayList<>();
         for(Rooms x : roomsList){
-            list.add(getNameCategoryWithRoomId(x.getId()));
+            list.add(getCategoryWithRoomId(x.getId()).getName());
         }
         return list;
     }
@@ -240,4 +282,12 @@ public abstract class KhachSanDAO {
 
     @Query("SELECT orderID FROM orderdetail WHERE id = :id")
     public abstract int getIdOrderWithIdOrderDetail(int id);
+
+    @Query("SELECT SUM(PRICE * SL) FROM CATEGORIES,(SELECT CATEGORYID, COUNT(CATEGORYID) AS SL FROM ROOMS WHERE ID IN (SELECT ROOMID FROM ORDERDETAIL WHERE ORDERID = :id) GROUP BY CATEGORYID) AS B WHERE ID = CATEGORYID")
+    public abstract int getTotalRoomWithOrderId(int id);
+
+    @Query("SELECT SUM(PRICE * AMOUNT) FROM SERVICES AS A,SERVICEORDER WHERE A.ID = SERVICEID AND ORDERDETAILID IN (SELECT ID FROM ORDERDETAIL WHERE ORDERID = :id)")
+    public abstract int getTotalServiceWithOrderId(int id);
+    @Query("SELECT SUM(PRICE * AMOUNT) FROM SERVICES AS A, SERVICEORDER WHERE A.ID = SERVICEID AND ORDERDETAILID = :id")
+    public abstract int getTotalServiceWithOrderDetailId(int id);
 }
