@@ -7,7 +7,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
+import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.Activity_ThongTin;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Categories;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Rooms;
@@ -32,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView tv_titleTb;
     private KhachSanSharedPreferences share;
     private BottomNavigationView bottomNavigationView;
+    private String u1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,71 +49,78 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setLogo(R.drawable.home_25);
         addData();
         Click();
+        //
+        u1 = getIntent().getStringExtra("user");
+        Log.d("zzz", "addData: " + u1);
+        dao.getUserBy(u1);
     }
+
     private void addData() {
-        if(!share.booleangetCheckLoaiPhong()){
+        if (!share.booleangetCheckLoaiPhong()) {
             share.setCheckLoaiPhong(true);
-            dao.insertOfLoaiPhong(new Categories("Standard",600000,2));
-            dao.insertOfLoaiPhong(new Categories("Superior",880000,3));
-            dao.insertOfLoaiPhong(new Categories("Deluxe",1420000,2));
-            dao.insertOfLoaiPhong(new Categories("Suite",2350000,4));
+            dao.insertOfLoaiPhong(new Categories("Standard", 600000, 2));
+            dao.insertOfLoaiPhong(new Categories("Superior", 880000, 3));
+            dao.insertOfLoaiPhong(new Categories("Deluxe", 1420000, 2));
+            dao.insertOfLoaiPhong(new Categories("Suite", 2350000, 4));
             //
-            dao.insertOfService(new Services("Trông trẻ",100000));
-            dao.insertOfService(new Services("Đánh giày",20000));
-            dao.insertOfService(new Services("Giặt Đồ",30000));
-            dao.insertOfService(new Services("Dịch vụ Spa",100000));
-            dao.insertOfService(new Services("Fitness center",100000));
-            dao.insertOfService(new Services("Xe Đưa Đón Sân Bay",100000));
-            dao.insertOfService(new Services("Ăn tại phòng",100000));
-            dao.insertOfService(new Services("Hội Họp, Văn Phòng",500000));
+            dao.insertOfService(new Services("Trông trẻ", 100000));
+            dao.insertOfService(new Services("Đánh giày", 20000));
+            dao.insertOfService(new Services("Giặt Đồ", 30000));
+            dao.insertOfService(new Services("Dịch vụ Spa", 100000));
+            dao.insertOfService(new Services("Fitness center", 100000));
+            dao.insertOfService(new Services("Xe Đưa Đón Sân Bay", 100000));
+            dao.insertOfService(new Services("Ăn tại phòng", 100000));
+            dao.insertOfService(new Services("Hội Họp, Văn Phòng", 500000));
             //rooms
-            dao.insertOfRooms(new Rooms("101",1));
-            dao.insertOfRooms(new Rooms("102",2));
-            dao.insertOfRooms(new Rooms("103",3));
-            dao.insertOfRooms(new Rooms("104",4));
-            dao.insertOfRooms(new Rooms("201",1));
-            dao.insertOfRooms(new Rooms("202",2));
-            dao.insertOfRooms(new Rooms("203",3));
-            dao.insertOfRooms(new Rooms("204",4));
-            dao.insertOfRooms(new Rooms("205",1));
-            dao.insertOfRooms(new Rooms("206",2));
-            dao.insertOfRooms(new Rooms("301",3));
-            dao.insertOfRooms(new Rooms("302",4));
-            dao.insertOfRooms(new Rooms("303",3));
-            dao.insertOfRooms(new Rooms("304",4));
-            dao.insertOfRooms(new Rooms("305",3));
-            dao.insertOfRooms(new Rooms("306",4));
+            dao.insertOfRooms(new Rooms("101", 1));
+            dao.insertOfRooms(new Rooms("102", 2));
+            dao.insertOfRooms(new Rooms("103", 3));
+            dao.insertOfRooms(new Rooms("104", 4));
+            dao.insertOfRooms(new Rooms("201", 1));
+            dao.insertOfRooms(new Rooms("202", 2));
+            dao.insertOfRooms(new Rooms("203", 3));
+            dao.insertOfRooms(new Rooms("204", 4));
+            dao.insertOfRooms(new Rooms("205", 1));
+            dao.insertOfRooms(new Rooms("206", 2));
+            dao.insertOfRooms(new Rooms("301", 3));
+            dao.insertOfRooms(new Rooms("302", 4));
+            dao.insertOfRooms(new Rooms("303", 3));
+            dao.insertOfRooms(new Rooms("304", 4));
+            dao.insertOfRooms(new Rooms("305", 3));
+            dao.insertOfRooms(new Rooms("306", 4));
             //
-            dao.insertOfServiceCategory(new ServiceCategory(1,1));
-            dao.insertOfServiceCategory(new ServiceCategory(1,2));
-            dao.insertOfServiceCategory(new ServiceCategory(1,3));
-            dao.insertOfServiceCategory(new ServiceCategory(2,1));
-            dao.insertOfServiceCategory(new ServiceCategory(2,2));
-            dao.insertOfServiceCategory(new ServiceCategory(2,3));
-            dao.insertOfServiceCategory(new ServiceCategory(2,4));
-            dao.insertOfServiceCategory(new ServiceCategory(2,5));
-            dao.insertOfServiceCategory(new ServiceCategory(3,1));
-            dao.insertOfServiceCategory(new ServiceCategory(3,2));
-            dao.insertOfServiceCategory(new ServiceCategory(3,3));
-            dao.insertOfServiceCategory(new ServiceCategory(3,4));
-            dao.insertOfServiceCategory(new ServiceCategory(3,5));
-            dao.insertOfServiceCategory(new ServiceCategory(3,6));
-            dao.insertOfServiceCategory(new ServiceCategory(3,7));
-            dao.insertOfServiceCategory(new ServiceCategory(4,1));
-            dao.insertOfServiceCategory(new ServiceCategory(4,2));
-            dao.insertOfServiceCategory(new ServiceCategory(4,3));
-            dao.insertOfServiceCategory(new ServiceCategory(4,4));
-            dao.insertOfServiceCategory(new ServiceCategory(4,5));
-            dao.insertOfServiceCategory(new ServiceCategory(4,6));
-            dao.insertOfServiceCategory(new ServiceCategory(4,7));
-            dao.insertOfServiceCategory(new ServiceCategory(4,8));
+            dao.insertOfServiceCategory(new ServiceCategory(1, 1));
+            dao.insertOfServiceCategory(new ServiceCategory(1, 2));
+            dao.insertOfServiceCategory(new ServiceCategory(1, 3));
+            dao.insertOfServiceCategory(new ServiceCategory(2, 1));
+            dao.insertOfServiceCategory(new ServiceCategory(2, 2));
+            dao.insertOfServiceCategory(new ServiceCategory(2, 3));
+            dao.insertOfServiceCategory(new ServiceCategory(2, 4));
+            dao.insertOfServiceCategory(new ServiceCategory(2, 5));
+            dao.insertOfServiceCategory(new ServiceCategory(3, 1));
+            dao.insertOfServiceCategory(new ServiceCategory(3, 2));
+            dao.insertOfServiceCategory(new ServiceCategory(3, 3));
+            dao.insertOfServiceCategory(new ServiceCategory(3, 4));
+            dao.insertOfServiceCategory(new ServiceCategory(3, 5));
+            dao.insertOfServiceCategory(new ServiceCategory(3, 6));
+            dao.insertOfServiceCategory(new ServiceCategory(3, 7));
+            dao.insertOfServiceCategory(new ServiceCategory(4, 1));
+            dao.insertOfServiceCategory(new ServiceCategory(4, 2));
+            dao.insertOfServiceCategory(new ServiceCategory(4, 3));
+            dao.insertOfServiceCategory(new ServiceCategory(4, 4));
+            dao.insertOfServiceCategory(new ServiceCategory(4, 5));
+            dao.insertOfServiceCategory(new ServiceCategory(4, 6));
+            dao.insertOfServiceCategory(new ServiceCategory(4, 7));
+            dao.insertOfServiceCategory(new ServiceCategory(4, 8));
             //nhân viên
-            People people = new People("admin full name","03123","123123","hn",1,1);
+            People people = new People("admin full name", "03123", "123123", "hn", 1, 1);
             people.setPassowrd("123");
-            share.setAccount(people,true);
+            share.setAccount(people, true);
             dao.insertOfUser(people);
+
         }
     }
+
     //sk gọi frm
     private void goiPhonFragment() {
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new SoDoFragment()).commit();
@@ -147,6 +159,11 @@ public class MainActivity extends AppCompatActivity {
                         title = "Tài Khoản";
                         logo = R.drawable.yourselt_25;
                         fragment = new FragmentTaiKhoan();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("edttext", u1);
+                        fragment.setArguments(bundle);
+                        //
+                        Log.d("zzz", "onNavigationItemSelected: " + bundle);
                         Toast.makeText(MainActivity.this, "Đang Update", Toast.LENGTH_SHORT).show();
                         break;
                 }
@@ -157,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     private void anhXa() {
         bottomNavigationView = findViewById(R.id.bottomNavMenu);
         toolbar = findViewById(R.id.actiMain_tb);

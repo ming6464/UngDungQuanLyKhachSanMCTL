@@ -226,7 +226,7 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
                 CustomToast.makeText(this, "Thông tin khách hàng không được bỏ trống !", false).show();
                 return;
             }
-            if(!fullName.matches("^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s\\W|_]+$")){
+            if(!fullName.matches("\"^[A-Za-z]+$\"")){
                 CustomToast.makeText(this, "Tên không phù hợp", false).show();
                 return;
             }

@@ -1,30 +1,35 @@
 package com.ming6464.ungdungquanlykhachsanmctl.Fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
 import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.Activity_DoiPass;
-import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.Activity_Logout;
 import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.Activity_QuanLy;
 import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.Activity_ThietLap;
 import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.Activity_ThongKe;
 import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.Activity_ThongTin;
+import com.ming6464.ungdungquanlykhachsanmctl.LoginAcitivty;
 import com.ming6464.ungdungquanlykhachsanmctl.R;
 
 
 public class FragmentTaiKhoan extends Fragment {
 
-
+    private String u123;
     public FragmentTaiKhoan() {
         // Required empty public constructor
     }
@@ -36,12 +41,25 @@ public class FragmentTaiKhoan extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tai_khoan, container, false);
         NavigationView navigationView = view.findViewById(R.id.nava);
+
+        //
+        Bundle bundle = getArguments();
+        if(bundle != null){
+            u123 = bundle.getString("edttext");
+        }
+        Log.d("zzz", "123: " + u123);
+//        u123 = getArguments().getString("edttext");
+//
+
+        Menu menu = navigationView.getMenu();
+        menu.findItem(R.id.menu_4).setVisible(false);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_1:
                         Intent intent = new Intent(getActivity(), Activity_ThongTin.class);
+                        intent.putExtra("u",u123);
                         startActivity(intent);
                         break;
                     case R.id.menu_2:
@@ -49,8 +67,26 @@ public class FragmentTaiKhoan extends Fragment {
                         startActivity(intent2);
                         break;
                     case R.id.menu_3:
-                        Intent intent1 = new Intent(getActivity(), Activity_Logout.class);
-                        startActivity(intent1);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder.setTitle("Đăng Xuất");
+                        builder.setMessage("Bạn có chắc là muốn đăng xuất không ");
+                        builder.setNegativeButton("Có", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent1 = new Intent(getActivity(), LoginAcitivty.class);
+                                startActivity(intent1);
+                                Toast.makeText(getContext(), "Đăng Xuất Thành Công", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        builder.setPositiveButton("Không", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+
                         break;
                     case R.id.menu_4:
                         Intent intent3 = new Intent(getActivity(), Activity_ThietLap.class);
@@ -68,6 +104,8 @@ public class FragmentTaiKhoan extends Fragment {
                 return false;
             }
         });
+
+
         return view;
     }
 }
