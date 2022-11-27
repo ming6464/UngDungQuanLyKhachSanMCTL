@@ -58,10 +58,10 @@ public class MainActivity extends AppCompatActivity {
     private void addData() {
         if (!share.booleangetCheckLoaiPhong()) {
             share.setCheckLoaiPhong(true);
-            dao.insertOfLoaiPhong(new Categories("Standard", 600000, 2));
-            dao.insertOfLoaiPhong(new Categories("Superior", 880000, 3));
-            dao.insertOfLoaiPhong(new Categories("Deluxe", 1420000, 2));
-            dao.insertOfLoaiPhong(new Categories("Suite", 2350000, 4));
+            dao.insertOfLoaiPhong(new Categories("Standard",100000,2));
+            dao.insertOfLoaiPhong(new Categories("Superior",180000,3));
+            dao.insertOfLoaiPhong(new Categories("Deluxe",142000,2));
+            dao.insertOfLoaiPhong(new Categories("Suite",235000,4));
             //
             dao.insertOfService(new Services("Trông trẻ", 100000));
             dao.insertOfService(new Services("Đánh giày", 20000));

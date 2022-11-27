@@ -19,6 +19,20 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+         <activity
+            android:name=".HoaDonChiTietActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Activiti_User.Activity_ThongKe"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".LoginAcitivty"
             android:exported="true">

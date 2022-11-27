@@ -49,14 +49,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         if (people == null) {
             return;
         }
-        String gioiTinh = "nam";
+        String gioiTinh = "Nam";
         if(people.getSex() == 0)
-            gioiTinh = "nữ";
-        holder.tvName.setText("tên: " + people.getFullName());
-        holder.tvSex.setText("giới tính: " + gioiTinh);
-        holder.tvSdt.setText("sô điện thoại: " + people.getSDT());
-        holder.tvCccd.setText("cmnd/CCCD: " + people.getCCCD());
-        holder.tvAddress.setText("địa chỉ: " + people.getAddress());
+            gioiTinh = "Nữ";
+        holder.tvName.setText("tên :  " + people.getFullName());
+        holder.tvSex.setText("Giới Tính :  " + gioiTinh);
+        holder.tvSdt.setText("Số Điện Thoại :  " + people.getSDT());
+        holder.tvCccd.setText("CMND/CCCD :  " + people.getCCCD());
+        holder.tvAddress.setText("Địa chỉ :  " + people.getAddress());
         String status = "";
         if (people.getStatus()==0){
             holder.layoutUser.setBackgroundResource(R.color.user_binhThuong);
@@ -66,7 +66,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             holder.layoutUser.setBackgroundResource(R.color.hoadon_chuathanhtoan);
             status = "Đặt trước";
         }
-        holder.tvStatus.setText("Trạng Thái: "+status);
+        holder.tvStatus.setText("Trạng Thái : "+status);
 
         holder.layoutUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,11 +74,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
                 iClickItemUser.updateUser(people);
             }
         });
-        if(people.getSex() == 1){
-            holder.tvSex.setText("Sex: Nam");
-        }else{
-            holder.tvSex.setText("Nữ");
-        }
     }
 
     @Override

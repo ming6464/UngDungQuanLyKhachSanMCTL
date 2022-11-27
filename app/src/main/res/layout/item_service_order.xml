@@ -22,7 +22,7 @@
             android:id="@+id/itemServiceOrder_tv_name"
             android:textSize="18sp"
             android:textColor="@color/black"
-            app:fontFamily="@font/nunito" />
+            app:fontFamily="@font/overpass_bold" />
         <androidx.appcompat.widget.AppCompatImageButton
             android:layout_width="0dp"
             android:id="@+id/itemServiceOrder_imgBtn_cancel"

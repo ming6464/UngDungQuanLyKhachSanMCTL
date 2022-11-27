@@ -47,7 +47,7 @@ public class DichVuFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerViewDichVu);
 
         //
-        adapterDichVu = new AdapterDichVu(getContext(), list);
+        adapterDichVu = new AdapterDichVu(requireContext(),list);
         list = new ArrayList<>();
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
