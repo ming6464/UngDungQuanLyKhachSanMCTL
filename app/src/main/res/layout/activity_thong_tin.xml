@@ -6,205 +6,233 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Activiti_User.Activity_ThongTin">
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_thong_tin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/purple_700">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Thông tin người dùng"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:fontFamily="@font/overpass_semibold"
+            android:id="@+id/actiThongTin_tv_tbName"
+            />
 
         <ImageView
             android:id="@+id/img_update_thongtin"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:onClick="handleActionUpdate"
             android:layout_gravity="end"
             android:layout_marginRight="10dp"
             android:src="@drawable/edit_thong_ke" />
     </androidx.appcompat.widget.Toolbar>
 
     <ImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_gravity="center"
         android:layout_marginTop="12dp"
         android:src="@drawable/person_1" />
 
     <TextView
-
+        android:id="@+id/tv_title_thongTin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:fontFamily="@font/overpass_semibold"
         android:text="Welcome to Admin"
         android:textColor="@color/black"
-        android:textSize="20dp"
+        android:textSize="22dp"
         android:textStyle="bold" />
 
-    <LinearLayout
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_gravity="center"
         android:layout_marginLeft="12dp"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginRight="12dp"
         android:background="#D5CBCB" />
 
-    <LinearLayout
+    <TextView
+        android:layout_marginStart="10dp"
+        android:textSize="13sp"
+        android:layout_marginBottom="-3dp"
+        android:layout_marginEnd="10dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/overpass_semibold"
+        android:textColor="#085FA6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Họ Và Tên"
+        />
+
+    <TextView
+        android:layout_marginStart="15dp"
+        android:id="@+id/tv_user_thongtin"
+        
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="15dp"
-        android:orientation="horizontal">
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/overpass_bold"
+        android:textStyle="bold"
+        android:text="30/09/2022  10h"
+        android:textColor="#0C4573"
+        android:textSize="20sp" />
+    
+    <TextView
+        android:layout_marginTop="35dp"
+        android:layout_marginStart="10dp"
+        android:textSize="13sp"
+        android:layout_marginBottom="-3dp"
+        android:layout_marginEnd="10dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/overpass_semibold"
+        android:textColor="#085FA6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Số Điện Thoại"
+        />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Họ tên: " />
-
-        <TextView
-            android:id="@+id/tv_user_thongtin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
-            android:layout_weight="1"
-            android:text="Nguyễn Văn A "
-            android:textColor="@color/black"
-            android:textSize="18dp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
+    <TextView
+        android:layout_marginStart="15dp"
+        android:id="@+id/tv_sdt_thongtin"
+        
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="15dp"
-        android:orientation="horizontal">
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/overpass_bold"
+        android:textStyle="bold"
+        android:text="30/09/2022  10h"
+        android:textColor="#0C4573"
+        android:textSize="20sp" />
+    
+    <TextView
+        android:layout_marginTop="35dp"
+        android:layout_marginStart="10dp"
+        android:textSize="13sp"
+        android:layout_marginBottom="-3dp"
+        android:layout_marginEnd="10dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/overpass_semibold"
+        android:textColor="#085FA6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CMND/CCCD"
+        />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Số Điện Thoại: " />
-
-        <TextView
-            android:id="@+id/tv_sdt_thongtin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
-            android:layout_weight="1"
-            android:text="093123412"
-            android:textColor="@color/black"
-            android:textSize="18dp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
+    <TextView
+        android:layout_marginStart="15dp"
+        android:id="@+id/tv_cccd_thongtin"
+        
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="15dp"
-        android:orientation="horizontal">
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/overpass_bold"
+        android:textStyle="bold"
+        android:text="30/09/2022  10h"
+        android:textColor="#0C4573"
+        android:textSize="20sp" />
+    
+    <TextView
+        android:layout_marginTop="35dp"
+        android:layout_marginStart="10dp"
+        android:textSize="13sp"
+        android:layout_marginBottom="-3dp"
+        android:layout_marginEnd="10dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/overpass_semibold"
+        android:textColor="#085FA6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Giới Tính"
+        />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Cccd: " />
-
-        <TextView
-            android:id="@+id/tv_cccd_thongtin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
-            android:layout_weight="1"
-            android:text="32128371987"
-            android:textColor="@color/black"
-            android:textSize="18dp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
+    <TextView
+        android:layout_marginStart="15dp"
+        android:id="@+id/tv_sex_thongtin"
+        
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="15dp"
-        android:orientation="horizontal">
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/overpass_bold"
+        android:textStyle="bold"
+        android:text="30/09/2022  10h"
+        android:textColor="#0C4573"
+        android:textSize="20sp" />
+    
+    <TextView
+        android:layout_marginTop="35dp"
+        android:layout_marginStart="10dp"
+        android:textSize="13sp"
+        android:layout_marginBottom="-3dp"
+        android:layout_marginEnd="10dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/overpass_semibold"
+        android:textColor="#085FA6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Địa Chỉ"
+        />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Gioi Tính: " />
-
-        <TextView
-            android:id="@+id/tv_sex_thongtin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
-            android:layout_weight="1"
-            android:text="Nam"
-            android:textColor="@color/black"
-            android:textSize="18dp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
+    <TextView
+        android:layout_marginStart="15dp"
+        android:id="@+id/tv_address_thongtin"
+        
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="15dp"
-        android:orientation="horizontal">
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/overpass_bold"
+        android:textStyle="bold"
+        android:text="30/09/2022  10h"
+        android:textColor="#0C4573"
+        android:textSize="20sp" />
+    
 
-        <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="10dp"
+            android:background="#D5CBCB"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            tools:layout_editor_absoluteX="12dp" />
+
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Địa Chỉ: " />
-
-        <TextView
-            android:id="@+id/tv_address_thongtin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
-            android:layout_weight="1"
-            android:text="Hà Nội"
-            android:textColor="@color/black"
-            android:textSize="18dp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_gravity="center"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="240dp"
-        android:layout_marginRight="12dp"
-        android:background="#D5CBCB" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="35dp"
-            android:src="@drawable/logo123" />
-
-        <TextView
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="-10dp"
             android:gravity="center"
-            android:text="TMCL HOTEL"
-            android:textColor="#03A9F4" />
-    </LinearLayout>
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="35dp"
+                android:src="@drawable/logo123" />
+
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-10dp"
+                android:fontFamily="@font/overpass_bold"
+                android:gravity="center"
+                android:text="TMCL HOTEL"
+                android:textColor="#03A9F4" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

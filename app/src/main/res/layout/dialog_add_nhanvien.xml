@@ -1,170 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp"
+    android:padding="8dp"
     android:background="@drawable/custom_dialog_update"
     android:orientation="vertical">
-
     <TextView
+        android:fontFamily="@font/overpass_bold"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
         android:gravity="center"
         android:text="Thêm Nhân Viên"
         android:textColor="#FF0000"
-        android:textSize="20dp"
+        android:textSize="23dp"
         android:textStyle="bold" />
 
-    <LinearLayout
+    <com.google.android.material.textfield.TextInputLayout
+        app:hintTextColor="@color/purple_700"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
-
-        <TextView
+        app:boxBackgroundColor="@color/white"
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusBottomStart="5dp"
+        app:boxCornerRadiusTopStart="5dp"
+        android:hint="Họ Tên (*)"
+        android:textSize="14sp"
+        app:startIconDrawable="@drawable/name_30"
+        app:startIconTint="@null"
+        app:boxCornerRadiusTopEnd="5dp"
+        app:boxCornerRadiusBottomEnd="5dp"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tên Nhân Viên: "
-            android:textColor="@color/purple_700"
-            android:textStyle="bold" />
-
-        <EditText
+            android:layout_height="match_parent"
+            android:textSize="18sp"
+            android:fontFamily="@font/overpass_bold"
+            android:textColor="@color/black"
             android:id="@+id/edNameNv"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:background="@drawable/border_custom"
-            android:hint="Username"
-            android:inputType="textPersonName"
-            android:padding="5dp"
-            android:textColor="@color/black"
-            android:textSize="16dp" />
-    </LinearLayout>
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
+    <com.google.android.material.textfield.TextInputLayout
+        app:hintTextColor="@color/purple_700"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
-
-        <TextView
+        android:layout_marginTop="5dp"
+        app:boxBackgroundColor="@color/white"
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusBottomStart="5dp"
+        app:boxCornerRadiusTopStart="5dp"
+        android:hint="Số Điện Thoại (*)"
+        android:textSize="14sp"
+        app:startIconDrawable="@drawable/call_30"
+        app:startIconTint="@null"
+        app:counterEnabled="true"
+        app:counterMaxLength="10"
+        app:boxCornerRadiusTopEnd="5dp"
+        app:boxCornerRadiusBottomEnd="5dp"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Số Điện Thoại: "
-            android:textColor="@color/purple_700"
-            android:textStyle="bold" />
-
-        <EditText
+            android:layout_height="match_parent"
+            android:textSize="18sp"
+            android:inputType="numberDecimal"
+            android:fontFamily="@font/overpass_bold"
+            android:textColor="@color/black"
             android:id="@+id/edSoDtNv"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:background="@drawable/border_custom"
-            android:hint="Số Điện Thoại"
-            android:inputType="textPersonName"
-            android:padding="5dp"
-            android:textColor="@color/black"
-            android:textSize="16dp" />
-    </LinearLayout>
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
+    <com.google.android.material.textfield.TextInputLayout
+        app:hintTextColor="@color/purple_700"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="45dp"
-            android:layout_height="wrap_content"
-            android:text="CCCD: "
-            android:textColor="@color/purple_700"
-            android:textStyle="bold" />
-
-        <EditText
+        app:boxBackgroundColor="@color/white"
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusBottomStart="5dp"
+        app:boxCornerRadiusTopStart="5dp"
+        android:hint="CMND/CCCD (*)"
+        android:textSize="14sp"
+        app:startIconDrawable="@drawable/identification_30"
+        app:startIconTint="@null"
+        app:counterEnabled="true"
+        app:counterMaxLength="12"
+        app:boxCornerRadiusTopEnd="5dp"
+        app:boxCornerRadiusBottomEnd="5dp"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="18sp"
+            android:fontFamily="@font/overpass_bold"
+            android:inputType="numberDecimal"
+            android:textColor="@color/black"
             android:id="@+id/edCCCDNv"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:background="@drawable/border_custom"
-            android:hint="CCCD"
-            android:inputType="textPersonName"
-            android:padding="5dp"
-            android:textColor="@color/black"
-            android:textSize="16dp" />
-    </LinearLayout>
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginTop="5dp"
+        app:hintTextColor="@color/purple_700"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
-
-        <TextView
+        app:boxBackgroundColor="@color/white"
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusBottomStart="5dp"
+        app:boxCornerRadiusTopStart="5dp"
+        android:hint="Mật Khẩu (*)"
+        android:textSize="14sp"
+        app:startIconDrawable="@drawable/lock_30"
+        app:startIconTint="#03A9F4"
+        app:boxCornerRadiusTopEnd="5dp"
+        app:boxCornerRadiusBottomEnd="5dp"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Mật Khẩu: "
-            android:textColor="@color/purple_700"
-            android:textStyle="bold" />
-
-        <EditText
+            android:layout_height="match_parent"
+            android:textSize="18sp"
+            android:fontFamily="@font/overpass_bold"
+            android:textColor="@color/black"
             android:id="@+id/edPassNv"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:background="@drawable/border_custom"
-            android:hint="Mật Khẩu"
-            android:inputType="textPersonName"
-            android:padding="5dp"
-            android:textColor="@color/black"
-            android:textSize="16dp" />
-    </LinearLayout>
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
         android:gravity="center_vertical"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
+        <com.google.android.material.textfield.TextInputLayout
+            app:hintTextColor="@color/purple_700"
+            android:layout_width="0dp"
+            android:layout_marginEnd="5dp"
             android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
+            android:layout_height="wrap_content"
+            app:boxBackgroundColor="@color/white"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusBottomStart="5dp"
+            app:boxCornerRadiusTopStart="5dp"
+            android:hint="Địa Chỉ (*)"
+            app:startIconDrawable="@drawable/address_30"
+            app:startIconTint="@null"
+            app:boxCornerRadiusTopEnd="5dp"
+            app:boxCornerRadiusBottomEnd="5dp">
+            <androidx.appcompat.widget.AppCompatEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Địa Chỉ: "
-                android:textColor="@color/purple_700"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/edAddressNv"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:background="@drawable/border_custom"
-                android:hint="Địa Chỉ"
-                android:inputType="textPersonName"
-                android:padding="5dp"
+                android:layout_height="match_parent"
+                android:textSize="18sp"
+                android:fontFamily="@font/overpass_bold"
                 android:textColor="@color/black"
-                android:textSize="16dp" />
-        </LinearLayout>
+                android:id="@+id/edAddressNv"
+                />
 
+        </com.google.android.material.textfield.TextInputLayout>
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
-
             <TextView
+                android:fontFamily="@font/overpass_bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Gioi Tính: "
+                android:text="Giới Tính"
+                android:textSize="15sp"
                 android:textColor="@color/purple_700"
                 android:textStyle="bold" />
-
             <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -172,45 +174,54 @@
                 android:orientation="horizontal">
 
                 <RadioButton
+                    android:fontFamily="@font/overpass_bold"
                     android:id="@+id/rdo_nam"
+                    android:layout_gravity="left"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nam" />
 
                 <RadioButton
+                    android:fontFamily="@font/overpass_bold"
                     android:id="@+id/rdo_nu"
+                    android:layout_gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="30dp"
                     android:text="Nữ" />
             </RadioGroup>
         </LinearLayout>
     </LinearLayout>
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="7dp"
         android:gravity="center"
         android:orientation="horizontal">
 
         <Button
+            android:fontFamily="@font/overpass_bold"
             android:id="@+id/btnLuuNv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="50dp"
+            android:padding="10dp"
             android:drawableLeft="@drawable/ic_baseline_save_24"
             android:text="Thêm"
             android:textSize="12dp" />
 
         <Button
+            android:fontFamily="@font/overpass_bold"
             android:id="@+id/btnCancleNv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/coNguoi"
             android:drawableLeft="@drawable/ic_baseline_cancel_24"
             android:text="Hủy"
+            android:padding="10dp"
             android:textSize="12dp" />
     </LinearLayout>
 

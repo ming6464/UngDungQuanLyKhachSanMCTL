@@ -82,9 +82,6 @@ public abstract class KhachSanDAO {
         return stringList;
     }
 
-    @Query("SELECT * FROM People where fullName= :fullName")
-    public abstract List<People> checkUser(String fullName);
-
     @Update
     public abstract void UpdateUser(People people);
 
@@ -94,9 +91,6 @@ public abstract class KhachSanDAO {
     @Query("SELECT * FROM people WHERE id = :id")
     public abstract People getWithIdOfUser(int id);
 
-    //get all nhân viên
-    @Query("SELECT * FROM people WHERE status = :statuss")
-    public abstract List<People> getNv(int statuss);
 
     //serviceCategory
     @Insert
@@ -155,16 +149,6 @@ public abstract class KhachSanDAO {
 
     @Update
     public abstract void updateOfOrders(Orders obj);
-
-    public void thanhToanOfOrders(Orders obj) {
-        obj.setStatus(1);
-        updateOfOrders(obj);
-        for (OrderDetail x : getAllWithOrdersIdOfOrderDetail(obj.getId())) {
-            if (x.getStatus() == 0) {
-                checkOutOfOrderDetail(x);
-            }
-        }
-    }
 
     public void checkOutRoomOfOrder(int id){
         Orders obj = getWithIdOfOrders(id);
@@ -302,11 +286,11 @@ public abstract class KhachSanDAO {
     public abstract int getIdOrderWithIdOrderDetail(int id);
 
     // check login
-    @Query("SELECT * FROM People Where SDT = :user and passowrd = :password limit 1 ")
-    public abstract People checkLogin(String user, String password);
+    @Query("SELECT * FROM People Where SDT = :user")
+    public abstract People checkLogin(String user);
 
     //get data
-    @Query("SELECT * FROM People Where SDT =:sdt limit 1")
+    @Query("SELECT * FROM People Where SDT =:sdt")
     public abstract People getUserBy(String sdt);
 
     @Query("SELECT SUM(PRICE * SL) FROM CATEGORIES,(SELECT CATEGORYID, COUNT(CATEGORYID) AS SL FROM ROOMS WHERE ID IN (SELECT ROOMID FROM ORDERDETAIL WHERE ORDERID = :id) GROUP BY CATEGORYID) AS B WHERE ID = CATEGORYID")
@@ -318,7 +302,7 @@ public abstract class KhachSanDAO {
     @Query("SELECT SUM(PRICE * AMOUNT) FROM SERVICES AS A, SERVICEORDER WHERE A.ID = SERVICEID AND ORDERDETAILID = :id")
     public abstract int getTotalServiceWithOrderDetailId(int id);
     
-    @Query("SELECT * FROM ROOMS WHERE id NOT IN (SELECT ROOMID FROM ORDERDETAIL WHERE (:checkInt BETWEEN STARTDATE AND ENDDATE) OR (STARTDATE BETWEEN :checkInt AND :checkOut))")
+    @Query("SELECT * FROM ROOMS WHERE id NOT IN (SELECT ROOMID FROM ORDERDETAIL WHERE ((:checkInt BETWEEN STARTDATE AND ENDDATE) OR (STARTDATE BETWEEN :checkInt AND :checkOut)) AND STATUS != 1)")
     public abstract List<Rooms> getListRoomWithTime (Date checkInt,Date checkOut);
 
 }

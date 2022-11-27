@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
@@ -22,9 +23,12 @@ import java.util.List;
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
     private List<People> mListUser;
     private IClickItemUser iClickItemUser;
+    private Context context;
+    private View view;
 
-    public UserAdapter(IClickItemUser iClickItemUser) {
+    public UserAdapter(Context context,IClickItemUser iClickItemUser) {
         this.iClickItemUser = iClickItemUser;
+        this.context = context;
     }
 
     public interface IClickItemUser {
@@ -40,7 +44,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new UserViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user_chua, parent, false));
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user_chua, parent, false);
+        return new UserViewHolder(view);
     }
 
     @Override
@@ -52,23 +57,20 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         String gioiTinh = "Nam";
         if(people.getSex() == 0)
             gioiTinh = "Nữ";
-        holder.tvName.setText("tên :  " + people.getFullName());
+        holder.tvName.setText("Họ Tên :  " + people.getFullName());
         holder.tvSex.setText("Giới Tính :  " + gioiTinh);
         holder.tvSdt.setText("Số Điện Thoại :  " + people.getSDT());
         holder.tvCccd.setText("CMND/CCCD :  " + people.getCCCD());
         holder.tvAddress.setText("Địa chỉ :  " + people.getAddress());
         String status = "";
-        if (people.getStatus()==0){
-            holder.layoutUser.setBackgroundResource(R.color.user_binhThuong);
-            status = "Bình Thường";
-        }
-        else if (people.getStatus()==2){
-            holder.layoutUser.setBackgroundResource(R.color.hoadon_chuathanhtoan);
+        status = "Bình Thường";
+        if (people.getStatus()==2){
+            holder.imgAvatar.setBackground(ContextCompat.getDrawable(context,R.drawable.background_revervetion_user));
             status = "Đặt trước";
         }
         holder.tvStatus.setText("Trạng Thái : "+status);
 
-        holder.layoutUser.setOnClickListener(new View.OnClickListener() {
+        view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 iClickItemUser.updateUser(people);
@@ -86,7 +88,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     public class UserViewHolder extends RecyclerView.ViewHolder {
         TextView tvAddress, tvName, tvSex, tvSdt, tvCccd,tvStatus;
-        LinearLayoutCompat layoutUser;
+        ImageView imgAvatar;
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_user);
@@ -95,7 +97,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             tvCccd = itemView.findViewById(R.id.tv_cccd);
             tvAddress = itemView.findViewById(R.id.tv_address);
             tvStatus = itemView.findViewById(R.id.tv_status);
-            layoutUser = itemView.findViewById(R.id.layout_user);
+            imgAvatar = itemView.findViewById(R.id.itemUserChua_img_avatar);
         }
     }
 }

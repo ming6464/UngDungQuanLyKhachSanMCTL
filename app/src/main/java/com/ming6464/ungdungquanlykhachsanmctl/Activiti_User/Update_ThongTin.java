@@ -15,77 +15,64 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ming6464.ungdungquanlykhachsanmctl.CustomToast;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
+import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDAO;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDB;
+import com.ming6464.ungdungquanlykhachsanmctl.KhachSanSharedPreferences;
 import com.ming6464.ungdungquanlykhachsanmctl.R;
+
+import org.w3c.dom.Text;
 
 public class Update_ThongTin extends AppCompatActivity {
     Toolbar toolbar;
-    EditText edName, edSdt, edCccc, edDiaChi;
-    RadioButton rdoN, rdoNu;
-    Button btnUp;
-    KhachSanDB db;
+    EditText edName, edSdt, edDiaChi;
+    TextView title,tvTbName;
+    KhachSanSharedPreferences share;
+    RadioButton rdoN;
+    private People people;
+    private String fullName;
+    KhachSanDAO dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_thong_tin);
+        dao = KhachSanDB.getInstance(this).getDAO();
+        share = new KhachSanSharedPreferences(this);
         toolbar = findViewById(R.id.toolbar_thong_tin);
         anhXa();
-        toolbar.setTitle("        Update Thông Tin");
+        upData();
+    }
+
+    private void upData() {
+        tvTbName.setText("Cập Nhật Thông Tin");
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        //
-        db = KhachSanDB.getInstance(Update_ThongTin.this);
-        String u = getIntent().getStringExtra("s");
-        Log.d("zzz", "Update : " + u);
-        People people = db.getDAO().getUserBy(u);
+        people = dao.getUserBy(share.getSDT2());
+        fullName = people.getFullName();
+        int index = fullName.lastIndexOf(" ");
+        if(index > 0)
+            fullName = fullName.substring(index);
+        title.setText("Welcome to" + fullName);
         edName.setText(people.getFullName());
-        edCccc.setText(people.getCCCD());
         edDiaChi.setText(people.getAddress());
         edSdt.setText(people.getSDT());
-        if (people.getSex() == 1) {
+        if (people.getSex() == 0)
             rdoN.setChecked(true);
-        } else {
-            rdoNu.setChecked(true);
-        }
-        btnUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //set data
-                people.setFullName(edName.getText().toString());
-                people.setCCCD(edCccc.getText().toString());
-                people.setAddress(edDiaChi.getText().toString());
-                people.setSDT(edSdt.getText().toString());
-                try {
-                    db.getDAO().UpdateUser(people);
-                    AlertDialog.Builder builder = new AlertDialog.Builder(Update_ThongTin.this);
-                    builder.setTitle("Cập Nhật Thành Công");
-                    builder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                } catch (Exception e) {
-                    Toast.makeText(Update_ThongTin.this, "Cập Nhật Không Thành Công", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                this.finish();
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -94,10 +81,37 @@ public class Update_ThongTin extends AppCompatActivity {
     private void anhXa() {
         edName = findViewById(R.id.edU);
         edSdt = findViewById(R.id.edN);
-        edCccc = findViewById(R.id.edC);
         edDiaChi = findViewById(R.id.edA);
-        rdoN = findViewById(R.id.rdo1);
-        rdoNu = findViewById(R.id.rdo_nu);
-        btnUp = findViewById(R.id.btn1);
+        rdoN = findViewById(R.id.rdo2);
+        title = findViewById(R.id.tv_update);
+        tvTbName = findViewById(R.id.actiUThongTin_tv_tbName);
+    }
+
+    public void handleActionBtnSave(View view) {
+        fullName = edName.getText().toString();
+        String phoneNumber = edSdt.getText().toString();
+        String addrress = edDiaChi.getText().toString();
+        if(fullName.isEmpty() || phoneNumber.isEmpty() || addrress.isEmpty()){
+            CustomToast.makeText(Update_ThongTin.this, "Thông tin trống !", false).show();
+            return;
+        }
+        if(!fullName.matches("^[a-zA-Z][a-zA-Z ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$")){
+            CustomToast.makeText(Update_ThongTin.this, "Tên không phù hợp", false).show();
+            return;
+        }
+        if(!phoneNumber.matches("^0\\d{9}$")){
+            CustomToast.makeText(Update_ThongTin.this, "Số điện thoại không đúng !", false).show();
+            return;
+        }
+        int sex = 1;
+        if(rdoN.isChecked())
+            sex = 0;
+        people.setFullName(fullName);
+        people.setAddress(addrress);
+        people.setSDT(phoneNumber);
+        people.setSex(sex);
+        dao.UpdateUser(people);
+        CustomToast.makeText(Update_ThongTin.this,"Cập nhật thành công !", true).show();
+        this.finish();
     }
 }

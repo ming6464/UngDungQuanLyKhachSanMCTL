@@ -33,6 +33,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ming6464.ungdungquanlykhachsanmctl.Adapter.RoomsAdapter;
 import com.ming6464.ungdungquanlykhachsanmctl.ChucNangDatPhongActivity;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Rooms;
@@ -53,13 +54,14 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
     private RoomsAdapter roomsAdapter;
     private List<Rooms> mListRooms;
     private List<String> listCategory;
+    private LinearLayoutCompat linear_searchRooms;
     private SimpleDateFormat sdf;
     private String time,time1,time2;
     private Calendar calendar;
     private Date d_checkIn,d_checkOut,now;
-    private RelativeLayout relative_checkTime;
     private boolean check = false;
-    private String TAG = "tao.g";
+    private String TAG = "tai.g";
+    private FloatingActionButton float_change;
     private TimePickerDialog timePickerDialog;
     private DatePickerDialog datePickerDialog;
     private TextView tv_checkIn,tv_checkOut,tv_showAll;
@@ -98,8 +100,9 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
         tv_showAll = view.findViewById(R.id.fragPhong_tv_showAll);
         img_search = view.findViewById(R.id.fragPhong_img_search);
         rcvRooms = view.findViewById(R.id.rcv_rooms);
+        linear_searchRooms = view.findViewById(R.id.fagPhong_linear_searchRooms);
+        float_change = view.findViewById(R.id.fragPhong_float_change);
         roomsAdapter = new RoomsAdapter(this);
-        relative_checkTime = view.findViewById(R.id.fragPhong_relative_checkTime);
         mListRooms = new ArrayList<>();
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),3);
         rcvRooms.setLayoutManager(gridLayoutManager);
@@ -162,6 +165,13 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
         img_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                handleFilterRoom();
+            }
+        });
+        float_change.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showOrHideRooms();
                 handleFilterRoom();
             }
         });
@@ -318,5 +328,16 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
             }catch (Exception e){
                 Log.d(TAG, "updateTime: ");
         }
+    }
+    private void showOrHideRooms(){
+        if(check){
+            linear_searchRooms.setVisibility(View.VISIBLE);
+            tv_showAll.setVisibility(View.GONE);
+            check = false;
+            return;
+        }
+        linear_searchRooms.setVisibility(View.GONE);
+        tv_showAll.setVisibility(View.VISIBLE);
+        check = true;
     }
 }

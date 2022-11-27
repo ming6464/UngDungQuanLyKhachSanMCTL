@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView tv_titleTb;
     private KhachSanSharedPreferences share;
     private BottomNavigationView bottomNavigationView;
-    private String u1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,15 +48,11 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setLogo(R.drawable.home_25);
         addData();
         Click();
-        //
-        u1 = getIntent().getStringExtra("user");
-        Log.d("zzz", "addData: " + u1);
-        dao.getUserBy(u1);
     }
 
     private void addData() {
-        if (!share.booleangetCheckLoaiPhong()) {
-            share.setCheckLoaiPhong(true);
+        if (!share.getCheck2()) {
+            share.setCheck2(true);
             dao.insertOfLoaiPhong(new Categories("Standard",100000,2));
             dao.insertOfLoaiPhong(new Categories("Superior",180000,3));
             dao.insertOfLoaiPhong(new Categories("Deluxe",142000,2));
@@ -112,12 +107,6 @@ public class MainActivity extends AppCompatActivity {
             dao.insertOfServiceCategory(new ServiceCategory(4, 6));
             dao.insertOfServiceCategory(new ServiceCategory(4, 7));
             dao.insertOfServiceCategory(new ServiceCategory(4, 8));
-            //nhân viên
-            People people = new People("admin full name", "03123", "123123", "hn", 1, 1);
-            people.setPassowrd("123");
-            share.setAccount(people, true);
-            dao.insertOfUser(people);
-
         }
     }
 
@@ -159,12 +148,7 @@ public class MainActivity extends AppCompatActivity {
                         title = "Tài Khoản";
                         logo = R.drawable.yourselt_25;
                         fragment = new FragmentTaiKhoan();
-                        Bundle bundle = new Bundle();
-                        bundle.putString("edttext", u1);
-                        fragment.setArguments(bundle);
-                        //
-                        Log.d("zzz", "onNavigationItemSelected: " + bundle);
-                        Toast.makeText(MainActivity.this, "Đang Update", Toast.LENGTH_SHORT).show();
+                        CustomToast.makeText(MainActivity.this, "Đang Update", false).show();
                         break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();

@@ -71,7 +71,8 @@
                     <androidx.appcompat.widget.AppCompatEditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="  Nguyễn Văn A"
+                        android:text="Nguyễn Văn A"
+                        android:drawablePadding="10dp"
                         android:drawableLeft="@drawable/name_30"
                         android:textSize="18sp"
                         android:fontFamily="@font/overpass_bold"
@@ -95,7 +96,8 @@
                     <androidx.appcompat.widget.AppCompatEditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="  Nam"
+                        android:text="Nam"
+                        android:drawablePadding="10dp"
                         android:drawableLeft="@drawable/sex_30dp"
                         android:textSize="18sp"
                         android:fontFamily="@font/overpass_bold"
@@ -119,8 +121,9 @@
                     <androidx.appcompat.widget.AppCompatEditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="  093412343254"
+                        android:text="093412343254"
                         android:textSize="18sp"
+                        android:drawablePadding="10dp"
                         android:drawableLeft="@drawable/phone_30"
                         android:fontFamily="@font/overpass_bold"
                         android:focusableInTouchMode="false"
@@ -143,8 +146,9 @@
                     <androidx.appcompat.widget.AppCompatEditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="  98324012342143 "
+                        android:text="98324012342143 "
                         android:textSize="18sp"
+                        android:drawablePadding="10dp"
                         android:drawableLeft="@drawable/identification_30"
                         android:fontFamily="@font/overpass_bold"
                         android:focusableInTouchMode="false"
@@ -167,9 +171,10 @@
                     <androidx.appcompat.widget.AppCompatEditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="  Hà Nội"
+                        android:text="Hà Nội"
                         android:drawableLeft="@drawable/address_30"
                         android:textSize="18sp"
+                        android:drawablePadding="10dp"
                         android:fontFamily="@font/overpass_bold"
                         android:focusableInTouchMode="false"
                         android:textColor="@color/black"
@@ -195,7 +200,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:background="@color/black"
+                    android:background="#D5CBCB"
                     />
             </LinearLayout>
         </ScrollView>
@@ -266,7 +271,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/black"
+                android:background="#D5CBCB"
                 />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -311,7 +316,7 @@
                     android:layout_weight="6.3"
                     app:boxBackgroundColor="@color/white"
                     app:boxBackgroundMode="outline"
-                    android:hint="  Tiền Khách Đưa  "
+                    android:hint="Tiền Khách Đưa"
                     app:boxCornerRadiusBottomStart="5dp"
                     app:boxCornerRadiusTopStart="5dp"
                     app:boxCornerRadiusTopEnd="5dp"
@@ -322,6 +327,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:textSize="18sp"
+                        android:drawablePadding="10dp"
                         android:fontFamily="@font/overpass_bold"
                         android:drawableLeft="@drawable/money_25"
                         android:inputType="numberDecimal"

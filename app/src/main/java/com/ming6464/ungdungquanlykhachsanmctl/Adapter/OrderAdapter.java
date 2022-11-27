@@ -25,14 +25,12 @@ import java.util.Locale;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder>{
     private EventOfOrderAdapter action;
-    private Context context;
     private List<Orders> list;
     private KhachSanDAO dao;
     private NumberFormat format;
     private SimpleDateFormat sdf,sdf1;
 
     public OrderAdapter(Context context,EventOfOrderAdapter action){
-        this.context  = context;
         this.action = action;
         dao = KhachSanDB.getInstance(context).getDAO();
         format = NumberFormat.getInstance(new Locale("vi","VN"));
@@ -54,7 +52,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder h, int position) {
         Orders obj = list.get(position);
-        h.tv_fullName.setText(dao.getWithIdOfUser(obj.getCustomID()).getFullName());
+        h.tv_fullName.setText("Họ tên :  " + dao.getWithIdOfUser(obj.getCustomID()).getFullName());
         h.tv_total.setText(format.format(obj.getTotal()) + "đ");
         String status = "";
         if(obj.getStatus() == 0){
@@ -73,11 +71,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             h.layout.setBackgroundResource(R.color.hoadon_thanhtoan);
         }
         h.tv_status.setText(status);
-
-        h.tv_checkIn.setText(sdf.format(dao.getMinStatDateWithIdOrderOfOrderDetail(obj.getId())));
-        h.tv_hourCheckIn.setText(sdf1.format(dao.getMinStatDateWithIdOrderOfOrderDetail(obj.getId())));
-        h.tv_checkOut.setText(sdf.format(dao.getMaxEndDateWithIdOrderOfOrderDetail(obj.getId())));
-        h.tv_hourCheckOut.setText(sdf1.format(dao.getMaxEndDateWithIdOrderOfOrderDetail(obj.getId())));
+        h.tv_checkIn.setText("Ngày Nhập :  " +sdf.format(dao.getMinStatDateWithIdOrderOfOrderDetail(obj.getId())));
+        h.tv_hourCheckIn.setText("Giờ :  " +sdf1.format(dao.getMinStatDateWithIdOrderOfOrderDetail(obj.getId())));
+        h.tv_checkOut.setText("Ngày Trả :  " +sdf.format(dao.getMaxEndDateWithIdOrderOfOrderDetail(obj.getId())));
+        h.tv_hourCheckOut.setText("Giờ :  " +sdf1.format(dao.getMaxEndDateWithIdOrderOfOrderDetail(obj.getId())));
 
         String rooms = "";
         List<Rooms> list1 = dao.getListWithOrderIdOfRooms(obj.getId());
@@ -87,7 +84,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
                 rooms += ", ";
             }
         }
-        h.tv_rooms.setText(rooms);
+        h.tv_rooms.setText("Số Phòng :  " + rooms);
 
         h.btn_detail.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -2,148 +2,118 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="3dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="5dp"
+    android:weightSum="10"
     android:background="@drawable/cusstom_item_nhanvoen"
-    android:orientation="vertical">
+    android:orientation="horizontal">
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="0dp"
+        android:id="@+id/itemNhanVien_img_avatar"
+        android:background="@drawable/backgroud_avatar_nhanvien"
+        android:layout_weight="3"
+        android:layout_height="match_parent"
+        android:src="@drawable/businessman_100"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:layout_marginBottom="7dp"
-        android:gravity="center"
-        android:text="Thông Tin Nhân Viên"
-        android:textColor="@color/black"
-        android:textSize="20dp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/tvNameNv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:text="Họ Tên: Nguyễn Văn A"
-        android:textSize="15dp"
-        android:textStyle="bold" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:orientation="horizontal">
-
-        <TextView
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="0dp"
+        android:padding="4dp"
+        android:layout_weight="7"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+        <androidx.appcompat.widget.AppCompatTextView
+            app:fontFamily="@font/overpass_bold"
+            android:layout_marginTop="7dp"
+            android:id="@+id/tvNameNv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/overpass_bold"
+            android:text="Họ Tên :  Nguyễn Gia Minh"
+            app:textAllCaps="true"
+            android:textSize="15sp"
+            android:textColor="#100423"
+            />
+        <androidx.appcompat.widget.AppCompatTextView
+            app:fontFamily="@font/overpass_bold"
+            android:layout_marginTop="7dp"
             android:id="@+id/tvSdtNv"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_weight="1"
-            android:text="Số Điện Thoại: 0943253413"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-
-        <TextView
+            android:fontFamily="@font/overpass_bold"
+            android:text="Số Điện Thoại :  0943253413"
+            app:textAllCaps="true"
+            android:textSize="15sp"
+            android:textColor="#100423"
+            />
+        <androidx.appcompat.widget.AppCompatTextView
+            app:fontFamily="@font/overpass_bold"
+            android:layout_marginTop="7dp"
             android:id="@+id/tvCccdNv"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_weight="1"
-            android:text="CCCD: 4534538394533"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_weight="1"
-            android:text="Gioi Tính: "
-            android:textSize="15dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tvGioiTinhNv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_weight="1"
-            android:text="Nam"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_weight="1"
-            android:text="PassWord: "
-            android:textSize="15dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tvPassWordNv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_weight="1"
-            android:text="123456"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_weight="1"
-            android:text="Địa Chỉ: "
-            android:textSize="15dp"
-            android:textStyle="bold" />
-
-        <TextView
+            android:fontFamily="@font/overpass_bold"
+            android:text="CMND/CCCD :  4534538394533"
+            app:textAllCaps="true"
+            android:textSize="15sp"
+            android:textColor="#100423"
+            />
+        <androidx.appcompat.widget.AppCompatTextView
+            app:fontFamily="@font/overpass_bold"
+            android:layout_marginTop="7dp"
             android:id="@+id/tvDiaChiNv"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:fontFamily="@font/overpass_bold"
+            android:text="Địa chỉ :  du an 1"
+            app:textAllCaps="true"
+            android:textSize="15sp"
+            android:textColor="#100423"
+            />
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="Hà Nội"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btnXoaNv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="@color/coNguoi"
-        android:drawableLeft="@drawable/ic_baseline_cancel_24"
-        android:text="Xóa Nhân Viên" />
-
+            android:weightSum="10"
+            android:orientation="horizontal"
+            >
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="0dp"
+                android:layout_weight="8"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <androidx.appcompat.widget.AppCompatTextView
+                    app:fontFamily="@font/overpass_bold"
+                    android:layout_marginTop="7dp"
+                    android:id="@+id/tvGioiTinhNv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/overpass_bold"
+                    android:text="Giới tính :  nam"
+                    app:textAllCaps="true"
+                    android:textSize="15sp"
+                    android:textColor="#100423"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    app:fontFamily="@font/overpass_bold"
+                    android:layout_marginTop="7dp"
+                    android:id="@+id/tvPassWordNv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/overpass_bold"
+                    android:text="Mật khẩu :  12392832233"
+                    app:textAllCaps="true"
+                    android:textSize="15sp"
+                    android:textColor="#100423"
+                    />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="0dp"
+                android:id="@+id/btnXoaNv"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:src="@drawable/remove_35"
+                />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </LinearLayout>

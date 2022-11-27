@@ -28,8 +28,6 @@ import com.ming6464.ungdungquanlykhachsanmctl.R;
 
 
 public class FragmentTaiKhoan extends Fragment {
-
-    private String u123;
     public FragmentTaiKhoan() {
         // Required empty public constructor
     }
@@ -42,14 +40,6 @@ public class FragmentTaiKhoan extends Fragment {
         View view = inflater.inflate(R.layout.fragment_tai_khoan, container, false);
         NavigationView navigationView = view.findViewById(R.id.nava);
 
-        //
-        Bundle bundle = getArguments();
-        if(bundle != null){
-            u123 = bundle.getString("edttext");
-        }
-        Log.d("zzz", "123: " + u123);
-//        u123 = getArguments().getString("edttext");
-//
 
         Menu menu = navigationView.getMenu();
         menu.findItem(R.id.menu_4).setVisible(false);
@@ -59,7 +49,6 @@ public class FragmentTaiKhoan extends Fragment {
                 switch (item.getItemId()) {
                     case R.id.menu_1:
                         Intent intent = new Intent(getActivity(), Activity_ThongTin.class);
-                        intent.putExtra("u",u123);
                         startActivity(intent);
                         break;
                     case R.id.menu_2:
@@ -75,6 +64,7 @@ public class FragmentTaiKhoan extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 Intent intent1 = new Intent(getActivity(), LoginAcitivty.class);
                                 startActivity(intent1);
+                                getActivity().finish();
                                 Toast.makeText(getContext(), "Đăng Xuất Thành Công", Toast.LENGTH_SHORT).show();
                             }
                         });

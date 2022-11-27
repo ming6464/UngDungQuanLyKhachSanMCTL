@@ -171,8 +171,6 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
         ed_fullName.setText("");
         ed_phoneNumber.setText("");
     }
-
-
     public void hanlderActionBtnSave(View view) {
         int idCustomer,idOrder, amountOfPeople = Integer.parseInt(sp_amountOfPeople.getSelectedItem().toString()),idOrderDetail;
         if(rdo_newCustomer.isChecked()){
@@ -184,11 +182,11 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
                 CustomToast.makeText(this, "Thông tin khách hàng không được bỏ trống !", false).show();
                 return;
             }
-            if(!fullName.matches("\"^[A-Za-z]+$\"")){
+            if(!fullName.matches("^[a-zA-Z ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$")){
                 CustomToast.makeText(this, "Tên không phù hợp", false).show();
                 return;
             }
-            if(!phoneNumber.matches("^0\\d{9}")){
+            if(!phoneNumber.matches("^0\\d{9}$")){
                 CustomToast.makeText(this, "Số điện thoại không đúng !", false).show();
                 return;
             }
@@ -201,7 +199,7 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
                 sex = 1;
             dao.insertOfUser(new People(fullName,phoneNumber, cccd,address,sex,status));
             idCustomer = dao.getNewIdOfUser();
-            Orders orders = new Orders(idCustomer,Integer.parseInt(share.getID2()),null);
+            Orders orders = new Orders(idCustomer,share.getID(),null);
             orders.setStatus(status);
             dao.insertOfOrders(orders);
             idOrder = dao.getNewIdOfOrders();
@@ -211,7 +209,7 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
             idCustomer = Integer.parseInt(text.substring(1,text.indexOf(" ")));
             Orders orders1 = dao.getWithPeopleIdAndStatusOrderOfOrders(idCustomer,status);
             if(orders1 == null){
-                Orders orders = new Orders(idCustomer,Integer.parseInt(share.getID2()),null);
+                Orders orders = new Orders(idCustomer,share.getID(),null);
                 orders.setStatus(status);
                 dao.insertOfOrders(orders);
                 idOrder = dao.getNewIdOfOrders();

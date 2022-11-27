@@ -18,7 +18,7 @@
             <TextView
                 android:fontFamily="@font/overpass_bold"
                 android:textStyle="bold"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 android:text="Sơ Đồ Phòng"
                 android:textColor="@color/black"
                 android:layout_gravity="center"
