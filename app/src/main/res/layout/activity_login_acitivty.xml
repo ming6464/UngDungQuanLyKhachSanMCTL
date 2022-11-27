@@ -20,33 +20,60 @@
         android:layout_marginBottom="30dp"
         android:gravity="center"
         android:text="Đăng Nhập"
+        android:fontFamily="@font/overpass_semibold"
         android:textColor="#2196F3"
-        android:textSize="25dp"
+        android:textSize="26dp"
         android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/edUser"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        app:boxBackgroundColor="@color/white"
+        app:boxBackgroundMode="outline"
+        android:hint="Password"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxStrokeColor="#302D2D"
+        android:textSize="14sp"
         android:layout_margin="12dp"
-        android:background="@drawable/custom_login"
-        android:drawableLeft="@drawable/ic_baseline_mail_outline_24"
-        android:drawablePadding="10dp"
-        android:hint="Nhập Email:"
-        android:padding="18dp" />
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/edPass"
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_baseline_call_24"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/overpass_bold"
+            android:inputType="numberDecimal"
+            android:padding="18dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        app:boxBackgroundColor="@color/white"
+        app:boxBackgroundMode="outline"
+        android:hint="Password"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxStrokeColor="#302D2D"
+        android:textSize="14sp"
         android:layout_margin="12dp"
-        android:background="@drawable/custom_login"
-        android:drawableLeft="@drawable/ic_baseline_lock_24"
-        android:drawablePadding="10dp"
-        android:hint="Nhập Password:"
-        android:inputType="textPassword"
-        android:padding="18dp" />
-
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableTint="#03A9F4"
+            android:drawableLeft="@drawable/lock_30"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/overpass_bold"
+            android:inputType="textPassword"
+            android:padding="18dp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btnLogin"
@@ -55,6 +82,8 @@
         android:layout_margin="12dp"
         android:backgroundTint="#03A9F4"
         android:padding="12dp"
+        android:onClick="handleActionBtnLogin"
+        android:fontFamily="@font/overpass_bold"
         android:text="Đăng Nhập" />
 
     <LinearLayout
@@ -75,6 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Lưu Thông Tin"
+                android:fontFamily="@font/overpass_bold"
                 android:textColor="#00B0FF" />
 
         </LinearLayout>
@@ -86,14 +116,13 @@
             android:layout_marginLeft="70dp"
             android:layout_weight="1"
             android:text="Quên Mật Khẩu"
+            android:fontFamily="@font/overpass_bold"
             android:textColor="#2196F3"
             android:textSize="15dp" />
-
-
     </LinearLayout>
 
 
-    <LinearLayout
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_gravity="center"
@@ -107,6 +136,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center"
+        android:fontFamily="@font/overpass_bold"
         android:text="MTC hotel management app"
         android:textColor="#03A9F4"
         android:textStyle="italic" />

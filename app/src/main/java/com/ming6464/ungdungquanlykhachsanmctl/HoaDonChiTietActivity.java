@@ -170,7 +170,7 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
     }
 
     public void handleActionPay(View view) {
-        if(changeMoney >= 0){
+        if(!ed_moneyOfCustomer.getText().toString().isEmpty() && changeMoney >= 0){
             ordersObj.setStatus(1);
             dao.checkOutRoomOfOrder(ordersObj.getId());
             isShowOrder(false);

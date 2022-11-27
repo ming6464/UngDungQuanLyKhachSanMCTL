@@ -1,97 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical"
-    tools:context=".Fragment.PhongFragment">
-
-    <LinearLayout
+    tools:context=".Fragment.PhongFragment"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:layout_marginTop="10dp"
-        android:weightSum="15"
-        android:orientation="horizontal"
-        >
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_weight="13"
-            android:id="@+id/fragPhong_relative_checkTime"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:id="@+id/fagPhong_linear_searchRooms"
+            android:layout_marginTop="10dp"
+            android:weightSum="15"
             android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:weightSum="14">
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
-                android:layout_width="wrap_content"
+            >
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="13"
                 android:layout_height="wrap_content"
-                android:textColor="#024880"
-                android:drawableTint="#186BAE"
-                android:layout_gravity="left"
-                android:drawableLeft="@drawable/checkin_27"
-                android:textStyle="bold"
-                android:textSize="17sp"
-                android:id="@+id/fragPhong_tv_checkIn"
-                android:fontFamily="@font/kanit"
-                android:text="20/10/2022 10h" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:weightSum="14">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#024880"
+                    android:drawableTint="#186BAE"
+                    android:layout_gravity="left"
+                    android:drawableLeft="@drawable/checkin_27"
+                    android:textStyle="bold"
+                    android:textSize="17sp"
+                    android:id="@+id/fragPhong_tv_checkIn"
+                    android:fontFamily="@font/kanit"
+                    android:text="20/10/2022 10h" />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_width="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/double_next_27"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="#024880"
+                    android:layout_gravity="right"
+                    android:drawableTint="#186BAE"
+                    android:id="@+id/fragPhong_tv_checkOut"
+                    android:drawableLeft="@drawable/checkout_27"
+                    android:textStyle="bold"
+                    android:textSize="17sp"
+                    android:fontFamily="@font/kanit"
+                    android:text="20/10/2022 10h" />
+            </RelativeLayout>
+
             <androidx.appcompat.widget.AppCompatImageView
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentStart="true"
-                android:layout_width="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:id="@+id/fragPhong_img_search"
+                android:src="@drawable/search_30"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/double_next_27"
                 />
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:textColor="#024880"
-                android:layout_gravity="right"
-                android:drawableTint="#186BAE"
-                android:id="@+id/fragPhong_tv_checkOut"
-                android:drawableLeft="@drawable/checkout_27"
-                android:textStyle="bold"
-                android:textSize="17sp"
-                android:fontFamily="@font/kanit"
-                android:text="20/10/2022 10h" />
-        </RelativeLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="14"
             android:gravity="center"
             android:text="Trang thái các phòng thời điểm hiện tại !"
             android:textSize="18sp"
             android:id="@+id/fragPhong_tv_showAll"
             android:fontFamily="@font/kanit"
-            android:textColor="#024880"
+            android:textColor="#F44336"
             android:visibility="gone"
             />
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:id="@+id/fragPhong_img_search"
-            android:src="@drawable/search_30"
-            android:layout_height="wrap_content"
-            />
-    </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_rooms"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="10dp" />
-
-
-</LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_rooms"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/change_27"
+        android:id="@+id/fragPhong_float_change"
+        android:backgroundTint="#03A9F4"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

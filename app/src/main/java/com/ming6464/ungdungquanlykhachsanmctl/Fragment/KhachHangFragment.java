@@ -58,7 +58,7 @@ public class KhachHangFragment extends Fragment {
         rcvUser = view.findViewById(R.id.rcv_user);
         sp_status = view.findViewById(R.id.fragUser_sp_status);
 
-        userAdapter = new UserAdapter(new UserAdapter.IClickItemUser() {
+        userAdapter = new UserAdapter(requireContext(),new UserAdapter.IClickItemUser() {
             @Override
             public void updateUser(People people) {
                 clickUpdateUser(people);

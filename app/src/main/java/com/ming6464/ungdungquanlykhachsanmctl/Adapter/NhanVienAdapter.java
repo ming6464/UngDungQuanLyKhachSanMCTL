@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,17 +43,18 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.ViewHo
     public void onBindViewHolder(@NonNull NhanVienAdapter.ViewHolder holder, int position) {
         People people = listNv.get(holder.getAdapterPosition());
         int index = position;
-        holder.tvNameNv.setText("Họ và tên: " + people.getFullName());
-        holder.tvCccdNv.setText("CCCD: " + people.getCCCD());
-        holder.tvSdtNv.setText("Số Đt: " + people.getSDT());
+        holder.tvNameNv.setText("Họ và tên : " + people.getFullName());
+        holder.tvCccdNv.setText("CCCD : " + people.getCCCD());
+        holder.tvSdtNv.setText("Số Đt : " + people.getSDT());
         if (people.getSex() == 1) {
-            holder.tvGioiTinhNv.setText("Nam");
+            holder.tvGioiTinhNv.setText("Giới Tính :  Nam");
         } else {
-            holder.tvGioiTinhNv.setText("Nữ");
+            holder.tvGioiTinhNv.setText("Giới Tính :  Nữ");
+            holder.imgAvatar.setImageResource(R.drawable.businesswoman_100);
         }
-        holder.tvPassWordNv.setText(people.getPassowrd());
-        holder.tvDiaChiNv.setText(people.getAddress());
-        holder.btnXoaNv.setOnClickListener(v -> {
+        holder.tvPassWordNv.setText("Mật Khẩu :  " + people.getPassowrd());
+        holder.tvDiaChiNv.setText("Địa Chỉ :  " + people.getAddress());
+        holder.imgXoaNv.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle("Cảnh Báo");
             builder.setMessage("Xóa sẽ làm mất dữ liệu bạn vẫn muốn xóa");
@@ -132,11 +134,14 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.ViewHo
 
     @Override
     public int getItemCount() {
+        if(listNv == null)
+            return 0;
         return listNv.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNameNv, tvSdtNv, tvCccdNv, tvGioiTinhNv, tvPassWordNv, tvDiaChiNv, btnXoaNv;
+        TextView tvNameNv, tvSdtNv, tvCccdNv, tvGioiTinhNv, tvPassWordNv, tvDiaChiNv;
+        ImageView imgXoaNv,imgAvatar;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -146,7 +151,8 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.ViewHo
             tvGioiTinhNv = itemView.findViewById(R.id.tvGioiTinhNv);
             tvPassWordNv = itemView.findViewById(R.id.tvPassWordNv);
             tvDiaChiNv = itemView.findViewById(R.id.tvDiaChiNv);
-            btnXoaNv = itemView.findViewById(R.id.btnXoaNv);
+            imgXoaNv = itemView.findViewById(R.id.btnXoaNv);
+            imgAvatar = itemView.findViewById(R.id.itemNhanVien_img_avatar);
         }
     }
 }
