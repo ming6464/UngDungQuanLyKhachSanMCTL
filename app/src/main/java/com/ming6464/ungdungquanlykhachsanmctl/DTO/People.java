@@ -7,18 +7,22 @@ import java.io.Serializable;
 
 @Entity
 public class People implements Serializable {
-    @PrimaryKey (autoGenerate = true)
+    @PrimaryKey(autoGenerate = true)
     private int id;
-    private String fullName,SDT,CCCD,address,passowrd;
-    private int sex,status;
+    private String fullName, SDT, CCCD, address, passowrd;
+    private int sex, status;
 
-    public People(String fullName, String SDT, String CCCD, String address,  int sex, int status) {
+    public People(String fullName, String SDT, String CCCD, String address, int sex, int status) {
         this.fullName = fullName;
         this.SDT = SDT;
         this.CCCD = CCCD;
         this.address = address;
         this.sex = sex;
         this.status = status;
+    }
+
+    public People() {
+
     }
 
     public int getId() {
