@@ -28,5 +28,6 @@ public class Fragment_HoaDon_Phong extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment__hoa_don__phong, container, false);
         return view;
+        //Hello Các bạn
     }
 }
