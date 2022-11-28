@@ -3,9 +3,13 @@ package com.ming6464.ungdungquanlykhachsanmctl.Adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -127,21 +131,23 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.ViewHo
             btnCancleNv.setOnClickListener(v1 -> {
                 dialog.dismiss();
             });
-
+            Window window = dialog.getWindow();
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialog.show();
         });
     }
 
     @Override
     public int getItemCount() {
-        if(listNv == null)
+        if (listNv == null)
             return 0;
         return listNv.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvNameNv, tvSdtNv, tvCccdNv, tvGioiTinhNv, tvPassWordNv, tvDiaChiNv;
-        ImageView imgXoaNv,imgAvatar;
+        ImageView imgXoaNv, imgAvatar;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
