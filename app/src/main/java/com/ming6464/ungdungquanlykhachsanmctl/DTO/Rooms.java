@@ -1,35 +1,28 @@
 package com.ming6464.ungdungquanlykhachsanmctl.DTO;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
 public class Rooms {
-    @PrimaryKey(autoGenerate = true)
-    private int id;
-    private String name;
+    @NonNull
+    @PrimaryKey
+    private String id;
     private int status,categoryID;
 
-    public Rooms(String name,int categoryID) {
+    public Rooms(String id,int categoryID) {
         this.categoryID = categoryID;
-        this.name = name;
+        this.id = id;
         this.status = 0;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getStatus() {
@@ -51,8 +44,7 @@ public class Rooms {
     @Override
     public String toString() {
         return "Rooms{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "id='" + id + '\'' +
                 ", status=" + status +
                 ", categoryID=" + categoryID +
                 '}';

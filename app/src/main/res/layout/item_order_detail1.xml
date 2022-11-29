@@ -1,55 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_margin="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginBottom="5dp"
-    android:layout_marginTop="5dp"
-    app:cardElevation="10dp"
     android:layout_height="wrap_content">
-    <RelativeLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/borderblack12_corner8"
-        android:layout_height="wrap_content">
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/itemOrderDetail1_tv_room"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:background="@drawable/white_circle_stroke_red"
-            android:fontFamily="@font/overpass_extrabold"
-            android:gravity="center"
-            android:text="103"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="15dp"
-            android:id="@+id/itemOrderDetail1_layout_linearHoaDon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:id="@+id/itemOrderDetail1_layout_linearOrderDetail"
             android:background="@color/hoadon_chuathanhtoan"
-            android:orientation="vertical"
-            android:paddingStart="10dp"
-            android:paddingTop="10dp"
-            android:paddingEnd="10dp"
-            android:paddingBottom="10dp">
-
+            android:orientation="vertical">
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_marginTop="15dp"
                 android:id="@+id/itemOrderDetail1_tv_fullName"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content"
+                android:background="@drawable/white_corner10"
                 android:gravity="center_horizontal"
-                android:fontFamily="@font/overpass_bold"
+                android:fontFamily="@font/overpass_extrabold"
                 android:text="Nguyễn Gia Minh"
                 android:textStyle="bold"
-                android:textColor="#100423"
-                android:textSize="17sp"
+                android:textColor="#16013C"
+                android:textSize="18sp"
                 app:textAllCaps="true" />
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_marginTop="10dp"
@@ -178,7 +161,33 @@
                     android:textStyle="bold"
                     app:textAllCaps="false" />
             </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/itemHoaDonPhong_btn_detail"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="40dp"
+                android:background="@drawable/btn_2"
+                android:fontFamily="@font/overpass_bold"
+                android:text="Chỉ Tiết"
+                android:textColor="@color/white"
+                android:textSize="16.5sp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
-    </RelativeLayout>
-
-</androidx.cardview.widget.CardView>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/itemOrderDetail1_tv_room"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:fontFamily="@font/overpass_extrabold"
+        android:gravity="center"
+        android:background="@drawable/white_circle_stroke_red"
+        android:text="103"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</RelativeLayout>

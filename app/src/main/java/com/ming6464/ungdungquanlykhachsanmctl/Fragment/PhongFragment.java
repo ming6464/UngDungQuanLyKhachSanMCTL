@@ -210,9 +210,9 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
                         public void onClick(DialogInterface dialog, int which) {
                             Intent intent = new Intent(requireContext(), ChucNangDatPhongActivity.class);
                             Bundle bundle = new Bundle();
-                            bundle.putInt(KEY_ROOM,rooms.getId());
-                            bundle.putString(KEY_CHECKIN,sdf.format(d_checkIn));
-                            bundle.putString(KEY_CHECKOUT,sdf.format(d_checkOut));
+                            bundle.putString(KEY_ROOM,rooms.getId());
+                            bundle.putLong(KEY_CHECKIN,d_checkIn.getTime());
+                            bundle.putLong(KEY_CHECKOUT,d_checkOut.getTime());
                             int status = 0;
                             if(now.getTime() < d_checkIn.getTime())
                                 status  = 2;

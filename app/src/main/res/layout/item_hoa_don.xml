@@ -21,18 +21,32 @@
             android:paddingTop="10dp"
             android:paddingEnd="10dp"
             android:paddingBottom="10dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/itemHoaDon_tv_fullName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/white_corner10"
+                    android:gravity="center_horizontal"
+                    android:fontFamily="@font/overpass_extrabold"
+                    android:text="Nguyễn Gia Minh"
+                    android:textStyle="bold"
+                    android:textColor="#16013C"
+                    android:textSize="18sp"
+                    app:textAllCaps="true"
+                    android:layout_centerInParent="true"
+                    />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/order_35"
+                    android:layout_alignParentEnd="true"
+                    />
+            </RelativeLayout>
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/itemHoaDon_tv_fullName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/overpass_bold"
-                android:text="Họ Tên: Nguyễn Gia Minh"
-                android:textColor="#100423"
-                android:textSize="15sp"
-                app:textAllCaps="true" />
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_marginTop="10dp"
                 android:id="@+id/itemHoaDon_tv_phoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

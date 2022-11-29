@@ -53,7 +53,7 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.RoomsViewHol
         if(rooms == null){
             return;
         }
-        holder.tv_room_name.setText("" + rooms.getName());
+        holder.tv_room_name.setText("" + rooms.getId());
         holder.tv_room_catogory.setText(listCategory.get(position));
         if (rooms.getStatus() == 0)
             holder.cardView.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.phongTrong));

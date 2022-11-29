@@ -54,7 +54,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull MyViewHolder h, int position) {
         Orders obj = list.get(position);
         People people = dao.getWithIdOfUser(obj.getCustomID());
-        h.tv_fullName.setText("Họ tên :  " + people.getFullName());
+        h.tv_fullName.setText(people.getFullName());
         h.tv_phoneNumber.setText("Số Điện Thoại :  " + people.getSDT());
         h.tv_total.setText(format.format(obj.getTotal()) + " đ");
         String status = "";
@@ -86,7 +86,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         String rooms = "";
         List<Rooms> list1 = dao.getListWithOrderIdOfRooms(obj.getId());
         for(int i = 0; i < list1.size(); i ++){
-            rooms += list1.get(i).getName();
+            rooms += list1.get(i).getId();
             if((list1.size() - i) > 1 ){
                 rooms += ", ";
             }

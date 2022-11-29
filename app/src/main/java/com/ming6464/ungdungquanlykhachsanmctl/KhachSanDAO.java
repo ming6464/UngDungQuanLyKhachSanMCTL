@@ -89,7 +89,7 @@ public abstract class KhachSanDAO {
     public abstract void insertOfRooms(Rooms obj);
 
     @Query("SELECT * FROM Rooms WHERE id = :id")
-    public abstract Rooms getWithIDOfRooms(int id);
+    public abstract Rooms getWithIDOfRooms(String id);
 
     @Query("SELECT * FROM Rooms")
     public abstract List<Rooms> getAllOfRooms();
@@ -98,9 +98,9 @@ public abstract class KhachSanDAO {
     public abstract void updateOfRooms(Rooms obj);
 
     @Query("SELECT price FROM Categories WHERE id = (SELECT categoryID  FROM Rooms WHERE id = :id)")
-    public abstract int getPriceWithIdOfRooms(int id);
+    public abstract int getPriceWithIdOfRooms(String id);
 
-    public void updateStatusWithIdOfRooms(int id, int status) {
+    public void updateStatusWithIdOfRooms(String id, int status) {
         Rooms rooms = getWithIDOfRooms(id);
         rooms.setStatus(status);
         updateOfRooms(rooms);
@@ -250,10 +250,10 @@ public abstract class KhachSanDAO {
     }
 
     @Query("SELECT * FROM Categories WHERE id = (SELECT categoryID FROM Rooms WHERE id = :id)")
-    public abstract Categories getCategoryWithRoomId(int id);
+    public abstract Categories getCategoryWithRoomId(String id);
 
     @Query("SELECT * FROM services WHERE id in (SELECT serviceID FROM servicecategory WHERE categoryID = (SELECT categoryID FROM Rooms WHERE id = :id))")
-    public abstract List<Services> getListServiceCategoryWithRoomId(int id);
+    public abstract List<Services> getListServiceCategoryWithRoomId(String id);
 
     public List<String> getListNameCategoryWithRoomId(List<Rooms> roomsList){
         List<String> list = new ArrayList<>();
@@ -264,7 +264,7 @@ public abstract class KhachSanDAO {
     }
 
     @Query("SELECT amountOfPeople FROM categories WHERE id = (SELECT categoryID FROM Rooms WHERE id = :id)")
-    public abstract int getAmountOfPeopleCategoryWithRoomId(int id);
+    public abstract int getAmountOfPeopleCategoryWithRoomId(String id);
 
     @Query("SELECT orderID FROM orderdetail WHERE id = :id")
     public abstract int getIdOrderWithIdOrderDetail(int id);

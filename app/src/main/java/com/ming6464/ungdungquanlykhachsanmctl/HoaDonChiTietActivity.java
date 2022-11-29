@@ -127,7 +127,7 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
             ////
             tv_checkIn.setText("Check In :  "  + sdf.format(x.getStartDate()) + "h");
             tv_checkOut.setText("Check In :  "  + sdf.format(x.getEndDate()) + "h");
-            tv_room.setText(dao.getWithIDOfRooms(x.getRoomID()).getName());
+            tv_room.setText(x.getRoomID());
             int roomPrice = dao.getCategoryWithRoomId(x.getRoomID()).getPrice();
             tv_roomPrice.setText("Giá Phòng :  " + format.format(roomPrice) + " đ");
             int hours = (int) (x.getEndDate().getTime() - x.getStartDate().getTime())/3600000;

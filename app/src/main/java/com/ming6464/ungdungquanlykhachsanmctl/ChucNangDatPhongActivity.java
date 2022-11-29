@@ -51,7 +51,8 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class ChucNangDatPhongActivity extends AppCompatActivity implements ServiceOrderAdapter.EventOfServiceOrder {
-    private int idRoom,status,totalService = 0,hours;
+    private int status,totalService = 0,hours;
+    private String idRoom;
     private List<String> userListString,serviceListString,serviceListString2;
     private List<Services> serviceList1;
     private List<ServiceOrder> serviceOrderList;
@@ -80,20 +81,16 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
     }
 
     private void hanldeDataBundle() {
-        sdf = new SimpleDateFormat("dd/MM/yyyy HH");
+        sdf = new SimpleDateFormat("dd/MM/yyyy  HH");
         Bundle bundle = getIntent().getBundleExtra(PhongFragment.KEY_BUNDLE);
-        idRoom = bundle.getInt(PhongFragment.KEY_ROOM);
+        idRoom = bundle.getString(PhongFragment.KEY_ROOM);
         status = bundle.getInt(PhongFragment.KEY_STATUS);
-        try {
-            checkIn = sdf.parse(bundle.getString(PhongFragment.KEY_CHECKIN));
-            checkOut = sdf.parse(bundle.getString(PhongFragment.KEY_CHECKOUT));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        checkOut = new Date(bundle.getLong(PhongFragment.KEY_CHECKOUT));
+        checkIn = new Date(bundle.getLong(PhongFragment.KEY_CHECKIN));
         hours = (int) (checkOut.getTime() - checkIn.getTime())/3600000;
-        tv_room.setText(dao.getWithIDOfRooms(idRoom).getName());
-        tv_checkOut.setText(sdf.format(checkOut));
-        tv_checkIn.setText(sdf.format(checkIn));
+        tv_room.setText(idRoom);
+        tv_checkOut.setText(sdf.format(checkOut) + "h");
+        tv_checkIn.setText(sdf.format(checkIn) + "h");
     }
 
     private void handlerRecyclerService() {
@@ -154,7 +151,7 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
         ArrayAdapter servicesAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, serviceString);
         sp_service.setAdapter(servicesAdapter);
         for (Services x : serviceList1){
-            serviceOrderList.add(new ServiceOrder(x.getId(),idRoom,0));
+            serviceOrderList.add(new ServiceOrder(x.getId(),0,0));
         }
     }
     public String formatId(int id) {
