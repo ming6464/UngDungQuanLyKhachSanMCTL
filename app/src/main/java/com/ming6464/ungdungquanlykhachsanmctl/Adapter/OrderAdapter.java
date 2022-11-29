@@ -13,6 +13,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Orders;
+import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Rooms;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDAO;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDB;
@@ -52,7 +53,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder h, int position) {
         Orders obj = list.get(position);
-        h.tv_fullName.setText("Họ tên :  " + dao.getWithIdOfUser(obj.getCustomID()).getFullName());
+        People people = dao.getWithIdOfUser(obj.getCustomID());
+        h.tv_fullName.setText("Họ tên :  " + people.getFullName());
+        h.tv_phoneNumber.setText("Số Điện Thoại :  " + people.getSDT());
         h.tv_total.setText(format.format(obj.getTotal()) + " đ");
         String status = "";
         int color = Color.RED;
@@ -111,7 +114,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView tv_fullName,tv_checkIn,tv_hourCheckIn,tv_checkOut,tv_hourCheckOut,tv_status,tv_total,tv_rooms;
+        private TextView tv_fullName,tv_checkIn,tv_hourCheckIn,tv_checkOut,tv_hourCheckOut,tv_status,tv_total,tv_rooms,tv_phoneNumber;
         private Button btn_detail;
         private LinearLayoutCompat layout;
         public MyViewHolder(@NonNull View i) {
@@ -126,6 +129,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             tv_hourCheckIn = i.findViewById(R.id.itemHoaDon_tv_hourCheckIn);
             tv_hourCheckOut = i.findViewById(R.id.itemHoaDon_tv_hourCheckOut);
             layout = i.findViewById(R.id.itemHoaDon_layout_linearHoaDon);
+            tv_phoneNumber = i.findViewById(R.id.itemHoaDon_tv_phoneNumber);
         }
     }
 }

@@ -17,21 +17,21 @@
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:layout_height="wrap_content">
+
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/itemOrderDetail2_tv_room"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:gravity="center"
-                android:textSize="20sp"
-                android:fontFamily="@font/overpass_semibold"
-                android:textStyle="bold"
-                android:id="@+id/itemOrderDetail_tv_room"
                 android:layout_marginEnd="10dp"
-                android:textColor="#015495"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 android:background="@drawable/white_circle_stroke_red"
+                android:fontFamily="@font/overpass_extrabold"
+                android:gravity="center"
                 android:text="103"
-                />
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:gravity="center_vertical"
@@ -45,7 +45,7 @@
                     android:textStyle="bold"
                     android:fontFamily="@font/overpass_semibold"
                     android:textSize="16sp"
-                    android:id="@+id/itemOrderDetail_tv_checkIn"
+                    android:id="@+id/itemOrderDetail2_tv_checkIn"
                     />
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
@@ -55,7 +55,7 @@
                     android:textStyle="bold"
                     android:fontFamily="@font/overpass_semibold"
                     android:textSize="16sp"
-                    android:id="@+id/itemOrderDetail_tv_checkOut"
+                    android:id="@+id/itemOrderDetail2_tv_checkOut"
                     />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -73,7 +73,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="Giá Phòng :  300.000 đ"
-                android:id="@+id/itemOrderDetail_tv_roomPrice"
+                android:id="@+id/itemOrderDetail2_tv_roomPrice"
                 android:textColor="@color/black"
                 android:textSize="16dp"
                 android:fontFamily="@font/overpass_bold"
@@ -86,7 +86,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="Số Giờ :  10h"
-                android:id="@+id/itemOrderDetail_tv_hours"
+                android:id="@+id/itemOrderDetail2_tv_hours"
                 android:textColor="@color/black"
                 android:textSize="16dp"
                 android:fontFamily="@font/overpass_bold"
@@ -112,7 +112,7 @@
             android:layout_width="match_parent"
             android:layout_marginTop="5dp"
             android:layout_height="wrap_content"
-            android:id="@+id/itemOrderDetail_rc_service"
+            android:id="@+id/itemOrderDetail2_rc_service"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"/>
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -136,7 +136,7 @@
                 android:text="1.520.000 đ"
                 android:textStyle="bold"
                 android:layout_marginTop="5dp"
-                android:id="@+id/itemOrderDetail_tv_serviceFee"
+                android:id="@+id/itemOrderDetail2_tv_serviceFee"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:textSize="18sp"
@@ -146,7 +146,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/itemOrderDetail_tv_serviceFee"
+                app:layout_constraintTop_toBottomOf="@id/itemOrderDetail2_tv_serviceFee"
                 android:layout_height="wrap_content"
                 android:text="Tiền Phòng"
                 android:layout_marginTop="5dp"
@@ -161,9 +161,9 @@
                 android:text="1.520.000 đ"
                 android:textStyle="bold"
                 android:layout_marginTop="5dp"
-                android:id="@+id/itemOrderDetail_tv_roomFee"
+                android:id="@+id/itemOrderDetail2_tv_roomFee"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/itemOrderDetail_tv_serviceFee"
+                app:layout_constraintTop_toBottomOf="@id/itemOrderDetail2_tv_serviceFee"
                 android:textSize="18sp"
                 android:fontFamily="@font/overpass_semibold"
                 android:textColor="#E6E80303"

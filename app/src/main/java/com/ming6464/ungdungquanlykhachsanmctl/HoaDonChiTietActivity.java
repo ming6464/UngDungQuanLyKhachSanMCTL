@@ -115,15 +115,15 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
         NumberFormat format = NumberFormat.getInstance(new Locale("vi","VN"));
         ServiceOfOrderDetailAdapter subAdapter;
         for(OrderDetail x : dao.getListWithOrderIdOfOrderDetail(ordersObj.getId())){
-            View itemView = LayoutInflater.from(linear.getContext()).inflate(R.layout.item_order_detail,null);
-            tv_room = itemView.findViewById(R.id.itemOrderDetail_tv_room);
-            tv_roomPrice = itemView.findViewById(R.id.itemOrderDetail_tv_roomPrice);
-            tv_hours = itemView.findViewById(R.id.itemOrderDetail_tv_hours);
-            tv_checkIn = itemView.findViewById(R.id.itemOrderDetail_tv_checkIn);
-            tv_checkOut = itemView.findViewById(R.id.itemOrderDetail_tv_checkOut);
-            tv_serviceFee = itemView.findViewById(R.id.itemOrderDetail_tv_serviceFee);
-            tv_roomFee = itemView.findViewById(R.id.itemOrderDetail_tv_roomFee);
-            rc_service = itemView.findViewById(R.id.itemOrderDetail_rc_service);
+            View itemView = LayoutInflater.from(linear.getContext()).inflate(R.layout.item_order_detail2,null);
+            tv_room = itemView.findViewById(R.id.itemOrderDetail2_tv_room);
+            tv_roomPrice = itemView.findViewById(R.id.itemOrderDetail2_tv_roomPrice);
+            tv_hours = itemView.findViewById(R.id.itemOrderDetail2_tv_hours);
+            tv_checkIn = itemView.findViewById(R.id.itemOrderDetail2_tv_checkIn);
+            tv_checkOut = itemView.findViewById(R.id.itemOrderDetail2_tv_checkOut);
+            tv_serviceFee = itemView.findViewById(R.id.itemOrderDetail2_tv_serviceFee);
+            tv_roomFee = itemView.findViewById(R.id.itemOrderDetail2_tv_roomFee);
+            rc_service = itemView.findViewById(R.id.itemOrderDetail2_rc_service);
             ////
             tv_checkIn.setText("Check In :  "  + sdf.format(x.getStartDate()) + "h");
             tv_checkOut.setText("Check In :  "  + sdf.format(x.getEndDate()) + "h");
