@@ -98,7 +98,7 @@ public class Activity_QuanLy extends AppCompatActivity {
                     if (rdoNam.isChecked()) {
                         sex = 1;
                     }
-                    People people = new People(name,sdt,cccd,address,sex,3);
+                    People people = new People(name,sdt,cccd,address,sex,1);
                     people.setPassowrd(pass);
                     dao.insertOfUser(people);
                     listNv.add(people);
@@ -129,7 +129,7 @@ public class Activity_QuanLy extends AppCompatActivity {
     private void show() {
         LinearLayoutManager manager = new LinearLayoutManager(Activity_QuanLy.this);
         recyclerView.setLayoutManager(manager);
-        List<People> list = dao.getListWithStatusOfUser(3);
+        List<People> list = dao.getListWithStatusOfUser(1);
         NhanVienAdapter adapter = new NhanVienAdapter(list, Activity_QuanLy.this);
         recyclerView.setAdapter(adapter);
     }

@@ -1,172 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="10dp"
-    android:padding="8dp"
     android:background="@drawable/custom_dialog_update"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="8dp">
+
     <TextView
-        android:fontFamily="@font/overpass_bold"
+        android:id="@+id/tvHi1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:fontFamily="@font/overpass_bold"
         android:gravity="center"
+        android:padding="10dp"
         android:text="Thêm Nhân Viên"
         android:textColor="#FF0000"
         android:textSize="23dp"
         android:textStyle="bold" />
 
     <com.google.android.material.textfield.TextInputLayout
-        app:hintTextColor="@color/purple_700"
         android:layout_width="match_parent"
-        app:boxBackgroundColor="@color/white"
-        app:boxBackgroundMode="outline"
-        app:boxCornerRadiusBottomStart="5dp"
-        app:boxCornerRadiusTopStart="5dp"
+        android:layout_height="wrap_content"
         android:hint="Họ Tên (*)"
         android:textSize="14sp"
-        app:startIconDrawable="@drawable/name_30"
-        app:startIconTint="@null"
-        app:boxCornerRadiusTopEnd="5dp"
+        app:boxBackgroundColor="@color/white"
+        app:boxBackgroundMode="outline"
         app:boxCornerRadiusBottomEnd="5dp"
-        android:layout_height="wrap_content">
+        app:boxCornerRadiusBottomStart="5dp"
+        app:boxCornerRadiusTopEnd="5dp"
+        app:boxCornerRadiusTopStart="5dp"
+        app:hintTextColor="@color/purple_700"
+        app:startIconDrawable="@drawable/name_30"
+        app:startIconTint="@null">
+
         <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edNameNv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="18sp"
             android:fontFamily="@font/overpass_bold"
             android:textColor="@color/black"
-            android:id="@+id/edNameNv"
-            />
+            android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        app:hintTextColor="@color/purple_700"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        app:boxBackgroundColor="@color/white"
-        app:boxBackgroundMode="outline"
-        app:boxCornerRadiusBottomStart="5dp"
-        app:boxCornerRadiusTopStart="5dp"
         android:hint="Số Điện Thoại (*)"
         android:textSize="14sp"
-        app:startIconDrawable="@drawable/call_30"
-        app:startIconTint="@null"
+        app:boxBackgroundColor="@color/white"
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusBottomEnd="5dp"
+        app:boxCornerRadiusBottomStart="5dp"
+        app:boxCornerRadiusTopEnd="5dp"
+        app:boxCornerRadiusTopStart="5dp"
         app:counterEnabled="true"
         app:counterMaxLength="10"
-        app:boxCornerRadiusTopEnd="5dp"
-        app:boxCornerRadiusBottomEnd="5dp"
-        android:layout_height="wrap_content">
+        app:hintTextColor="@color/purple_700"
+        app:startIconDrawable="@drawable/call_30"
+        app:startIconTint="@null">
+
         <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edSoDtNv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="18sp"
-            android:inputType="numberDecimal"
             android:fontFamily="@font/overpass_bold"
+            android:inputType="numberDecimal"
             android:textColor="@color/black"
-            android:id="@+id/edSoDtNv"
-            />
+            android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        app:hintTextColor="@color/purple_700"
         android:layout_width="match_parent"
-        app:boxBackgroundColor="@color/white"
-        app:boxBackgroundMode="outline"
-        app:boxCornerRadiusBottomStart="5dp"
-        app:boxCornerRadiusTopStart="5dp"
+        android:layout_height="wrap_content"
         android:hint="CMND/CCCD (*)"
         android:textSize="14sp"
-        app:startIconDrawable="@drawable/identification_30"
-        app:startIconTint="@null"
+        app:boxBackgroundColor="@color/white"
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusBottomEnd="5dp"
+        app:boxCornerRadiusBottomStart="5dp"
+        app:boxCornerRadiusTopEnd="5dp"
+        app:boxCornerRadiusTopStart="5dp"
         app:counterEnabled="true"
         app:counterMaxLength="12"
-        app:boxCornerRadiusTopEnd="5dp"
-        app:boxCornerRadiusBottomEnd="5dp"
-        android:layout_height="wrap_content">
+        app:hintTextColor="@color/purple_700"
+        app:startIconDrawable="@drawable/identification_30"
+        app:startIconTint="@null">
+
         <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edCCCDNv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="18sp"
             android:fontFamily="@font/overpass_bold"
             android:inputType="numberDecimal"
             android:textColor="@color/black"
-            android:id="@+id/edCCCDNv"
-            />
+            android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_marginTop="5dp"
-        app:hintTextColor="@color/purple_700"
         android:layout_width="match_parent"
-        app:boxBackgroundColor="@color/white"
-        app:boxBackgroundMode="outline"
-        app:boxCornerRadiusBottomStart="5dp"
-        app:boxCornerRadiusTopStart="5dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:hint="Mật Khẩu (*)"
         android:textSize="14sp"
-        app:startIconDrawable="@drawable/lock_30"
-        app:startIconTint="#03A9F4"
-        app:boxCornerRadiusTopEnd="5dp"
+        app:boxBackgroundColor="@color/white"
+        app:boxBackgroundMode="outline"
         app:boxCornerRadiusBottomEnd="5dp"
-        android:layout_height="wrap_content">
+        app:boxCornerRadiusBottomStart="5dp"
+        app:boxCornerRadiusTopEnd="5dp"
+        app:boxCornerRadiusTopStart="5dp"
+        app:hintTextColor="@color/purple_700"
+        app:startIconDrawable="@drawable/lock_30"
+        app:startIconTint="#03A9F4">
+
         <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edPassNv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="18sp"
             android:fontFamily="@font/overpass_bold"
             android:textColor="@color/black"
-            android:id="@+id/edPassNv"
-            />
+            android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
+
         <com.google.android.material.textfield.TextInputLayout
-            app:hintTextColor="@color/purple_700"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:hint="Địa Chỉ (*)"
             app:boxBackgroundColor="@color/white"
             app:boxBackgroundMode="outline"
+            app:boxCornerRadiusBottomEnd="5dp"
             app:boxCornerRadiusBottomStart="5dp"
-            app:boxCornerRadiusTopStart="5dp"
-            android:hint="Địa Chỉ (*)"
-            app:startIconDrawable="@drawable/address_30"
-            app:startIconTint="@null"
             app:boxCornerRadiusTopEnd="5dp"
-            app:boxCornerRadiusBottomEnd="5dp">
+            app:boxCornerRadiusTopStart="5dp"
+            app:hintTextColor="@color/purple_700"
+            app:startIconDrawable="@drawable/address_30"
+            app:startIconTint="@null">
+
             <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edAddressNv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="18sp"
                 android:fontFamily="@font/overpass_bold"
                 android:textColor="@color/black"
-                android:id="@+id/edAddressNv"
-                />
+                android:textSize="18sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
         <LinearLayout
-            android:layout_marginStart="5dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             android:layout_weight="1"
             android:orientation="vertical">
+
             <TextView
-                android:fontFamily="@font/overpass_bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/overpass_bold"
                 android:text="Giới Tính"
-                android:textSize="15sp"
                 android:textColor="@color/purple_700"
+                android:textSize="15sp"
                 android:textStyle="bold" />
+
             <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -174,20 +180,20 @@
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:fontFamily="@font/overpass_bold"
                     android:id="@+id/rdo_nam"
-                    android:layout_gravity="left"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:fontFamily="@font/overpass_bold"
                     android:text="Nam" />
 
                 <RadioButton
-                    android:fontFamily="@font/overpass_bold"
                     android:id="@+id/rdo_nu"
-                    android:layout_gravity="right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="right"
                     android:layout_marginLeft="30dp"
+                    android:fontFamily="@font/overpass_bold"
                     android:text="Nữ" />
             </RadioGroup>
         </LinearLayout>
@@ -203,25 +209,25 @@
         android:orientation="horizontal">
 
         <Button
-            android:fontFamily="@font/overpass_bold"
             android:id="@+id/btnLuuNv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="50dp"
-            android:padding="10dp"
             android:drawableLeft="@drawable/ic_baseline_save_24"
+            android:fontFamily="@font/overpass_bold"
+            android:padding="10dp"
             android:text="Thêm"
             android:textSize="12dp" />
 
         <Button
-            android:fontFamily="@font/overpass_bold"
             android:id="@+id/btnCancleNv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/coNguoi"
             android:drawableLeft="@drawable/ic_baseline_cancel_24"
-            android:text="Hủy"
+            android:fontFamily="@font/overpass_bold"
             android:padding="10dp"
+            android:text="Hủy"
             android:textSize="12dp" />
     </LinearLayout>
 

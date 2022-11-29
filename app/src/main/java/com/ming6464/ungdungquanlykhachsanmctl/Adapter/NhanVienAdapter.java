@@ -3,19 +3,20 @@ package com.ming6464.ungdungquanlykhachsanmctl.Adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.ming6464.ungdungquanlykhachsanmctl.CustomToast;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDB;
@@ -63,8 +64,8 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.ViewHo
                 public void onClick(DialogInterface dialog, int which) {
                     db.getDAO().DeleteUser(people);
                     listNv.remove(index);
-                    notifyItemRangeChanged(index, getItemCount());
-                    Toast.makeText(context, "Xóa Thành Công", Toast.LENGTH_SHORT).show();
+                    notifyItemRemoved(index);
+                    CustomToast.makeText(context, "Xóa Thành Công", true).show();
                 }
             });
             builder.setPositiveButton("Cancle", new DialogInterface.OnClickListener() {
@@ -78,7 +79,7 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.ViewHo
         });
         holder.itemView.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            View view = LayoutInflater.from(context).inflate(R.layout.item_update_nv, null);
+            View view = LayoutInflater.from(context).inflate(R.layout.dialog_add_nhanvien, null);
             EditText edName = view.findViewById(R.id.edNameNv);
             EditText edSdt = view.findViewById(R.id.edSoDtNv);
             EditText edCccd = view.findViewById(R.id.edCCCDNv);
@@ -96,6 +97,9 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.ViewHo
             edCccd.setText(people.getCCCD());
             edPass.setText(people.getPassowrd());
             edAddress.setText(people.getAddress());
+            TextView tv = view.findViewById(R.id.tvHi1);
+            tv.setText("Cập nhật Nhân Viên");
+            btnSave.setText("Cập nhật");
             if (people.getSex() == 1) {
                 rdoNam.setChecked(true);
             } else {
@@ -119,7 +123,7 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.ViewHo
                     listNv.set(index, people);
                     this.notifyItemChanged(index);
                     dialog.dismiss();
-                    Toast.makeText(context, "Cập Nhật Thành Công", Toast.LENGTH_SHORT).show();
+                    CustomToast.makeText(context, "Cập Nhật Thành Công", true).show();
                 } catch (Exception e) {
                     CustomToast.makeText(context, "Cập Nhật Thất Bại", false);
                 }
@@ -127,21 +131,23 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.ViewHo
             btnCancleNv.setOnClickListener(v1 -> {
                 dialog.dismiss();
             });
-
+            Window window = dialog.getWindow();
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialog.show();
         });
     }
 
     @Override
     public int getItemCount() {
-        if(listNv == null)
+        if (listNv == null)
             return 0;
         return listNv.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvNameNv, tvSdtNv, tvCccdNv, tvGioiTinhNv, tvPassWordNv, tvDiaChiNv;
-        ImageView imgXoaNv,imgAvatar;
+        ImageView imgXoaNv, imgAvatar;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

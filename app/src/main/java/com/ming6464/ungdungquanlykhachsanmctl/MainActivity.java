@@ -25,6 +25,7 @@ import com.ming6464.ungdungquanlykhachsanmctl.DTO.ServiceCategory;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Services;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.DichVuFragment;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.FragmentTaiKhoan;
+import com.ming6464.ungdungquanlykhachsanmctl.Fragment.Fragment_Tab_HoaDon;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.HoaDonFragment;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.KhachHangFragment;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.SoDoFragment;
@@ -142,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.menu_bottom4:
                         title = "Hóa Đơn";
                         logo = R.drawable.order_25;
-                        fragment = new HoaDonFragment();
+                        fragment = new Fragment_Tab_HoaDon();
                         break;
                     case R.id.menu_bottom5:
                         title = "Tài Khoản";

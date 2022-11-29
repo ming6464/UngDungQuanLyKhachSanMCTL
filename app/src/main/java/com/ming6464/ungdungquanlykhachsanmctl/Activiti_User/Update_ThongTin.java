@@ -57,10 +57,10 @@ public class Update_ThongTin extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         people = dao.getUserBy(share.getSDT2());
         fullName = people.getFullName();
-        int index = fullName.lastIndexOf(" ");
-        if(index > 0)
+        int index = fullName.lastIndexOf(" ") + 1;
+        if(index > 1)
             fullName = fullName.substring(index);
-        title.setText("Welcome to" + fullName);
+        title.setText("Welcome to " + fullName);
         edName.setText(people.getFullName());
         edDiaChi.setText(people.getAddress());
         edSdt.setText(people.getSDT());
