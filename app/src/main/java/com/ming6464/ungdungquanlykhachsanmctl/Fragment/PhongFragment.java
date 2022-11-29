@@ -54,14 +54,12 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
     public RecyclerView rcvRooms;
     private RoomsAdapter roomsAdapter;
     private List<Rooms> mListRooms;
-    private List<String> listCategory;
     private LinearLayoutCompat linear_searchRooms;
     private SimpleDateFormat sdf;
     private String time,time1,time2;
     private Calendar calendar;
     private Date d_checkIn,d_checkOut,now;
     private boolean check = false;
-    private String TAG = "tai.g";
     private FloatingActionButton float_change;
     private TimePickerDialog timePickerDialog;
     private DatePickerDialog datePickerDialog;
@@ -203,7 +201,7 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
     @Override
     public void datPhong(Rooms rooms) {
         int status = rooms.getStatus();
-        if(status == 0 ){
+        if(status == 0  && !check){
             new AlertDialog.Builder(getContext())
                     .setTitle("Xác nhận đặt phòng")
                     .setMessage("Bạn có muốn đặt phòng không?")
@@ -234,29 +232,33 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
         if(check)
             mListRooms = dao.getAllOfRooms();
         else {
+            try {
+                d_checkIn = sdf.parse(tv_checkIn.getText().toString());
+                d_checkOut = sdf.parse(tv_checkOut.getText().toString());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             Date date = new Date();
             date.setTime(d_checkIn.getTime() - 3600000);
             mListRooms = dao.getListRoomWithTime(date,d_checkOut);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                mListRooms.forEach((x) -> x.setStatus(0));
+            for(Rooms x : mListRooms){
+                x.setStatus(0);
             }
         }
-        listCategory = dao.getListNameCategoryWithRoomId(mListRooms);
-        roomsAdapter.setData(mListRooms,listCategory);
+        List<String> listCategory = dao.getListNameCategoryWithRoomId(mListRooms);
+        roomsAdapter.setData(mListRooms, listCategory);
         
     }
     private void updateTime(String text,boolean b){
         Date date;
         try{
             date = sdf.parse(text);
-            if(b && date.getTime() > d_checkIn.getTime()){
+            if(b && date.getTime() > d_checkIn.getTime())
                 tv_checkOut.setText(text + "h");
-                d_checkOut = date;
-            }
-            else if(!b && date.getTime() < d_checkOut.getTime()){
+
+            else if(!b && date.getTime() < d_checkOut.getTime())
                 tv_checkIn.setText(text + "h");
-                d_checkIn = date;
-            }
+
             }catch (Exception e){
         }
     }

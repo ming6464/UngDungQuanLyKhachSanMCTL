@@ -3,10 +3,6 @@
     <item android:title="Tài Khoản Của Tôi">
         <menu>
             <item
-                android:id="@+id/menu_1"
-                android:icon="@drawable/ic_person_24"
-                android:title="Thông Tin Người Dùng" />
-            <item
                 android:id="@+id/menu_2"
                 android:icon="@drawable/ic_baseline_change_circle_24"
                 android:title="Đổi Mật Khẩu" />

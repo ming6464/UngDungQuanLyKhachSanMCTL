@@ -1,5 +1,6 @@
 package com.ming6464.ungdungquanlykhachsanmctl;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.core.content.ContextCompat;
@@ -11,6 +12,7 @@ import androidx.room.RoomDatabase;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -123,7 +125,11 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
     private void handlerSpinner() {
         serviceOrderList = new ArrayList<>();
         serviceListString = new ArrayList<>();
-        userListString = dao.getListAdapterOfUser(dao.getListWithStatusOfUser(0));
+        userListString = new ArrayList<>();
+        for(People x : dao.getListUser()){
+            if(x.getStatus() == 0 || x.getStatus() == 2)
+                userListString.add(formatId(x.getId()) + " " + x.getFullName());
+        }
         ArrayAdapter userAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, userListString);
         sp_customer.setAdapter(userAdapter);
         sp_customer.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -150,6 +156,11 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
         for (Services x : serviceList1){
             serviceOrderList.add(new ServiceOrder(x.getId(),idRoom,0));
         }
+    }
+    public String formatId(int id) {
+        if (id < 10)
+            return "#0" + id;
+        return "#" + id;
     }
 
     public void hanlderActionRdoOldCustomer(View view){
@@ -207,6 +218,11 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
         else {
             String text = sp_customer.getSelectedItem().toString();
             idCustomer = Integer.parseInt(text.substring(1,text.indexOf(" ")));
+            People people = dao.getWithIdOfUser(idCustomer);
+            if(status == 0 && people.getStatus() == 2){
+                people.setStatus(0);
+                dao.UpdateUser(people);
+            }
             Orders orders1 = dao.getWithPeopleIdAndStatusOrderOfOrders(idCustomer,status);
             if(orders1 == null){
                 Orders orders = new Orders(idCustomer,share.getID(),null);
@@ -222,14 +238,13 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
         orderDetail.setStatus(status);
         dao.insertOfOrderDetail(orderDetail);
         idOrderDetail = dao.getNewIdOfOrderDetail();
-        if(status != 2)
-            for(ServiceOrder x : serviceOrderList){
-                if(x.getAmount() != 0){
-                    x.setOrderDetailID(idOrderDetail);
-                    dao.insertOfServiceOrder(x);
-                }
-
+        for(ServiceOrder x : serviceOrderList){
+            if(x.getAmount() != 0){
+                x.setOrderDetailID(idOrderDetail);
+                dao.insertOfServiceOrder(x);
             }
+
+        }
         CustomToast.makeText(this, "Đặt thành công !", true).show();
         finish();
     }
@@ -238,7 +253,7 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
         finish();
     }
     private void loadTotal(){
-        tv_total.setText(format.format(dao.getPriceWithIdOfRooms(idRoom)  * hours + totalService) + "đ");
+        tv_total.setText(format.format(dao.getPriceWithIdOfRooms(idRoom)  * hours + totalService) + " đ");
     }
     public void hanlderActionBtnAddService(View view){
         int index = sp_service.getSelectedItemPosition();

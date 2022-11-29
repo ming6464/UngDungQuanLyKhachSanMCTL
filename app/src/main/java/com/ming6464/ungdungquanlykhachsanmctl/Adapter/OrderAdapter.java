@@ -53,8 +53,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull MyViewHolder h, int position) {
         Orders obj = list.get(position);
         h.tv_fullName.setText("Họ tên :  " + dao.getWithIdOfUser(obj.getCustomID()).getFullName());
-        h.tv_total.setText(format.format(obj.getTotal()) + "đ");
+        h.tv_total.setText(format.format(obj.getTotal()) + " đ");
         String status = "";
+        int color = Color.RED;
         if(obj.getStatus() == 0){
             h.layout.setBackgroundResource(R.color.hoadon_chuathanhtoan);
             status = "Chưa Thanh Toán";
@@ -66,10 +67,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         else if(obj.getStatus() == 3){
             h.layout.setBackgroundResource(R.color.hoadon_huyphong);
             status = "Huỷ";
+            color = Color.BLACK;
         }else{
             status = "Thanh Toán";
             h.layout.setBackgroundResource(R.color.hoadon_thanhtoan);
+            color = Color.BLACK;
         }
+        h.tv_status.setTextColor(color);
         h.tv_status.setText(status);
         h.tv_checkIn.setText("Ngày Nhập :  " +sdf.format(dao.getMinStatDateWithIdOrderOfOrderDetail(obj.getId())));
         h.tv_hourCheckIn.setText("Giờ :  " +sdf1.format(dao.getMinStatDateWithIdOrderOfOrderDetail(obj.getId())));
