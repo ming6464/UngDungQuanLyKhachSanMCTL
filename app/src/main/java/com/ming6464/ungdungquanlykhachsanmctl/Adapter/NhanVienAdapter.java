@@ -82,7 +82,7 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.ViewHo
         });
         holder.itemView.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            View view = LayoutInflater.from(context).inflate(R.layout.item_update_nv, null);
+            View view = LayoutInflater.from(context).inflate(R.layout.dialog_add_nhanvien, null);
             EditText edName = view.findViewById(R.id.edNameNv);
             EditText edSdt = view.findViewById(R.id.edSoDtNv);
             EditText edCccd = view.findViewById(R.id.edCCCDNv);
@@ -100,6 +100,8 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.ViewHo
             edCccd.setText(people.getCCCD());
             edPass.setText(people.getPassowrd());
             edAddress.setText(people.getAddress());
+            TextView tv = view.findViewById(R.id.tvHi1);
+            tv.setText("Update Nhân Viên");
             if (people.getSex() == 1) {
                 rdoNam.setChecked(true);
             } else {

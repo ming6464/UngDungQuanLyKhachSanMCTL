@@ -99,30 +99,15 @@
             android:textSize="18sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:hint="Mật Khẩu (*)"
-        android:textSize="14sp"
-        app:boxBackgroundColor="@color/white"
-        app:boxBackgroundMode="outline"
-        app:boxCornerRadiusBottomEnd="5dp"
-        app:boxCornerRadiusBottomStart="5dp"
-        app:boxCornerRadiusTopEnd="5dp"
-        app:boxCornerRadiusTopStart="5dp"
-        app:hintTextColor="@color/purple_700"
-        app:startIconDrawable="@drawable/lock_30"
-        app:startIconTint="#03A9F4">
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edPassNv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/overpass_bold"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-    </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

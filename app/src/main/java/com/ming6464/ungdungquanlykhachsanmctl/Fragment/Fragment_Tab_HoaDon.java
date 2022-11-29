@@ -32,7 +32,7 @@ public class Fragment_Tab_HoaDon extends Fragment {
         View view = inflater.inflate(R.layout.fragment__tab__hoa_don, container, false);
         tabLayout = view.findViewById(R.id.tab1);
         viewPager2 = view.findViewById(R.id.view1);
-        FragmentAdapter adapter = new FragmentAdapter(requireActivity(), new Fragment[]{HoaDonFragment.newInstance(), Fragment_HoaDon_Phong.newInstance()});
+        FragmentAdapter adapter = new FragmentAdapter(requireActivity(), new Fragment[]{Fragment_HoaDon_Phong.newInstance(), HoaDonFragment.newInstance()});
         viewPager2.setAdapter(adapter);
         new TabLayoutMediator(tabLayout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
