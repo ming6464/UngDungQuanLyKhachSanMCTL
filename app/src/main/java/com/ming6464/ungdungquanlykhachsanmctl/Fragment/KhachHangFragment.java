@@ -190,6 +190,7 @@ public class KhachHangFragment extends Fragment {
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
+        //cc
     }
 
     private void loatData() {
