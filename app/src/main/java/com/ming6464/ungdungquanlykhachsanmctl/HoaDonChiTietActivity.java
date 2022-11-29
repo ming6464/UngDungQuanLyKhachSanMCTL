@@ -31,7 +31,7 @@ import java.util.Locale;
 public class HoaDonChiTietActivity extends AppCompatActivity {
     private Orders ordersObj;
     private People customerObj;
-    private int total,changeMoney;
+    private int total = 0,changeMoney = 0 ,totalRoom = 0, totalService = 0;
     private NumberFormat format;
     private KhachSanDAO dao;
     private ConstraintLayout constrain_order;
@@ -47,6 +47,10 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
         ordersObj = (Orders) getIntent().getSerializableExtra(KEY_ORDER);
         customerObj = dao.getWithIdOfUser(ordersObj.getCustomID());
         anhXa();
+        if(ordersObj.getStatus() != 0){
+            findViewById(R.id.actiHDCT_linear_pay).setVisibility(View.GONE);
+            findViewById(R.id.actiHDCT_linear_changeMoney).setVisibility(View.GONE);
+        }
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -95,16 +99,16 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
     }
 
     private void handleInfoOrder() {
+        addOrderDetail();
         total = ordersObj.getTotal();
         format = NumberFormat.getInstance(new Locale("vi","VN"));
         tv_total.setText(format.format(total)  + " đ");
-        tv_totalService.setText(format.format(dao.getTotalServiceWithOrderId(ordersObj.getId())) + " đ");
-        tv_totalRoom.setText(format.format(dao.getTotalRoomWithOrderId(ordersObj.getId())) + " đ");
-        addOrderDetail();
+        tv_totalService.setText(format.format(totalService) + " đ");
+        tv_totalRoom.setText(format.format(totalRoom) + " đ");
     }
 
     private void addOrderDetail() {
-        TextView tv_room,tv_checkIn,tv_checkOut,tv_serviceFee,tv_roomFee;
+        TextView tv_room,tv_roomPrice,tv_checkIn,tv_checkOut,tv_serviceFee,tv_roomFee,tv_hours;
         RecyclerView rc_service;
         LinearLayoutCompat linear = findViewById(R.id.actiHDCT_Linear_orderDetail);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy  HH");
@@ -113,6 +117,8 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
         for(OrderDetail x : dao.getListWithOrderIdOfOrderDetail(ordersObj.getId())){
             View itemView = LayoutInflater.from(linear.getContext()).inflate(R.layout.item_order_detail,null);
             tv_room = itemView.findViewById(R.id.itemOrderDetail_tv_room);
+            tv_roomPrice = itemView.findViewById(R.id.itemOrderDetail_tv_roomPrice);
+            tv_hours = itemView.findViewById(R.id.itemOrderDetail_tv_hours);
             tv_checkIn = itemView.findViewById(R.id.itemOrderDetail_tv_checkIn);
             tv_checkOut = itemView.findViewById(R.id.itemOrderDetail_tv_checkOut);
             tv_serviceFee = itemView.findViewById(R.id.itemOrderDetail_tv_serviceFee);
@@ -122,8 +128,15 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
             tv_checkIn.setText("Check In :  "  + sdf.format(x.getStartDate()) + "h");
             tv_checkOut.setText("Check In :  "  + sdf.format(x.getEndDate()) + "h");
             tv_room.setText(dao.getWithIDOfRooms(x.getRoomID()).getName());
-            tv_roomFee.setText(format.format(dao.getCategoryWithRoomId(x.getRoomID()).getPrice()) + " đ");
-            tv_serviceFee.setText(format.format(dao.getTotalServiceWithOrderDetailId(x.getId())) + " đ");
+            int roomPrice = dao.getCategoryWithRoomId(x.getRoomID()).getPrice();
+            tv_roomPrice.setText("Giá Phòng :  " + format.format(roomPrice) + " đ");
+            int hours = (int) (x.getEndDate().getTime() - x.getStartDate().getTime())/3600000;
+            tv_hours.setText(hours + "h");
+            totalRoom += roomPrice * hours;
+            tv_roomFee.setText(format.format(roomPrice * hours) + " đ");
+            int serviceFee = dao.getTotalServiceWithOrderDetailId(x.getId());
+            totalService += serviceFee;
+            tv_serviceFee.setText(format.format(serviceFee) + " đ");
             subAdapter = new ServiceOfOrderDetailAdapter();
             subAdapter.setData(dao.getListWithOrderDetailIdOfService(x.getId()),
                     dao.getListWithOrderDetailIdOfServiceOrder(x.getId()));

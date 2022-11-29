@@ -1,8 +1,4 @@
 package com.ming6464.ungdungquanlykhachsanmctl;
-
-import android.util.Log;
-import android.util.TimeUtils;
-
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -17,12 +13,9 @@ import com.ming6464.ungdungquanlykhachsanmctl.DTO.Rooms;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.ServiceCategory;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.ServiceOrder;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Services;
-
-import java.security.Policy;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 @Dao
 public abstract class KhachSanDAO {
@@ -72,15 +65,6 @@ public abstract class KhachSanDAO {
 
     @Query("SELECT MAX(id) FROM people")
     public abstract int getNewIdOfUser();
-
-    public List<String> getListAdapterOfUser(List<People> peopleList) {
-        List<People> list = peopleList;
-        List<String> stringList = new ArrayList<>();
-        for (People x : list) {
-            stringList.add(formatId(x.getId()) + "  " + x.getFullName());
-        }
-        return stringList;
-    }
 
     @Update
     public abstract void UpdateUser(People people);
@@ -189,7 +173,7 @@ public abstract class KhachSanDAO {
 
     @Query("SELECT * FROM orderdetail")
     public abstract List<OrderDetail> getAllOfOrderDetail();
-    
+
     @Query("SELECT * FROM orderdetail WHERE orderID = :id")
     public abstract List<OrderDetail> getListWithOrderIdOfOrderDetail(int id);
 
@@ -292,12 +276,6 @@ public abstract class KhachSanDAO {
     //get data
     @Query("SELECT * FROM People Where SDT =:sdt")
     public abstract People getUserBy(String sdt);
-
-    @Query("SELECT SUM(PRICE * SL) FROM CATEGORIES,(SELECT CATEGORYID, COUNT(CATEGORYID) AS SL FROM ROOMS WHERE ID IN (SELECT ROOMID FROM ORDERDETAIL WHERE ORDERID = :id) GROUP BY CATEGORYID) AS B WHERE ID = CATEGORYID")
-    public abstract int getTotalRoomWithOrderId(int id);
-    
-    @Query("SELECT SUM(PRICE * AMOUNT) FROM SERVICES AS A,SERVICEORDER WHERE A.ID = SERVICEID AND ORDERDETAILID IN (SELECT ID FROM ORDERDETAIL WHERE ORDERID = :id)")
-    public abstract int getTotalServiceWithOrderId(int id);
     
     @Query("SELECT SUM(PRICE * AMOUNT) FROM SERVICES AS A, SERVICEORDER WHERE A.ID = SERVICEID AND ORDERDETAILID = :id")
     public abstract int getTotalServiceWithOrderDetailId(int id);

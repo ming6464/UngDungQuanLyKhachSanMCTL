@@ -22,16 +22,20 @@ import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDAO;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDB;
 import com.ming6464.ungdungquanlykhachsanmctl.R;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class AdapterDichVu extends RecyclerView.Adapter<AdapterDichVu.ViewHolder> {
     Context context;
     List<Services> listService;
+    private NumberFormat format;
 
     public AdapterDichVu(Context context, List<Services> listService) {
         this.context = context;
         this.listService = listService;
+        format = NumberFormat.getInstance(new Locale("vi","VN"));
     }
 
     public void setData(List<Services> lists) {
@@ -52,13 +56,8 @@ public class AdapterDichVu extends RecyclerView.Adapter<AdapterDichVu.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull AdapterDichVu.ViewHolder holder, int position) {
         Services services = listService.get(position);
-        if (services == null) {
-            return;
-        }
-        holder.tvPrice.setText("Price :  " + listService.get(holder.getAdapterPosition()).getPrice());
-        holder.tvName.setText("Name :  " + listService.get(holder.getAdapterPosition()).getName());
-
-
+        holder.tvPrice.setText("Price :  " + format.format(services.getPrice()) + " đ");
+        holder.tvName.setText("Name :  " + services.getName());
     }
 
     @Override

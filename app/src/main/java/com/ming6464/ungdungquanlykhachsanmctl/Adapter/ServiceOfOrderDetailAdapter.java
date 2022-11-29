@@ -30,7 +30,6 @@ public class ServiceOfOrderDetailAdapter extends RecyclerView.Adapter<ServiceOfO
     public void setData(List<Services> serviceList,List<ServiceOrder> serviceOrderList){
         this.serviceList = serviceList;
         this.serviceOrderList = serviceOrderList;
-        Log.d("TAG.zA", "ServiceOfOrderDetailAdapter");
         notifyDataSetChanged();
     }
 
@@ -44,7 +43,7 @@ public class ServiceOfOrderDetailAdapter extends RecyclerView.Adapter<ServiceOfO
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Services sv = serviceList.get(position);
         ServiceOrder svo = serviceOrderList.get(position);
-        holder.tv_price.setText(format.format(sv.getPrice() * svo.getAmount()) + " đ");
+        holder.tv_price.setText(format.format(sv.getPrice()) + " đ");
         holder.tv_name.setText(sv.getName());
         holder.tv_amount.setText(String.valueOf(svo.getAmount()));
     }

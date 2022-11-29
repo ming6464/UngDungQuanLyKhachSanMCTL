@@ -9,10 +9,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Categories;
 import com.ming6464.ungdungquanlykhachsanmctl.R;
+
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class LoaiPhongAdapter extends RecyclerView.Adapter<LoaiPhongAdapter.MyViewHolder> {
     private List<Categories> list;
+    private NumberFormat format;
+    public LoaiPhongAdapter(){
+        format = NumberFormat.getInstance(new Locale("vi","VN"));
+    }
+
     public void setData(List<Categories> list){
         this.list = list;
         notifyDataSetChanged();
@@ -32,7 +40,7 @@ public class LoaiPhongAdapter extends RecyclerView.Adapter<LoaiPhongAdapter.MyVi
         holder.id.setText(String.valueOf(id));
         if(id < 10)
             holder.id.setText("0" + id);
-        holder.price.setText(String.valueOf(obj.getPrice()));
+        holder.price.setText(format.format(obj.getPrice()) + " đ");
     }
 
     @Override
