@@ -36,6 +36,7 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ming6464.ungdungquanlykhachsanmctl.Adapter.RoomsAdapter;
 import com.ming6464.ungdungquanlykhachsanmctl.ChucNangDatPhongActivity;
+import com.ming6464.ungdungquanlykhachsanmctl.CustomToast;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Rooms;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDAO;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDB;
@@ -225,76 +226,7 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
                     .setNegativeButton("No",null)
                     .show();
         }else if(status == 1){
-            Dialog dialog = new Dialog(requireContext());
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.dialog_phong_conguoi);
-            Button btn_checkOut = dialog.findViewById(R.id.dialogPCN_btn_checkOut),
-                    btn_schedule = dialog.findViewById(R.id.dialogPCN_btn_schedule)
-                    ,btn_detail = dialog.findViewById(R.id.dialogPCN_btn_detail);
-            btn_checkOut.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(requireContext(), "Trả phòng !", Toast.LENGTH_SHORT).show();
-                    dialog.cancel();
-                }
-            });
-            btn_schedule.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(requireContext(), "Xem lịch đặt trước !", Toast.LENGTH_SHORT).show();
-                    dialog.cancel();
-                }
-            });
-            btn_detail.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(requireContext(), "Xem chi tiết", Toast.LENGTH_SHORT).show();
-                    dialog.cancel();
-                }
-            });
-
-            dialog.show();
-            Window window = dialog.getWindow();
-            window.getAttributes().windowAnimations = R.style.dialog_slide_bottom;
-            window.setGravity(Gravity.BOTTOM);
-            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
-            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        }
-        else if( status == 2){
-            Dialog dialog = new Dialog(requireContext());
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.dialog_phong_dattruoc);
-            Button btn_checkIn = dialog.findViewById(R.id.dialogPDT_btn_checkIn)
-                    ,btn_schedule = dialog.findViewById(R.id.dialogPDT_btn_schedule)
-                    ,btn_detail = dialog.findViewById(R.id.dialogPDT_btn_detail);
-            btn_checkIn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(requireContext(), "Nhận phòng !", Toast.LENGTH_SHORT).show();
-                    dialog.cancel();
-                }
-            });
-            btn_detail.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(requireContext(), "Xem chi tiết", Toast.LENGTH_SHORT).show();
-                    dialog.cancel();
-                }
-            });
-            btn_schedule.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(requireContext(), "Xem danh sách đặt trước", Toast.LENGTH_SHORT).show();
-                    dialog.cancel();
-                }
-            });
-
-            dialog.show();
-            Window window = dialog.getWindow();
-            window.getAttributes().windowAnimations = R.style.dialog_slide_bottom;
-            window.setGravity(Gravity.BOTTOM);
-            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
-            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            CustomToast.makeText(requireContext(),"Chi tiết phòng !",true).show();
         }
     }
 
@@ -326,7 +258,6 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
                 d_checkIn = date;
             }
             }catch (Exception e){
-                Log.d(TAG, "updateTime: ");
         }
     }
     private void showOrHideRooms(){

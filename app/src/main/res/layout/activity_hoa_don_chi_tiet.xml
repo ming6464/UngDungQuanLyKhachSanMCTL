@@ -309,6 +309,7 @@
                 android:orientation="horizontal"
                 android:weightSum="10"
                 android:gravity="center"
+                android:id="@+id/actiHDCT_linear_pay"
                 android:layout_marginTop="5dp"
                 >
                 <com.google.android.material.textfield.TextInputLayout
@@ -352,6 +353,7 @@
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
                 android:weightSum="13"
+                android:id="@+id/actiHDCT_linear_changeMoney"
                 android:layout_height="wrap_content">
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="0dp"

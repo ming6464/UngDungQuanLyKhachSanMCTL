@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.ming6464.ungdungquanlykhachsanmctl.Adapter.UserAdapter;
+import com.ming6464.ungdungquanlykhachsanmctl.CustomToast;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDAO;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDB;
@@ -42,7 +43,6 @@ public class KhachHangFragment extends Fragment {
     private UserAdapter userAdapter;
     private List<People> mListUser;
     private KhachSanDAO dao;
-    private People mUser;
 
     public static KhachHangFragment newInstance() {
         KhachHangFragment fragment = new KhachHangFragment();
@@ -65,7 +65,7 @@ public class KhachHangFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         rcvUser = view.findViewById(R.id.rcv_user);
         sp_status = view.findViewById(R.id.fragUser_sp_status);
-
+        dao = KhachSanDB.getInstance(requireContext()).getDAO();
         userAdapter = new UserAdapter(requireContext(), new UserAdapter.IClickItemUser() {
             @Override
             public void updateUser(People people) {
@@ -85,19 +85,26 @@ public class KhachHangFragment extends Fragment {
         List<String> statusList = new ArrayList<>();
         statusList.add("Tất cả");
         statusList.add("Bình Thường");
-        statusList.add("Đặt Trước");
-        ArrayAdapter arrayAdapter = new ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, statusList);
+        statusList.add("Mới");
+        ArrayAdapter arrayAdapter = new ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item,statusList);
         sp_status.setAdapter(arrayAdapter);
         sp_status.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0) {
-                    mListUser = dao.getListWithStatusOfUser(0);
-                    mListUser.addAll(dao.getListWithStatusOfUser(2));
-                } else if (position == 1)
-                    mListUser = dao.getListWithStatusOfUser(0);
-                else
-                    mListUser = dao.getListWithStatusOfUser(2);
+                switch (position){
+                    case 0:
+                        mListUser = new ArrayList<>();
+                        for(People x : dao.getListUser()){
+                            if(x.getStatus() == 0 || x.getStatus() == 2)
+                                mListUser.add(x);
+                        }
+                        break;
+                    case 1:
+                        mListUser = dao.getListWithStatusOfUser(0);
+                        break;
+                    default:
+                        mListUser = dao.getListWithStatusOfUser(2);
+                }
                 userAdapter.setData(mListUser);
             }
 
@@ -116,7 +123,7 @@ public class KhachHangFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         // delete User
                         KhachSanDB.getInstance(getContext()).getDAO().DeleteUser(people);
-                        Toast.makeText(getContext(), "Xoa thanh cong", Toast.LENGTH_SHORT).show();
+                        CustomToast.makeText(getContext(), "Xoa thanh cong", true).show();
                         loatData();
                     }
                 })
@@ -127,25 +134,19 @@ public class KhachHangFragment extends Fragment {
     private void clickUpdateUser(People people) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_update_user, null);
-//        EditText edtUsername = view.findViewById(R.id.edt_username);
-//        EditText edtSex = view.findViewById(R.id.edt_sex);
-//        EditText edtSDT = view.findViewById(R.id.edt_sdt);
-//        EditText edtCCCD = view.findViewById(R.id.edt_cccd);
-//        EditText edtAddress = view.findViewById(R.id.edt_address);
-        //
+        View view = inflater.inflate(R.layout.dialog_add_nhanvien, null);
         EditText edtUsername = view.findViewById(R.id.edNameNv);
         EditText edtSDT = view.findViewById(R.id.edSoDtNv);
         EditText edtCCCD = view.findViewById(R.id.edCCCDNv);
         EditText edtAddress = view.findViewById(R.id.edAddressNv);
-
+        view.findViewById(R.id.edPassNv).setVisibility(View.GONE);
         Button btnUp = view.findViewById(R.id.btnLuuNv);
         Button btnCancle = view.findViewById(R.id.btnCancleNv);
         RadioButton rdoNam = view.findViewById(R.id.rdo_nam);
         RadioButton rdoNu = view.findViewById(R.id.rdo_nu);
         TextView tv = view.findViewById(R.id.tvHi1);
-        tv.setText("Update Khách Hàng");
-        btnUp.setText("Update");
+        tv.setText("Cập nhật Khách Hàng");
+        btnUp.setText("Cập nhật");
 
         //set data
         edtUsername.setText(people.getFullName());
@@ -177,7 +178,7 @@ public class KhachHangFragment extends Fragment {
             people.setAddress(strAddress);
             people.setSex(sex);
             dao.UpdateUser(people);
-            Toast.makeText(getContext(), "Update Thành Công", Toast.LENGTH_SHORT).show();
+            CustomToast.makeText(getContext(), "Cập nhật Thành Công", true).show();
             loatData();
             dialog.dismiss();
 
@@ -194,9 +195,11 @@ public class KhachHangFragment extends Fragment {
     }
 
     private void loatData() {
-        dao = KhachSanDB.getInstance(getContext()).getDAO();
-        mListUser = dao.getListWithStatusOfUser(0);
-        mListUser.addAll(dao.getListWithStatusOfUser(2));
+        mListUser = new ArrayList<>();
+        for(People x : dao.getListUser()){
+            if(x.getStatus() == 0 || x.getStatus() == 2)
+                mListUser.add(x);
+        }
         userAdapter.setData(mListUser);
     }
 }

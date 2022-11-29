@@ -15,11 +15,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.ming6464.ungdungquanlykhachsanmctl.CustomToast;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDB;
@@ -67,8 +64,8 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.ViewHo
                 public void onClick(DialogInterface dialog, int which) {
                     db.getDAO().DeleteUser(people);
                     listNv.remove(index);
-                    notifyItemRangeChanged(index, getItemCount());
-                    Toast.makeText(context, "Xóa Thành Công", Toast.LENGTH_SHORT).show();
+                    notifyItemRemoved(index);
+                    CustomToast.makeText(context, "Xóa Thành Công", true).show();
                 }
             });
             builder.setPositiveButton("Cancle", new DialogInterface.OnClickListener() {
@@ -101,7 +98,8 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.ViewHo
             edPass.setText(people.getPassowrd());
             edAddress.setText(people.getAddress());
             TextView tv = view.findViewById(R.id.tvHi1);
-            tv.setText("Update Nhân Viên");
+            tv.setText("Cập nhật Nhân Viên");
+            btnSave.setText("Cập nhật");
             if (people.getSex() == 1) {
                 rdoNam.setChecked(true);
             } else {
@@ -125,7 +123,7 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.ViewHo
                     listNv.set(index, people);
                     this.notifyItemChanged(index);
                     dialog.dismiss();
-                    Toast.makeText(context, "Cập Nhật Thành Công", Toast.LENGTH_SHORT).show();
+                    CustomToast.makeText(context, "Cập Nhật Thành Công", true).show();
                 } catch (Exception e) {
                     CustomToast.makeText(context, "Cập Nhật Thất Bại", false);
                 }

@@ -72,10 +72,10 @@ public class Activity_ThongTin extends AppCompatActivity {
         }
         tvDiaChi.setText(people.getAddress());
         String name = people.getFullName();
-        int index = name.lastIndexOf(" ");
-        if(index > 0)
+        int index = name.lastIndexOf(" ") + 1;
+        if(index > 1)
             name = name.substring(index);
-        tvTitle.setText("Welcome to" + name);
+        tvTitle.setText("Welcome to " + name);
     }
 
     @Override
