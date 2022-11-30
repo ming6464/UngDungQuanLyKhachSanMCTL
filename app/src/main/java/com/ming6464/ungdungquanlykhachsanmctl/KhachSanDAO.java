@@ -36,14 +36,6 @@ public abstract class KhachSanDAO {
     @Query("SELECT * FROM Services")
     public abstract List<Services> getAllService();
 
-    public List<String> getListAdapterOfServices(List<Services> listService) {
-        List<String> list = new ArrayList<>();
-        for (Services x : listService) {
-            list.add(x.getName());
-        }
-        return list;
-    }
-
     public List<Services> getListWithOrderDetailIdOfService(int id){
         List<Services> list = new ArrayList<>();
         for (ServiceOrder x : getListWithOrderDetailIdOfServiceOrder(id)){

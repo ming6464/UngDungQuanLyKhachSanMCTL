@@ -24,14 +24,14 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder>{
+public class ItemHoaDonAdapter extends RecyclerView.Adapter<ItemHoaDonAdapter.MyViewHolder>{
     private EventOfOrderAdapter action;
     private List<Orders> list;
     private KhachSanDAO dao;
     private NumberFormat format;
     private SimpleDateFormat sdf,sdf1;
 
-    public OrderAdapter(Context context,EventOfOrderAdapter action){
+    public ItemHoaDonAdapter(Context context, EventOfOrderAdapter action){
         this.action = action;
         dao = KhachSanDB.getInstance(context).getDAO();
         format = NumberFormat.getInstance(new Locale("vi","VN"));
@@ -57,23 +57,19 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         h.tv_fullName.setText(people.getFullName());
         h.tv_phoneNumber.setText("Số Điện Thoại :  " + people.getSDT());
         h.tv_total.setText(format.format(obj.getTotal()) + " đ");
-        String status = "";
+        String status = "Chưa Thanh Toán";
         int color = Color.RED;
-        if(obj.getStatus() == 0){
-            h.layout.setBackgroundResource(R.color.hoadon_chuathanhtoan);
-            status = "Chưa Thanh Toán";
-        }
-        else if(obj.getStatus() == 2){
-            h.layout.setBackgroundResource(R.color.hoadon_dattruoc);
+        if(obj.getStatus() == 2){
+            h.layout.setBackgroundResource(R.drawable.background_hoadon_dattruoc);
             status = "Đặt Trước";
         }
         else if(obj.getStatus() == 3){
-            h.layout.setBackgroundResource(R.color.hoadon_huyphong);
+            h.layout.setBackgroundResource(R.drawable.background_hoadon_huyphong);
             status = "Huỷ";
             color = Color.BLACK;
-        }else{
+        }else if(obj.getStatus() == 1){
             status = "Thanh Toán";
-            h.layout.setBackgroundResource(R.color.hoadon_thanhtoan);
+            h.layout.setBackgroundResource(R.drawable.background_hoadon_thanhtoan);
             color = Color.BLACK;
         }
         h.tv_status.setTextColor(color);

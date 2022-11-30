@@ -1,69 +1,47 @@
 package com.ming6464.ungdungquanlykhachsanmctl;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.LinearLayoutCompat;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-import androidx.room.RoomDatabase;
 
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
-import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
-import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ServiceOrderAdapter;
+import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ItemServiceOrderAdapter;
+import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ItemServiceSpinnerAdapter;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.OrderDetail;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Orders;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
-import com.ming6464.ungdungquanlykhachsanmctl.DTO.Rooms;
-import com.ming6464.ungdungquanlykhachsanmctl.DTO.ServiceCategory;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.ServiceOrder;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Services;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.PhongFragment;
 
 import java.text.NumberFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
-public class ChucNangDatPhongActivity extends AppCompatActivity implements ServiceOrderAdapter.EventOfServiceOrder {
+public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemServiceOrderAdapter.EventOfServiceOrder {
     private int status,totalService = 0,hours;
     private String idRoom;
-    private List<String> userListString,serviceListString,serviceListString2;
-    private List<Services> serviceList1;
+    private List<String> userListString;
+    private List<Services> serviceList,serviceList1;
     private List<ServiceOrder> serviceOrderList;
-    private SimpleDateFormat sdf;
     private NumberFormat format;
     private Spinner sp_customer,sp_amountOfPeople,sp_service;
     private EditText ed_fullName,ed_phoneNumber,ed_CCCD,ed_address;
     private TextView tv_total,tv_room,tv_checkIn,tv_checkOut;
     private RadioButton rdo_male,rdo_newCustomer;
     private KhachSanDAO dao;
-    private ServiceOrderAdapter serviceOrderAdapter;
+    private ItemServiceOrderAdapter itemServiceOrderAdapter;
     private RecyclerView rc_service;
     private Date checkIn,checkOut;
     private KhachSanSharedPreferences share;
@@ -73,6 +51,7 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
         setContentView(R.layout.activity_chuc_nang_dat_phong);
         dao = KhachSanDB.getInstance(this).getDAO();
         share = new KhachSanSharedPreferences(this);
+        format = NumberFormat.getInstance(new Locale("vi","VN"));
         anhXa();
         hanldeDataBundle();
         handlerSpinner();
@@ -81,7 +60,7 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
     }
 
     private void hanldeDataBundle() {
-        sdf = new SimpleDateFormat("dd/MM/yyyy  HH");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy  HH");
         Bundle bundle = getIntent().getBundleExtra(PhongFragment.KEY_BUNDLE);
         idRoom = bundle.getString(PhongFragment.KEY_ROOM);
         status = bundle.getInt(PhongFragment.KEY_STATUS);
@@ -94,11 +73,11 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
     }
 
     private void handlerRecyclerService() {
-        serviceOrderAdapter = new ServiceOrderAdapter(this);
+        itemServiceOrderAdapter = new ItemServiceOrderAdapter(this);
         rc_service.setHasFixedSize(true);
         rc_service.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
-        rc_service.setAdapter(serviceOrderAdapter);
-        serviceOrderAdapter.setData(serviceListString);
+        rc_service.setAdapter(itemServiceOrderAdapter);
+        itemServiceOrderAdapter.setData(serviceList1);
     }
 
     private void anhXa() {
@@ -116,13 +95,14 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
         tv_checkIn = findViewById(R.id.actiCNDP_tv_checkIn);
         tv_checkOut = findViewById(R.id.actiCNDP_tv_checkOut);
         rc_service = findViewById(R.id.actiCNDP_rc_service);
-        format = NumberFormat.getInstance(new Locale("vi","VN"));
     }
 
     private void handlerSpinner() {
         serviceOrderList = new ArrayList<>();
-        serviceListString = new ArrayList<>();
+        serviceList1 = new ArrayList<>();
+        serviceList = new ArrayList<>();
         userListString = new ArrayList<>();
+        ////
         for(People x : dao.getListUser()){
             if(x.getStatus() == 0 || x.getStatus() == 2)
                 userListString.add(formatId(x.getId()) + " " + x.getFullName());
@@ -139,18 +119,21 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
 
             }
         });
+        /////
         List<String> amountOfPeopleList = new ArrayList<>();
         for(int x = 1; x <= dao.getAmountOfPeopleCategoryWithRoomId(idRoom); x ++){
             amountOfPeopleList.add(String.valueOf(x));
         }
         ArrayAdapter amountOfPeopleAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, amountOfPeopleList);
         sp_amountOfPeople.setAdapter(amountOfPeopleAdapter);
-        serviceList1 = dao.getListServiceCategoryWithRoomId(idRoom);
-        serviceListString2 = new ArrayList<>();
-        List<String> serviceString = dao.getListAdapterOfServices(serviceList1);
-        ArrayAdapter servicesAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, serviceString);
-        sp_service.setAdapter(servicesAdapter);
-        for (Services x : serviceList1){
+        //////
+        serviceList = dao.getListServiceCategoryWithRoomId(idRoom);
+        //
+        ItemServiceSpinnerAdapter itemServiceSpinnerAdapter = new ItemServiceSpinnerAdapter();
+        sp_service.setAdapter(itemServiceSpinnerAdapter);
+        itemServiceSpinnerAdapter.setDate(serviceList);
+        //////
+        for (Services x : serviceList){
             serviceOrderList.add(new ServiceOrder(x.getId(),0,0));
         }
     }
@@ -254,33 +237,30 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
     }
     public void hanlderActionBtnAddService(View view){
         int index = sp_service.getSelectedItemPosition();
-        Services sv = serviceList1.get(index);
-        serviceListString.add(sv.getName());
-        serviceListString2.add(String.valueOf(sv.getId()));
-        serviceListString2.add(String.valueOf(sv.getPrice()));
-        serviceOrderAdapter.notifyDataSetChanged();
-        totalService += serviceList1.get(index).getPrice();
+        Services sv = serviceList.get(index);
+        serviceList1.add(sv);
+        totalService += sv.getPrice();
         for(int i = 0; i < serviceOrderList.size(); i++){
             if(serviceOrderList.get(i).getServiceId() == sv.getId()){
                 serviceOrderList.get(i).setAmount(serviceOrderList.get(i).getAmount() + 1);
                 break;
             }
         }
+        itemServiceOrderAdapter.notifyDataSetChanged();
         loadTotal();
     }
     @Override
     public void cancel(int position) {
-        serviceListString.remove(position);
-        serviceOrderAdapter.notifyDataSetChanged();
-        totalService -= Integer.parseInt(serviceListString2.get(position*2 + 1));
+        Services sv = serviceList1.get(position);
+        totalService -= sv.getPrice();
+        serviceList1.remove(position);
 ;        for(int i = 0; i < serviceOrderList.size(); i++){
-            if(serviceOrderList.get(i).getServiceId() == Integer.parseInt(serviceListString2.get(position * 2))){
-                serviceOrderList.get(i).setAmount(serviceOrderList.get(i).getAmount() - 2);
+            if(serviceOrderList.get(i).getServiceId() == sv.getId()){
+                serviceOrderList.get(i).setAmount(serviceOrderList.get(i).getAmount() - 1);
                 break;
             }
         }
-        serviceListString2.remove(position * 2 + 1);
-        serviceListString2.remove(position * 2);
+        itemServiceOrderAdapter.notifyDataSetChanged();
         loadTotal();
     }
     private void setFocusInfomation(boolean b){
@@ -303,6 +283,5 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements Servi
             RadioButton rdo_feMale = findViewById(R.id.actiCNDP_rdo_feMale);
             rdo_feMale.setChecked(true);
         }
-
     }
 }

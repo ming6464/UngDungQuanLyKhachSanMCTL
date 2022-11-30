@@ -9,19 +9,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ming6464.ungdungquanlykhachsanmctl.DTO.Services;
 import com.ming6464.ungdungquanlykhachsanmctl.R;
 
 import java.util.List;
 
-public class ServiceOrderAdapter extends RecyclerView.Adapter<ServiceOrderAdapter.MyViewHolder>{
-    private List<String> list;
+public class ItemServiceOrderAdapter extends RecyclerView.Adapter<ItemServiceOrderAdapter.MyViewHolder>{
+    private List<Services> list;
     private EventOfServiceOrder action;
-    private View view;
 
-    public ServiceOrderAdapter(EventOfServiceOrder action){
+    public ItemServiceOrderAdapter(EventOfServiceOrder action){
         this.action = action;
     }
-    public void setData(List<String> list){
+    public void setData(List<Services> list){
         this.list = list;
         notifyDataSetChanged();
     }
@@ -31,20 +31,19 @@ public class ServiceOrderAdapter extends RecyclerView.Adapter<ServiceOrderAdapte
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_service_order,parent,false);
-        return new MyViewHolder(view);
+        return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_service_order,parent,false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.tv_name.setText(list.get(position));
+        holder.tv_name.setText(list.get(position).getName());
         holder.imgBtn_cancel.setOnClickListener(v -> action.cancel(holder.getAdapterPosition()));
     }
 
     @Override
     public int getItemCount() {
         if(list == null)
-        return 0;
+            return 0;
         return list.size();
     }
 

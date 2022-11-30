@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.LinearLayoutCompat;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.OrderDetail;
@@ -24,13 +23,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.MyViewHolder> {
+public class ItemOrderDetail1Adapter extends RecyclerView.Adapter<ItemOrderDetail1Adapter.MyViewHolder> {
     private List<OrderDetail> list;
     private KhachSanDAO dao;
     private OnEventOfOrderDetailAdpater action;
     private SimpleDateFormat sdf,sdf1;
     private NumberFormat numberFormat;
-    public OrderDetailAdapter(Context context, OnEventOfOrderDetailAdpater action){
+    public ItemOrderDetail1Adapter(Context context, OnEventOfOrderDetailAdpater action){
         dao = KhachSanDB.getInstance(context).getDAO();
         this.action  = action;
         sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -64,7 +63,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         String status = "Đang Sử Dụng";
         if(obj.getStatus() == 2){
             status = "Đặt Trước";
-            h.layout_linearOrderDetail.setBackgroundResource(R.color.hoadon_dattruoc);
+            h.linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_dattruoc);
         }
 
         h.tv_status.setText(status);
@@ -91,7 +90,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView tv_room,tv_fullName,tv_phoneNumber,tv_checkIn,tv_hourCheckIn,tv_checkOut,tv_hourCheckOut,tv_status,tv_total;
         private Button btn_detail;
-        private LinearLayoutCompat layout_linearOrderDetail;
+        private LinearLayoutCompat linear_orderDetail;
         public MyViewHolder(@NonNull View iv) {
             super(iv);
             tv_room = iv.findViewById(R.id.itemOrderDetail1_tv_room);
@@ -104,7 +103,7 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
             tv_status = iv.findViewById(R.id.itemOrderDetail1_tv_status);
             tv_total = iv.findViewById(R.id.itemOrderDetail1_tv_total);
             btn_detail = iv.findViewById(R.id.itemHoaDonPhong_btn_detail);
-            layout_linearOrderDetail = iv.findViewById(R.id.itemOrderDetail1_layout_linearOrderDetail);
+            linear_orderDetail = iv.findViewById(R.id.itemOrderDetail1_linear_orderDetail1);
         }
     }
 }

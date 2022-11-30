@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp">
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/actiHDCT_img_back"
             android:layout_width="wrap_content"
             android:src="@drawable/ic_back_25"
             android:onClick="handleActionBack"

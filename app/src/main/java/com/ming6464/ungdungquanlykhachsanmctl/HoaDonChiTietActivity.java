@@ -9,6 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -67,10 +68,12 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
         if(b){
             constrain_order.setVisibility(View.VISIBLE);
             pg_load.setVisibility(View.GONE);
+            findViewById(R.id.actiHDCT_img_back).setVisibility(View.VISIBLE);
             return;
         }
         constrain_order.setVisibility(View.GONE);
         pg_load.setVisibility(View.VISIBLE);
+        findViewById(R.id.actiHDCT_img_back).setVisibility(View.GONE);
     }
 
     private void handleAction() {
@@ -110,7 +113,7 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
     private void addOrderDetail() {
         TextView tv_room,tv_roomPrice,tv_checkIn,tv_checkOut,tv_serviceFee,tv_roomFee,tv_hours;
         RecyclerView rc_service;
-        LinearLayoutCompat linear = findViewById(R.id.actiHDCT_Linear_orderDetail);
+        LinearLayoutCompat linear = findViewById(R.id.actiHDCT_Linear_orderDetail),linear_orderDetail;
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy  HH");
         NumberFormat format = NumberFormat.getInstance(new Locale("vi","VN"));
         ServiceOfOrderDetailAdapter subAdapter;
@@ -124,10 +127,17 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
             tv_serviceFee = itemView.findViewById(R.id.itemOrderDetail2_tv_serviceFee);
             tv_roomFee = itemView.findViewById(R.id.itemOrderDetail2_tv_roomFee);
             rc_service = itemView.findViewById(R.id.itemOrderDetail2_rc_service);
+            linear_orderDetail = itemView.findViewById(R.id.itemOrderDetail2_linear_orderDetail2);
             ////
             tv_checkIn.setText("Check In :  "  + sdf.format(x.getStartDate()) + "h");
             tv_checkOut.setText("Check In :  "  + sdf.format(x.getEndDate()) + "h");
             tv_room.setText(x.getRoomID());
+            if(x.getStatus() == 1)
+                linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_thanhtoan);
+            else if(x.getStatus() == 2)
+                linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_dattruoc);
+            else  if(x.getStatus() == 4)
+                linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_huyphong);
             int roomPrice = dao.getCategoryWithRoomId(x.getRoomID()).getPrice();
             tv_roomPrice.setText("Giá Phòng :  " + format.format(roomPrice) + " đ");
             int hours = (int) (x.getEndDate().getTime() - x.getStartDate().getTime())/3600000;
@@ -147,14 +157,14 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
     }
 
     private void handleInfoCustomer() {
-        ed_fullName.setText("  " + customerObj.getFullName());
-        ed_CCCD.setText("  " + customerObj.getCCCD());
-        ed_address.setText("  " + customerObj.getAddress());
-        ed_phoneNumber.setText("  " + customerObj.getSDT());
+        ed_fullName.setText(customerObj.getFullName());
+        ed_CCCD.setText(customerObj.getCCCD());
+        ed_address.setText(customerObj.getAddress());
+        ed_phoneNumber.setText(customerObj.getSDT());
         String sex = "Nam";
         if(customerObj.getSex() == 0)
             sex  = "Nữ";
-        ed_sex.setText("  " + sex);
+        ed_sex.setText(sex);
     }
 
     private void handleToolbar() {

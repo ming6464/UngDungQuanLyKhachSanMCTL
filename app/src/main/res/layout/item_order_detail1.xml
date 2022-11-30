@@ -8,172 +8,166 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/borderblack12_corner8"
+        android:background="@drawable/background_hoadon_chuathanhtoan"
         android:orientation="vertical"
+        android:id="@+id/itemOrderDetail1_linear_orderDetail1"
         android:layout_marginTop="20dp"
+        android:padding="10dp"
         android:layout_marginStart="10dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_marginTop="15dp"
+            android:id="@+id/itemOrderDetail1_tv_fullName"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content"
+            android:background="@drawable/white_corner10"
+            android:gravity="center_horizontal"
+            android:fontFamily="@font/overpass_extrabold"
+            android:text="Nguyễn Gia Minh"
+            android:textStyle="bold"
+            android:textColor="#16013C"
+            android:textSize="18sp"
+            app:textAllCaps="true" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/itemOrderDetail1_tv_phoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/overpass_bold"
+            android:text="Số Điện Thoại :  0123456789"
+            android:textColor="#100423"
+            android:textSize="15sp"
+            app:textAllCaps="true" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:id="@+id/itemOrderDetail1_layout_linearOrderDetail"
-            android:background="@color/hoadon_chuathanhtoan"
-            android:orientation="vertical">
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
             <androidx.appcompat.widget.AppCompatTextView
-                android:layout_marginTop="15dp"
-                android:id="@+id/itemOrderDetail1_tv_fullName"
-                android:layout_width="wrap_content"
-                android:layout_gravity="center_horizontal"
+                android:id="@+id/itemOrderDetail1_tv_checkIn"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/white_corner10"
-                android:gravity="center_horizontal"
-                android:fontFamily="@font/overpass_extrabold"
-                android:text="Nguyễn Gia Minh"
-                android:textStyle="bold"
-                android:textColor="#16013C"
-                android:textSize="18sp"
-                app:textAllCaps="true" />
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_marginTop="10dp"
-                android:id="@+id/itemOrderDetail1_tv_phoneNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_weight="6"
                 android:fontFamily="@font/overpass_bold"
-                android:text="Số Điện Thoại :  0123456789"
+                android:text="Ngày nhận: 16/09/2003"
                 android:textColor="#100423"
                 android:textSize="15sp"
                 app:textAllCaps="true" />
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/itemOrderDetail1_tv_hourCheckIn"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:weightSum="10">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/itemOrderDetail1_tv_checkIn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6"
-                    android:fontFamily="@font/overpass_bold"
-                    android:text="Ngày nhận: 16/09/2003"
-                    android:textColor="#100423"
-                    android:textSize="15sp"
-                    app:textAllCaps="true" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/itemOrderDetail1_tv_hourCheckIn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:fontFamily="@font/overpass_bold"
-                    android:text="Thời gian (h): 10"
-                    android:textColor="#100423"
-                    android:textSize="15sp"
-                    app:textAllCaps="true" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:weightSum="10">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/itemOrderDetail1_tv_checkOut"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6"
-                    android:fontFamily="@font/overpass_bold"
-                    android:text="Ngày trả: 16/09/2003"
-                    android:textColor="#100423"
-                    android:textSize="15sp"
-                    app:textAllCaps="true" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/itemOrderDetail1_tv_hourCheckOut"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:fontFamily="@font/overpass_bold"
-                    android:text="Thời gian (h): 10"
-                    android:textColor="#100423"
-                    android:textSize="15sp"
-                    app:textAllCaps="true" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/overpass_bold"
-                    android:text="Trạng thái: "
-                    android:textColor="#100423"
-                    android:textSize="15sp"
-                    app:textAllCaps="true" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/itemOrderDetail1_tv_status"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/overpass_bold"
-                    android:gravity="center"
-                    android:text="Đang Sử Dụng"
-                    android:textColor="#DA0909"
-                    android:textSize="16sp"
-                    app:textAllCaps="false" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/overpass_bold"
-                    android:text="Tổng Tiền: "
-                    android:textColor="#100423"
-                    android:textSize="15sp"
-                    app:textAllCaps="true" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/itemOrderDetail1_tv_total"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/overpass_semibold"
-                    android:gravity="center"
-                    android:text="24.000.000 đ"
-                    android:textColor="#DA0909"
-                    android:textSize="15.5sp"
-                    android:textStyle="bold"
-                    app:textAllCaps="false" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/itemHoaDonPhong_btn_detail"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="40dp"
-                android:background="@drawable/btn_2"
+                android:layout_weight="4"
                 android:fontFamily="@font/overpass_bold"
-                android:text="Chỉ Tiết"
-                android:textColor="@color/white"
-                android:textSize="16.5sp" />
+                android:text="Thời gian (h): 10"
+                android:textColor="#100423"
+                android:textSize="15sp"
+                app:textAllCaps="true" />
         </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/itemOrderDetail1_tv_checkOut"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:fontFamily="@font/overpass_bold"
+                android:text="Ngày trả: 16/09/2003"
+                android:textColor="#100423"
+                android:textSize="15sp"
+                app:textAllCaps="true" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/itemOrderDetail1_tv_hourCheckOut"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:fontFamily="@font/overpass_bold"
+                android:text="Thời gian (h): 10"
+                android:textColor="#100423"
+                android:textSize="15sp"
+                app:textAllCaps="true" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/overpass_bold"
+                android:text="Trạng thái: "
+                android:textColor="#100423"
+                android:textSize="15sp"
+                app:textAllCaps="true" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/itemOrderDetail1_tv_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/overpass_bold"
+                android:gravity="center"
+                android:text="Đang Sử Dụng"
+                android:textColor="#DA0909"
+                android:textSize="16sp"
+                app:textAllCaps="false" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/overpass_bold"
+                android:text="Tổng Tiền: "
+                android:textColor="#100423"
+                android:textSize="15sp"
+                app:textAllCaps="true" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/itemOrderDetail1_tv_total"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/overpass_semibold"
+                android:gravity="center"
+                android:text="24.000.000 đ"
+                android:textColor="#DA0909"
+                android:textSize="15.5sp"
+                android:textStyle="bold"
+                app:textAllCaps="false" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/itemHoaDonPhong_btn_detail"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/btn_2"
+            android:fontFamily="@font/overpass_bold"
+            android:text="Chỉ Tiết"
+            android:textColor="@color/white"
+            android:textSize="16.5sp" />
     </androidx.appcompat.widget.LinearLayoutCompat>
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/itemOrderDetail1_tv_room"
@@ -181,7 +175,7 @@
         android:layout_height="70dp"
         android:fontFamily="@font/overpass_extrabold"
         android:gravity="center"
-        android:background="@drawable/white_circle_stroke_red"
+        android:background="@drawable/red_circle"
         android:text="103"
         android:textColor="@color/white"
         android:textSize="25sp"

@@ -16,7 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.ming6464.ungdungquanlykhachsanmctl.Adapter.OrderAdapter;
+import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ItemHoaDonAdapter;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Orders;
 import com.ming6464.ungdungquanlykhachsanmctl.HoaDonChiTietActivity;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDAO;
@@ -26,11 +26,11 @@ import com.ming6464.ungdungquanlykhachsanmctl.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HoaDonFragment extends Fragment implements OrderAdapter.EventOfOrderAdapter {
+public class HoaDonFragment extends Fragment implements ItemHoaDonAdapter.EventOfOrderAdapter {
     private Spinner sp_status;
     private RecyclerView rc_hoaDon;
     private List<Orders> orderList;
-    private OrderAdapter orderAdapter;
+    private ItemHoaDonAdapter orderAdapter;
     private KhachSanDAO dao;
     public static final String KEY_ORDER = "KEY_ORDER";
     public static HoaDonFragment newInstance() {
@@ -87,7 +87,7 @@ public class HoaDonFragment extends Fragment implements OrderAdapter.EventOfOrde
     }
 
     private void handlerRcHoaDon() {
-        orderAdapter = new OrderAdapter(requireContext(),this);
+        orderAdapter = new ItemHoaDonAdapter(requireContext(),this);
         rc_hoaDon.setAdapter(orderAdapter);
         rc_hoaDon.setLayoutManager(new LinearLayoutManager(requireContext()));
     }

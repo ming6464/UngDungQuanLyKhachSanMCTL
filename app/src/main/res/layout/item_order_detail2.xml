@@ -8,9 +8,10 @@
         android:paddingTop="10dp"
         android:layout_marginTop="10dp"
         android:paddingEnd="5dp"
-        android:background="@drawable/red7_strokeblack12_corner8"
+        android:background="@drawable/background_hoadon_chuathanhtoan"
         android:paddingStart="5dp"
         android:paddingBottom="10dp"
+        android:id="@+id/itemOrderDetail2_linear_orderDetail2"
         android:layout_height="match_parent"
         android:orientation="vertical">
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -20,10 +21,10 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/itemOrderDetail2_tv_room"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/white_circle_stroke_red"
+                android:background="@drawable/red_circle"
                 android:fontFamily="@font/overpass_extrabold"
                 android:gravity="center"
                 android:text="103"
