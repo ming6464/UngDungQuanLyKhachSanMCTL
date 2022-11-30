@@ -14,11 +14,11 @@ import com.ming6464.ungdungquanlykhachsanmctl.R;
 
 import java.util.List;
 
-public class ItemServiceOrderAdapter extends RecyclerView.Adapter<ItemServiceOrderAdapter.MyViewHolder>{
+public class ItemService1Adapter extends RecyclerView.Adapter<ItemService1Adapter.MyViewHolder>{
     private List<Services> list;
-    private EventOfServiceOrder action;
+    private EventOfItemService1Adapter action;
 
-    public ItemServiceOrderAdapter(EventOfServiceOrder action){
+    public ItemService1Adapter(EventOfItemService1Adapter action){
         this.action = action;
     }
     public void setData(List<Services> list){
@@ -31,7 +31,7 @@ public class ItemServiceOrderAdapter extends RecyclerView.Adapter<ItemServiceOrd
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_service_order,parent,false));
+        return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_service_1,parent,false));
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ItemServiceOrderAdapter extends RecyclerView.Adapter<ItemServiceOrd
         return list.size();
     }
 
-    public interface EventOfServiceOrder{
+    public interface EventOfItemService1Adapter{
         void cancel(int position);
     }
 
@@ -56,8 +56,8 @@ public class ItemServiceOrderAdapter extends RecyclerView.Adapter<ItemServiceOrd
         ImageButton imgBtn_cancel;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            tv_name = itemView.findViewById(R.id.itemServiceOrder_tv_name);
-            imgBtn_cancel = itemView.findViewById(R.id.itemServiceOrder_imgBtn_cancel);
+            tv_name = itemView.findViewById(R.id.itemService1_tv_name);
+            imgBtn_cancel = itemView.findViewById(R.id.itemService1_imgBtn_cancel);
         }
     }
 }

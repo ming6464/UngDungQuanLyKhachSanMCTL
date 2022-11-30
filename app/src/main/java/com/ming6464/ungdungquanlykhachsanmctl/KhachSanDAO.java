@@ -19,12 +19,13 @@ import java.util.List;
 
 @Dao
 public abstract class KhachSanDAO {
-    // Loại phòng
+    // categories
     @Query("SELECT * FROM categories")
     public abstract List<Categories> getAllOfLoaiPhong();
 
     @Insert
     public abstract void insertOfLoaiPhong(Categories obj);
+
 
     //services
     @Insert
@@ -40,6 +41,14 @@ public abstract class KhachSanDAO {
         List<Services> list = new ArrayList<>();
         for (ServiceOrder x : getListWithOrderDetailIdOfServiceOrder(id)){
             list.add(getWithIdOfServices(x.getServiceId()));
+        }
+        return list;
+    }
+
+    public List<Services> getListWithRoomIdOfServices(String id){
+        List<Services> list = new ArrayList<>();
+        for (ServiceCategory x : getListWithCategoryIdOfServiceCategory(getWithIDOfRooms(id).getCategoryID())){
+            list.add(getWithIdOfServices(x.getServiceID()));
         }
         return list;
     }
@@ -73,7 +82,7 @@ public abstract class KhachSanDAO {
     public abstract void insertOfServiceCategory(ServiceCategory obj);
 
     @Query("SELECT * FROM ServiceCategory WHERE categoryID = :id")
-    public abstract List<ServiceCategory> getListObjOfServiceCategory(int id);
+    public abstract List<ServiceCategory> getListWithCategoryIdOfServiceCategory(int id);
 
 
     //Rooms
@@ -131,7 +140,7 @@ public abstract class KhachSanDAO {
         obj.setStatus(1);
         updateOfOrders(obj);
         for(OrderDetail x : getListWithOrderIdOfOrderDetail(obj.getId())){
-            checkOutRoomOfOrderDetail(x);
+            checkOutOfOrderDetail(x);
         }
     }
     @Query("SELECT * FROM Orders WHERE status = :status")
@@ -187,28 +196,24 @@ public abstract class KhachSanDAO {
 
     public void checkOutOfOrderDetail(OrderDetail obj) {
         obj.setStatus(1);
-        updateOfOrderDetail(obj);
-        updateStatusWithIdOfRooms(obj.getRoomID(), 0);
-    }
-
-    @Delete
-    public abstract void deleteObjOfOrderDetail(OrderDetail obj);
-
-    public void deleteOfOrderDetail(OrderDetail obj) {
-        updateTotalOfOrders(obj.getOrderID(), getPriceWithIdOfRooms(obj.getRoomID()) * (-1));
-        deleteObjOfOrderDetail(obj);
-    }
-
-    @Query("SELECT MAX(id) FROM orderdetail")
-    public abstract int getNewIdOfOrderDetail();
-
-    public void checkOutRoomOfOrderDetail(OrderDetail obj){
-        obj.setStatus(1);
         Rooms rooms = getWithIDOfRooms(obj.getRoomID());
         rooms.setStatus(0);
         updateOfOrderDetail(obj);
         updateOfRooms(rooms);
     }
+    public void checkInOfOrderDetail(OrderDetail obj) {
+        obj.setStatus(3);
+        Rooms rooms = getWithIDOfRooms(obj.getRoomID());
+        rooms.setStatus(0);
+        updateOfOrderDetail(obj);
+        updateOfRooms(rooms);
+    }
+
+    @Query("SELECT * FROM ORDERDETAIL WHERE ROOMID = :id")
+    public abstract OrderDetail getWithRoomIdOfOrderDetail (String id);
+
+    @Query("SELECT MAX(id) FROM orderdetail")
+    public abstract int getNewIdOfOrderDetail();
 
     //serviceOrder
     @Insert

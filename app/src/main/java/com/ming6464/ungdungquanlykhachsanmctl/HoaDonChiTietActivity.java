@@ -9,7 +9,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -20,7 +19,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ServiceOfOrderDetailAdapter;
+import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ItemService3Adapter;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.OrderDetail;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Orders;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
@@ -116,7 +115,7 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
         LinearLayoutCompat linear = findViewById(R.id.actiHDCT_Linear_orderDetail),linear_orderDetail;
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy  HH");
         NumberFormat format = NumberFormat.getInstance(new Locale("vi","VN"));
-        ServiceOfOrderDetailAdapter subAdapter;
+        ItemService3Adapter subAdapter;
         for(OrderDetail x : dao.getListWithOrderIdOfOrderDetail(ordersObj.getId())){
             View itemView = LayoutInflater.from(linear.getContext()).inflate(R.layout.item_order_detail2,null);
             tv_room = itemView.findViewById(R.id.itemOrderDetail2_tv_room);
@@ -147,7 +146,7 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
             int serviceFee = dao.getTotalServiceWithOrderDetailId(x.getId());
             totalService += serviceFee;
             tv_serviceFee.setText(format.format(serviceFee) + " đ");
-            subAdapter = new ServiceOfOrderDetailAdapter();
+            subAdapter = new ItemService3Adapter();
             subAdapter.setData(dao.getListWithOrderDetailIdOfService(x.getId()),
                     dao.getListWithOrderDetailIdOfServiceOrder(x.getId()));
             rc_service.setAdapter(subAdapter);

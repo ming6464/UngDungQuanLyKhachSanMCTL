@@ -1,6 +1,5 @@
 package com.ming6464.ungdungquanlykhachsanmctl.Adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +16,12 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class ServiceOfOrderDetailAdapter extends RecyclerView.Adapter<ServiceOfOrderDetailAdapter.MyViewHolder> {
+public class ItemService3Adapter extends RecyclerView.Adapter<ItemService3Adapter.MyViewHolder> {
     private List<Services> serviceList;
     private List<ServiceOrder> serviceOrderList;
     private NumberFormat format;
 
-    public ServiceOfOrderDetailAdapter(){
+    public ItemService3Adapter(){
         format = NumberFormat.getInstance(new Locale("vi","VN"));
     }
 
@@ -36,7 +35,7 @@ public class ServiceOfOrderDetailAdapter extends RecyclerView.Adapter<ServiceOfO
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_service_order_detail,parent,false));
+        return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_service_3,parent,false));
     }
 
     @Override
@@ -59,9 +58,9 @@ public class ServiceOfOrderDetailAdapter extends RecyclerView.Adapter<ServiceOfO
         private TextView tv_name,tv_amount,tv_price;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            tv_name = itemView.findViewById(R.id.itemServiceOrderDetail_tv_name);
-            tv_amount = itemView.findViewById(R.id.itemServiceOrderDetail_tv_amount);
-            tv_price = itemView.findViewById(R.id.itemServiceOrderDetail_tv_price);
+            tv_name = itemView.findViewById(R.id.itemService3_tv_name);
+            tv_amount = itemView.findViewById(R.id.itemService3_tv_amount);
+            tv_price = itemView.findViewById(R.id.itemService3_tv_price);
         }
     }
 }

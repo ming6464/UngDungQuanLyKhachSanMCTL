@@ -22,6 +22,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ItemOrderDetail1Adapter;
+import com.ming6464.ungdungquanlykhachsanmctl.AddServiceActivity;
+import com.ming6464.ungdungquanlykhachsanmctl.CustomToast;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.OrderDetail;
 import com.ming6464.ungdungquanlykhachsanmctl.HoaDonChiTietActivity;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDAO;
@@ -35,8 +37,8 @@ import java.util.List;
 public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1Adapter.OnEventOfOrderDetailAdpater {
     private List<OrderDetail> list;
     private KhachSanDAO dao;
-    private RecyclerView rc_orderDetail;
     private ItemOrderDetail1Adapter adapter;
+    public static final String KEY_ROOMID = "KEY_ROOMID";
     public static Fragment_HoaDon_Phong newInstance() {
         Fragment_HoaDon_Phong fragment = new Fragment_HoaDon_Phong();
         return fragment;
@@ -60,7 +62,7 @@ public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1A
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         list = new ArrayList<>();
-        rc_orderDetail = view.findViewById(R.id.fragHoaDonPhong_rc);
+        RecyclerView rc_orderDetail = view.findViewById(R.id.fragHoaDonPhong_rc);
         dao = KhachSanDB.getInstance(requireContext()).getDAO();
         adapter = new ItemOrderDetail1Adapter(requireContext(),this);
         rc_orderDetail.setAdapter(adapter);
@@ -95,7 +97,9 @@ public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1A
         btn_addService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialogAddService();
+                Intent intent = new Intent(requireContext(), AddServiceActivity.class);
+                intent.putExtra(KEY_ROOMID,obj.getRoomID());
+                startActivity(intent);
                 dialog.cancel();
             }
         });
@@ -114,7 +118,10 @@ public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1A
             btn_checkOut.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(requireContext(), "CheckOut !", Toast.LENGTH_SHORT).show();
+                    dao.checkOutOfOrderDetail(obj);
+                    list.remove(position);
+                    adapter.notifyItemRemoved(position);
+                    CustomToast.makeText(requireContext(),"Trả phòng thành công !",true).show();
                     dialog.cancel();
                 }
             });
@@ -133,7 +140,4 @@ public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1A
         dialog.show();
     }
 
-    private void showDialogAddService() {
-        Dialog dialog = new Dialog(requireContext());
-    }
 }

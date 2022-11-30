@@ -21,5 +21,6 @@
     <color name="user_datTruoc">#12FFEB3B</color>
     <color name="user_nhanVien">#12FF0000</color>
     <color name="user_addmin">#707E88</color>
+    <color name="itemServicele">#4D454545</color>
 
 </resources>

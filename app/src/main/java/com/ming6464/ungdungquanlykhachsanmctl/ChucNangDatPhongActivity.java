@@ -13,7 +13,7 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ItemServiceOrderAdapter;
+import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ItemService1Adapter;
 import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ItemServiceSpinnerAdapter;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.OrderDetail;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Orders;
@@ -29,7 +29,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemServiceOrderAdapter.EventOfServiceOrder {
+public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemService1Adapter.EventOfItemService1Adapter {
     private int status,totalService = 0,hours;
     private String idRoom;
     private List<String> userListString;
@@ -41,7 +41,7 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
     private TextView tv_total,tv_room,tv_checkIn,tv_checkOut;
     private RadioButton rdo_male,rdo_newCustomer;
     private KhachSanDAO dao;
-    private ItemServiceOrderAdapter itemServiceOrderAdapter;
+    private ItemService1Adapter itemServiceOrderAdapter;
     private RecyclerView rc_service;
     private Date checkIn,checkOut;
     private KhachSanSharedPreferences share;
@@ -73,7 +73,7 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
     }
 
     private void handlerRecyclerService() {
-        itemServiceOrderAdapter = new ItemServiceOrderAdapter(this);
+        itemServiceOrderAdapter = new ItemService1Adapter(this);
         rc_service.setHasFixedSize(true);
         rc_service.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
         rc_service.setAdapter(itemServiceOrderAdapter);

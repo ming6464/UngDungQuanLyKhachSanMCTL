@@ -62,11 +62,13 @@ public class MainActivity extends AppCompatActivity {
             dao.insertOfService(new Services("Trông trẻ", 100000));
             dao.insertOfService(new Services("Đánh giày", 20000));
             dao.insertOfService(new Services("Giặt Đồ", 30000));
-            dao.insertOfService(new Services("Dịch vụ Spa", 100000));
-            dao.insertOfService(new Services("Fitness center", 100000));
-            dao.insertOfService(new Services("Xe Đưa Đón Sân Bay", 100000));
-            dao.insertOfService(new Services("Ăn tại phòng", 100000));
-            dao.insertOfService(new Services("Hội Họp, Văn Phòng", 500000));
+            dao.insertOfService(new Services("Spa", 500000));
+            dao.insertOfService(new Services("Gym", 30000));
+            dao.insertOfService(new Services("Thuê taxi", 20000));
+            dao.insertOfService(new Services("Karaoke", 100000));
+            dao.insertOfService(new Services("Két bia", 130000));
+            dao.insertOfService(new Services("Sting", 10000));
+            dao.insertOfService(new Services("Kẹo lạc", 10000));
             //rooms
             dao.insertOfRooms(new Rooms("101", 1));
             dao.insertOfRooms(new Rooms("102", 2));
