@@ -26,38 +26,14 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/tv12345"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:gravity="center"
-        android:text="Thống Kê "
-        android:textColor="@color/coNguoi"
-        android:textSize="26dp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_thong_tin" />
-
-    <View
-        android:id="@+id/viewThongKe"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_gravity="center"
-        android:layout_marginLeft="6dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="6dp"
-        android:layout_marginBottom="10dp"
-        android:background="#D5CBCB"
-        app:layout_constraintTop_toBottomOf="@+id/tv12345"
-        tools:layout_editor_absoluteX="12dp" />
 
     <LinearLayout
-        android:layout_marginTop="7dp"
         android:id="@+id/linearLayoutThongKe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/viewThongKe">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_thong_tin">
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -126,7 +102,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:padding="3dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
@@ -134,6 +109,7 @@
                 android:background="#8BCCEA"
                 android:fontFamily="@font/overpass_bold"
                 android:gravity="center"
+                android:padding="3dp"
                 android:text="Loại Phòng Đã Sử Dụng"
                 android:textColor="@color/white"
                 android:textSize="20dp" />
