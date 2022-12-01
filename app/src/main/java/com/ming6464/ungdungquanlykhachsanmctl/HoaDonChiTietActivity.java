@@ -31,14 +31,15 @@ import java.util.Locale;
 public class HoaDonChiTietActivity extends AppCompatActivity {
     private Orders ordersObj;
     private People customerObj;
-    private int total = 0,changeMoney = 0 ,totalRoom = 0, totalService = 0;
+    private int total = 0, changeMoney = 0, totalRoom = 0, totalService = 0;
     private NumberFormat format;
     private KhachSanDAO dao;
     private ConstraintLayout constrain_order;
     private ProgressBar pg_load;
-    private EditText ed_fullName,ed_sex,ed_phoneNumber,ed_CCCD,ed_address,ed_moneyOfCustomer;
-    private TextView tv_totalService,tv_totalRoom,tv_total,tv_changeMoney;
+    private EditText ed_fullName, ed_sex, ed_phoneNumber, ed_CCCD, ed_address, ed_moneyOfCustomer;
+    private TextView tv_totalService, tv_totalRoom, tv_total, tv_changeMoney;
     private Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +48,7 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
         ordersObj = (Orders) getIntent().getSerializableExtra(KEY_ORDER);
         customerObj = dao.getWithIdOfUser(ordersObj.getCustomID());
         anhXa();
-        if(ordersObj.getStatus() != 0){
+        if (ordersObj.getStatus() != 0) {
             findViewById(R.id.actiHDCT_linear_pay).setVisibility(View.GONE);
             findViewById(R.id.actiHDCT_linear_changeMoney).setVisibility(View.GONE);
         }
@@ -56,7 +57,7 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
             public void run() {
                 isShowOrder(true);
             }
-        },800);
+        }, 800);
         handleToolbar();
         handleInfoCustomer();
         handleInfoOrder();
@@ -64,7 +65,7 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
     }
 
     private void isShowOrder(boolean b) {
-        if(b){
+        if (b) {
             constrain_order.setVisibility(View.VISIBLE);
             pg_load.setVisibility(View.GONE);
             return;
@@ -83,9 +84,9 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String money = ed_moneyOfCustomer.getText().toString();
-                if(money.isEmpty()){
+                if (money.isEmpty()) {
                     tv_changeMoney.setText("0 đ");
-                }else{
+                } else {
                     changeMoney = Integer.parseInt(money) - total;
                     tv_changeMoney.setText(format.format(changeMoney) + " đ");
                 }
@@ -101,21 +102,21 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
     private void handleInfoOrder() {
         addOrderDetail();
         total = ordersObj.getTotal();
-        format = NumberFormat.getInstance(new Locale("vi","VN"));
-        tv_total.setText(format.format(total)  + " đ");
+        format = NumberFormat.getInstance(new Locale("vi", "VN"));
+        tv_total.setText(format.format(total) + " đ");
         tv_totalService.setText(format.format(totalService) + " đ");
         tv_totalRoom.setText(format.format(totalRoom) + " đ");
     }
 
     private void addOrderDetail() {
-        TextView tv_room,tv_roomPrice,tv_checkIn,tv_checkOut,tv_serviceFee,tv_roomFee,tv_hours;
+        TextView tv_room, tv_roomPrice, tv_checkIn, tv_checkOut, tv_serviceFee, tv_roomFee, tv_hours;
         RecyclerView rc_service;
         LinearLayoutCompat linear = findViewById(R.id.actiHDCT_Linear_orderDetail);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy  HH");
-        NumberFormat format = NumberFormat.getInstance(new Locale("vi","VN"));
+        NumberFormat format = NumberFormat.getInstance(new Locale("vi", "VN"));
         ServiceOfOrderDetailAdapter subAdapter;
-        for(OrderDetail x : dao.getListWithOrderIdOfOrderDetail(ordersObj.getId())){
-            View itemView = LayoutInflater.from(linear.getContext()).inflate(R.layout.item_order_detail,null);
+        for (OrderDetail x : dao.getListWithOrderIdOfOrderDetail(ordersObj.getId())) {
+            View itemView = LayoutInflater.from(linear.getContext()).inflate(R.layout.item_order_detail, null);
             tv_room = itemView.findViewById(R.id.itemOrderDetail_tv_room);
             tv_roomPrice = itemView.findViewById(R.id.itemOrderDetail_tv_roomPrice);
             tv_hours = itemView.findViewById(R.id.itemOrderDetail_tv_hours);
@@ -125,12 +126,12 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
             tv_roomFee = itemView.findViewById(R.id.itemOrderDetail_tv_roomFee);
             rc_service = itemView.findViewById(R.id.itemOrderDetail_rc_service);
             ////
-            tv_checkIn.setText("Check In :  "  + sdf.format(x.getStartDate()) + "h");
-            tv_checkOut.setText("Check In :  "  + sdf.format(x.getEndDate()) + "h");
+            tv_checkIn.setText("Check In :  " + sdf.format(x.getStartDate()) + "h");
+            tv_checkOut.setText("Check In :  " + sdf.format(x.getEndDate()) + "h");
             tv_room.setText(dao.getWithIDOfRooms(x.getRoomID()).getName());
             int roomPrice = dao.getCategoryWithRoomId(x.getRoomID()).getPrice();
             tv_roomPrice.setText("Giá Phòng :  " + format.format(roomPrice) + " đ");
-            int hours = (int) (x.getEndDate().getTime() - x.getStartDate().getTime())/3600000;
+            int hours = (int) (x.getEndDate().getTime() - x.getStartDate().getTime()) / 3600000;
             tv_hours.setText(hours + "h");
             totalRoom += roomPrice * hours;
             tv_roomFee.setText(format.format(roomPrice * hours) + " đ");
@@ -152,8 +153,8 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
         ed_address.setText("  " + customerObj.getAddress());
         ed_phoneNumber.setText("  " + customerObj.getSDT());
         String sex = "Nam";
-        if(customerObj.getSex() == 0)
-            sex  = "Nữ";
+        if (customerObj.getSex() == 0)
+            sex = "Nữ";
         ed_sex.setText("  " + sex);
     }
 
@@ -183,19 +184,18 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
     }
 
     public void handleActionPay(View view) {
-        if(!ed_moneyOfCustomer.getText().toString().isEmpty() && changeMoney >= 0){
+        if (!ed_moneyOfCustomer.getText().toString().isEmpty() && changeMoney >= 0) {
             ordersObj.setStatus(1);
             dao.checkOutRoomOfOrder(ordersObj.getId());
             isShowOrder(false);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    CustomToast.makeText(HoaDonChiTietActivity.this,"Thanh toán thành công !",true).show();
+                    CustomToast.makeText(HoaDonChiTietActivity.this, "Thanh toán thành công !", true).show();
                     finish();
                 }
-            },1000);
-        }
-        else
-            CustomToast.makeText(this,"Khách đưa thiếu !",false).show();
+            }, 1000);
+        } else
+            CustomToast.makeText(this, "Khách đưa thiếu !", false).show();
     }
 }

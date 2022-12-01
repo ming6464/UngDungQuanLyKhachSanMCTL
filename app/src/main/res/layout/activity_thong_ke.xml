@@ -4,6 +4,226 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activiti_User.Activity_ThongKe">
+    android:orientation="vertical"
+    tools:context=".Activiti_User.Activity_DoiPass">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_thong_tin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3144AE"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv1234"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="100dp"
+            android:fontFamily="@font/overpass_bold"
+            android:text="Thống kê"
+            android:textColor="#FFFFFF" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/tv12345"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="Thống Kê "
+        android:textColor="@color/coNguoi"
+        android:textSize="26dp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_thong_tin" />
+
+    <View
+        android:id="@+id/viewThongKe"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginBottom="10dp"
+        android:background="#D5CBCB"
+        app:layout_constraintTop_toBottomOf="@+id/tv12345"
+        tools:layout_editor_absoluteX="12dp" />
+
+    <LinearLayout
+        android:layout_marginTop="7dp"
+        android:id="@+id/linearLayoutThongKe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/viewThongKe">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:hint="Ngày Đến (*)"
+            android:textSize="14sp"
+            app:boxBackgroundColor="@color/white"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusBottomEnd="5dp"
+            app:boxCornerRadiusBottomStart="5dp"
+            app:boxCornerRadiusTopEnd="5dp"
+            app:boxCornerRadiusTopStart="5dp"
+            app:hintTextColor="@color/purple_700"
+            app:startIconDrawable="@drawable/lich_123"
+            app:startIconTint="@null">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edNgayDen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="false"
+                android:fontFamily="@font/overpass_bold"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:hint="Ngày Đi (*)"
+            android:textSize="14sp"
+            app:boxBackgroundColor="@color/white"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusBottomEnd="5dp"
+            app:boxCornerRadiusBottomStart="5dp"
+            app:boxCornerRadiusTopEnd="5dp"
+            app:boxCornerRadiusTopStart="5dp"
+            app:hintTextColor="@color/purple_700"
+            app:startIconDrawable="@drawable/lich_123"
+            app:startIconTint="@null">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edNgayDi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="false"
+                android:fontFamily="@font/overpass_bold"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/ScrollViewThongKe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutThongKe">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:padding="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="5dp"
+                android:background="#8BCCEA"
+                android:fontFamily="@font/overpass_bold"
+                android:gravity="center"
+                android:text="Loại Phòng Đã Sử Dụng"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recylerViewPhong"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="5dp"
+                android:background="#8BCCEA"
+                android:fontFamily="@font/overpass_bold"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="Dịch Vụ Đã Dùng"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recylerViewDichVu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/red7_borderblack12_corner8"
+        android:orientation="vertical"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ScrollViewThongKe">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/overpass_bold"
+            android:text="Tổng Tiền Dịch Vụ"
+            android:textColor="#0C4573"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/actiHDCT_tv_totalService"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/overpass_bold"
+            android:text="3.900.000 đ"
+            android:textColor="#E6E80303"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/overpass_bold"
+            android:text="Tổng Tiền Phòng"
+            android:textColor="#0C4573"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/actiHDCT_tv_totalService" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/actiHDCT_tv_totalRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/overpass_bold"
+            android:text="3.900.000 đ"
+            android:textColor="#E6E80303"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/actiHDCT_tv_totalService" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
