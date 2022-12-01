@@ -61,7 +61,7 @@ public class ItemOrderDetail1Adapter extends RecyclerView.Adapter<ItemOrderDetai
         h.tv_fullName.setText(people.getFullName());
         h.tv_phoneNumber.setText("Số Điện Thoại :  " + people.getSDT());
         String status = "Đang Sử Dụng";
-        if(obj.getStatus() == 2){
+        if(obj.getStatus() == 2 || obj.getStatus() == 3){
             status = "Đặt Trước";
             h.linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_dattruoc);
         }

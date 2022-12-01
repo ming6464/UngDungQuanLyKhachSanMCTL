@@ -277,7 +277,10 @@ public abstract class KhachSanDAO {
     @Query("SELECT SUM(PRICE * AMOUNT) FROM SERVICES AS A, SERVICEORDER WHERE A.ID = SERVICEID AND ORDERDETAILID = :id")
     public abstract int getTotalServiceWithOrderDetailId(int id);
     
-    @Query("SELECT * FROM ROOMS WHERE id NOT IN (SELECT ROOMID FROM ORDERDETAIL WHERE ((:checkInt BETWEEN STARTDATE AND ENDDATE) OR (STARTDATE BETWEEN :checkInt AND :checkOut)) AND STATUS != 1)")
-    public abstract List<Rooms> getListRoomWithTime (Date checkInt,Date checkOut);
+    @Query("SELECT * FROM ROOMS WHERE id NOT IN (SELECT ROOMID FROM ORDERDETAIL WHERE ((:checkInt BETWEEN STARTDATE AND ENDDATE) OR (STARTDATE BETWEEN :checkInt AND :checkOut)) AND (STATUS = 0 OR STATUS = 2))")
+    public abstract List<Rooms> getListRoomEmptyWithTime (Date checkInt,Date checkOut);
+
+    @Query("SELECT COUNT(*) FROM ORDERDETAIL WHERE STARTDATE = :checkIn AND STATUS != 2")
+    public abstract int getCountListOrderDetailWithTime(Date checkIn);
 
 }

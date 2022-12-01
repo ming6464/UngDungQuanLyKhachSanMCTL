@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#DA0909</color>
+    <color name="blue">#0C4573</color>
 
     <color name="phongTrong">#27CD2E</color>
     <color name="coNguoi">#F41A0A</color>

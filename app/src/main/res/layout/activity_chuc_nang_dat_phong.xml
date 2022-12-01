@@ -16,7 +16,7 @@
         android:id="@+id/thongtin"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:fontFamily="@font/overpass_semibold"
+        android:fontFamily="@font/overpass_extrabold"
         android:text="Thông Tin Phòng Đặt"
         app:layout_constraintTop_toTopOf="parent"
         android:gravity="center"
@@ -80,10 +80,11 @@
                     android:orientation="vertical">
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:textColorHint="#394CF1"
+                        app:boxBackgroundColor="#12575050"
+                        app:boxStrokeColor="#02129A"
                         android:layout_width="match_parent"
                         app:boxBackgroundMode="outline"
-                        app:boxBackgroundColor="@color/white"
-                        app:boxStrokeColor="@color/purple_700"
                         app:boxCornerRadiusBottomEnd="5dp"
                         app:startIconTint="@color/black"
                         app:boxCornerRadiusTopEnd="5dp"
@@ -95,7 +96,7 @@
                         android:layout_height="wrap_content">
                         <androidx.appcompat.widget.AppCompatEditText
                             android:layout_width="match_parent"
-                            android:textSize="20dp"
+                            android:textSize="17dp"
                             android:fontFamily="@font/overpass_semibold"
                             android:id="@+id/actiCNDP_ed_fullName"
                             android:textColor="@color/black"
@@ -125,10 +126,11 @@
                             android:layout_height="wrap_content"/>
                     </RadioGroup>
                     <com.google.android.material.textfield.TextInputLayout
+                        android:textColorHint="#394CF1"
+                        app:boxBackgroundColor="#12575050"
+                        app:boxStrokeColor="#02129A"
                         android:layout_width="match_parent"
                         app:boxBackgroundMode="outline"
-                        app:boxBackgroundColor="@color/white"
-                        app:boxStrokeColor="@color/purple_700"
                         app:boxCornerRadiusBottomEnd="5dp"
                         app:boxCornerRadiusTopEnd="5dp"
                         app:counterMaxLength="10"
@@ -142,7 +144,7 @@
                         android:layout_height="wrap_content">
                         <androidx.appcompat.widget.AppCompatEditText
                             android:layout_width="match_parent"
-                            android:textSize="20dp"
+                            android:textSize="17dp"
                             android:fontFamily="@font/overpass_semibold"
                             android:maxLength="10"
                             android:id="@+id/actiCNDP_ed_phoneNumber"
@@ -151,10 +153,11 @@
                             android:layout_height="match_parent"/>
                     </com.google.android.material.textfield.TextInputLayout>
                     <com.google.android.material.textfield.TextInputLayout
+                        android:textColorHint="#394CF1"
+                        app:boxBackgroundColor="#12575050"
+                        app:boxStrokeColor="#02129A"
                         android:layout_width="match_parent"
                         app:boxBackgroundMode="outline"
-                        app:boxBackgroundColor="@color/white"
-                        app:boxStrokeColor="@color/purple_700"
                         app:counterMaxLength="12"
                         app:counterEnabled="true"
                         app:boxCornerRadiusBottomEnd="5dp"
@@ -168,7 +171,7 @@
                         android:layout_height="wrap_content">
                         <androidx.appcompat.widget.AppCompatEditText
                             android:layout_width="match_parent"
-                            android:textSize="20dp"
+                            android:textSize="17dp"
                             android:fontFamily="@font/overpass_semibold"
                             android:maxLength="13"
                             android:id="@+id/actiCNDP_ed_CCCD"
@@ -177,10 +180,11 @@
                             android:layout_height="match_parent"/>
                     </com.google.android.material.textfield.TextInputLayout>
                     <com.google.android.material.textfield.TextInputLayout
+                        android:textColorHint="#394CF1"
+                        app:boxBackgroundColor="#12575050"
+                        app:boxStrokeColor="#02129A"
                         android:layout_width="match_parent"
                         app:boxBackgroundMode="outline"
-                        app:boxBackgroundColor="@color/white"
-                        app:boxStrokeColor="@color/purple_700"
                         app:boxCornerRadiusBottomEnd="5dp"
                         app:boxCornerRadiusTopEnd="5dp"
                         app:boxCornerRadiusTopStart="5dp"
@@ -197,7 +201,7 @@
                             android:layout_height="match_parent"
                             android:fontFamily="@font/overpass_semibold"
                             android:textColor="@color/black"
-                            android:textSize="20dp" />
+                            android:textSize="17dp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -205,13 +209,14 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
+                android:layout_marginTop="5dp"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
+                    android:textSize="17sp"
                     android:textStyle="bold"
                     android:fontFamily="@font/overpass_semibold"
                     android:textColor="#085FA6"
@@ -228,7 +233,7 @@
                         android:id="@+id/actiCNDP_rdo_oldCustomer"
                         android:text="Cũ"
                         android:fontFamily="@font/overpass_semibold"
-                        android:onClick="hanlderActionRdoOldCustomer"
+                        android:onClick="handleActionRdoOldCustomer"
                         android:layout_marginEnd="30dp"
                         android:textSize="17sp"
                         android:textColor="#0C4573"
@@ -237,7 +242,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Mới"
-                        android:onClick="hanlderActionRdoNewCustomer"
+                        android:onClick="handleActionRdoNewCustomer"
                         android:id="@+id/actiCNDP_rdo_newCustomer"
                         android:checked="true"
                         android:textSize="17sp"
@@ -250,6 +255,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_marginTop="5dp"
                 android:layout_marginBottom="10dp"
                 >
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -259,7 +265,7 @@
                     android:orientation="horizontal"
                     >
                     <TextView
-                        android:textSize="20sp"
+                        android:textSize="17sp"
                         android:layout_marginEnd="10dp"
                         android:textStyle="bold"
                         android:fontFamily="@font/overpass_semibold"
@@ -291,7 +297,7 @@
                         android:fontFamily="@font/overpass_semibold"
                         android:text="Check In :  "
                         android:textColor="#085FA6"
-                        android:textSize="20sp"
+                        android:textSize="17sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -304,7 +310,7 @@
                         android:fontFamily="@font/overpass_semibold"
                         android:text="30/09/2022  10h"
                         android:textColor="#0C4573"
-                        android:textSize="20sp"
+                        android:textSize="17sp"
                         app:layout_constraintStart_toEndOf="@+id/textView"
                         app:layout_constraintTop_toTopOf="parent" />
                     <TextView
@@ -315,7 +321,7 @@
                         android:fontFamily="@font/overpass_semibold"
                         android:text="Check Out :  "
                         android:textColor="#085FA6"
-                        android:textSize="20sp"
+                        android:textSize="17sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/actiCNDP_tv_checkIn" />
@@ -329,7 +335,7 @@
                         android:fontFamily="@font/overpass_semibold"
                         android:text="30/09/2022  10h"
                         android:textColor="#0C4573"
-                        android:textSize="20sp"
+                        android:textSize="17sp"
                         app:layout_constraintStart_toEndOf="@+id/textView1"
                         app:layout_constraintTop_toBottomOf="@id/actiCNDP_tv_checkIn" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -341,7 +347,7 @@
                     android:orientation="horizontal"
                     >
                     <TextView
-                        android:textSize="20sp"
+                        android:textSize="17sp"
                         android:layout_marginEnd="10dp"
                         android:fontFamily="@font/overpass_semibold"
                         android:textColor="#085FA6"
@@ -359,11 +365,52 @@
                         android:id="@+id/actiCNDP_sp_amountOfPeople"
                         />
                 </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:layout_marginTop="17dp"
+                    android:id="@+id/actiCNDP_linear_deposit"
+                    android:layout_height="wrap_content">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="11sp"
+                        android:id="@+id/actiCNDP_tv_titleDeposit"
+                        android:textColor="@color/coNguoi"
+                        android:text="*Cọc tối thiểu 50% tổng tiền phòng"
+                        />
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/overpass_semibold"
+                            android:text="Đặt Cọc :  "
+                            android:textColor="#085FA6"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="handleActionDeposit"
+                            android:id="@+id/actiCNDP_tv_deposit"
+                            android:fontFamily="@font/overpass_extrabold"
+                            android:text="300.000 đ"
+                            android:textColor="@color/coNguoi"
+                            android:textSize="18sp"
+                            />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:id="@+id/actiCNDP_layout_services"
+                    android:id="@+id/actiCNDP_linear_services"
                     android:orientation="vertical"
                     android:layout_weight="1">
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -375,7 +422,7 @@
                         android:orientation="horizontal">
                         <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="0dp"
-                            android:textSize="20sp"
+                            android:textSize="17sp"
                             android:fontFamily="@font/overpass_semibold"
                             android:textColor="#085FA6"
                             android:textStyle="bold"
@@ -399,7 +446,7 @@
                             android:fontFamily="@font/overpass_semibold"
                             android:textStyle="bold"
                             android:gravity="center"
-                            android:onClick="hanlderActionBtnAddService"
+                            android:onClick="handleActionBtnAddService"
                             android:textSize="30sp"
                             android:id="@+id/actiCNDP_btn_addService"
                             android:background="@drawable/green_rippleblack_corner7"
@@ -470,24 +517,24 @@
             android:layout_height="60dp"
             android:layout_marginEnd="5dp"
             android:layout_weight="5"
-            android:background="@drawable/btn_3"
-            android:fontFamily="@font/overpass_semibold"
-            android:onClick="hanlderActionBtnSave"
+            android:background="@drawable/btn_4"
+            android:fontFamily="@font/overpass_extrabold"
+            android:onClick="handleActionBtnSave"
             android:text="Đặt Phòng"
             android:textAllCaps="false"
             android:textColor="#FFFDFD"
-            android:textSize="17sp" />
+            android:textSize="18sp" />
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="0dp"
-            android:background="@drawable/btn_3"
+            android:background="@drawable/btn_4"
             android:layout_weight="5"
             android:layout_marginStart="5dp"
             android:layout_height="60dp"
             android:text="Huỷ"
-            android:textSize="17sp"
+            android:textSize="18sp"
             android:textColor="#FFFDFD"
-            android:fontFamily="@font/overpass_semibold"
-            android:onClick="hanlderActionBtnCancel"
+            android:fontFamily="@font/overpass_extrabold"
+            android:onClick="handleActionBtnCancel"
             android:textAllCaps="false"
             android:id="@+id/actiCNDP_btn_cancel"
             />

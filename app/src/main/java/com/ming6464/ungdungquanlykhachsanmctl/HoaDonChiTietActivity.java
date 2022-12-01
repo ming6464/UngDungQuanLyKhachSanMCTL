@@ -31,13 +31,13 @@ import java.util.Locale;
 public class HoaDonChiTietActivity extends AppCompatActivity {
     private Orders ordersObj;
     private People customerObj;
-    private int total = 0,changeMoney = 0 ,totalRoom = 0, totalService = 0;
+    private int total = 0,changeMoney = 0 ,totalRoom = 0, totalService = 0,totalDeposit;
     private NumberFormat format;
     private KhachSanDAO dao;
     private ConstraintLayout constrain_order;
     private ProgressBar pg_load;
     private EditText ed_fullName,ed_sex,ed_phoneNumber,ed_CCCD,ed_address,ed_moneyOfCustomer;
-    private TextView tv_totalService,tv_totalRoom,tv_total,tv_changeMoney;
+    private TextView tv_totalService,tv_totalRoom,tv_total,tv_changeMoney,tv_totalDeposit;
     private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,11 +86,12 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String money = ed_moneyOfCustomer.getText().toString();
                 if(money.isEmpty()){
-                    tv_changeMoney.setText("0 đ");
-                }else{
-                    changeMoney = Integer.parseInt(money) - total;
-                    tv_changeMoney.setText(format.format(changeMoney) + " đ");
+
                 }
+                changeMoney = Integer.parseInt(money) - total + totalDeposit;
+                tv_changeMoney.setText(format.format(changeMoney) + " đ");
+                ed_moneyOfCustomer.setText(format.format(money));
+                tv_changeMoney.setText(format.format(changeMoney) + " đ");
             }
 
             @Override
@@ -103,14 +104,19 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
     private void handleInfoOrder() {
         addOrderDetail();
         total = ordersObj.getTotal();
+        int i_total = total - totalDeposit;
+        changeMoney = i_total * -1;
+        if(i_total < 0)
+            i_total = 0;
         format = NumberFormat.getInstance(new Locale("vi","VN"));
-        tv_total.setText(format.format(total)  + " đ");
+        tv_total.setText(format.format(i_total)  + " đ");
         tv_totalService.setText(format.format(totalService) + " đ");
         tv_totalRoom.setText(format.format(totalRoom) + " đ");
+        tv_totalDeposit.setText(format.format(totalDeposit) + " đ");
     }
 
     private void addOrderDetail() {
-        TextView tv_room,tv_roomPrice,tv_checkIn,tv_checkOut,tv_serviceFee,tv_roomFee,tv_hours;
+        TextView tv_room,tv_roomPrice,tv_checkIn,tv_checkOut,tv_serviceFee,tv_roomFee,tv_hours,tv_deposit;
         RecyclerView rc_service;
         LinearLayoutCompat linear = findViewById(R.id.actiHDCT_Linear_orderDetail),linear_orderDetail;
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy  HH");
@@ -125,6 +131,7 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
             tv_checkOut = itemView.findViewById(R.id.itemOrderDetail2_tv_checkOut);
             tv_serviceFee = itemView.findViewById(R.id.itemOrderDetail2_tv_serviceFee);
             tv_roomFee = itemView.findViewById(R.id.itemOrderDetail2_tv_roomFee);
+            tv_deposit = itemView.findViewById(R.id.itemOrderDetail2_tv_deposit);
             rc_service = itemView.findViewById(R.id.itemOrderDetail2_rc_service);
             linear_orderDetail = itemView.findViewById(R.id.itemOrderDetail2_linear_orderDetail2);
             ////
@@ -144,6 +151,8 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
             totalRoom += roomPrice * hours;
             tv_roomFee.setText(format.format(roomPrice * hours) + " đ");
             int serviceFee = dao.getTotalServiceWithOrderDetailId(x.getId());
+            tv_deposit.setText(format.format(x.getDeposit()) + " đ");
+            totalDeposit += x.getDeposit();
             totalService += serviceFee;
             tv_serviceFee.setText(format.format(serviceFee) + " đ");
             subAdapter = new ItemService3Adapter();
@@ -184,6 +193,7 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
         tv_totalRoom = findViewById(R.id.actiHDCT_tv_totalRoom);
         tv_totalService = findViewById(R.id.actiHDCT_tv_totalService);
         tv_changeMoney = findViewById(R.id.actiHDCT_tv_changeMoney);
+        tv_totalDeposit = findViewById(R.id.actiHDCT_tv_totalDeposit);
         toolbar = findViewById(R.id.actiHDCT_tb);
     }
 

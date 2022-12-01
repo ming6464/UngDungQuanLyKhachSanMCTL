@@ -51,7 +51,7 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
                     android:text="Thông tin khách hàng"
                     android:textStyle="bold"
                     android:layout_marginBottom="8dp"
@@ -59,23 +59,23 @@
                     android:fontFamily="@font/overpass_bold"
                     />
                 <com.google.android.material.textfield.TextInputLayout
+                    android:textColorHint="#394CF1"
                     android:layout_width="match_parent"
                     app:boxBackgroundColor="@color/white"
                     app:boxBackgroundMode="outline"
                     app:boxCornerRadiusBottomStart="5dp"
                     app:boxCornerRadiusTopStart="5dp"
                     android:hint="Họ Tên (*)"
-                    android:textSize="14sp"
                     app:boxCornerRadiusTopEnd="5dp"
                     app:boxCornerRadiusBottomEnd="5dp"
                     android:layout_height="wrap_content">
                     <androidx.appcompat.widget.AppCompatEditText
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:text="Nguyễn Văn A"
                         android:drawablePadding="10dp"
                         android:drawableLeft="@drawable/name_30"
-                        android:textSize="18sp"
+                        android:textSize="17sp"
                         android:fontFamily="@font/overpass_bold"
                         android:focusableInTouchMode="false"
                         android:textColor="@color/black"
@@ -83,6 +83,7 @@
                         />
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
+                    android:textColorHint="#394CF1"
                     android:layout_width="match_parent"
                     app:boxBackgroundColor="@color/white"
                     app:boxBackgroundMode="outline"
@@ -90,17 +91,16 @@
                     app:boxCornerRadiusTopStart="5dp"
                     app:boxCornerRadiusTopEnd="5dp"
                     android:hint="Giới Tính (*)"
-                    android:textSize="14sp"
                     app:boxCornerRadiusBottomEnd="5dp"
                     android:layout_marginTop="3dp"
                     android:layout_height="wrap_content">
                     <androidx.appcompat.widget.AppCompatEditText
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:text="Nam"
                         android:drawablePadding="10dp"
                         android:drawableLeft="@drawable/sex_30dp"
-                        android:textSize="18sp"
+                        android:textSize="17sp"
                         android:fontFamily="@font/overpass_bold"
                         android:focusableInTouchMode="false"
                         android:textColor="@color/black"
@@ -108,6 +108,7 @@
                         />
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
+                    android:textColorHint="#394CF1"
                     android:layout_width="match_parent"
                     app:boxBackgroundColor="@color/white"
                     app:boxBackgroundMode="outline"
@@ -117,13 +118,12 @@
                     app:boxCornerRadiusBottomEnd="5dp"
                     android:layout_marginTop="3dp"
                     android:hint="Số Điện Thoại (*)"
-                    android:textSize="14sp"
                     android:layout_height="wrap_content">
                     <androidx.appcompat.widget.AppCompatEditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="093412343254"
-                        android:textSize="18sp"
+                        android:textSize="17sp"
                         android:drawablePadding="10dp"
                         android:drawableLeft="@drawable/phone_30"
                         android:fontFamily="@font/overpass_bold"
@@ -133,6 +133,7 @@
                         />
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
+                    android:textColorHint="#394CF1"
                     android:layout_width="match_parent"
                     app:boxBackgroundColor="@color/white"
                     app:boxBackgroundMode="outline"
@@ -142,13 +143,12 @@
                     app:boxCornerRadiusBottomEnd="5dp"
                     android:layout_marginTop="3dp"
                     android:hint="CMND/CCCD (*)"
-                    android:textSize="14sp"
                     android:layout_height="wrap_content">
                     <androidx.appcompat.widget.AppCompatEditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="98324012342143 "
-                        android:textSize="18sp"
+                        android:textSize="17sp"
                         android:drawablePadding="10dp"
                         android:drawableLeft="@drawable/identification_30"
                         android:fontFamily="@font/overpass_bold"
@@ -158,6 +158,7 @@
                         />
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
+                    android:textColorHint="#394CF1"
                     android:layout_width="match_parent"
                     app:boxBackgroundColor="@color/white"
                     app:boxBackgroundMode="outline"
@@ -167,14 +168,13 @@
                     app:boxCornerRadiusBottomEnd="5dp"
                     android:layout_marginTop="3dp"
                     android:hint="Địa Chỉ (*)"
-                    android:textSize="14sp"
                     android:layout_height="wrap_content">
                     <androidx.appcompat.widget.AppCompatEditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="Hà Nội"
                         android:drawableLeft="@drawable/address_30"
-                        android:textSize="18sp"
+                        android:textSize="17sp"
                         android:drawablePadding="10dp"
                         android:fontFamily="@font/overpass_bold"
                         android:focusableInTouchMode="false"
@@ -185,7 +185,7 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
                     android:layout_marginTop="15dp"
                     android:text="Chi Tiết Đặt Phòng"
                     android:textStyle="bold"
@@ -218,17 +218,40 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:padding="8dp"
-                android:background="@drawable/red7_borderblack12_corner8"
-                android:orientation="vertical">
+                android:background="@drawable/red7_borderblack12_corner8">
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#0C4573"
                     android:textStyle="bold"
+                    android:text="Tổng Tiền Cọc"
+                    android:fontFamily="@font/overpass_bold"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/actiHDCT_tv_totalDeposit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/overpass_bold"
+                    android:text="3.900.000 đ"
+                    android:textColor="#E6E80303"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#0C4573"
+                    android:textStyle="bold"
+                    android:layout_marginTop="5dp"
                     android:text="Tổng Tiền Dịch Vụ"
                     android:fontFamily="@font/overpass_bold"
-                    android:textSize="20sp"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toBottomOf="@id/actiHDCT_tv_totalDeposit"
                     app:layout_constraintStart_toStartOf="parent"
                     />
 
@@ -238,11 +261,12 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/overpass_bold"
                     android:text="3.900.000 đ"
+                    android:layout_marginTop="5dp"
                     android:textColor="#E6E80303"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@id/actiHDCT_tv_totalDeposit" />
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -250,8 +274,8 @@
                     android:textStyle="bold"
                     android:text="Tổng Tiền Phòng"
                     android:fontFamily="@font/overpass_bold"
-                    android:textSize="20sp"
-                    android:layout_marginTop="10dp"
+                    android:textSize="18sp"
+                    android:layout_marginTop="5dp"
                     app:layout_constraintTop_toBottomOf="@id/actiHDCT_tv_totalService"
                     app:layout_constraintStart_toStartOf="parent"
                     />
@@ -259,12 +283,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#E6E80303"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:text="3.900.000 đ"
                     android:id="@+id/actiHDCT_tv_totalRoom"
                     android:fontFamily="@font/overpass_bold"
                     android:textStyle="bold"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     app:layout_constraintTop_toBottomOf="@id/actiHDCT_tv_totalService"
                     app:layout_constraintEnd_toEndOf="parent"
                     />
@@ -287,7 +311,7 @@
                     android:fontFamily="@font/overpass_bold"
                     android:text="Thành Tiền"
                     android:textColor="#0C4573"
-                    android:textSize="23sp"
+                    android:textSize="19sp"
                     android:textStyle="bold" />
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
@@ -300,7 +324,7 @@
                     android:id="@+id/actiHDCT_tv_total"
                     android:fontFamily="@font/overpass_bold"
                     android:textStyle="bold"
-                    android:textSize="23sp"
+                    android:textSize="19sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -314,6 +338,7 @@
                 android:layout_marginTop="5dp"
                 >
                 <com.google.android.material.textfield.TextInputLayout
+                    android:textColorHint="#394CF1"
                     android:layout_width="0dp"
                     android:layout_weight="6.3"
                     app:boxBackgroundColor="@color/white"
@@ -328,7 +353,8 @@
                     <androidx.appcompat.widget.AppCompatEditText
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textSize="18sp"
+                        android:textSize="17sp"
+                        android:text="0"
                         android:drawablePadding="10dp"
                         android:fontFamily="@font/overpass_bold"
                         android:drawableLeft="@drawable/money_25"
@@ -361,7 +387,7 @@
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
                     android:text="Trả lại"
-                    android:textColor="#0168BA"
+                    android:textColor="#0C4573"
                     android:textSize="17sp"
                     android:fontFamily="@font/overpass_bold"
                     android:textStyle="bold"
@@ -372,7 +398,7 @@
                     android:layout_height="wrap_content"
                     android:text="0 đ"
                     android:id="@+id/actiHDCT_tv_changeMoney"
-                    android:textColor="#0168BA"
+                    android:textColor="#0C4573"
                     android:textSize="17sp"
                     android:fontFamily="@font/overpass_bold"
                     android:textStyle="bold"

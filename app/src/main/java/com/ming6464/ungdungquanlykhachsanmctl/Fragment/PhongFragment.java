@@ -183,8 +183,8 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            Date date = new Date(d_checkIn.getTime() - 1800000);
-            mListRooms = dao.getListRoomWithTime(date,d_checkOut);
+            Date date = new Date(d_checkIn.getTime());
+            mListRooms = dao.getListRoomEmptyWithTime(date,d_checkOut);
             for(Rooms x : mListRooms){
                 x.setStatus(0);
             }
