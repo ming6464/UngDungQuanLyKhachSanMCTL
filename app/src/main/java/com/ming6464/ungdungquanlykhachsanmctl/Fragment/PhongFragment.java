@@ -120,7 +120,7 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
     public void onResume() {
         super.onResume();
         Long time = System.currentTimeMillis();
-        if(time % 3600000 > 40)
+        if((time % 3600000)/60000 > 40)
             time += 3600000;
         time -= time % 3600000;
         calendar.setTimeInMillis(time);
@@ -158,8 +158,6 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
                     })
                     .setNegativeButton("No",null)
                     .show();
-        }else if(status == 1){
-            CustomToast.makeText(requireContext(),"Chi tiết phòng !",true).show();
         }
     }
     private void showLoad(){
@@ -183,8 +181,8 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            Date date = new Date(d_checkIn.getTime());
-            mListRooms = dao.getListRoomEmptyWithTime(date,d_checkOut);
+            Date date1 = new Date(d_checkIn.getTime() + 10000),date2 = new Date(d_checkOut.getTime() - 10000);
+            mListRooms = dao.getListRoomEmptyWithTime(date1,date2);
             for(Rooms x : mListRooms){
                 x.setStatus(0);
             }

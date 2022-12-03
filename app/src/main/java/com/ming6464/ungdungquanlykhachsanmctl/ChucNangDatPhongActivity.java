@@ -13,6 +13,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -23,6 +24,7 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.Activity_QuanLy;
 import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ItemService1Adapter;
 import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ItemServiceSpinnerAdapter;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.OrderDetail;
@@ -40,7 +42,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemService1Adapter.EventOfItemService1Adapter {
-    private int status,totalService = 0,hours,deposit = 0,total,color;
+    private int status,totalService = 0,hours,deposit = 0,total,color,minDeposit = 0;
     private String idRoom;
     private List<String> userListString;
     private List<Services> serviceList,serviceList1;
@@ -48,26 +50,26 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
     private NumberFormat format;
     private Spinner sp_customer,sp_amountOfPeople,sp_service;
     private EditText ed_fullName,ed_phoneNumber,ed_CCCD,ed_address;
-    private TextView tv_total,tv_room,tv_checkIn,tv_checkOut,tv_desposit,tv_titleDeposit;
+    private TextView tv_total,tv_room,tv_checkIn,tv_checkOut,tv_deposit,tv_titleDeposit;
     private RadioButton rdo_male,rdo_newCustomer;
     private KhachSanDAO dao;
     private ItemService1Adapter itemServiceOrderAdapter;
     private RecyclerView rc_service;
     private Date checkIn,checkOut;
     private KhachSanSharedPreferences share;
-    public static final String KEY_ALARM = "KEY_ALARM";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chuc_nang_dat_phong);
         dao = KhachSanDB.getInstance(this).getDAO();
         share = new KhachSanSharedPreferences(this);
-        format = NumberFormat.getInstance(new Locale("vi","VN"));
+        format = NumberFormat.getInstance(new Locale("en","EN"));
         anhXa();
         hanldeDataBundle();
         handlerSpinner();
         handlerRecyclerService();
         loadTotal();
+        minDeposit = Math.round(total * 0.5f);
         loadDeposit();
     }
 
@@ -111,7 +113,7 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
         tv_checkIn = findViewById(R.id.actiCNDP_tv_checkIn);
         tv_checkOut = findViewById(R.id.actiCNDP_tv_checkOut);
         rc_service = findViewById(R.id.actiCNDP_rc_service);
-        tv_desposit = findViewById(R.id.actiCNDP_tv_deposit);
+        tv_deposit = findViewById(R.id.actiCNDP_tv_deposit);
         tv_titleDeposit = findViewById(R.id.actiCNDP_tv_titleDeposit);
     }
 
@@ -121,9 +123,8 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
         serviceList = new ArrayList<>();
         userListString = new ArrayList<>();
         ////
-        for(People x : dao.getListUser()){
-            if(x.getStatus() == 0 || x.getStatus() == 2)
-                userListString.add(formatId(x.getId()) + " " + x.getFullName());
+        for(People x : dao.getListKhachHangOfUser()){
+            userListString.add(formatId(x.getId()) + " " + x.getFullName());
         }
         ArrayAdapter userAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, userListString);
         sp_customer.setAdapter(userAdapter);
@@ -205,33 +206,32 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
                 CustomToast.makeText(this, "Số điện thoại không đúng !", false).show();
                 return;
             }
-            if(cccd.length() < 12){
+            if(cccd.length() != 12){
                 CustomToast.makeText(this, "CCCD/CMND Không chính xác !", false).show();
+                return;
+            }
+            if(dao.getObjOfUser(phoneNumber) != null){
+                CustomToast.makeText(this, "Số điện thoại đã tồn tại !", false).show();
+                return;
+            }
+            if (dao.getObjWithCCCDOfUser(cccd) != null) {
+                CustomToast.makeText(this, "CCCD/CMND đã tồn tại !", false).show();
                 return;
             }
             int sex = 0;
             if(rdo_male.isChecked())
                 sex = 1;
-            dao.insertOfUser(new People(fullName,phoneNumber, cccd,address,sex,status));
-            idCustomer = dao.getNewIdOfUser();
-            Orders orders = new Orders(idCustomer,share.getID(),null);
-            orders.setStatus(status);
-            dao.insertOfOrders(orders);
+            dao.insertOfUser(new People(fullName,phoneNumber, cccd,address,sex,0));
+            idCustomer = dao.getObjOfUser(phoneNumber).getId();
+            dao.insertOfOrders(new Orders(idCustomer,share.getID()));
             idOrder = dao.getNewIdOfOrders();
         }
         else {
             String text = sp_customer.getSelectedItem().toString();
             idCustomer = Integer.parseInt(text.substring(1,text.indexOf(" ")));
-            People people = dao.getWithIdOfUser(idCustomer);
-            if(status == 0 && people.getStatus() == 2){
-                people.setStatus(0);
-                dao.UpdateUser(people);
-            }
-            Orders orders1 = dao.getWithPeopleIdAndStatusOrderOfOrders(idCustomer,status);
+            Orders orders1 = dao.getObjUnpaidWithPeopleIdfOrders(idCustomer);
             if(orders1 == null){
-                Orders orders = new Orders(idCustomer,share.getID(),null);
-                orders.setStatus(status);
-                dao.insertOfOrders(orders);
+                dao.insertOfOrders(new Orders(idCustomer,share.getID()));
                 idOrder = dao.getNewIdOfOrders();
             }else{
                 idOrder = orders1.getId();
@@ -239,9 +239,10 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
         }
         OrderDetail orderDetail = new OrderDetail(idRoom,idOrder,
                 amountOfPeople,checkIn,checkOut);
+        orderDetail.setStatus(status);
         if(status == 2)
             orderDetail.setDeposit(deposit);
-        orderDetail.setStatus(status);
+
         dao.insertOfOrderDetail(orderDetail);
         idOrderDetail = dao.getNewIdOfOrderDetail();
         for(ServiceOrder x : serviceOrderList){
@@ -249,21 +250,14 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
                 x.setOrderDetailID(idOrderDetail);
                 dao.insertOfServiceOrder(x);
             }
-
         }
         //
-        if(dao.getCountListOrderDetailWithTime(checkIn) == 0){
+        if(dao.getCountOrderDetailWithCheckOut(checkOut)  == 1){
             Intent intent = new Intent(this,KhachSanReceiver.class);
-            intent.putExtra(KEY_ALARM,true);
             AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(this,idOrderDetail + 1,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-            manager.set(AlarmManager.RTC_WAKEUP,checkOut.getTime(),pendingIntent);
-            if(status == 2){
-                intent = new Intent(this,KhachSanReceiver.class);
-                intent.putExtra(KEY_ALARM,false);
-                pendingIntent = PendingIntent.getBroadcast(this,idOrderDetail + 2,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-                manager.set(AlarmManager.RTC_WAKEUP,checkIn.getTime() + 1800000,pendingIntent);
-            }
+            Log.d("TAG.m.a", "handleActionBtnSave: " + checkOut.getTime());
+            manager.set(AlarmManager.RTC_WAKEUP,checkOut.getTime() - 600000,pendingIntent);
         }
         //
         CustomToast.makeText(this, "Đặt thành công !", true).show();
@@ -275,7 +269,7 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
     }
     private void loadTotal(){
         total = dao.getPriceWithIdOfRooms(idRoom)  * hours + totalService;
-        tv_total.setText(format.format(total) + " đ");
+        tv_total.setText(format.format(total) + "K");
     }
     public void handleActionBtnAddService(View view){
         int index = sp_service.getSelectedItemPosition();
@@ -314,7 +308,7 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
         findViewById(R.id.actiCNDP_rdo_feMale).setEnabled(b);
     }
     private void loadInfoOldCustom(int id) {
-        People people = dao.getWithIdOfUser(id);
+        People people = dao.getObjOfUser(id);
         ed_phoneNumber.setText(people.getSDT());
         ed_fullName.setText(people.getFullName());
         ed_CCCD.setText(people.getCCCD());
@@ -337,7 +331,9 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
         window.getAttributes().windowAnimations = R.style.dialog_slide_left_to_right;
         //
         EditText ed_deposit = dialog.findViewById(R.id.dialogDeposit_ed_deposit);
-        TextView yes = dialog.findViewById(R.id.dialogDeposit_tv_yes), no = dialog.findViewById(R.id.dialogDeposit_tv_no);
+        TextView yes = dialog.findViewById(R.id.dialogDeposit_tv_yes), no = dialog.findViewById(R.id.dialogDeposit_tv_no),
+                tv_titleMinDeposit = dialog.findViewById(R.id.dialogDeposit_tv_titleMinDeposit);
+        tv_titleMinDeposit.setText("* Cọc Tối thiểu " + format.format(minDeposit) + "K");
         //
         ed_deposit.setText(String.valueOf(deposit));
         //
@@ -352,27 +348,31 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
             public void onClick(View v) {
                 String s_deposit = ed_deposit.getText().toString();
                 if(s_deposit.isEmpty())
-                    deposit = 0;
-                else
-                    deposit = Integer.parseInt(s_deposit);
-                loadDeposit();
-                dialog.cancel();
+                    CustomToast.makeText(ChucNangDatPhongActivity.this,"Số tiền cọc không đủ !", false).show();
+                else{
+                    int i_deposit = Integer.parseInt(s_deposit);
+                    if(i_deposit >= minDeposit){
+                        deposit = i_deposit;
+                        loadDeposit();
+                        dialog.cancel();
+                    }else
+                        CustomToast.makeText(ChucNangDatPhongActivity.this,"Số tiền cọc không đủ !", false).show();
+                }
             }
         });
         dialog.show();
     }
 
     private void loadDeposit(){
-        int minDeposit = Math.round(total * 0.5f);
         if(deposit >= minDeposit){
             color = R.color.blue;
             tv_titleDeposit.setVisibility(View.GONE);
         }else{
             tv_titleDeposit.setVisibility(View.VISIBLE);
-            tv_titleDeposit.setText("* Tiền cọc tối thiểu (50%) " + format.format(minDeposit) + " đ");
+            tv_titleDeposit.setText("* Tiền cọc tối thiểu (50%) " + format.format(minDeposit) + "K");
             color = R.color.coNguoi;
         }
-        tv_desposit.setText(format.format(deposit) + " đ");
-        tv_desposit.setTextColor(getResources().getColor(color));
+        tv_deposit.setText(format.format(deposit) + "K");
+        tv_deposit.setTextColor(getResources().getColor(color));
     }
 }

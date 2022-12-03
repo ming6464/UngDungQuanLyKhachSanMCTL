@@ -30,7 +30,7 @@ public class ItemService2Adapter extends RecyclerView.Adapter<ItemService2Adapte
     public ItemService2Adapter(Context context, OnEventOfItemService2Adapter action){
         this.action  = action;
         dao = KhachSanDB.getInstance(context).getDAO();
-        format = NumberFormat.getInstance(new Locale("vi","VN"));
+        format = NumberFormat.getInstance(new Locale("en","EN"));
     }
 
     public void setData(List<ServiceOrder> list){
@@ -53,11 +53,11 @@ public class ItemService2Adapter extends RecyclerView.Adapter<ItemService2Adapte
         else{
             h.linear_layout.setBackgroundResource(R.color.itemServicele);
         }
-        Services sv = dao.getWithIdOfServices(obj.getServiceId());
-        h.tv_price.setText(format.format(sv.getPrice()) + "đ");
+        Services sv = dao.getObjOfServices(obj.getServiceId());
+        h.tv_price.setText(format.format(sv.getPrice()) + "K");
         h.tv_amount.setText(String.valueOf(obj.getAmount()));
         h.tv_stt.setText(String.valueOf(position));
-        h.tv_total.setText(format.format(sv.getPrice() * obj.getAmount()) + "đ");
+        h.tv_total.setText(format.format(sv.getPrice() * obj.getAmount()) + "K");
         h.tv_name.setText(sv.getName());
         h.linear_layout.setOnClickListener(new View.OnClickListener() {
             @Override

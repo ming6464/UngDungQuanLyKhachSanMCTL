@@ -34,7 +34,7 @@ public class ItemOrderDetail1Adapter extends RecyclerView.Adapter<ItemOrderDetai
         this.action  = action;
         sdf = new SimpleDateFormat("dd/MM/yyyy");
         sdf1 = new SimpleDateFormat("HH");
-        numberFormat = NumberFormat.getInstance(new Locale("vi","VN"));
+        numberFormat = NumberFormat.getInstance(new Locale("en","EN"));
     }
 
     public void setData(List<OrderDetail> list){
@@ -55,23 +55,40 @@ public class ItemOrderDetail1Adapter extends RecyclerView.Adapter<ItemOrderDetai
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder h, int position) {
         OrderDetail obj = list.get(position);
-        People people = dao.getWithIdOfUser(dao.getWithIdOfOrders(obj.getOrderID()).getCustomID());
+        People people = dao.getObjOfUser(dao.getObjOfOrders(obj.getOrderID()).getCustomID());
         Date checkOut = obj.getEndDate(),checkIn = obj.getStartDate();
         h.tv_room.setText(obj.getRoomID());
         h.tv_fullName.setText(people.getFullName());
         h.tv_phoneNumber.setText("Số Điện Thoại :  " + people.getSDT());
-        String status = "Đang Sử Dụng";
-        if(obj.getStatus() == 2 || obj.getStatus() == 3){
-            status = "Đặt Trước";
-            h.linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_dattruoc);
+        String status = null;
+        int i_status = obj.getStatus();
+        if(i_status == 0){
+            status = "Đang Sử Dụng";
+            h.btn_detail.setText("chức năng");
+            h.linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_chuathanhtoan);
+        }else if(i_status == 1){
+            status = "Đã Trả Phòng";
+            h.btn_detail.setText("Tới hoá đơn tổng");
+            h.linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_thanhtoan);
         }
-
+        else if(obj.getStatus() == 2){
+            status = "Đặt Trước";
+            h.linear_deposit.setVisibility(View.VISIBLE);
+            h.linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_dattruoc);
+            h.tv_deposit.setText(numberFormat.format(obj.getDeposit()) + "K");
+        }else{
+            status = "Huỷ";
+            h.btn_detail.setText("Tới hoá đơn tổng");
+            h.linear_deposit.setVisibility(View.VISIBLE);
+            h.linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_huyphong);
+            h.tv_deposit.setText(numberFormat.format(obj.getDeposit()) + "K");
+        }
         h.tv_status.setText(status);
         h.tv_checkIn.setText( "Ngày Nhận :  " + sdf.format(checkIn));
         h.tv_checkOut.setText("Ngày Trả :  "  + sdf.format(checkOut));
         h.tv_hourCheckOut.setText("Giờ :  "  + sdf1.format(checkOut) + "h");
         h.tv_hourCheckIn.setText("Giờ :  "  + sdf1.format(checkIn) + "h");
-        h.tv_total.setText(numberFormat.format(dao.getCategoryWithRoomId(obj.getRoomID()).getPrice() * ((checkOut.getTime() - checkIn.getTime())/3600000) + dao.getTotalServiceWithOrderDetailId(obj.getId())) + " đ");
+        h.tv_total.setText(numberFormat.format(dao.getCategoryWithRoomId(obj.getRoomID()).getPrice() * ((checkOut.getTime() - checkIn.getTime())/3600000) + dao.getTotalServiceWithOrderDetailId(obj.getId())) + "K");
         h.btn_detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,9 +105,10 @@ public class ItemOrderDetail1Adapter extends RecyclerView.Adapter<ItemOrderDetai
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView tv_room,tv_fullName,tv_phoneNumber,tv_checkIn,tv_hourCheckIn,tv_checkOut,tv_hourCheckOut,tv_status,tv_total;
+        private TextView tv_room,tv_fullName,tv_phoneNumber,tv_checkIn,tv_hourCheckIn,
+                tv_checkOut,tv_hourCheckOut,tv_status,tv_total,tv_deposit;
         private Button btn_detail;
-        private LinearLayoutCompat linear_orderDetail;
+        private LinearLayoutCompat linear_orderDetail,linear_deposit;
         public MyViewHolder(@NonNull View iv) {
             super(iv);
             tv_room = iv.findViewById(R.id.itemOrderDetail1_tv_room);
@@ -102,8 +120,10 @@ public class ItemOrderDetail1Adapter extends RecyclerView.Adapter<ItemOrderDetai
             tv_hourCheckOut = iv.findViewById(R.id.itemOrderDetail1_tv_hourCheckOut);
             tv_status = iv.findViewById(R.id.itemOrderDetail1_tv_status);
             tv_total = iv.findViewById(R.id.itemOrderDetail1_tv_total);
+            tv_deposit = iv.findViewById(R.id.itemOrderDetail1_tv_deposit);
             btn_detail = iv.findViewById(R.id.itemHoaDonPhong_btn_detail);
             linear_orderDetail = iv.findViewById(R.id.itemOrderDetail1_linear_orderDetail1);
+            linear_deposit = iv.findViewById(R.id.itemOrderDetail1_linear_deposit);
         }
     }
 }

@@ -18,7 +18,7 @@ public class LoaiPhongAdapter extends RecyclerView.Adapter<LoaiPhongAdapter.MyVi
     private List<Categories> list;
     private NumberFormat format;
     public LoaiPhongAdapter(){
-        format = NumberFormat.getInstance(new Locale("vi","VN"));
+        format = NumberFormat.getInstance(new Locale("en","EN"));
     }
 
     public void setData(List<Categories> list){
@@ -36,7 +36,7 @@ public class LoaiPhongAdapter extends RecyclerView.Adapter<LoaiPhongAdapter.MyVi
         Categories obj = list.get(position);
         holder.amountOfPeople.setText("Số Người Tối Đa :  " + obj.getAmountOfPeople());
         holder.name.setText(obj.getName());
-        holder.price.setText("Giá Tiền :  " + format.format(obj.getPrice()) + " đ");
+        holder.price.setText("Giá Tiền :  " + format.format(obj.getPrice()) + "K");
     }
 
     @Override

@@ -50,6 +50,7 @@
         app:fontFamily="@font/overpass_semibold" />
     <androidx.appcompat.widget.AppCompatButton
         android:textAllCaps="false"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_btn_bottomsheet"
@@ -79,8 +80,8 @@
     <androidx.appcompat.widget.AppCompatButton
         android:textAllCaps="false"
         android:textStyle="bold"
-        android:drawableTint="#E10316"
         android:visibility="gone"
+        android:drawableTint="#E10316"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_btn_bottomsheet"

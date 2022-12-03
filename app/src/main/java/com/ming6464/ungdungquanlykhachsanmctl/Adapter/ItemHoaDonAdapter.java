@@ -34,7 +34,7 @@ public class ItemHoaDonAdapter extends RecyclerView.Adapter<ItemHoaDonAdapter.My
     public ItemHoaDonAdapter(Context context, EventOfOrderAdapter action){
         this.action = action;
         dao = KhachSanDB.getInstance(context).getDAO();
-        format = NumberFormat.getInstance(new Locale("vi","VN"));
+        format = NumberFormat.getInstance(new Locale("en","EN"));
         sdf = new SimpleDateFormat("dd/MM/yyyy");
         sdf1 = new SimpleDateFormat("HH");
     }
@@ -53,17 +53,13 @@ public class ItemHoaDonAdapter extends RecyclerView.Adapter<ItemHoaDonAdapter.My
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder h, int position) {
         Orders obj = list.get(position);
-        People people = dao.getWithIdOfUser(obj.getCustomID());
+        People people = dao.getObjOfUser(obj.getCustomID());
         h.tv_fullName.setText(people.getFullName());
         h.tv_phoneNumber.setText("Số Điện Thoại :  " + people.getSDT());
-        h.tv_total.setText(format.format(obj.getTotal()) + " đ");
+        h.tv_total.setText(format.format(obj.getTotal()) + "K");
         String status = "Chưa Thanh Toán";
         int color = Color.RED;
         if(obj.getStatus() == 2){
-            h.layout.setBackgroundResource(R.drawable.background_hoadon_dattruoc);
-            status = "Đặt Trước";
-        }
-        else if(obj.getStatus() == 3){
             h.layout.setBackgroundResource(R.drawable.background_hoadon_huyphong);
             status = "Huỷ";
             color = Color.BLACK;

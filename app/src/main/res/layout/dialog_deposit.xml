@@ -6,7 +6,10 @@
     android:layout_margin="20dp"
     android:background="@color/white"
     android:orientation="vertical"
-    android:padding="15dp">
+    android:paddingBottom="20dp"
+    android:paddingTop="20dp"
+    android:paddingStart="15dp"
+    android:paddingEnd="15dp">
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_alignParentTop="true"
         android:layout_width="wrap_content"
@@ -17,9 +20,18 @@
         android:textColor="@color/black"
         android:fontFamily="@font/overpass_semibold"
         />
-    <com.google.android.material.textfield.TextInputLayout
+    <androidx.appcompat.widget.AppCompatTextView
         android:layout_below="@id/dialogDeposit_tv_1"
-        android:layout_marginTop="15dp"
+        android:id="@+id/dialogDeposit_tv_titleMinDeposit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textColor="@color/red"
+        android:layout_marginTop="40dp"
+        android:text="* Cọc Tối thiểu 500K"
+        />
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_below="@id/dialogDeposit_tv_titleMinDeposit"
         android:textColorHint="#394CF1"
         app:boxBackgroundColor="#12575050"
         app:boxStrokeColor="#02129A"
@@ -30,7 +42,7 @@
         app:boxCornerRadiusTopStart="5dp"
         app:boxCornerRadiusBottomStart="5dp"
         android:hint="Đồng"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="35dp"
         android:id="@+id/dialogDeposit_inputlayout"
         app:startIconDrawable="@drawable/money_25"
         app:endIconMode="clear_text"
@@ -39,6 +51,7 @@
             android:layout_width="match_parent"
             android:textSize="16dp"
             android:text="0"
+            android:inputType="numberDecimal"
             android:fontFamily="@font/overpass_semibold"
             android:id="@+id/dialogDeposit_ed_deposit"
             android:textColor="@color/black"

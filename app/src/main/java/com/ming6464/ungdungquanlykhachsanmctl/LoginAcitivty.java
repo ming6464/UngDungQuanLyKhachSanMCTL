@@ -40,6 +40,7 @@ public class LoginAcitivty extends AppCompatActivity {
     }
 
     private void checkRemember() {
+        share.getID();
         String sdt = share.getSDT();
         if(sdt != null){
             edUser.setText(sdt);
@@ -50,7 +51,7 @@ public class LoginAcitivty extends AppCompatActivity {
 
     private void addData() {
         if(!share.getCheck1()){
-            People people = new People("admin full name", "0123456789", "001726676330", "hn", 1, 3);
+            People people = new People("admin full name", "0123456789", "001726676330", "hn", 1, 2);
             people.setPassowrd("123");
             dao.insertOfUser(people);
             share.setCheck1(true);

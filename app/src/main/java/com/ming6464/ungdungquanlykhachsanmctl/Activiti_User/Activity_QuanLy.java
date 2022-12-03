@@ -37,6 +37,8 @@ public class Activity_QuanLy extends AppCompatActivity {
     RecyclerView recyclerView;
     Toolbar toolbar;
     KhachSanDAO dao;
+    private List<People> list;
+    private NhanVienAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +53,9 @@ public class Activity_QuanLy extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         //
         dao = KhachSanDB.getInstance(Activity_QuanLy.this).getDAO();
-        List<People> listNv = new ArrayList<>();
         btnThem = findViewById(R.id.btnAddNhanVien);
         recyclerView = findViewById(R.id.recyclerViewNhanVien);
-        show();
+        handleRecycler();
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,6 +95,14 @@ public class Activity_QuanLy extends AppCompatActivity {
                         CustomToast.makeText(Activity_QuanLy.this, "CCCD/CMND Không chính xác !", false).show();
                         return;
                     }
+                    if(dao.getObjOfUser(sdt) != null){
+                        CustomToast.makeText(Activity_QuanLy.this, "Số điện thoại đã tồn tại !", false).show();
+                        return;
+                    }
+                    if (dao.getObjWithCCCDOfUser(cccd) != null) {
+                        CustomToast.makeText(Activity_QuanLy.this, "CCCD/CMND đã tồn tại !", false).show();
+                        return;
+                    }
                     int sex = 0;
                     if (rdoNam.isChecked()) {
                         sex = 1;
@@ -101,10 +110,13 @@ public class Activity_QuanLy extends AppCompatActivity {
                     People people = new People(name,sdt,cccd,address,sex,1);
                     people.setPassowrd(pass);
                     dao.insertOfUser(people);
-                    listNv.add(people);
+                    list.add(people);
                     CustomToast.makeText(Activity_QuanLy.this, "Thêm Thành Công", true).show();
+                    int index = list.size() - 1;
+                    if(list.size() == 0)
+                        index = 0;
+                    adapter.notifyItemInserted(index);
                     dialog.dismiss();
-                    show();
                 });
                 btnCancleNv.setOnClickListener(v1 -> {
                     dialog.dismiss();
@@ -112,9 +124,17 @@ public class Activity_QuanLy extends AppCompatActivity {
                 Window window = dialog.getWindow();
                 window.setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
                 window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                window.getAttributes().windowAnimations = R.style.dialog_slide_left_to_right;
                 dialog.show();
             }
         });
+    }
+
+    private void handleRecycler() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(Activity_QuanLy.this));
+        list = dao.getListWithStatusOfUser(1);
+        adapter = new NhanVienAdapter(list, Activity_QuanLy.this);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -124,13 +144,5 @@ public class Activity_QuanLy extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void show() {
-        LinearLayoutManager manager = new LinearLayoutManager(Activity_QuanLy.this);
-        recyclerView.setLayoutManager(manager);
-        List<People> list = dao.getListWithStatusOfUser(1);
-        NhanVienAdapter adapter = new NhanVienAdapter(list, Activity_QuanLy.this);
-        recyclerView.setAdapter(adapter);
     }
 }

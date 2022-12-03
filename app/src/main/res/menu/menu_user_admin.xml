@@ -15,10 +15,6 @@
     <item android:title="Các Chức Năng Chính">
         <menu>
             <item
-                android:id="@+id/menu_4"
-                android:icon="@drawable/ic_baseline_analytics_24"
-                android:title="Thiết Lập Khách Sạn" />
-            <item
                 android:id="@+id/menu_5"
                 android:icon="@drawable/ic_baseline_co_present_24"
                 android:title="Quản Lý Nhân Viên" />

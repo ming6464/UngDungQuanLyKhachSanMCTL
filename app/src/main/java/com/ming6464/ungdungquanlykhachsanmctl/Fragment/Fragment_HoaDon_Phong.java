@@ -18,7 +18,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ItemOrderDetail1Adapter;
@@ -37,6 +40,7 @@ import java.util.List;
 public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1Adapter.OnEventOfOrderDetailAdpater {
     private List<OrderDetail> list;
     private KhachSanDAO dao;
+    private Spinner sp_status;
     private ItemOrderDetail1Adapter adapter;
     public static final String KEY_ROOMID = "KEY_ROOMID";
     public static Fragment_HoaDon_Phong newInstance() {
@@ -63,81 +67,127 @@ public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1A
         super.onViewCreated(view, savedInstanceState);
         list = new ArrayList<>();
         RecyclerView rc_orderDetail = view.findViewById(R.id.fragHoaDonPhong_rc);
+        sp_status = view.findViewById(R.id.fragHoaDonPhong_sp_status);
         dao = KhachSanDB.getInstance(requireContext()).getDAO();
         adapter = new ItemOrderDetail1Adapter(requireContext(),this);
         rc_orderDetail.setAdapter(adapter);
         rc_orderDetail.setLayoutManager(new LinearLayoutManager(requireContext()));
+        handlerSpinner();
+    }
+    private void handlerSpinner() {
+        List<String> statusList = new ArrayList<>();
+        statusList.add("Tất Cả");
+        statusList.add("Đang Sử Dụng");
+        statusList.add("Đã Trả Phòng");
+        statusList.add("Đặt Trước");
+        statusList.add("Huỷ");
+        ArrayAdapter arrayAdapter = new ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item,statusList);
+        sp_status.setAdapter(arrayAdapter);
+        sp_status.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 0)
+                    list = dao.getAllOfOrderDetail();
+                else
+                    list = dao.getListWithStatusOfOrderDetail(position - 1);
+                adapter.setData(list);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        list.clear();
-        for(OrderDetail x : dao.getAllOfOrderDetail()){
-            if(x.getStatus() != 1)
-                list.add(x);
-        }
+        list = dao.getAllOfOrderDetail();
         adapter.setData(list);
     }
 
     @Override
     public void click(int position) {
         OrderDetail obj = list.get(position);
-        Dialog dialog = new Dialog(requireContext());
-        dialog.setContentView(R.layout.dialog_bottomsheet);
-        Window window = dialog.getWindow();
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
-        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        window.getAttributes().windowAnimations = R.style.dialog_slide_bottom;
-        window.setGravity(Gravity.BOTTOM);
-        //
-        Button btn_addService = dialog.findViewById(R.id.dialogBottmsheet_btn_addService),
-                btn_toOrder = dialog.findViewById(R.id.dialogBottmsheet_btn_toOrder);
-        //
-        btn_addService.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(requireContext(), AddServiceActivity.class);
-                intent.putExtra(KEY_ROOMID,obj.getRoomID());
-                startActivity(intent);
-                dialog.cancel();
-            }
-        });
-        btn_toOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(requireContext(), HoaDonChiTietActivity.class);
-                intent.putExtra(HoaDonFragment.KEY_ORDER,dao.getWithIdOfOrders(obj.getOrderID()));
-                startActivity(intent);
-                dialog.cancel();
-            }
-        });
-        if(obj.getStatus() == 0){
-            Button btn_checkOut = dialog.findViewById(R.id.dialogBottmsheet_btn_checkOut);
-            btn_checkOut.setVisibility(View.VISIBLE);
-            btn_checkOut.setOnClickListener(new View.OnClickListener() {
+        if(obj.getStatus() == 3 || obj.getStatus() == 1){
+            Intent intent = new Intent(requireContext(), HoaDonChiTietActivity.class);
+            intent.putExtra(HoaDonFragment.KEY_ORDER,dao.getObjOfOrders(obj.getOrderID()));
+            startActivity(intent);
+        }else {
+            Dialog dialog = new Dialog(requireContext());
+            dialog.setContentView(R.layout.dialog_bottomsheet);
+            Window window = dialog.getWindow();
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            window.getAttributes().windowAnimations = R.style.dialog_slide_bottom;
+            window.setGravity(Gravity.BOTTOM);
+            //
+            Button btn_toOrder = dialog.findViewById(R.id.dialogBottmsheet_btn_toOrder);
+            //
+            btn_toOrder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    dao.checkOutOfOrderDetail(obj);
-                    list.remove(position);
-                    adapter.notifyItemRemoved(position);
-                    CustomToast.makeText(requireContext(),"Trả phòng thành công !",true).show();
+                    Intent intent = new Intent(requireContext(), HoaDonChiTietActivity.class);
+                    intent.putExtra(HoaDonFragment.KEY_ORDER,dao.getObjOfOrders(obj.getOrderID()));
+                    startActivity(intent);
                     dialog.cancel();
                 }
             });
+            if(obj.getStatus() == 0){
+                Button btn_checkOut = dialog.findViewById(R.id.dialogBottmsheet_btn_checkOut),
+                        btn_addService = dialog.findViewById(R.id.dialogBottmsheet_btn_addService);
+                btn_checkOut.setVisibility(View.VISIBLE);
+                btn_addService.setVisibility(View.VISIBLE);
+                btn_checkOut.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dao.checkOutOfOrderDetail(obj.getId());
+                        list.remove(position);
+                        adapter.notifyItemRemoved(position);
+                        CustomToast.makeText(requireContext(),"Trả phòng thành công !",true).show();
+                        dialog.cancel();
+                    }
+                });
+                btn_addService.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(requireContext(), AddServiceActivity.class);
+                        intent.putExtra(KEY_ROOMID,obj.getRoomID());
+                        startActivity(intent);
+                        dialog.cancel();
+                    }
+                });
 
-        }else if(obj.getStatus() == 3){
-            Button btn_checkIn = dialog.findViewById(R.id.dialogBottmsheet_btn_checkIn);
-            btn_checkIn.setVisibility(View.VISIBLE);
-            btn_checkIn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(requireContext(), "CheckIn !", Toast.LENGTH_SHORT).show();
-                    dialog.cancel();
-                }
-            });
+            }else if(obj.getStatus() == 2){
+                Button btn_checkIn = dialog.findViewById(R.id.dialogBottmsheet_btn_checkIn),
+                        btn_cancel = dialog.findViewById(R.id.dialogBottmsheet_btn_cancel);
+                btn_checkIn.setVisibility(View.VISIBLE);
+                btn_cancel.setVisibility(View.VISIBLE);
+                btn_checkIn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        obj.setStatus(0);
+                        list.set(position,obj);
+                        dao.checkInOfOrderDetail(obj.getId());
+                        adapter.notifyItemChanged(position);
+                        CustomToast.makeText(requireContext(),"Nhận phòng thành công !",true).show();
+                        dialog.cancel();
+                    }
+                });
+                btn_cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        obj.setStatus(3);
+                        list.set(position,obj);
+                        dao.cancelOfOrderDetail(obj.getId());
+                        adapter.notifyItemChanged(position);
+                        CustomToast.makeText(requireContext(),"Phòng " + obj.getRoomID() + " đã huỷ !",true).show();
+                        dialog.cancel();
+                    }
+                });
+            }
+            dialog.show();
         }
-        dialog.show();
     }
 
 }

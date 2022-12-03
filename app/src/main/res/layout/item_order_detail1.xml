@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_margin="10dp"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="wrap_content">
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -127,6 +128,36 @@
                 android:textSize="16sp"
                 app:textAllCaps="false" />
         </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginTop="10dp"
+            android:id="@+id/itemOrderDetail1_linear_deposit"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/overpass_bold"
+                android:text="Tiền Cọc: "
+                android:textColor="#100423"
+                android:textSize="15sp"
+                app:textAllCaps="true" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/itemOrderDetail1_tv_deposit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/overpass_semibold"
+                android:gravity="center"
+                android:text="2.000.000 đ"
+                android:textColor="#DA0909"
+                android:textSize="15.5sp"
+                android:textStyle="bold"
+                app:textAllCaps="false" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -150,7 +181,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/overpass_semibold"
                 android:gravity="center"
-                android:text="24.000.000 đ"
+                android:text="24,000K"
                 android:textColor="#DA0909"
                 android:textSize="15.5sp"
                 android:textStyle="bold"
@@ -165,7 +196,7 @@
             android:layout_marginEnd="40dp"
             android:background="@drawable/btn_2"
             android:fontFamily="@font/overpass_bold"
-            android:text="Chỉ Tiết"
+            android:text="Chức Năng"
             android:textColor="@color/white"
             android:textSize="16.5sp" />
     </androidx.appcompat.widget.LinearLayoutCompat>

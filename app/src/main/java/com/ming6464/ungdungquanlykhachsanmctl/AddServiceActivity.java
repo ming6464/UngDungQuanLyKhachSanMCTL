@@ -43,7 +43,7 @@ public class AddServiceActivity extends AppCompatActivity implements ItemService
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_service);
         dao = KhachSanDB.getInstance(this).getDAO();
-        format = NumberFormat.getInstance(new Locale("vi","VN"));
+        format = NumberFormat.getInstance(new Locale("en","EN"));
         idRoom = getIntent().getStringExtra(Fragment_HoaDon_Phong.KEY_ROOMID);
         idOrderDetail = dao.getWithRoomIdOfOrderDetail(idRoom).getOrderID();
         anhXa();
@@ -117,7 +117,7 @@ public class AddServiceActivity extends AppCompatActivity implements ItemService
     }
 
     private void loadTotal(){
-        tv_total.setText(format.format(total));
+        tv_total.setText(format.format(total) + "K");
     }
 
     public void handleActionBack(View view) {

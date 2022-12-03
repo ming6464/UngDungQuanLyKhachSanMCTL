@@ -22,7 +22,7 @@ public class ItemService3Adapter extends RecyclerView.Adapter<ItemService3Adapte
     private NumberFormat format;
 
     public ItemService3Adapter(){
-        format = NumberFormat.getInstance(new Locale("vi","VN"));
+        format = NumberFormat.getInstance(new Locale("en","EN"));
     }
 
 
@@ -42,7 +42,7 @@ public class ItemService3Adapter extends RecyclerView.Adapter<ItemService3Adapte
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Services sv = serviceList.get(position);
         ServiceOrder svo = serviceOrderList.get(position);
-        holder.tv_price.setText(format.format(sv.getPrice()) + " đ");
+        holder.tv_price.setText(format.format(sv.getPrice()) + "K");
         holder.tv_name.setText(sv.getName());
         holder.tv_amount.setText(String.valueOf(svo.getAmount()));
     }

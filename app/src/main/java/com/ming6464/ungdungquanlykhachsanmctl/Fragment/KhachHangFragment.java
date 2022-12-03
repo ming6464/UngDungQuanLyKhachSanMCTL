@@ -37,16 +37,14 @@ import com.ming6464.ungdungquanlykhachsanmctl.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KhachHangFragment extends Fragment {
-    private Spinner sp_status;
+public class KhachHangFragment extends Fragment implements UserAdapter.IClickItemUser {
     public RecyclerView rcvUser;
     private UserAdapter userAdapter;
     private List<People> mListUser;
     private KhachSanDAO dao;
 
     public static KhachHangFragment newInstance() {
-        KhachHangFragment fragment = new KhachHangFragment();
-        return fragment;
+        return new KhachHangFragment();
     }
 
     @Override
@@ -64,74 +62,17 @@ public class KhachHangFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rcvUser = view.findViewById(R.id.rcv_user);
-        sp_status = view.findViewById(R.id.fragUser_sp_status);
         dao = KhachSanDB.getInstance(requireContext()).getDAO();
-        userAdapter = new UserAdapter(requireContext(), new UserAdapter.IClickItemUser() {
-            @Override
-            public void updateUser(People people) {
-                clickUpdateUser(people);
-            }
-        });
-        mListUser = new ArrayList<>();
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        rcvUser.setLayoutManager(linearLayoutManager);
+        userAdapter = new UserAdapter(this);
+        rcvUser.setLayoutManager(new LinearLayoutManager(getContext()));
         rcvUser.setAdapter(userAdapter);
-        loatData();
-        handlerSpinner();
-
+        mListUser = dao.getListKhachHangOfUser();
+        userAdapter.setData(mListUser);
     }
 
-    private void handlerSpinner() {
-        List<String> statusList = new ArrayList<>();
-        statusList.add("Tất cả");
-        statusList.add("Bình Thường");
-        statusList.add("Mới");
-        ArrayAdapter arrayAdapter = new ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item,statusList);
-        sp_status.setAdapter(arrayAdapter);
-        sp_status.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position){
-                    case 0:
-                        mListUser = new ArrayList<>();
-                        for(People x : dao.getListUser()){
-                            if(x.getStatus() == 0 || x.getStatus() == 2)
-                                mListUser.add(x);
-                        }
-                        break;
-                    case 1:
-                        mListUser = dao.getListWithStatusOfUser(0);
-                        break;
-                    default:
-                        mListUser = dao.getListWithStatusOfUser(2);
-                }
-                userAdapter.setData(mListUser);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-    }
-
-    private void clickDeleteUser(People people) {
-        new AlertDialog.Builder(getContext())
-                .setTitle("Xac nhan xoa nguoi dung")
-                .setMessage("Ban co chac chan muon xoa khong?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // delete User
-                        KhachSanDB.getInstance(getContext()).getDAO().DeleteUser(people);
-                        CustomToast.makeText(getContext(), "Xoa thanh cong", true).show();
-                        loatData();
-                    }
-                })
-                .setNegativeButton("No", null)
-                .show();
-    }
-
-    private void clickUpdateUser(People people) {
+    @Override
+    public void updateUser(int position) {
+        People people = mListUser.get(position);
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_add_nhanvien, null);
@@ -179,7 +120,7 @@ public class KhachHangFragment extends Fragment {
             people.setSex(sex);
             dao.UpdateUser(people);
             CustomToast.makeText(getContext(), "Cập nhật Thành Công", true).show();
-            loatData();
+            userAdapter.notifyItemChanged(position);
             dialog.dismiss();
 
         });
@@ -191,15 +132,5 @@ public class KhachHangFragment extends Fragment {
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
-        //cc
-    }
-
-    private void loatData() {
-        mListUser = new ArrayList<>();
-        for(People x : dao.getListUser()){
-            if(x.getStatus() == 0 || x.getStatus() == 2)
-                mListUser.add(x);
-        }
-        userAdapter.setData(mListUser);
     }
 }

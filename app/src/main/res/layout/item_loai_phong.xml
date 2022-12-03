@@ -2,7 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="20dp"
     android:layout_margin="10dp"
     app:cardCornerRadius="7dp"
     app:cardElevation="10dp"
@@ -11,38 +10,41 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/datTruoc"
+        android:background="#CCEFD700"
         android:padding="10dp"
-        android:gravity="center"
+        android:gravity="center_vertical"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/itemLoaiPhong_tv_name"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/overpass_semibold"
             android:textStyle="bold"
             android:text="Tên bài hát"
+            android:background="@drawable/white_corner10"
             android:textAllCaps="false"
             android:textColor="@color/black"
             android:textSize="21sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/itemLoaiPhong_tv_price"
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/overpass_semibold"
             android:text="Giá Tiền :  100.000 đ"
-            android:textColor="#3A3A3A"
+            android:textColor="#252525"
             android:textSize="16sp" />
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:layout_marginTop="2dp"
             android:id="@+id/itemLoaiPhong_tv_amountOfPeople"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/overpass_semibold"
             android:text="Số Người Tối Đa :  7"
-            android:textColor="#3A3A3A"
+            android:textColor="#252525"
             android:textSize="16sp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

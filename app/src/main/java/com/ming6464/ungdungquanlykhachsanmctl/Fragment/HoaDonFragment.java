@@ -34,8 +34,7 @@ public class HoaDonFragment extends Fragment implements ItemHoaDonAdapter.EventO
     private KhachSanDAO dao;
     public static final String KEY_ORDER = "KEY_ORDER";
     public static HoaDonFragment newInstance() {
-        HoaDonFragment fragment = new HoaDonFragment();
-        return fragment;
+        return new HoaDonFragment();
     }
 
     @Override
@@ -64,7 +63,6 @@ public class HoaDonFragment extends Fragment implements ItemHoaDonAdapter.EventO
         statusList.add("Tất Cả");
         statusList.add("Chưa Thanh Toán");
         statusList.add("Thanh Toán");
-        statusList.add("Đặt Trước");
         statusList.add("Huỷ");
         ArrayAdapter arrayAdapter = new ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item,statusList);
         sp_status.setAdapter(arrayAdapter);

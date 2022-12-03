@@ -10,17 +10,13 @@ import java.io.Serializable;
 public class Orders implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private int id;
-
     private int customID,UID,status,total;
-    @Nullable
-    private String note;
 
-    public Orders(int customID, int UID, @Nullable String note) {
+    public Orders(int customID, int UID) {
         this.customID = customID;
         this.UID = UID;
         this.status = 0;
         this.total = 0;
-        this.note = note;
     }
 
     public int getId() {
@@ -61,24 +57,5 @@ public class Orders implements Serializable {
 
     public void setTotal(int total) {
         this.total = total;
-    }
-
-    @Nullable
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(@Nullable String note) {
-        this.note = note;
-    }
-
-    @Override
-    public String toString() {
-        return "id=" + id +
-                ", customID=" + customID +
-                ", UID=" + UID +
-                ", status=" + status +
-                ", total=" + total +
-                ", note='" + note;
     }
 }
