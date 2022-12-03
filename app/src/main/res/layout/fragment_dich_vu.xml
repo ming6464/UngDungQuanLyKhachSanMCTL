@@ -1,13 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
     android:layout_height="match_parent"
     tools:context=".Fragment.DichVuFragment">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:paddingTop="15dp"
+        android:paddingEnd="8dp"
+        android:layout_below="@id/actiAddService_tb"
+        android:paddingStart="8dp"
+        android:id="@+id/actiAddService_linear_title"
+        android:paddingBottom="15dp"
+        android:background="#4D454545"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="12">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:textColor="#CC101010"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="#"
+            />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_weight="8"
+            android:textColor="#CC101010"
+            android:textSize="14sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Diễn tả"
+            />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_weight="3"
+            android:textColor="#CC101010"
+            android:textSize="14sp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Đơn giá"
+            />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewDichVu"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-</FrameLayout>
+</LinearLayout>

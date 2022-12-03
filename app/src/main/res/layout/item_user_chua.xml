@@ -85,18 +85,6 @@
                 android:textSize="15sp"
                 android:textColor="#100423"
                 />
-            <androidx.appcompat.widget.AppCompatTextView
-                app:fontFamily="@font/overpass_bold"
-                android:layout_marginTop="7dp"
-                android:id="@+id/tv_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/overpass_bold"
-                android:text="Trạng Thái :  Đặt trước"
-                app:textAllCaps="true"
-                android:textSize="15sp"
-                android:textColor="#100423"
-                />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </LinearLayout>

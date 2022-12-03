@@ -4,14 +4,17 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,7 +38,7 @@ public class AdapterDichVu extends RecyclerView.Adapter<AdapterDichVu.ViewHolder
     public AdapterDichVu(Context context, List<Services> listService) {
         this.context = context;
         this.listService = listService;
-        format = NumberFormat.getInstance(new Locale("vi","VN"));
+        format = NumberFormat.getInstance(new Locale("en","EN"));
     }
 
     public void setData(List<Services> lists) {
@@ -48,16 +51,21 @@ public class AdapterDichVu extends RecyclerView.Adapter<AdapterDichVu.ViewHolder
 
     @Override
     public AdapterDichVu.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-        View view = inflater.inflate(R.layout.item_dichvu, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dichvu,parent,false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AdapterDichVu.ViewHolder holder, int position) {
         Services services = listService.get(position);
-        holder.tvPrice.setText("Price :  " + format.format(services.getPrice()) + " đ");
-        holder.tvName.setText("Name :  " + services.getName());
+        holder.tvPrice.setText(format.format(services.getPrice()) + "K");
+        holder.tvName.setText(services.getName());
+        holder.tv_STT.setText(String.valueOf(position));
+        if(position % 2 == 0)
+            holder.linear_title.setBackgroundColor(Color.WHITE);
+        else{
+            holder.linear_title.setBackgroundResource(R.color.itemServicele);
+        }
     }
 
     @Override
@@ -66,14 +74,15 @@ public class AdapterDichVu extends RecyclerView.Adapter<AdapterDichVu.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvName, tvPrice;
-        CardView cardViewService;
+        TextView tvName, tvPrice,tv_STT;
+        private LinearLayoutCompat linear_title;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvName);
             tvPrice = itemView.findViewById(R.id.tvPrice);
-            cardViewService = itemView.findViewById(R.id.cardViewService);
+            tv_STT = itemView.findViewById(R.id.itemService_tv_stt);
+            linear_title = itemView.findViewById(R.id.itemService_linear_title);
         }
     }
 }

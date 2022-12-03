@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingTop="13dp"
+    android:paddingEnd="8dp"
+    android:paddingStart="8dp"
+    android:id="@+id/itemService2_linear_layout"
+    android:paddingBottom="13dp"
+    android:background="#4D454545"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="12">
+    <androidx.appcompat.widget.AppCompatTextView
+        android:fontFamily="@font/overpass_bold"
+        android:id="@+id/itemService2_tv_stt"
+        android:textColor="@color/black"
+        android:layout_weight="1"
+        android:textSize="17sp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="10"
+        />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:fontFamily="@font/overpass_bold"
+        android:id="@+id/itemService2_tv_name"
+        android:layout_weight="4"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Trông Trẻ"
+        />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:fontFamily="@font/overpass_bold"
+        android:id="@+id/itemService2_tv_price"
+        android:layout_weight="2.5"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="300.00 đ"
+        />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:fontFamily="@font/overpass_bold"
+        android:id="@+id/itemService2_tv_amount"
+        android:layout_weight="1.9"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="10"
+        />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:fontFamily="@font/overpass_bold"
+        android:id="@+id/itemService2_tv_total"
+        android:layout_weight="2.5"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="100.000 đ"
+        />
+</androidx.appcompat.widget.LinearLayoutCompat>

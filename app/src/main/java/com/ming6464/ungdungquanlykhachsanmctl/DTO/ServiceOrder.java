@@ -7,7 +7,6 @@ import androidx.room.PrimaryKey;
 public class ServiceOrder {
     @PrimaryKey (autoGenerate = true)
     private int id;
-
     private int serviceId,orderDetailID, amount;
 
     public ServiceOrder(int serviceId, int orderDetailID, int amount) {

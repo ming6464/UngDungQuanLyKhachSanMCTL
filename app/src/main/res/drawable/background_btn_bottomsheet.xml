@@ -4,7 +4,7 @@
     <item>
         <shape>
             <solid android:color="@color/white"/>
-            <padding android:bottom="17dp" android:left="10dp" android:top="17dp"/>
+            <padding android:bottom="20dp" android:left="10dp" android:top="20dp"/>
         </shape>
     </item>
 </ripple>

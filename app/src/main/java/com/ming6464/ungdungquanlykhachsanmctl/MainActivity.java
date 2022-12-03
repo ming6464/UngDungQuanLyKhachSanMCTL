@@ -54,19 +54,21 @@ public class MainActivity extends AppCompatActivity {
     private void addData() {
         if (!share.getCheck2()) {
             share.setCheck2(true);
-            dao.insertOfLoaiPhong(new Categories("Standard",100000,2));
-            dao.insertOfLoaiPhong(new Categories("Superior",125000,3));
-            dao.insertOfLoaiPhong(new Categories("Deluxe",160000,3));
-            dao.insertOfLoaiPhong(new Categories("Suite",200000,6));
+            dao.insertOfLoaiPhong(new Categories("Standard",100,2));
+            dao.insertOfLoaiPhong(new Categories("Superior",125,3));
+            dao.insertOfLoaiPhong(new Categories("Deluxe",160,3));
+            dao.insertOfLoaiPhong(new Categories("Suite",200,6));
             //
-            dao.insertOfService(new Services("Trông trẻ", 100000));
-            dao.insertOfService(new Services("Đánh giày", 20000));
-            dao.insertOfService(new Services("Giặt Đồ", 30000));
-            dao.insertOfService(new Services("Dịch vụ Spa", 100000));
-            dao.insertOfService(new Services("Fitness center", 100000));
-            dao.insertOfService(new Services("Xe Đưa Đón Sân Bay", 100000));
-            dao.insertOfService(new Services("Ăn tại phòng", 100000));
-            dao.insertOfService(new Services("Hội Họp, Văn Phòng", 500000));
+            dao.insertOfService(new Services("Trông trẻ", 40));
+            dao.insertOfService(new Services("Đánh giày", 20));
+            dao.insertOfService(new Services("Giặt Đồ", 30));
+            dao.insertOfService(new Services("Spa", 500));
+            dao.insertOfService(new Services("Gym", 30));
+            dao.insertOfService(new Services("Thuê taxi", 20));
+            dao.insertOfService(new Services("Karaoke", 100));
+            dao.insertOfService(new Services("Két bia", 130));
+            dao.insertOfService(new Services("Sting", 10));
+            dao.insertOfService(new Services("Kẹo lạc", 10));
             //rooms
             dao.insertOfRooms(new Rooms("101", 1));
             dao.insertOfRooms(new Rooms("102", 2));

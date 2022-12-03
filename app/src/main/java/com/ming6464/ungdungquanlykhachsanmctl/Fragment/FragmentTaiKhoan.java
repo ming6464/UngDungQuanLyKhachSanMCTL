@@ -3,28 +3,23 @@ package com.ming6464.ungdungquanlykhachsanmctl.Fragment;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
 import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.Activity_DoiPass;
 import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.Activity_QuanLy;
-import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.Activity_ThietLap;
 import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.Activity_ThongKe;
 import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.Activity_ThongTin;
 import com.ming6464.ungdungquanlykhachsanmctl.CustomToast;
@@ -76,8 +71,9 @@ public class FragmentTaiKhoan extends Fragment {
     }
 
     private void hanldeNavigation() {
-        if(people.getStatus() != 3){
-            navigationView.getMenu().findItem(R.id.menu_4).setVisible(false);
+        if(people.getStatus() != 2){
+            navigationView.getMenu().findItem(R.id.menu_5).setVisible(false);
+            navigationView.getMenu().findItem(R.id.menu_6).setVisible(false);
         }
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -107,9 +103,6 @@ public class FragmentTaiKhoan extends Fragment {
                         });
                         AlertDialog dialog = builder.create();
                         dialog.show();
-                        break;
-                    case R.id.menu_4:
-                        intent = new Intent(getActivity(), Activity_ThietLap.class);
                         break;
                     case R.id.menu_5:
                         intent = new Intent(getActivity(), Activity_QuanLy.class);

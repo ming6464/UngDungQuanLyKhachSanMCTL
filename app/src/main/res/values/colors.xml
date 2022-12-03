@@ -8,18 +8,20 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#DA0909</color>
+    <color name="blue">#0C4573</color>
 
     <color name="phongTrong">#27CD2E</color>
     <color name="coNguoi">#F41A0A</color>
     <color name="datTruoc">#F4DC07</color>
-    <color name="hoadon_dattruoc">#1AFFEB3B</color>
+    <color name="hoadon_dattruoc">#21A79B36</color>
     <color name="hoadon_huyphong">#1A020202</color>
     <color name="hoadon_thanhtoan">#1A27CD2E</color>
-    <color name="hoadon_chuathanhtoan">#1AFF0000</color>
+    <color name="hoadon_chuathanhtoan">#21FF0000</color>
     <color name="user_binhThuong">#0A000000</color>
     <color name="user_moiTao">#12020202</color>
     <color name="user_datTruoc">#12FFEB3B</color>
     <color name="user_nhanVien">#12FF0000</color>
     <color name="user_addmin">#707E88</color>
+    <color name="itemServicele">#4D454545</color>
 
 </resources>

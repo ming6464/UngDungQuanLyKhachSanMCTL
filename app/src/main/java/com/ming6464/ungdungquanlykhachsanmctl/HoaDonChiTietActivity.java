@@ -19,7 +19,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ServiceOfOrderDetailAdapter;
+import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ItemService3Adapter;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.OrderDetail;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Orders;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
@@ -31,13 +31,14 @@ import java.util.Locale;
 public class HoaDonChiTietActivity extends AppCompatActivity {
     private Orders ordersObj;
     private People customerObj;
-    private int total = 0,changeMoney = 0 ,totalRoom = 0, totalService = 0;
+    private int total = 0,changeMoney = 0 ,totalRoom = 0, totalService = 0,totalDeposit;
     private NumberFormat format;
     private KhachSanDAO dao;
     private ConstraintLayout constrain_order;
     private ProgressBar pg_load;
+    private String s_money;
     private EditText ed_fullName,ed_sex,ed_phoneNumber,ed_CCCD,ed_address,ed_moneyOfCustomer;
-    private TextView tv_totalService,tv_totalRoom,tv_total,tv_changeMoney;
+    private TextView tv_totalService,tv_totalRoom,tv_total,tv_changeMoney,tv_totalDeposit;
     private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,32 +46,21 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
         setContentView(R.layout.activity_hoa_don_chi_tiet);
         dao = KhachSanDB.getInstance(this).getDAO();
         ordersObj = (Orders) getIntent().getSerializableExtra(KEY_ORDER);
-        customerObj = dao.getWithIdOfUser(ordersObj.getCustomID());
+        customerObj = dao.getObjOfUser(ordersObj.getCustomID());
         anhXa();
-        if(ordersObj.getStatus() != 0){
-            findViewById(R.id.actiHDCT_linear_pay).setVisibility(View.GONE);
-            findViewById(R.id.actiHDCT_linear_changeMoney).setVisibility(View.GONE);
-        }
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                isShowOrder(true);
+                constrain_order.setVisibility(View.VISIBLE);
+                pg_load.setVisibility(View.GONE);
             }
         },800);
+        format = NumberFormat.getInstance(new Locale("en","EN"));
         handleToolbar();
         handleInfoCustomer();
-        handleInfoOrder();
         handleAction();
-    }
-
-    private void isShowOrder(boolean b) {
-        if(b){
-            constrain_order.setVisibility(View.VISIBLE);
-            pg_load.setVisibility(View.GONE);
-            return;
-        }
-        constrain_order.setVisibility(View.GONE);
-        pg_load.setVisibility(View.VISIBLE);
+        handleInfoOrder();
+        loadChange();
     }
 
     private void handleAction() {
@@ -82,62 +72,82 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String money = ed_moneyOfCustomer.getText().toString();
-                if(money.isEmpty()){
-                    tv_changeMoney.setText("0 đ");
-                }else{
-                    changeMoney = Integer.parseInt(money) - total;
-                    tv_changeMoney.setText(format.format(changeMoney) + " đ");
-                }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                loadChange();
             }
         });
+    }
+
+    private void loadChange() {
+        s_money = ed_moneyOfCustomer.getText().toString();
+        int money = 0;
+        if(!ed_moneyOfCustomer.getText().toString().isEmpty())
+            money = Integer.parseInt(s_money);
+        changeMoney = money - total + totalDeposit;
+        tv_changeMoney.setText(format.format(changeMoney) + "K");
     }
 
     private void handleInfoOrder() {
         addOrderDetail();
         total = ordersObj.getTotal();
-        format = NumberFormat.getInstance(new Locale("vi","VN"));
-        tv_total.setText(format.format(total)  + " đ");
-        tv_totalService.setText(format.format(totalService) + " đ");
-        tv_totalRoom.setText(format.format(totalRoom) + " đ");
+        int i_total = total - totalDeposit;
+        if(i_total < 0){
+            i_total = 0;
+            ed_moneyOfCustomer.setFocusableInTouchMode(true);
+        }
+        if(ordersObj.getStatus() != 0){
+            findViewById(R.id.actiHDCT_linear_pay).setVisibility(View.GONE);
+        }else{
+            tv_total.setText(format.format(i_total)  + "K");
+        }
+        tv_totalService.setText(format.format(totalService) + "K");
+        tv_totalRoom.setText(format.format(totalRoom) + "K");
+        tv_totalDeposit.setText(format.format(totalDeposit) + "K");
     }
 
     private void addOrderDetail() {
-        TextView tv_room,tv_roomPrice,tv_checkIn,tv_checkOut,tv_serviceFee,tv_roomFee,tv_hours;
+        TextView tv_room,tv_roomPrice,tv_checkIn,tv_checkOut,tv_serviceFee,tv_roomFee,tv_hours,tv_deposit;
         RecyclerView rc_service;
-        LinearLayoutCompat linear = findViewById(R.id.actiHDCT_Linear_orderDetail);
+        LinearLayoutCompat linear = findViewById(R.id.actiHDCT_Linear_orderDetail),linear_orderDetail;
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy  HH");
-        NumberFormat format = NumberFormat.getInstance(new Locale("vi","VN"));
-        ServiceOfOrderDetailAdapter subAdapter;
+        ItemService3Adapter subAdapter;
         for(OrderDetail x : dao.getListWithOrderIdOfOrderDetail(ordersObj.getId())){
-            View itemView = LayoutInflater.from(linear.getContext()).inflate(R.layout.item_order_detail,null);
-            tv_room = itemView.findViewById(R.id.itemOrderDetail_tv_room);
-            tv_roomPrice = itemView.findViewById(R.id.itemOrderDetail_tv_roomPrice);
-            tv_hours = itemView.findViewById(R.id.itemOrderDetail_tv_hours);
-            tv_checkIn = itemView.findViewById(R.id.itemOrderDetail_tv_checkIn);
-            tv_checkOut = itemView.findViewById(R.id.itemOrderDetail_tv_checkOut);
-            tv_serviceFee = itemView.findViewById(R.id.itemOrderDetail_tv_serviceFee);
-            tv_roomFee = itemView.findViewById(R.id.itemOrderDetail_tv_roomFee);
-            rc_service = itemView.findViewById(R.id.itemOrderDetail_rc_service);
+            View itemView = LayoutInflater.from(linear.getContext()).inflate(R.layout.item_order_detail2,null);
+            tv_room = itemView.findViewById(R.id.itemOrderDetail2_tv_room);
+            tv_roomPrice = itemView.findViewById(R.id.itemOrderDetail2_tv_roomPrice);
+            tv_hours = itemView.findViewById(R.id.itemOrderDetail2_tv_hours);
+            tv_checkIn = itemView.findViewById(R.id.itemOrderDetail2_tv_checkIn);
+            tv_checkOut = itemView.findViewById(R.id.itemOrderDetail2_tv_checkOut);
+            tv_serviceFee = itemView.findViewById(R.id.itemOrderDetail2_tv_serviceFee);
+            tv_roomFee = itemView.findViewById(R.id.itemOrderDetail2_tv_roomFee);
+            tv_deposit = itemView.findViewById(R.id.itemOrderDetail2_tv_deposit);
+            rc_service = itemView.findViewById(R.id.itemOrderDetail2_rc_service);
+            linear_orderDetail = itemView.findViewById(R.id.itemOrderDetail2_linear_orderDetail2);
             ////
             tv_checkIn.setText("Check In :  "  + sdf.format(x.getStartDate()) + "h");
-            tv_checkOut.setText("Check In :  "  + sdf.format(x.getEndDate()) + "h");
-            tv_room.setText(dao.getWithIDOfRooms(x.getRoomID()).getName());
+            tv_checkOut.setText("Check Out :  "  + sdf.format(x.getEndDate()) + "h");
+            tv_room.setText(x.getRoomID());
+            if(x.getStatus() == 1)
+                linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_thanhtoan);
+            else if(x.getStatus() == 2)
+                linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_dattruoc);
+            else  if(x.getStatus() == 3)
+                linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_huyphong);
             int roomPrice = dao.getCategoryWithRoomId(x.getRoomID()).getPrice();
-            tv_roomPrice.setText("Giá Phòng :  " + format.format(roomPrice) + " đ");
+            tv_roomPrice.setText("Giá Phòng :  " + format.format(roomPrice) + "K");
             int hours = (int) (x.getEndDate().getTime() - x.getStartDate().getTime())/3600000;
             tv_hours.setText(hours + "h");
             totalRoom += roomPrice * hours;
-            tv_roomFee.setText(format.format(roomPrice * hours) + " đ");
+            tv_roomFee.setText(format.format(roomPrice * hours) + "K");
             int serviceFee = dao.getTotalServiceWithOrderDetailId(x.getId());
+            tv_deposit.setText(format.format(x.getDeposit()) + "K");
+            totalDeposit += x.getDeposit();
             totalService += serviceFee;
-            tv_serviceFee.setText(format.format(serviceFee) + " đ");
-            subAdapter = new ServiceOfOrderDetailAdapter();
+            tv_serviceFee.setText(format.format(serviceFee) + "K");
+            subAdapter = new ItemService3Adapter();
             subAdapter.setData(dao.getListWithOrderDetailIdOfService(x.getId()),
                     dao.getListWithOrderDetailIdOfServiceOrder(x.getId()));
             rc_service.setAdapter(subAdapter);
@@ -147,14 +157,14 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
     }
 
     private void handleInfoCustomer() {
-        ed_fullName.setText("  " + customerObj.getFullName());
-        ed_CCCD.setText("  " + customerObj.getCCCD());
-        ed_address.setText("  " + customerObj.getAddress());
-        ed_phoneNumber.setText("  " + customerObj.getSDT());
+        ed_fullName.setText(customerObj.getFullName());
+        ed_CCCD.setText(customerObj.getCCCD());
+        ed_address.setText(customerObj.getAddress());
+        ed_phoneNumber.setText(customerObj.getSDT());
         String sex = "Nam";
         if(customerObj.getSex() == 0)
             sex  = "Nữ";
-        ed_sex.setText("  " + sex);
+        ed_sex.setText(sex);
     }
 
     private void handleToolbar() {
@@ -175,6 +185,7 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
         tv_totalRoom = findViewById(R.id.actiHDCT_tv_totalRoom);
         tv_totalService = findViewById(R.id.actiHDCT_tv_totalService);
         tv_changeMoney = findViewById(R.id.actiHDCT_tv_changeMoney);
+        tv_totalDeposit = findViewById(R.id.actiHDCT_tv_totalDeposit);
         toolbar = findViewById(R.id.actiHDCT_tb);
     }
 
@@ -186,7 +197,9 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
         if(!ed_moneyOfCustomer.getText().toString().isEmpty() && changeMoney >= 0){
             ordersObj.setStatus(1);
             dao.checkOutRoomOfOrder(ordersObj.getId());
-            isShowOrder(false);
+            constrain_order.setVisibility(View.GONE);
+            pg_load.setVisibility(View.VISIBLE);
+            findViewById(R.id.actiHDCT_img_back).setVisibility(View.GONE);
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

@@ -18,7 +18,7 @@ public class LoaiPhongAdapter extends RecyclerView.Adapter<LoaiPhongAdapter.MyVi
     private List<Categories> list;
     private NumberFormat format;
     public LoaiPhongAdapter(){
-        format = NumberFormat.getInstance(new Locale("vi","VN"));
+        format = NumberFormat.getInstance(new Locale("en","EN"));
     }
 
     public void setData(List<Categories> list){
@@ -34,13 +34,9 @@ public class LoaiPhongAdapter extends RecyclerView.Adapter<LoaiPhongAdapter.MyVi
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Categories obj = list.get(position);
-        holder.amountOfPeople.setText(String.valueOf(obj.getAmountOfPeople()));
+        holder.amountOfPeople.setText("Số Người Tối Đa :  " + obj.getAmountOfPeople());
         holder.name.setText(obj.getName());
-        int id = obj.getId();
-        holder.id.setText(String.valueOf(id));
-        if(id < 10)
-            holder.id.setText("0" + id);
-        holder.price.setText(format.format(obj.getPrice()) + " đ");
+        holder.price.setText("Giá Tiền :  " + format.format(obj.getPrice()) + "K");
     }
 
     @Override
@@ -51,10 +47,9 @@ public class LoaiPhongAdapter extends RecyclerView.Adapter<LoaiPhongAdapter.MyVi
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public final TextView id,name,price,amountOfPeople;
+        public final TextView name,price,amountOfPeople;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            id = itemView.findViewById(R.id.itemLoaiPhong_tv_id);
             name = itemView.findViewById(R.id.itemLoaiPhong_tv_name);
             price = itemView.findViewById(R.id.itemLoaiPhong_tv_price);
             amountOfPeople = itemView.findViewById(R.id.itemLoaiPhong_tv_amountOfPeople);
