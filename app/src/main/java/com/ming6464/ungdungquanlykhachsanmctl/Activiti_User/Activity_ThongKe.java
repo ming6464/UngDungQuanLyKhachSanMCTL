@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class Activity_ThongKe extends AppCompatActivity {
     Toolbar toolbar;
@@ -49,8 +50,6 @@ public class Activity_ThongKe extends AppCompatActivity {
     List<ServiceOrder> listOder = new ArrayList<>();
     //chuyển ngày
     SimpleDateFormat smf = new SimpleDateFormat("dd-MM-yyyy");
-    //
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,42 +59,18 @@ public class Activity_ThongKe extends AppCompatActivity {
         calendar.setTimeInMillis(System.currentTimeMillis()); // lấy ngày hiện tại của hệ thông
 
         toolbar = findViewById(R.id.toolbar_thong_tin);
-        textView = findViewById(R.id.tv1234);
-        textView.setText("Thống Kê");
-        textView.setTextSize(20);
-        textView.setTextColor(Color.WHITE);
+        toolbar.setTitle("Thống Kê");
+        toolbar.setTitleTextColor(Color.WHITE);
         //
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        //
         anhXa();
         //
         db = KhachSanDB.getInstance(this).getDAO();
-        // gọi lịch
-
-        //
-
         edNgayDi.setText(smf.format(new Date(calendar.getTimeInMillis())));
         calendar.setTimeInMillis(calendar.getTimeInMillis() - (24 * 3600000));
         edNgayDen.setText(smf.format(new Date(calendar.getTimeInMillis())));
-        String days = edNgayDi.getText().toString();
-        Date date123 = new Date(calendar.getTimeInMillis());
-        try {
-            Date date = smf.parse(days);
-            //
-            long startDate = date.getTime();
-            long endDate = date123.getTime();
-            if (endDate > startDate) {
-                edNgayDi.setEnabled(false);
-                Toast.makeText(this, "Bạn Không Thể Thay Đổi Ngày Đi", Toast.LENGTH_SHORT).show();
-            }
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-
         showData();
 
         edNgayDen.setOnClickListener(v -> {
@@ -110,20 +85,7 @@ public class Activity_ThongKe extends AppCompatActivity {
             }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
             dialog.show();
         });
-        //
-        try {
-            Date date = smf.parse(days);
-            //
-            long startDate = date.getTime();
-            long endDate = date123.getTime();
-            if (endDate < startDate) {
-                edNgayDi.setEnabled(false);
-                Toast.makeText(this, "Bạn Không Thể Thay Đổi Ngày Đi", Toast.LENGTH_SHORT).show();
-            }
 
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
         edNgayDi.setOnClickListener(v -> {
             DatePickerDialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                 @Override
@@ -132,6 +94,20 @@ public class Activity_ThongKe extends AppCompatActivity {
                     if ((month + 1) < 10)
                         month2 = "0" + month2;
                     edNgayDi.setText(dayOfMonth + "-" + month2 + "-" + year);
+                    String start = edNgayDi.getText().toString();
+                    try {
+                        Date datenow = smf.parse(start);
+                        long dau = datenow.getTime();
+                        long cuoi = System.currentTimeMillis();
+                        if (cuoi < dau) {
+                            Calendar calendar1 = Calendar.getInstance();
+                            calendar1.setTimeInMillis(System.currentTimeMillis());
+                            edNgayDi.setText(smf.format(new Date(calendar1.getTimeInMillis())));
+                            Toast.makeText(Activity_ThongKe.this, "Bạn Không Thể Chọn Ngày Lớn Hơn", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                     showData();
                 }
             }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
@@ -139,6 +115,7 @@ public class Activity_ThongKe extends AppCompatActivity {
             //
 
         });
+
 
     }
 
