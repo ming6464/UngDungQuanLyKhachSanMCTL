@@ -51,6 +51,9 @@ public class KhachSanSharedPreferences {
     public String getPassword(){
         return share.getString(KEY_MK,null);
     }
+    public void setPassword(String password) {
+        share.edit().putString(KEY_MK, password).apply();
+    }
     public Integer getID(){
         return share.getInt(KEY_ID,0);
     }

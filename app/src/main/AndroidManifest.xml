@@ -61,13 +61,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Activiti_User.Activity_DoiPass"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".Activiti_User.Activity_ThongTin"
             android:exported="false">
             <meta-data
