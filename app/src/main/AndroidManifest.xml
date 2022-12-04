@@ -13,6 +13,18 @@
         android:theme="@style/Theme.UngDungQuanLyKhachSanMCTL"
         tools:targetApi="31">
         <activity
+            android:name=".ManHinhChaoActivity"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".Activiti_User.Update_ThongTin"
             android:exported="false">
             <meta-data
@@ -21,16 +33,10 @@
         </activity>
         <activity
             android:name=".LoginAcitivty"
-            android:exported="true">
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".HoaDonChiTietActivity"
@@ -81,7 +87,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
     </application>
 
 </manifest>
