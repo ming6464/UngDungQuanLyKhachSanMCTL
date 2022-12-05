@@ -109,8 +109,12 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
     @Override
     public void onResume() {
         super.onResume();
-        long time = System.currentTimeMillis();
-        time -= time % (24*3600000);
+        long time = 0;
+        try {
+            time = sdf.parse(sdf.format(new Date(System.currentTimeMillis()))).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         calendar.setTimeInMillis(time);
         d_checkOut.setTime(time + 3600000 * 36);
         d_checkIn.setTime(time + 3600000 * 14);

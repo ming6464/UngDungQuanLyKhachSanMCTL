@@ -291,7 +291,7 @@ public abstract class KhachSanDAO {
     @Query("SELECT SUM(PRICE * AMOUNT) FROM SERVICES AS A, SERVICEORDER WHERE A.ID = SERVICEID AND ORDERDETAILID = :id")
     public abstract int getTotalServiceWithOrderDetailId(int id);
     
-    @Query("SELECT ROOMID FROM ORDERDETAIL WHERE ((:checkIn BETWEEN STARTDATE AND ENDDATE) OR (STARTDATE BETWEEN :checkIn AND :checkOut)) AND (STATUS = 1 AND STATUS = 4)")
+    @Query("SELECT ROOMID FROM ORDERDETAIL WHERE ((:checkIn BETWEEN STARTDATE AND ENDDATE) OR (STARTDATE BETWEEN :checkIn AND :checkOut)) AND (STATUS != 1 AND STATUS != 4)")
     public abstract List<String> getListRoomIdBusyWithTime (Date checkIn,Date checkOut);
 
     public List<Rooms> getListRoomWithTime(Date checkIn, Date checkOut){
