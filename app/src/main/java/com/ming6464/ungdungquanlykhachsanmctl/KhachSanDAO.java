@@ -106,12 +106,6 @@ public abstract class KhachSanDAO {
     @Query("SELECT price FROM Categories WHERE id = (SELECT categoryID  FROM Rooms WHERE id = :id)")
     public abstract int getPriceWithIdOfRooms(String id);
 
-    public void updateStatusWithIdOfRooms(String id, int status) {
-        Rooms rooms = getObjOfRooms(id);
-        rooms.setStatus(status);
-        updateOfRooms(rooms);
-    }
-
     @Query("SELECT * FROM rooms WHERE id in (SELECT roomID FROM orderdetail WHERE orderID = :id)")
     public abstract List<Rooms> getListWithOrderIdOfRooms(int id);
 
@@ -145,14 +139,15 @@ public abstract class KhachSanDAO {
         obj.setStatus(1);
         updateOfOrders(obj);
         for(OrderDetail x : getListWithOrderIdOfOrderDetail(obj.getId())){
-            checkOutOfOrderDetail(x.getId());
+            x.setStatus(1);
+            updateOfOrderDetail(x);
         }
     }
     @Query("SELECT * FROM Orders WHERE status = :status")
     public abstract List<Orders> getListWithStatusOfOrders(int status);
 
-    @Query("SELECT * FROM ORDERS WHERE customID = :peopleId and status = 0")
-    public abstract Orders getObjUnpaidWithPeopleIdfOrders(int peopleId);
+    @Query("SELECT * FROM ORDERS WHERE CUSTOMID = :peopleId AND status = 0 AND id IN (SELECT ORDERID FROM ORDERDETAIL WHERE STARTDATE = :checkIn GROUP BY ORDERID)")
+    public abstract Orders getObjUnpaidWithPeopleIdfOrders(int peopleId,Date checkIn);
 
 
     //OrderDetail
@@ -202,29 +197,9 @@ public abstract class KhachSanDAO {
 
     public void insertOfOrderDetail(OrderDetail obj) {
         insertObjOfOrderDetail(obj);
-        updateStatusWithIdOfRooms(obj.getRoomID(), 1);
-        if (obj.getStatus() == 2)
-            updateStatusWithIdOfRooms(obj.getRoomID(), 2);
         int priceRooms = getPriceWithIdOfRooms(obj.getRoomID());
-        int day = (int) (obj.getEndDate().getTime() - obj.getStartDate().getTime()) / 3600000;
-        updateTotalOfOrders(obj.getOrderID(), priceRooms * day);
-    }
-
-    public void checkOutOfOrderDetail(int id) {
-        OrderDetail obj = getObjOrderDetail(id);
-        obj.setStatus(1);
-        Rooms rooms = getObjOfRooms(obj.getRoomID());
-        rooms.setStatus(0);
-        updateOfOrderDetail(obj);
-        updateOfRooms(rooms);
-    }
-    public void checkInOfOrderDetail(int id) {
-        OrderDetail obj = getObjOrderDetail(id);
-        obj.setStatus(0);
-        Rooms rooms = getObjOfRooms(obj.getRoomID());
-        rooms.setStatus(1);
-        updateOfOrderDetail(obj);
-        updateOfRooms(rooms);
+        int amount_date = (int) (obj.getEndDate().getTime() - obj.getStartDate().getTime()) / (3600000 * 24) + 1;
+        updateTotalOfOrders(obj.getOrderID(), priceRooms * amount_date);
     }
 
     @Query("SELECT * FROM ORDERDETAIL WHERE ID = :id")
@@ -238,11 +213,11 @@ public abstract class KhachSanDAO {
 
     public void cancelOfOrderDetail(int id){
         OrderDetail obj = getObjOrderDetail(id);
-        obj.setStatus(3);
+        obj.setStatus(4);
         updateOfOrderDetail(obj);
         boolean check = true;
         for(OrderDetail x : getListWithOrderIdOfOrderDetail(obj.getOrderID())){
-            if(x.getStatus() != 3){
+            if(x.getStatus() != 4){
                 check = false;
                 break;
             }
@@ -252,9 +227,6 @@ public abstract class KhachSanDAO {
             orders.setStatus(2);
             updateOfOrders(orders);
         }
-        Rooms rooms = getObjOfRooms(obj.getRoomID());
-        rooms.setStatus(0);
-        updateOfRooms(rooms);
     }
 
     //serviceOrder
@@ -319,13 +291,28 @@ public abstract class KhachSanDAO {
     @Query("SELECT SUM(PRICE * AMOUNT) FROM SERVICES AS A, SERVICEORDER WHERE A.ID = SERVICEID AND ORDERDETAILID = :id")
     public abstract int getTotalServiceWithOrderDetailId(int id);
     
-    @Query("SELECT * FROM ROOMS WHERE id NOT IN (SELECT ROOMID FROM ORDERDETAIL WHERE ((:checkInt BETWEEN STARTDATE AND ENDDATE) OR (STARTDATE BETWEEN :checkInt AND :checkOut)) AND (STATUS = 0 OR STATUS = 2))")
-    public abstract List<Rooms> getListRoomEmptyWithTime (Date checkInt,Date checkOut);
+    @Query("SELECT ROOMID FROM ORDERDETAIL WHERE ((:checkIn BETWEEN STARTDATE AND ENDDATE) OR (STARTDATE BETWEEN :checkIn AND :checkOut)) AND (STATUS = 1 AND STATUS = 4)")
+    public abstract List<String> getListRoomIdBusyWithTime (Date checkIn,Date checkOut);
+
+    public List<Rooms> getListRoomWithTime(Date checkIn, Date checkOut){
+        List<Rooms> list = new ArrayList<>();
+        if(checkIn.getTime() < checkOut.getTime()){
+            list = getAllOfRooms();
+            List<String> listRoomId = getListRoomIdBusyWithTime(checkIn,checkOut);
+            for(Rooms x : list){
+                if(listRoomId.contains(x.getId()))
+                    x.setStatus(1);
+                else
+                    x.setStatus(0);
+            }
+        }
+        return list;
+    }
 
     @Query("SELECT COUNT(*) FROM ORDERDETAIL WHERE ENDDATE = :checkOut AND STATUS != 1")
     public abstract int getCountOrderDetailWithCheckOut(Date checkOut);
 
-    @Query("SELECT * FROM ORDERDETAIL WHERE ENDDATE = :checkout AND (STATUS = 0 OR STATUS = 3)")
+    @Query("SELECT * FROM ORDERDETAIL WHERE ENDDATE = :checkout AND (STATUS = 0 OR STATUS = 4)")
     public abstract List<OrderDetail> getListOrderDetailCheckOut(Date checkout);
 
 }
