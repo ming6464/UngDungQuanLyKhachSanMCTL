@@ -32,13 +32,14 @@ import java.util.Locale;
 public class HoaDonChiTietActivity extends AppCompatActivity {
     private Orders ordersObj;
     private People customerObj;
-    private int total = 0,changeMoney = 0 ,totalRoom = 0, totalService = 0,totalDeposit,color;
+    private int total = 0,changeMoney = 0 ,totalRoom = 0,totalRoomCancel = 0, totalService = 0,totalDeposit = 0,totalDepositCancel = 0,color;
     private NumberFormat format;
     private KhachSanDAO dao;
+    private boolean checkCancel = false;
     private ConstraintLayout constrain_order;
     private ProgressBar pg_load;
     private EditText ed_fullName,ed_sex,ed_phoneNumber,ed_CCCD,ed_address,ed_moneyOfCustomer;
-    private TextView tv_totalService,tv_totalRoom,tv_total,tv_changeMoney,tv_totalDeposit;
+    private TextView tv_totalService,tv_totalRoom,tv_totalRoomCancel,tv_total,tv_changeMoney,tv_totalDeposit,tv_totalDepositCancel;
     private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +89,7 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
         if(!ed_moneyOfCustomer.getText().toString().isEmpty()){
             money = Integer.parseInt(s_money);
         }
-        changeMoney = money - total + totalDeposit;
+        changeMoney = money - (total - totalRoomCancel) + (totalDeposit - totalDepositCancel);
         if(changeMoney >= 0){
             i = 1;
             color = R.color.blue;
@@ -99,11 +100,17 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
 
     private void handleInfoOrder() {
         addOrderDetail();
+        if(checkCancel){
+            findViewById(R.id.actiHDCT_relative_totalDepositCancel).setVisibility(View.VISIBLE);
+            findViewById(R.id.actiHDCT_relative_totalRoomCancel).setVisibility(View.VISIBLE);
+            tv_totalRoomCancel.setText(format.format(totalRoomCancel) + "K");
+            tv_totalDepositCancel.setText(format.format(totalDepositCancel) + "K");
+        }
         total = ordersObj.getTotal();
-        int i_total = total - totalDeposit;
+        int i_total = (total- totalRoomCancel) - (totalDeposit - totalDepositCancel);
         if(i_total < 0){
             i_total = 0;
-            ed_moneyOfCustomer.setFocusableInTouchMode(true);
+            ed_moneyOfCustomer.setVisibility(View.GONE);
         }
         if(ordersObj.getStatus() != 0){
             findViewById(R.id.actiHDCT_linear_pay).setVisibility(View.GONE);
@@ -137,7 +144,24 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
             tv_checkIn.setText("Check In :  "  + sdf.format(x.getStartDate()) + "h");
             tv_checkOut.setText("Check Out :  "  + sdf.format(x.getEndDate()) + "h");
             tv_room.setText(x.getRoomID());
+            int amount_date = (int) (x.getEndDate().getTime() - x.getStartDate().getTime())/(3600000 * 24) + 1;
             int status = x.getStatus();
+            int roomPrice = dao.getCategoryWithRoomId(x.getRoomID()).getPrice();
+            int serviceFee = dao.getTotalServiceWithOrderDetailId(x.getId());
+            int deposit = x.getDeposit();
+            totalRoom += roomPrice * amount_date;
+            totalDeposit += deposit;
+            totalService += serviceFee;
+            tv_roomPrice.setText("Giá Phòng :  " + format.format(roomPrice) + "K");
+            tv_hours.setText("Thời Gian :  " + amount_date + "Ngày");
+            tv_roomFee.setText(format.format(roomPrice * amount_date) + "K");
+            tv_deposit.setText(format.format(deposit) + "K");
+            tv_serviceFee.setText(format.format(serviceFee) + "K");
+            subAdapter = new ItemService3Adapter();
+            subAdapter.setData(dao.getListWithOrderDetailIdOfService(x.getId()),
+                    dao.getListWithOrderDetailIdOfServiceOrder(x.getId()));
+            rc_service.setAdapter(subAdapter);
+            rc_service.setLayoutManager(new LinearLayoutManager(this));
             if(status == 0)
                 linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_chuathanhtoan);
             else if(status == 1)
@@ -146,24 +170,12 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
                 linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_dattruoc);
             else  if(status == 3)
                 linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_cothenhanphong);
-            else
+            else{
                 linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_huyphong);
-            int roomPrice = dao.getCategoryWithRoomId(x.getRoomID()).getPrice();
-            tv_roomPrice.setText("Giá Phòng :  " + format.format(roomPrice) + "K");
-            int amount_date = (int) (x.getEndDate().getTime() - x.getStartDate().getTime())/(3600000 * 24) + 1;
-            tv_hours.setText("Thời Gian :  " + amount_date + "Ngày");
-            totalRoom += roomPrice * amount_date;
-            tv_roomFee.setText(format.format(roomPrice * amount_date) + "K");
-            int serviceFee = dao.getTotalServiceWithOrderDetailId(x.getId());
-            tv_deposit.setText(format.format(x.getDeposit()) + "K");
-            totalDeposit += x.getDeposit();
-            totalService += serviceFee;
-            tv_serviceFee.setText(format.format(serviceFee) + "K");
-            subAdapter = new ItemService3Adapter();
-            subAdapter.setData(dao.getListWithOrderDetailIdOfService(x.getId()),
-                    dao.getListWithOrderDetailIdOfServiceOrder(x.getId()));
-            rc_service.setAdapter(subAdapter);
-            rc_service.setLayoutManager(new LinearLayoutManager(this));
+                totalRoomCancel += roomPrice;
+                totalDepositCancel += deposit;
+                checkCancel = true;
+            }
             linear.addView(itemView);
         }
     }
@@ -195,9 +207,11 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
         ed_moneyOfCustomer = findViewById(R.id.actiHDCT_ed_moneyOfCustomer);
         tv_total = findViewById(R.id.actiHDCT_tv_total);
         tv_totalRoom = findViewById(R.id.actiHDCT_tv_totalRoom);
+        tv_totalRoomCancel = findViewById(R.id.actiHDCT_tv_totalRoomCancel);
         tv_totalService = findViewById(R.id.actiHDCT_tv_totalService);
         tv_changeMoney = findViewById(R.id.actiHDCT_tv_changeMoney);
         tv_totalDeposit = findViewById(R.id.actiHDCT_tv_totalDeposit);
+        tv_totalDepositCancel = findViewById(R.id.actiHDCT_tv_totalDepositCancel);
         toolbar = findViewById(R.id.actiHDCT_tb);
     }
 

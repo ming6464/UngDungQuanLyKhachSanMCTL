@@ -42,7 +42,7 @@ public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1A
     private List<OrderDetail> list;
     private KhachSanDAO dao;
     private Spinner sp_status;
-    private SwipeRefreshLayout refreshLayout;
+    private SwipeRefreshLayout rf_rcHoaDonPhong;
     private ItemOrderDetail1Adapter adapter;
     public static final String KEY_ROOMID = "KEY_ROOMID";
     public static Fragment_HoaDon_Phong newInstance() {
@@ -61,7 +61,6 @@ public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1A
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment__hoa_don__phong, container, false);
         return view;
-        //Hello Các bạn
     }
 
     @Override
@@ -70,7 +69,7 @@ public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1A
         list = new ArrayList<>();
         RecyclerView rc_orderDetail = view.findViewById(R.id.fragHoaDonPhong_rc);
         sp_status = view.findViewById(R.id.fragHoaDonPhong_sp_status);
-        refreshLayout = view.findViewById(R.id.fragHoaDon_rf_recyclerHoaDonPhong);
+        rf_rcHoaDonPhong = view.findViewById(R.id.fragHoaDon_rf_rcHoaDonPhong);
         dao = KhachSanDB.getInstance(requireContext()).getDAO();
         adapter = new ItemOrderDetail1Adapter(requireContext(),this);
         rc_orderDetail.setAdapter(adapter);
@@ -80,23 +79,20 @@ public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1A
     }
 
     private void handleAction() {
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        rf_rcHoaDonPhong.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 int position = sp_status.getSelectedItemPosition();
                 loadData(position);
-                refreshLayout.setRefreshing(false);
+                rf_rcHoaDonPhong.setRefreshing(false);
             }
         });
     }
 
     private void handleSpinner() {
         List<String> statusList = new ArrayList<>();
-        statusList.add("Tất Cả");
-        statusList.add("Đang Sử Dụng");
-        statusList.add("Đã Trả Phòng");
-        statusList.add("Đặt Trước");
-        statusList.add("Có Thể Nhận Phòng");
+        statusList.add("Chưa Trả Phòng");
+        statusList.add("Trả Phòng");
         statusList.add("Huỷ");
         ArrayAdapter arrayAdapter = new ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item,statusList);
         sp_status.setAdapter(arrayAdapter);
@@ -115,7 +111,7 @@ public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1A
     @Override
     public void onResume() {
         super.onResume();
-        loadData(0);
+        loadData(sp_status.getSelectedItemPosition());
     }
 
     @Override
@@ -154,10 +150,11 @@ public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1A
                 btn_checkOut.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        dao.checkOutOfOrderDetail(obj.getId());
                         obj.setStatus(1);
-                        adapter.notifyItemChanged(position);
-                        CustomToast.makeText(requireContext(),"Trả phòng thành công !",true).show();
+                        dao.updateOfOrderDetail(obj);
+                        list.remove(position);
+                        adapter.notifyItemRemoved(position);
+                        CustomToast.makeText(requireContext(),"Phòng " + obj.getRoomID() + " đã trả thành công !",true).show();
                         dialog.cancel();
                     }
                 });
@@ -170,7 +167,6 @@ public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1A
                         dialog.cancel();
                     }
                 });
-
             }else{
                 Button btn_checkIn = dialog.findViewById(R.id.dialogBottmsheet_btn_checkIn),
                         btn_cancel = dialog.findViewById(R.id.dialogBottmsheet_btn_cancel);
@@ -181,9 +177,9 @@ public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1A
                         @Override
                         public void onClick(View v) {
                             obj.setStatus(0);
-                            dao.checkInOfOrderDetail(obj.getId());
+                            dao.updateOfOrderDetail(obj);
                             adapter.notifyItemChanged(position);
-                            CustomToast.makeText(requireContext(),"Nhận phòng thành công !",true).show();
+                            CustomToast.makeText(requireContext(),"Phòng " + obj.getRoomID() + " đã nhận phòng thành công !",true).show();
                             dialog.cancel();
                         }
                     });
@@ -191,10 +187,11 @@ public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1A
                 btn_cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        obj.setStatus(3);
+                        obj.setStatus(4);
                         dao.cancelOfOrderDetail(obj.getId());
-                        adapter.notifyItemChanged(position);
-                        CustomToast.makeText(requireContext(),"Phòng " + obj.getRoomID() + " đã huỷ !",true).show();
+                        list.remove(position);
+                        adapter.notifyItemRemoved(position);
+                        CustomToast.makeText(requireContext(),"Phòng " + obj.getRoomID() + " đã huỷ phòng thành công !",true).show();
                         dialog.cancel();
                     }
                 });
@@ -205,16 +202,42 @@ public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1A
 
     private void loadData(int position){
         long currentTime = System.currentTimeMillis();
-        for(OrderDetail x : dao.getListWithStatusOfOrderDetail(2)){
-            if(x.getStartDate().getTime() < currentTime){
-                x.setStatus(3);
-                dao.updateOfOrderDetail(x);
+        list.clear();
+        for(OrderDetail x : dao.getAllOfOrderDetail()){
+            switch (x.getStatus()){
+                case 0:
+                    if(x.getEndDate().getTime() < currentTime){
+                        x.setStatus(1);
+                        dao.updateOfOrderDetail(x);
+                    }
+                    if(position == 0)
+                        list.add(x);
+                    break;
+                case 1:
+                    if(position == 1)
+                        list.add(x);
+                    break;
+                case 2:
+                    if(x.getStartDate().getTime() < currentTime){
+                        x.setStatus(3);
+                        dao.updateOfOrderDetail(x);
+                    }
+                    if(position == 0)
+                        list.add(x);
+                    break;
+                case 3:
+                    if(x.getEndDate().getTime() < currentTime){
+                        x.setStatus(4);
+                        dao.cancelOfOrderDetail(x.getId());
+                    }
+                    if(position == 0)
+                        list.add(x);
+                    break;
+                default:
+                    if(position == 2)
+                        list.add(x);
             }
         }
-        if(position == 0)
-            list = dao.getAllOfOrderDetail();
-        else
-            list = dao.getListWithStatusOfOrderDetail(position - 1);
         adapter.setData(list);
     }
 

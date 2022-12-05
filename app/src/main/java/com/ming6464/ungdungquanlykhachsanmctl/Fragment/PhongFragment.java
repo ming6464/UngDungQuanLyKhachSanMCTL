@@ -135,7 +135,7 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
                             bundle.putLong(KEY_CHECKOUT,d_checkOut.getTime());
                             bundle.putInt(KEY_AMOUNT_DATE,(int)(d_checkOut.getTime() - d_checkIn.getTime())/(3600000*24) + 1);
                             int status = 0;
-                            if(System.currentTimeMillis() < (d_checkIn.getTime() + 14*3600000 ))
+                            if(System.currentTimeMillis() < (d_checkIn.getTime()))
                                 status  = 2;
                             bundle.putInt(KEY_STATUS,status);
                             intent.putExtra(KEY_BUNDLE,bundle);
