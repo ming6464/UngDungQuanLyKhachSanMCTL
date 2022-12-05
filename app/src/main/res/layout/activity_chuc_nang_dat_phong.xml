@@ -39,6 +39,50 @@
             android:background="@color/white">
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/overpass_semibold"
+                    android:textColor="#085FA6"
+                    android:layout_marginEnd="15dp"
+                    android:text="Kiểu khách:"
+                    />
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+                    <androidx.appcompat.widget.AppCompatRadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/actiCNDP_rdo_oldCustomer"
+                        android:text="Cũ"
+                        android:fontFamily="@font/overpass_semibold"
+                        android:onClick="handleActionRdoOldCustomer"
+                        android:layout_marginEnd="30dp"
+                        android:textSize="17sp"
+                        android:textColor="#0C4573"
+                        />
+                    <androidx.appcompat.widget.AppCompatRadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mới"
+                        android:onClick="handleActionRdoNewCustomer"
+                        android:id="@+id/actiCNDP_rdo_newCustomer"
+                        android:checked="true"
+                        android:textSize="17sp"
+                        android:fontFamily="@font/overpass_semibold"
+                        android:textColor="#0C4573"
+                        />
+                </RadioGroup>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
                 android:background="@drawable/stroke_black_1dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -206,50 +250,6 @@
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_marginTop="5dp"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/overpass_semibold"
-                    android:textColor="#085FA6"
-                    android:layout_marginEnd="15dp"
-                    android:text="Kiểu khách:"
-                    />
-                <RadioGroup
-                    android:layout_width="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_height="wrap_content">
-                    <androidx.appcompat.widget.AppCompatRadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/actiCNDP_rdo_oldCustomer"
-                        android:text="Cũ"
-                        android:fontFamily="@font/overpass_semibold"
-                        android:onClick="handleActionRdoOldCustomer"
-                        android:layout_marginEnd="30dp"
-                        android:textSize="17sp"
-                        android:textColor="#0C4573"
-                        />
-                    <androidx.appcompat.widget.AppCompatRadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Mới"
-                        android:onClick="handleActionRdoNewCustomer"
-                        android:id="@+id/actiCNDP_rdo_newCustomer"
-                        android:checked="true"
-                        android:textSize="17sp"
-                        android:fontFamily="@font/overpass_semibold"
-                        android:textColor="#0C4573"
-                        />
-                </RadioGroup>
             </androidx.appcompat.widget.LinearLayoutCompat>
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"

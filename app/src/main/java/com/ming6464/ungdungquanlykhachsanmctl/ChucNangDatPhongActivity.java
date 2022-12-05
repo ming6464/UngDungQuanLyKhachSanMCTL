@@ -42,7 +42,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemService1Adapter.EventOfItemService1Adapter {
-    private int status,totalService = 0,hours,deposit = 0,total,color,minDeposit = 0;
+    private int status,totalService = 0,deposit = 0,total,color,minDeposit = 0,amount_date = 1;
     private String idRoom;
     private List<String> userListString;
     private List<Services> serviceList,serviceList1;
@@ -66,11 +66,26 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
         format = NumberFormat.getInstance(new Locale("en","EN"));
         anhXa();
         hanldeDataBundle();
-        handlerSpinner();
-        handlerRecyclerService();
+        handleSpinner();
         loadTotal();
-        minDeposit = Math.round(total * 0.5f);
-        loadDeposit();
+        if(status == 2){
+            findViewById(R.id.actiCNDP_linear_services).setVisibility(View.GONE);
+            findViewById(R.id.actiCNDP_linear_deposit).setVisibility(View.VISIBLE);
+            minDeposit = Math.round(total * 0.5f);
+            loadDeposit();
+        }else {
+            serviceList1 = new ArrayList<>();
+            serviceList = dao.getListServiceCategoryWithRoomId(idRoom);
+            //
+            ItemServiceSpinnerAdapter itemServiceSpinnerAdapter = new ItemServiceSpinnerAdapter();
+            sp_service.setAdapter(itemServiceSpinnerAdapter);
+            itemServiceSpinnerAdapter.setDate(serviceList);
+            //////
+            for (Services x : serviceList){
+                serviceOrderList.add(new ServiceOrder(x.getId(),0,0));
+            }
+            handleRecyclerService();
+        }
     }
 
     private void hanldeDataBundle() {
@@ -80,17 +95,13 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
         status = bundle.getInt(PhongFragment.KEY_STATUS);
         checkOut = new Date(bundle.getLong(PhongFragment.KEY_CHECKOUT));
         checkIn = new Date(bundle.getLong(PhongFragment.KEY_CHECKIN));
-        hours = (int) (checkOut.getTime() - checkIn.getTime())/3600000;
+        amount_date = bundle.getInt(PhongFragment.KEY_AMOUNT_DATE);
         tv_room.setText(idRoom);
         tv_checkOut.setText(sdf.format(checkOut) + "h");
         tv_checkIn.setText(sdf.format(checkIn) + "h");
-        if(status == 2){
-            findViewById(R.id.actiCNDP_linear_services).setVisibility(View.GONE);
-            findViewById(R.id.actiCNDP_linear_deposit).setVisibility(View.VISIBLE);
-        }
     }
 
-    private void handlerRecyclerService() {
+    private void handleRecyclerService() {
         itemServiceOrderAdapter = new ItemService1Adapter(this);
         rc_service.setHasFixedSize(true);
         rc_service.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
@@ -117,10 +128,8 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
         tv_titleDeposit = findViewById(R.id.actiCNDP_tv_titleDeposit);
     }
 
-    private void handlerSpinner() {
+    private void handleSpinner() {
         serviceOrderList = new ArrayList<>();
-        serviceList1 = new ArrayList<>();
-        serviceList = new ArrayList<>();
         userListString = new ArrayList<>();
         ////
         for(People x : dao.getListKhachHangOfUser()){
@@ -146,15 +155,6 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
         ArrayAdapter amountOfPeopleAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, amountOfPeopleList);
         sp_amountOfPeople.setAdapter(amountOfPeopleAdapter);
         //////
-        serviceList = dao.getListServiceCategoryWithRoomId(idRoom);
-        //
-        ItemServiceSpinnerAdapter itemServiceSpinnerAdapter = new ItemServiceSpinnerAdapter();
-        sp_service.setAdapter(itemServiceSpinnerAdapter);
-        itemServiceSpinnerAdapter.setDate(serviceList);
-        //////
-        for (Services x : serviceList){
-            serviceOrderList.add(new ServiceOrder(x.getId(),0,0));
-        }
     }
     public String formatId(int id) {
         if (id < 10)
@@ -229,7 +229,7 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
         else {
             String text = sp_customer.getSelectedItem().toString();
             idCustomer = Integer.parseInt(text.substring(1,text.indexOf(" ")));
-            Orders orders1 = dao.getObjUnpaidWithPeopleIdfOrders(idCustomer);
+            Orders orders1 = dao.getObjUnpaidWithPeopleIdfOrders(idCustomer,checkIn);
             if(orders1 == null){
                 dao.insertOfOrders(new Orders(idCustomer,share.getID()));
                 idOrder = dao.getNewIdOfOrders();
@@ -239,9 +239,10 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
         }
         OrderDetail orderDetail = new OrderDetail(idRoom,idOrder,
                 amountOfPeople,checkIn,checkOut);
-        orderDetail.setStatus(status);
-        if(status == 2)
+        if(status == 2){
             orderDetail.setDeposit(deposit);
+            orderDetail.setStatus(status);
+        }
 
         dao.insertOfOrderDetail(orderDetail);
         idOrderDetail = dao.getNewIdOfOrderDetail();
@@ -256,8 +257,7 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
             Intent intent = new Intent(this,KhachSanReceiver.class);
             AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(this,idOrderDetail + 1,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-            Log.d("TAG.m.a", "handleActionBtnSave: " + checkOut.getTime());
-            manager.set(AlarmManager.RTC_WAKEUP,checkOut.getTime() - 600000,pendingIntent);
+            manager.set(AlarmManager.RTC_WAKEUP,checkOut.getTime(),pendingIntent);
         }
         //
         CustomToast.makeText(this, "Đặt thành công !", true).show();
@@ -268,7 +268,7 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
         finish();
     }
     private void loadTotal(){
-        total = dao.getPriceWithIdOfRooms(idRoom)  * hours + totalService;
+        total = dao.getPriceWithIdOfRooms(idRoom)  * amount_date + totalService;
         tv_total.setText(format.format(total) + "K");
     }
     public void handleActionBtnAddService(View view){

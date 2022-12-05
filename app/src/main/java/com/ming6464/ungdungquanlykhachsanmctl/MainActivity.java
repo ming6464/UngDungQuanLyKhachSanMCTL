@@ -54,10 +54,10 @@ public class MainActivity extends AppCompatActivity {
     private void addData() {
         if (!share.getCheck2()) {
             share.setCheck2(true);
-            dao.insertOfLoaiPhong(new Categories("Standard",100,2));
-            dao.insertOfLoaiPhong(new Categories("Superior",125,3));
-            dao.insertOfLoaiPhong(new Categories("Deluxe",160,3));
-            dao.insertOfLoaiPhong(new Categories("Suite",200,6));
+            dao.insertOfLoaiPhong(new Categories("Standard",500,2));
+            dao.insertOfLoaiPhong(new Categories("Superior",825,3));
+            dao.insertOfLoaiPhong(new Categories("Deluxe",1200,3));
+            dao.insertOfLoaiPhong(new Categories("Suite",2200,6));
             //
             dao.insertOfService(new Services("Trông trẻ", 40));
             dao.insertOfService(new Services("Đánh giày", 20));

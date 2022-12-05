@@ -60,7 +60,7 @@ public class ItemOrderDetail1Adapter extends RecyclerView.Adapter<ItemOrderDetai
         h.tv_room.setText(obj.getRoomID());
         h.tv_fullName.setText(people.getFullName());
         h.tv_phoneNumber.setText("Số Điện Thoại :  " + people.getSDT());
-        String status = null;
+        String status;
         int i_status = obj.getStatus();
         if(i_status == 0){
             status = "Đang Sử Dụng";
@@ -71,24 +71,30 @@ public class ItemOrderDetail1Adapter extends RecyclerView.Adapter<ItemOrderDetai
             h.btn_detail.setText("Tới hoá đơn tổng");
             h.linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_thanhtoan);
         }
-        else if(obj.getStatus() == 2){
+        else if(i_status == 2){
             status = "Đặt Trước";
-            h.linear_deposit.setVisibility(View.VISIBLE);
+            h.btn_detail.setText("chức năng");
             h.linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_dattruoc);
-            h.tv_deposit.setText(numberFormat.format(obj.getDeposit()) + "K");
-        }else{
+            
+        }else if(i_status == 4){
             status = "Huỷ";
             h.btn_detail.setText("Tới hoá đơn tổng");
-            h.linear_deposit.setVisibility(View.VISIBLE);
             h.linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_huyphong);
-            h.tv_deposit.setText(numberFormat.format(obj.getDeposit()) + "K");
+            
+        }else {
+            status = "Có Thể Nhận Phòng";
+            h.btn_detail.setText("Chức năng");
+            h.linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_cothenhanphong);
         }
+        h.tv_deposit.setText(numberFormat.format(obj.getDeposit()) + "K");
         h.tv_status.setText(status);
         h.tv_checkIn.setText( "Ngày Nhận :  " + sdf.format(checkIn));
         h.tv_checkOut.setText("Ngày Trả :  "  + sdf.format(checkOut));
         h.tv_hourCheckOut.setText("Giờ :  "  + sdf1.format(checkOut) + "h");
         h.tv_hourCheckIn.setText("Giờ :  "  + sdf1.format(checkIn) + "h");
-        h.tv_total.setText(numberFormat.format(dao.getCategoryWithRoomId(obj.getRoomID()).getPrice() * ((checkOut.getTime() - checkIn.getTime())/3600000) + dao.getTotalServiceWithOrderDetailId(obj.getId())) + "K");
+        int amount_date = (int)(checkOut.getTime() - checkIn.getTime())/(3600000 * 24) + 1,
+                price_room = dao.getPriceWithIdOfRooms(obj.getRoomID());
+        h.tv_total.setText(numberFormat.format(price_room * amount_date + dao.getTotalServiceWithOrderDetailId(obj.getId())) + "K");
         h.btn_detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
