@@ -131,7 +131,6 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:layout_marginTop="10dp"
             android:id="@+id/itemOrderDetail1_linear_deposit"
             android:orientation="horizontal">

@@ -229,7 +229,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="#0C4573"
                     android:textStyle="bold"
-                    android:text="Tổng Tiền Cọc"
+                    android:text="Tổng Tiền Dịch Vụ"
                     android:fontFamily="@font/overpass_extrabold"
                     android:textSize="18sp"
                     app:layout_constraintTop_toTopOf="parent"
@@ -237,12 +237,12 @@
                     />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/actiHDCT_tv_totalDeposit"
+                    android:id="@+id/actiHDCT_tv_totalService"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/overpass_extrabold"
-                    android:text="3.900.000 đ"
-                    android:textColor="#E6E80303"
+                    android:text="3,900K"
+                    android:textColor="@color/blue"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -252,26 +252,51 @@
                     android:layout_height="wrap_content"
                     android:textColor="#0C4573"
                     android:textStyle="bold"
-                    android:layout_marginTop="5dp"
-                    android:text="Tổng Tiền Dịch Vụ"
+                    android:text="Tổng Tiền Cọc"
                     android:fontFamily="@font/overpass_extrabold"
                     android:textSize="18sp"
-                    app:layout_constraintTop_toBottomOf="@id/actiHDCT_tv_totalDeposit"
+                    app:layout_constraintTop_toBottomOf="@+id/actiHDCT_tv_totalService"
                     app:layout_constraintStart_toStartOf="parent"
                     />
-
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/actiHDCT_tv_totalService"
+                    android:id="@+id/actiHDCT_tv_totalDeposit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/overpass_extrabold"
-                    android:text="3.900.000 đ"
-                    android:layout_marginTop="5dp"
-                    android:textColor="#E6E80303"
+                    android:text="3,900K"
+                    android:textColor="@color/blue"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/actiHDCT_tv_totalDeposit" />
+                    app:layout_constraintTop_toBottomOf="@+id/actiHDCT_tv_totalService" />
+                <RelativeLayout
+                    app:layout_constraintTop_toBottomOf="@id/actiHDCT_tv_totalDeposit"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:visibility="gone"
+                    android:id="@+id/actiHDCT_relative_totalDepositCancel"
+                    android:layout_height="wrap_content">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:text="Tổng Tiền Cọc Phòng huỷ"
+                        android:fontFamily="@font/overpass_semibold"
+                        android:textSize="13sp"
+                        android:layout_alignParentStart="true"
+                        />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/actiHDCT_tv_totalDepositCancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/overpass_semibold"
+                        android:text="3,900K"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:layout_alignParentEnd="true" />
+                </RelativeLayout>
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -280,23 +305,51 @@
                     android:text="Tổng Tiền Phòng"
                     android:fontFamily="@font/overpass_extrabold"
                     android:textSize="18sp"
-                    android:layout_marginTop="5dp"
-                    app:layout_constraintTop_toBottomOf="@id/actiHDCT_tv_totalService"
+                    android:layout_marginTop="7dp"
+                    app:layout_constraintTop_toBottomOf="@id/actiHDCT_relative_totalDepositCancel"
                     app:layout_constraintStart_toStartOf="parent"
                     />
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#E6E80303"
-                    android:layout_marginTop="5dp"
-                    android:text="3.900.000 đ"
+                    android:textColor="@color/blue"
+                    android:layout_marginTop="7dp"
+                    android:text="3,900K"
                     android:id="@+id/actiHDCT_tv_totalRoom"
                     android:fontFamily="@font/overpass_extrabold"
                     android:textStyle="bold"
                     android:textSize="18sp"
-                    app:layout_constraintTop_toBottomOf="@id/actiHDCT_tv_totalService"
+                    app:layout_constraintTop_toBottomOf="@id/actiHDCT_relative_totalDepositCancel"
                     app:layout_constraintEnd_toEndOf="parent"
                     />
+                <RelativeLayout
+                    app:layout_constraintTop_toBottomOf="@id/actiHDCT_tv_totalRoom"
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:visibility="gone"
+                    android:id="@+id/actiHDCT_relative_totalRoomCancel"
+                    android:layout_height="wrap_content">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:text="Tổng Tiền Cọc Phòng huỷ"
+                        android:fontFamily="@font/overpass_semibold"
+                        android:textSize="13sp"
+                        android:layout_alignParentStart="true"
+                        />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/actiHDCT_tv_totalRoomCancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/overpass_semibold"
+                        android:text="3,900K"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:layout_alignParentEnd="true" />
+                </RelativeLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -327,10 +380,10 @@
                         android:layout_width="wrap_content"
                         app:layout_goneMarginTop="15dp"
                         android:layout_height="wrap_content"
-                        android:textColor="#E6E80303"
+                        android:textColor="@color/coNguoi"
                         app:layout_constraintTop_toTopOf="parent"
                         android:layout_marginTop="10dp"
-                        android:text="3.900.000 đ"
+                        android:text="3,900K"
                         android:id="@+id/actiHDCT_tv_total"
                         android:fontFamily="@font/overpass_extrabold"
                         android:textStyle="bold"
@@ -402,9 +455,9 @@
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0 đ"
+                        android:text="0K"
                         android:id="@+id/actiHDCT_tv_changeMoney"
-                        android:textColor="#0C4573"
+                        android:textColor="@color/coNguoi"
                         android:textSize="17sp"
                         android:fontFamily="@font/overpass_bold"
                         android:textStyle="bold"

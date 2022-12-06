@@ -56,22 +56,19 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
     public RecyclerView rcvRooms;
     private RoomsAdapter roomsAdapter;
     private List<Rooms> mListRooms;
-    private LinearLayoutCompat linear_searchRooms;
-    private SimpleDateFormat sdf,sdf1,sdf2;
+    private SimpleDateFormat sdf,sdf1;
     private Calendar calendar;
-    private Date d_checkIn,d_checkOut,now;
-    private boolean check = false;
-    private String stringTime;
-    private FloatingActionButton float_change;
+    private Date d_checkIn,d_checkOut;
     private ProgressBar pb_load;
-    private TextView tv_checkIn,tv_checkOut,tv_showAll,tv_hourCheckIn,tv_hourCheckOut;
+    private TextView tv_checkIn,tv_checkOut;
     private ImageView img_search;
-    public static final String KEY_BUNDLE = "KEY_BUNDLE",KEY_ROOM ="KEY_ROOM",KEY_CHECKIN = "KEY_CHECKIN",KEY_CHECKOUT ="KEY_CHECKOUT",KEY_STATUS = "KEY_STATUS";
+    public static final String KEY_BUNDLE = "KEY_BUNDLE",KEY_ROOM ="KEY_ROOM",
+            KEY_CHECKIN = "KEY_CHECKIN",KEY_CHECKOUT ="KEY_CHECKOUT",
+            KEY_STATUS = "KEY_STATUS",KEY_AMOUNT_DATE = "KEY_AMOUNT_DATE";
     private KhachSanDAO dao;
 
     public static PhongFragment newInstance() {
-        PhongFragment fragment = new PhongFragment();
-        return fragment;
+        return new PhongFragment();
     }
 
     @Override
@@ -92,21 +89,14 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
         calendar = Calendar.getInstance();
         d_checkOut = new Date();
         d_checkIn = new Date();
-        now = new Date();
-        sdf = new SimpleDateFormat("dd/MM/yyyy HH");
-        sdf1 = new SimpleDateFormat("dd/MM/yyyy");
-        sdf2 = new SimpleDateFormat("HH");
+        sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf1 = new SimpleDateFormat("dd/MM/yyyy HH");
         dao = KhachSanDB.getInstance(getContext()).getDAO();
         tv_checkIn = view.findViewById(R.id.fragPhong_tv_checkIn);
-        tv_hourCheckIn = view.findViewById(R.id.fragPhong_tv_hourCheckIn);
         tv_checkOut = view.findViewById(R.id.fragPhong_tv_checkOut);
-        tv_hourCheckOut = view.findViewById(R.id.fragPhong_tv_hourCheckOut);
-        tv_showAll = view.findViewById(R.id.fragPhong_tv_showAll);
         img_search = view.findViewById(R.id.fragPhong_img_search);
         rcvRooms = view.findViewById(R.id.rcv_rooms);
         pb_load= view.findViewById(R.id.fragPhong_pg_load);
-        linear_searchRooms = view.findViewById(R.id.fagPhong_linear_searchRooms);
-        float_change = view.findViewById(R.id.fragPhong_float_change);
         roomsAdapter = new RoomsAdapter(this);
         mListRooms = new ArrayList<>();
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),3);
@@ -119,28 +109,27 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
     @Override
     public void onResume() {
         super.onResume();
-        Long time = System.currentTimeMillis();
-        if((time % 3600000)/60000 > 40)
-            time += 3600000;
-        time -= time % 3600000;
+        long time = 0;
+        try {
+            time = sdf.parse(sdf.format(new Date(System.currentTimeMillis()))).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         calendar.setTimeInMillis(time);
-        now.setTime(time);
-        d_checkOut.setTime(time + 3600000 * 24);
-        d_checkIn.setTime(time);
-        tv_checkIn.setText(sdf1.format(d_checkIn));
-        tv_hourCheckIn.setText(sdf2.format(d_checkIn) + "h");
-        tv_checkOut.setText(sdf1.format(d_checkOut));
-        tv_hourCheckOut.setText(sdf2.format(d_checkOut) + "h");
+        d_checkOut.setTime(time + 3600000 * 36);
+        d_checkIn.setTime(time + 3600000 * 14);
+        tv_checkIn.setText(sdf.format(d_checkIn));
+        tv_checkOut.setText(sdf.format(d_checkOut));
         handleFilterRoom();
     }
     @Override
     public void datPhong(Rooms rooms) {
         int status = rooms.getStatus();
-        if(status == 0  && !check){
+        if(status == 0){
             new AlertDialog.Builder(getContext())
                     .setTitle("Xác nhận đặt phòng")
                     .setMessage("Bạn có muốn đặt phòng không?")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    .setPositiveButton("Có", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Intent intent = new Intent(requireContext(), ChucNangDatPhongActivity.class);
@@ -148,15 +137,16 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
                             bundle.putString(KEY_ROOM,rooms.getId());
                             bundle.putLong(KEY_CHECKIN,d_checkIn.getTime());
                             bundle.putLong(KEY_CHECKOUT,d_checkOut.getTime());
+                            bundle.putInt(KEY_AMOUNT_DATE,(int)(d_checkOut.getTime() - d_checkIn.getTime())/(3600000*24) + 1);
                             int status = 0;
-                            if(now.getTime() < d_checkIn.getTime())
+                            if(System.currentTimeMillis() < (d_checkIn.getTime()))
                                 status  = 2;
                             bundle.putInt(KEY_STATUS,status);
                             intent.putExtra(KEY_BUNDLE,bundle);
                             startActivity(intent);
                         }
                     })
-                    .setNegativeButton("No",null)
+                    .setNegativeButton("Huỷ",null)
                     .show();
         }
     }
@@ -172,69 +162,21 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
         },700);
     }
     private void handleFilterRoom(){
-        if(check)
-            mListRooms = dao.getAllOfRooms();
-        else {
-            try {
-                d_checkIn = sdf.parse(tv_checkIn.getText().toString() + " " + tv_hourCheckIn.getText().toString());
-                d_checkOut = sdf.parse(tv_checkOut.getText().toString() + " " + tv_hourCheckOut.getText().toString());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            Date date1 = new Date(d_checkIn.getTime() + 10000),date2 = new Date(d_checkOut.getTime() - 10000);
-            mListRooms = dao.getListRoomEmptyWithTime(date1,date2);
-            for(Rooms x : mListRooms){
-                x.setStatus(0);
-            }
+        try {
+            d_checkIn = sdf1.parse(tv_checkIn.getText().toString() + " 14");
+            d_checkOut = sdf1.parse(tv_checkOut.getText().toString() + " 12");
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+        mListRooms = dao.getListRoomWithTime(d_checkIn,d_checkOut);
         showLoad();
         List<String> listCategory = dao.getListNameCategoryWithRoomId(mListRooms);
         roomsAdapter.setData(mListRooms, listCategory);
-        
-    }
-    private void updateTime(String text,boolean isCheckOut,boolean isTime){
-        Date date,date1;
-        try{
-            date = sdf.parse(text);
-            if(isCheckOut){
-                date1 = sdf.parse(tv_checkIn.getText() + " " + tv_hourCheckIn.getText().toString());
-                if(date.getTime() > date1.getTime()){
-                    if(isTime)
-                        tv_hourCheckOut.setText(text.substring(text.indexOf(" ") + 1) + "h");
-                    else
-                        tv_checkOut.setText(text.substring(0,text.indexOf(" ")));
-                }
-            }else{
-                date1 = sdf.parse(tv_checkOut.getText() + " " + tv_hourCheckOut.getText().toString());
-                if(date.getTime() >= now.getTime() && date.getTime() < date1.getTime()){
-                    if(isTime)
-                        tv_hourCheckIn.setText(text.substring(text.indexOf(" ") + 1) + "h");
-                    else
-                        tv_checkIn.setText(text.substring(0,text.indexOf(" ")));
-                }
-            }
-
-            }catch (Exception e){
-        }
-    }
-    private void showOrHideRooms(){
-        if(check){
-            linear_searchRooms.setVisibility(View.VISIBLE);
-            tv_showAll.setVisibility(View.GONE);
-            check = false;
-            return;
-        }
-        linear_searchRooms.setVisibility(View.GONE);
-        tv_showAll.setVisibility(View.VISIBLE);
-        check = true;
     }
 
     private void handleAction() {
         tv_checkIn.setOnClickListener(this);
-        tv_hourCheckIn.setOnClickListener(this);
         tv_checkOut.setOnClickListener(this);
-        tv_hourCheckOut.setOnClickListener(this);
-        float_change.setOnClickListener(this);
         img_search.setOnClickListener(this);
     }
 
@@ -246,48 +188,22 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
                 DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        stringTime = tv_hourCheckIn.getText().toString();
-                        updateTime(dayOfMonth + "/" + (month + 1) + "/" + year + " " + stringTime.substring(0, stringTime.length() - 1), false, false);
+                        tv_checkIn.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
-                break;
-            case R.id.fragPhong_tv_hourCheckIn:
-                calendar.setTime(d_checkIn);
-                TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(), new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        updateTime(tv_checkIn.getText().toString() + " " + hourOfDay, false, true);
-                    }
-                }, calendar.get(Calendar.HOUR_OF_DAY) + 1, 0, true);
-                timePickerDialog.show();
                 break;
             case R.id.fragPhong_tv_checkOut:
                 calendar.setTime(d_checkOut);
                 datePickerDialog = new DatePickerDialog(requireContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        stringTime = tv_hourCheckOut.getText().toString();
-                        updateTime(dayOfMonth +"/" +(month + 1) + "/" +year + " " + stringTime.substring(0,stringTime.length() - 1), true,false);
+                        tv_checkOut.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
                     }
                 },calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
                 break;
-            case R.id.fragPhong_tv_hourCheckOut:
-                calendar.setTime(d_checkOut);
-                timePickerDialog = new TimePickerDialog(requireContext(), new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        updateTime(tv_checkIn.getText().toString() + " " + hourOfDay, true,true);
-                    }
-                },calendar.get(Calendar.HOUR_OF_DAY) + 1,0,true);
-                timePickerDialog.show();
-                break;
-            case R.id.fragPhong_img_search:
-                handleFilterRoom();
-                break;
             default:
-                showOrHideRooms();
                 handleFilterRoom();
         }
     }

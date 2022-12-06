@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ItemHoaDonAdapter;
+import com.ming6464.ungdungquanlykhachsanmctl.DTO.OrderDetail;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Orders;
 import com.ming6464.ungdungquanlykhachsanmctl.HoaDonChiTietActivity;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDAO;
@@ -30,6 +32,7 @@ public class HoaDonFragment extends Fragment implements ItemHoaDonAdapter.EventO
     private Spinner sp_status;
     private RecyclerView rc_hoaDon;
     private List<Orders> orderList;
+    private SwipeRefreshLayout rf_rcHoaDon;
     private ItemHoaDonAdapter orderAdapter;
     private KhachSanDAO dao;
     public static final String KEY_ORDER = "KEY_ORDER";
@@ -54,13 +57,24 @@ public class HoaDonFragment extends Fragment implements ItemHoaDonAdapter.EventO
         dao = KhachSanDB.getInstance(requireContext()).getDAO();
         rc_hoaDon = view.findViewById(R.id.fagHoaDon_rc_hoaDon);
         sp_status = view.findViewById(R.id.fragHoaDon_sp_status);
-        handlerRcHoaDon();
-        handlerSpinner();
+        rf_rcHoaDon = view.findViewById(R.id.fragHoaDon_rf_rcHoaDon);
+        handleRcHoaDon();
+        handleSpinner();
+        handleAction();
     }
 
-    private void handlerSpinner() {
+    private void handleAction() {
+        rf_rcHoaDon.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadData(sp_status.getSelectedItemPosition());
+                rf_rcHoaDon.setRefreshing(false);
+            }
+        });
+    }
+
+    private void handleSpinner() {
         List<String> statusList = new ArrayList<>();
-        statusList.add("Tất Cả");
         statusList.add("Chưa Thanh Toán");
         statusList.add("Thanh Toán");
         statusList.add("Huỷ");
@@ -69,13 +83,7 @@ public class HoaDonFragment extends Fragment implements ItemHoaDonAdapter.EventO
         sp_status.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position == 0){
-                    orderList = dao.getAllOfOrders();
-                    orderAdapter.setData(orderList);
-                }else {
-                    orderList = dao.getListWithStatusOfOrders(position - 1);
-                    orderAdapter.setData(orderList);
-                }
+                loadData(position);
             }
 
             @Override
@@ -84,7 +92,35 @@ public class HoaDonFragment extends Fragment implements ItemHoaDonAdapter.EventO
         });
     }
 
-    private void handlerRcHoaDon() {
+    private void loadData(int position) {
+        long currentTime = System.currentTimeMillis();
+        for(OrderDetail x : dao.getAllOfOrderDetail()){
+            switch (x.getStatus()){
+                case 0:
+                    if(x.getEndDate().getTime() < currentTime){
+                        x.setStatus(1);
+                        dao.updateOfOrderDetail(x);
+                    }
+                    break;
+                case 2:
+                    if(x.getStartDate().getTime() < currentTime){
+                        x.setStatus(3);
+                        dao.updateOfOrderDetail(x);
+                    }
+                    break;
+                case 3:
+                    if(x.getEndDate().getTime() < currentTime){
+                        x.setStatus(4);
+                        dao.cancelOfOrderDetail(x.getId());
+                    }
+                    break;
+            }
+        }
+        orderList = dao.getListWithStatusOfOrders(position);
+        orderAdapter.setData(orderList);
+    }
+
+    private void handleRcHoaDon() {
         orderAdapter = new ItemHoaDonAdapter(requireContext(),this);
         rc_hoaDon.setAdapter(orderAdapter);
         rc_hoaDon.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -101,7 +137,7 @@ public class HoaDonFragment extends Fragment implements ItemHoaDonAdapter.EventO
     @Override
     public void onResume() {
         super.onResume();
-        orderList = dao.getAllOfOrders();
-        orderAdapter.setData(orderList);
+        loadData(sp_status.getSelectedItemPosition());
     }
+
 }
