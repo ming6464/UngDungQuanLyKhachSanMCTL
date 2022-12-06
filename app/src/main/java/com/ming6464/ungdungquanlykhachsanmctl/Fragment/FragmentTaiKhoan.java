@@ -67,6 +67,7 @@ public class FragmentTaiKhoan extends Fragment {
                         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_update_password, null);
                         TextInputEditText edt_password = view.findViewById(R.id.edt_password);
                         TextInputEditText edt_newPassword = view.findViewById(R.id.edt_newPassword);
+                        TextInputEditText edt_confimPass = view.findViewById(R.id.edt_confimPass);
                         Button btnSaveChange = view.findViewById(R.id.btnSaveChange);
                         Button btnCanceChange = view.findViewById(R.id.btnCanceChange);
 
@@ -81,6 +82,7 @@ public class FragmentTaiKhoan extends Fragment {
                             public void onClick(View v) {
                                 String oldpassword = edt_password.getText().toString().trim();
                                 String newPassword = edt_newPassword.getText().toString().trim();
+                                String confimPass = edt_confimPass.getText().toString().trim();
                                 if (TextUtils.isEmpty(oldpassword)) {
                                     Toast.makeText(getContext(), "Nhập mật khẩu hiện tại của bạn", Toast.LENGTH_SHORT).show();
                                     return;
@@ -89,8 +91,18 @@ public class FragmentTaiKhoan extends Fragment {
                                     Toast.makeText(getContext(), "Nhập mật khẩu mới của bạn", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
+
+                                if (TextUtils.isEmpty(confimPass)) {
+                                    Toast.makeText(getContext(), "Nhập lại mật khẩu mới của bạn", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
                                 if (newPassword.length() < 3) {
                                     Toast.makeText(getContext(), "Độ dài mật khẩu phải ít nhất 3 ký tự", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+
+                                if (!newPassword.equals(confimPass)) {
+                                    Toast.makeText(getContext(), "Mật khẩu mới không khớp. Mời nhập lại", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
                                 KhachSanSharedPreferences pref = new KhachSanSharedPreferences(requireContext());
