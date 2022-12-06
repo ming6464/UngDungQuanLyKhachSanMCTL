@@ -10,7 +10,7 @@ public class OrderDetail {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String roomID;
-    private int orderID,status,amountOfPeople,deposit;
+    private int orderID,status,amountOfPeople,prepay;
     private Date startDate,endDate;
 
     public OrderDetail(String roomID, int orderID, int amountOfPeople, Date startDate, Date endDate) {
@@ -20,7 +20,7 @@ public class OrderDetail {
         this.startDate = startDate;
         this.endDate = endDate;
         this.amountOfPeople = amountOfPeople;
-        this.deposit = 0;
+        this.prepay = 0;
     }
 
     public int getAmountOfPeople() {
@@ -79,12 +79,12 @@ public class OrderDetail {
         this.endDate = endDate;
     }
 
-    public int getDeposit() {
-        return deposit;
+    public int getPrepay() {
+        return prepay;
     }
 
-    public void setDeposit(int deposit) {
-        this.deposit = deposit;
+    public void setPrepay(int prepay) {
+        this.prepay = prepay;
     }
 
     @Override

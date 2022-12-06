@@ -2,6 +2,7 @@ package com.ming6464.ungdungquanlykhachsanmctl;
 
 import static com.ming6464.ungdungquanlykhachsanmctl.Fragment.HoaDonFragment.KEY_ORDER;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
@@ -10,6 +11,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -32,14 +34,15 @@ import java.util.Locale;
 public class HoaDonChiTietActivity extends AppCompatActivity {
     private Orders ordersObj;
     private People customerObj;
-    private int total = 0,changeMoney = 0 ,totalRoom = 0,totalRoomCancel = 0, totalService = 0,totalDeposit = 0,totalDepositCancel = 0,color;
+    private int changeMoney = 0 ,totalRoom = 0, totalService = 0,totalPrepay = 0,totalPrepayCancel = 0,totalPrepayUndefined = 0,totalUnPay = 0 ,color;
     private NumberFormat format;
     private KhachSanDAO dao;
-    private boolean checkCancel = false;
+    private boolean checkSuccess = false;
     private ConstraintLayout constrain_order;
     private ProgressBar pg_load;
+    private String room = "";
     private EditText ed_fullName,ed_sex,ed_phoneNumber,ed_CCCD,ed_address,ed_moneyOfCustomer;
-    private TextView tv_totalService,tv_totalRoom,tv_totalRoomCancel,tv_total,tv_changeMoney,tv_totalDeposit,tv_totalDepositCancel;
+    private TextView tv_totalService,tv_totalRoom,tv_totalPrepayCancel,tv_total,tv_totalPay,tv_changeMoney,tv_totalPrepay,tv_totalPrepayUndefined,tv_totalUnPay;
     private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +92,7 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
         if(!ed_moneyOfCustomer.getText().toString().isEmpty()){
             money = Integer.parseInt(s_money);
         }
-        changeMoney = money - (total - totalRoomCancel) + (totalDeposit - totalDepositCancel);
+        changeMoney = money - totalUnPay - totalService;
         if(changeMoney >= 0){
             i = 1;
             color = R.color.blue;
@@ -100,30 +103,34 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
 
     private void handleInfoOrder() {
         addOrderDetail();
-        if(checkCancel){
-            findViewById(R.id.actiHDCT_relative_totalDepositCancel).setVisibility(View.VISIBLE);
-            findViewById(R.id.actiHDCT_relative_totalRoomCancel).setVisibility(View.VISIBLE);
-            tv_totalRoomCancel.setText(format.format(totalRoomCancel) + "K");
-            tv_totalDepositCancel.setText(format.format(totalDepositCancel) + "K");
+        room = room.substring(0,room.length() - 2);
+        tv_totalPrepayCancel.setText(format.format(totalPrepayCancel) + "K");
+        tv_totalPrepay.setText(format.format(totalPrepay) + "K");
+        tv_totalPrepayUndefined.setText(format.format(totalPrepayUndefined) + "K");
+
+        if(!checkSuccess){
+            findViewById(R.id.actiHDCT_linear_pay).setVisibility(View.GONE);
         }
-        total = ordersObj.getTotal();
-        int i_total = (total- totalRoomCancel) - (totalDeposit - totalDepositCancel);
-        if(i_total < 0){
-            i_total = 0;
-            ed_moneyOfCustomer.setVisibility(View.GONE);
+        int money = totalUnPay + totalService;
+        if(money == 0){
+            findViewById(R.id.actiHDCT_inputLayout_1).setVisibility(View.GONE);
         }
+
+        tv_total.setText(format.format(ordersObj.getTotal()) + "K");
+
         if(ordersObj.getStatus() != 0){
             findViewById(R.id.actiHDCT_linear_pay).setVisibility(View.GONE);
-        }else{
-            tv_total.setText(format.format(i_total)  + "K");
-        }
+        }else
+            tv_totalPay.setText(format.format(totalUnPay + totalService)  + "K");
+
         tv_totalService.setText(format.format(totalService) + "K");
         tv_totalRoom.setText(format.format(totalRoom) + "K");
-        tv_totalDeposit.setText(format.format(totalDeposit) + "K");
+        tv_totalPrepay.setText(format.format(totalPrepay) + "K");
+        tv_totalUnPay.setText(format.format(totalUnPay) + "K");
     }
 
     private void addOrderDetail() {
-        TextView tv_room,tv_roomPrice,tv_checkIn,tv_checkOut,tv_serviceFee,tv_roomFee,tv_hours,tv_deposit;
+        TextView tv_room,tv_roomPrice,tv_checkIn,tv_checkOut,tv_serviceFee,tv_roomFee,tv_hours,tv_prepay;
         RecyclerView rc_service;
         LinearLayoutCompat linear = findViewById(R.id.actiHDCT_Linear_orderDetail),linear_orderDetail;
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy  HH");
@@ -137,7 +144,7 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
             tv_checkOut = itemView.findViewById(R.id.itemOrderDetail2_tv_checkOut);
             tv_serviceFee = itemView.findViewById(R.id.itemOrderDetail2_tv_serviceFee);
             tv_roomFee = itemView.findViewById(R.id.itemOrderDetail2_tv_roomFee);
-            tv_deposit = itemView.findViewById(R.id.itemOrderDetail2_tv_deposit);
+            tv_prepay = itemView.findViewById(R.id.itemOrderDetail2_tv_paySuccess);
             rc_service = itemView.findViewById(R.id.itemOrderDetail2_rc_service);
             linear_orderDetail = itemView.findViewById(R.id.itemOrderDetail2_linear_orderDetail2);
             ////
@@ -148,33 +155,50 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
             int status = x.getStatus();
             int roomPrice = dao.getCategoryWithRoomId(x.getRoomID()).getPrice();
             int serviceFee = dao.getTotalServiceWithOrderDetailId(x.getId());
-            int deposit = x.getDeposit();
+            int prepay = x.getPrepay();
             totalRoom += roomPrice * amount_date;
-            totalDeposit += deposit;
             totalService += serviceFee;
             tv_roomPrice.setText("Giá Phòng :  " + format.format(roomPrice) + "K");
             tv_hours.setText("Thời Gian :  " + amount_date + "Ngày");
             tv_roomFee.setText(format.format(roomPrice * amount_date) + "K");
-            tv_deposit.setText(format.format(deposit) + "K");
+            if(prepay > 0){
+                tv_prepay.setVisibility(View.VISIBLE);
+            }
             tv_serviceFee.setText(format.format(serviceFee) + "K");
             subAdapter = new ItemService3Adapter();
             subAdapter.setData(dao.getListWithOrderDetailIdOfService(x.getId()),
                     dao.getListWithOrderDetailIdOfServiceOrder(x.getId()));
             rc_service.setAdapter(subAdapter);
             rc_service.setLayoutManager(new LinearLayoutManager(this));
-            if(status == 0)
+            if(status == 0){
                 linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_chuathanhtoan);
-            else if(status == 1)
+                if(prepay > 0)
+                    totalPrepay += prepay;
+                else
+                    totalUnPay += roomPrice * amount_date;
+                checkSuccess = true;
+            }
+            else if(status == 1){
                 linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_thanhtoan);
-            else if(status == 2)
+                if(prepay > 0)
+                    totalPrepay += prepay;
+                else
+                    totalUnPay += roomPrice * amount_date;
+                checkSuccess = true;
+            }
+            else if(status == 2){
                 linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_dattruoc);
-            else  if(status == 3)
+                totalPrepayUndefined += prepay;
+                room += x.getRoomID() + ", ";
+            }
+            else  if(status == 3){
                 linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_cothenhanphong);
+                totalPrepayUndefined += prepay;
+                room += x.getRoomID() + ", ";
+            }
             else{
                 linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_huyphong);
-                totalRoomCancel += roomPrice;
-                totalDepositCancel += deposit;
-                checkCancel = true;
+                totalPrepayCancel += prepay;
             }
             linear.addView(itemView);
         }
@@ -206,12 +230,14 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
         ed_address = findViewById(R.id.actiHDCT_ed_address);
         ed_moneyOfCustomer = findViewById(R.id.actiHDCT_ed_moneyOfCustomer);
         tv_total = findViewById(R.id.actiHDCT_tv_total);
+        tv_totalPay = findViewById(R.id.actiHDCT_tv_totalPay);
         tv_totalRoom = findViewById(R.id.actiHDCT_tv_totalRoom);
-        tv_totalRoomCancel = findViewById(R.id.actiHDCT_tv_totalRoomCancel);
         tv_totalService = findViewById(R.id.actiHDCT_tv_totalService);
         tv_changeMoney = findViewById(R.id.actiHDCT_tv_changeMoney);
-        tv_totalDeposit = findViewById(R.id.actiHDCT_tv_totalDeposit);
-        tv_totalDepositCancel = findViewById(R.id.actiHDCT_tv_totalDepositCancel);
+        tv_totalPrepay = findViewById(R.id.actiHDCT_tv_totalPrepay);
+        tv_totalPrepayCancel = findViewById(R.id.actiHDCT_tv_totalPrepayCancel);
+        tv_totalPrepayUndefined = findViewById(R.id.actiHDCT_tv_totalPrepayUndefined);
+        tv_totalUnPay = findViewById(R.id.actiHDCT_tv_totalUnPay);
         toolbar = findViewById(R.id.actiHDCT_tb);
     }
 
@@ -221,20 +247,41 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
 
     public void handleActionPay(View view) {
         if(!ed_moneyOfCustomer.getText().toString().isEmpty() && changeMoney >= 0){
-            ordersObj.setStatus(1);
-            dao.checkOutRoomOfOrder(ordersObj.getId());
-            constrain_order.setVisibility(View.GONE);
-            pg_load.setVisibility(View.VISIBLE);
-            findViewById(R.id.actiHDCT_img_back).setVisibility(View.GONE);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    CustomToast.makeText(HoaDonChiTietActivity.this,"Thanh toán thành công !",true).show();
-                    finish();
-                }
-            },1000);
+            if(totalPrepayUndefined > 0){
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Lưu Ý !");
+                builder.setMessage("Các phòng " + room + " đều vẫn chưa được sử dụng. Việc thanh toán sẽ tạo ra 1 hoá đơn tổng mới");
+                builder.setPositiveButton("Xác Nhận", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        checkOutOrder();
+                    }
+                });
+                builder.setNegativeButton("Huỷ", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                builder.show();
+                return;
+            }
+            checkOutOrder();
         }
         else
             CustomToast.makeText(this,"Khách đưa thiếu !",false).show();
+    }
+
+    private void checkOutOrder(){
+        dao.checkOutRoomOfOrder(ordersObj.getId());
+        constrain_order.setVisibility(View.GONE);
+        pg_load.setVisibility(View.VISIBLE);
+        findViewById(R.id.actiHDCT_img_back).setVisibility(View.GONE);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                CustomToast.makeText(HoaDonChiTietActivity.this,"Thanh toán thành công !",true).show();
+                finish();
+            }
+        },1000);
     }
 }

@@ -5,10 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.core.widget.ImageViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.OrderDetail;
@@ -86,7 +88,10 @@ public class ItemOrderDetail1Adapter extends RecyclerView.Adapter<ItemOrderDetai
             h.btn_detail.setText("Chức năng");
             h.linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_cothenhanphong);
         }
-        h.tv_deposit.setText(numberFormat.format(obj.getDeposit()) + "K");
+        if(obj.getPrepay() > 0)
+            h.img_paySuccess.setVisibility(View.VISIBLE);
+        else
+            h.img_paySuccess.setVisibility(View.GONE);
         h.tv_status.setText(status);
         h.tv_checkIn.setText( "Ngày Nhận :  " + sdf.format(checkIn));
         h.tv_checkOut.setText("Ngày Trả :  "  + sdf.format(checkOut));
@@ -112,9 +117,10 @@ public class ItemOrderDetail1Adapter extends RecyclerView.Adapter<ItemOrderDetai
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView tv_room,tv_fullName,tv_phoneNumber,tv_checkIn,tv_hourCheckIn,
-                tv_checkOut,tv_hourCheckOut,tv_status,tv_total,tv_deposit;
+                tv_checkOut,tv_hourCheckOut,tv_status,tv_total;
         private Button btn_detail;
-        private LinearLayoutCompat linear_orderDetail,linear_deposit;
+        private ImageView img_paySuccess;
+        private LinearLayoutCompat linear_orderDetail;
         public MyViewHolder(@NonNull View iv) {
             super(iv);
             tv_room = iv.findViewById(R.id.itemOrderDetail1_tv_room);
@@ -126,10 +132,9 @@ public class ItemOrderDetail1Adapter extends RecyclerView.Adapter<ItemOrderDetai
             tv_hourCheckOut = iv.findViewById(R.id.itemOrderDetail1_tv_hourCheckOut);
             tv_status = iv.findViewById(R.id.itemOrderDetail1_tv_status);
             tv_total = iv.findViewById(R.id.itemOrderDetail1_tv_total);
-            tv_deposit = iv.findViewById(R.id.itemOrderDetail1_tv_deposit);
             btn_detail = iv.findViewById(R.id.itemHoaDonPhong_btn_detail);
             linear_orderDetail = iv.findViewById(R.id.itemOrderDetail1_linear_orderDetail1);
-            linear_deposit = iv.findViewById(R.id.itemOrderDetail1_linear_deposit);
+            img_paySuccess = iv.findViewById(R.id.itemOrderDetail1_img_paySuccess);
         }
     }
 }
