@@ -70,7 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableTint="#03A9F4"
-            android:drawableLeft="@drawable/lock_30"
+            android:drawableLeft="@drawable/key_30"
             android:drawablePadding="10dp"
             android:fontFamily="@font/overpass_bold"
             android:inputType="textPassword"

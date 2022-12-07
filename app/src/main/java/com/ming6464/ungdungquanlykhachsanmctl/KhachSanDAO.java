@@ -1,4 +1,5 @@
 package com.ming6464.ungdungquanlykhachsanmctl;
+
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -13,6 +14,7 @@ import com.ming6464.ungdungquanlykhachsanmctl.DTO.Rooms;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.ServiceCategory;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.ServiceOrder;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Services;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,6 +28,12 @@ public abstract class KhachSanDAO {
     @Insert
     public abstract void insertOfLoaiPhong(Categories obj);
 
+    //hiển thị số lượng loại phòng
+    @Query("Select count(*) from OrderDetail , Rooms Where " +
+            "Rooms.id = OrderDetail.roomID and Categoryid = :id " +
+            " and OrderDetail.status = 1 " +
+            "and OrderDetail.startDate >= :start and OrderDetail.endDate <= :end")
+    public abstract int showSoLuong(int id, Date start, Date end);
 
     //services
     @Insert
@@ -37,21 +45,28 @@ public abstract class KhachSanDAO {
     @Query("SELECT * FROM Services")
     public abstract List<Services> getAllService();
 
-    public List<Services> getListWithOrderDetailIdOfService(int id){
+    public List<Services> getListWithOrderDetailIdOfService(int id) {
         List<Services> list = new ArrayList<>();
-        for (ServiceOrder x : getListWithOrderDetailIdOfServiceOrder(id)){
+        for (ServiceOrder x : getListWithOrderDetailIdOfServiceOrder(id)) {
             list.add(getObjOfServices(x.getServiceId()));
         }
         return list;
     }
 
-    public List<Services> getListWithRoomIdOfServices(String id){
+    public List<Services> getListWithRoomIdOfServices(String id) {
         List<Services> list = new ArrayList<>();
-        for (ServiceCategory x : getListWithCategoryIdOfServiceCategory(getObjOfRooms(id).getCategoryID())){
+        for (ServiceCategory x : getListWithCategoryIdOfServiceCategory(getObjOfRooms(id).getCategoryID())) {
             list.add(getObjOfServices(x.getServiceID()));
         }
         return list;
     }
+
+    //show list loại phòng
+    @Query("Select amount from OrderDetail as ASE , ServiceOrder as B " +
+            " Where ASE.id = B.orderDetailID " +
+            "and B.serviceId = :id and ASE.status = 1" +
+            " and ASE.startDate >= :start and ASE.endDate <= :end ")
+    public abstract int showCountService(int id, Date start, Date end);
 
 
     //User
@@ -134,7 +149,7 @@ public abstract class KhachSanDAO {
     @Update
     public abstract void updateOfOrders(Orders obj);
 
-    public void checkOutRoomOfOrder(int id){
+    public void checkOutRoomOfOrder(int id) {
         Orders obj = getObjOfOrders(id);
         obj.setStatus(1);
         updateOfOrders(obj);
@@ -157,6 +172,7 @@ public abstract class KhachSanDAO {
             }
         }
     }
+
     @Query("SELECT * FROM Orders WHERE status = :status")
     public abstract List<Orders> getListWithStatusOfOrders(int status);
 
@@ -200,12 +216,12 @@ public abstract class KhachSanDAO {
     public abstract OrderDetail getObjOrderDetail(int id);
 
     @Query("SELECT * FROM ORDERDETAIL WHERE ROOMID = :id")
-    public abstract OrderDetail getWithRoomIdOfOrderDetail (String id);
+    public abstract OrderDetail getWithRoomIdOfOrderDetail(String id);
 
     @Query("SELECT MAX(id) FROM orderdetail")
     public abstract int getNewIdOfOrderDetail();
 
-    public void cancelOfOrderDetail(int id){
+    public void cancelOfOrderDetail(int id) {
         OrderDetail obj = getObjOrderDetail(id);
         obj.setStatus(4);
         updateOfOrderDetail(obj);
@@ -216,7 +232,7 @@ public abstract class KhachSanDAO {
                 break;
             }
         }
-        if(check){
+        if (check) {
             Orders orders = getObjOfOrders(obj.getOrderID());
             orders.setStatus(2);
             updateOfOrders(orders);
@@ -228,17 +244,17 @@ public abstract class KhachSanDAO {
     public abstract void insertObjOfServiceOrder(ServiceOrder obj);
 
     @Query("SELECT * FROM SERVICEORDER WHERE serviceId = :idService AND  orderDetailID = :idOrderDetail")
-    public abstract ServiceOrder getObjOfServiceOrder(int idService,int idOrderDetail);
+    public abstract ServiceOrder getObjOfServiceOrder(int idService, int idOrderDetail);
 
-    public void insertOfServiceOrder(ServiceOrder obj){
-        ServiceOrder x = getObjOfServiceOrder(obj.getServiceId(),obj.getOrderDetailID());
-        if(x != null){
+    public void insertOfServiceOrder(ServiceOrder obj) {
+        ServiceOrder x = getObjOfServiceOrder(obj.getServiceId(), obj.getOrderDetailID());
+        if (x != null) {
             x.setAmount(x.getAmount() + obj.getAmount());
             updateOfServiceOrder(x);
-        }else{
+        } else {
             insertObjOfServiceOrder(obj);
         }
-        updateTotalOfOrders(getIdOrderWithIdOrderDetail(obj.getOrderDetailID()),getObjOfServices(obj.getServiceId()).getPrice() * obj.getAmount());
+        updateTotalOfOrders(getIdOrderWithIdOrderDetail(obj.getOrderDetailID()), getObjOfServices(obj.getServiceId()).getPrice() * obj.getAmount());
     }
 
     @Update
@@ -260,9 +276,9 @@ public abstract class KhachSanDAO {
     @Query("SELECT * FROM services WHERE id in (SELECT serviceID FROM servicecategory WHERE categoryID = (SELECT categoryID FROM Rooms WHERE id = :id))")
     public abstract List<Services> getListServiceCategoryWithRoomId(String id);
 
-    public List<String> getListNameCategoryWithRoomId(List<Rooms> roomsList){
+    public List<String> getListNameCategoryWithRoomId(List<Rooms> roomsList) {
         List<String> list = new ArrayList<>();
-        for(Rooms x : roomsList){
+        for (Rooms x : roomsList) {
             list.add(getCategoryWithRoomId(x.getId()).getName());
         }
         return list;
@@ -281,7 +297,7 @@ public abstract class KhachSanDAO {
     //get data
     @Query("SELECT * FROM People Where SDT =:sdt")
     public abstract People getUserBy(String sdt);
-    
+
     @Query("SELECT SUM(PRICE * AMOUNT) FROM SERVICES AS A, SERVICEORDER WHERE A.ID = SERVICEID AND ORDERDETAILID = :id")
     public abstract int getTotalServiceWithOrderDetailId(int id);
     
