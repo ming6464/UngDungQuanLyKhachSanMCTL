@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:background="@drawable/white_corner10"
+                android:background="@drawable/background_name"
                 android:fontFamily="@font/overpass_extrabold"
                 android:gravity="center_horizontal"
                 android:text="Nguyễn Gia Minh"
@@ -57,18 +57,18 @@
             android:weightSum="10">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/itemHoaDon_tv_checkIn"
+                android:id="@+id/itemHoaDon_tv_start"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
                 android:fontFamily="@font/overpass_bold"
-                android:text="Ngày nhận: 16/09/2003"
+                android:text="Ngày bắt đầu: 16/09/2003"
                 android:textColor="#100423"
                 android:textSize="15sp"
                 app:textAllCaps="true" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/itemHoaDon_tv_hourCheckIn"
+                android:id="@+id/itemHoaDon_tv_hourStart"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
@@ -87,18 +87,18 @@
             android:weightSum="10">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/itemHoaDon_tv_checkOut"
+                android:id="@+id/itemHoaDon_tv_end"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
                 android:fontFamily="@font/overpass_bold"
-                android:text="Ngày trả: 16/09/2003"
+                android:text="Ngày kết thúc : 16/09/2003"
                 android:textColor="#100423"
                 android:textSize="15sp"
                 app:textAllCaps="true" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/itemHoaDon_tv_hourCheckOut"
+                android:id="@+id/itemHoaDon_tv_hourEnd"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"

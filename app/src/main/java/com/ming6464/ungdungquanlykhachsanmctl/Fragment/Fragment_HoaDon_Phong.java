@@ -35,6 +35,7 @@ import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDB;
 import com.ming6464.ungdungquanlykhachsanmctl.R;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -188,7 +189,7 @@ public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1A
                     @Override
                     public void onClick(View v) {
                         obj.setStatus(4);
-                        dao.cancelOfOrderDetail(obj.getId());
+                        dao.cancelOfOrderDetail(obj.getId(),new Date(System.currentTimeMillis()));
                         list.remove(position);
                         adapter.notifyItemRemoved(position);
                         CustomToast.makeText(requireContext(),"Phòng " + obj.getRoomID() + " đã huỷ phòng thành công !",true).show();
@@ -206,7 +207,7 @@ public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1A
         for(OrderDetail x : dao.getAllOfOrderDetail()){
             switch (x.getStatus()){
                 case 0:
-                    if(x.getEndDate().getTime() < currentTime){
+                    if(x.getCheckOut().getTime() < currentTime){
                         x.setStatus(1);
                         dao.updateOfOrderDetail(x);
                     }
@@ -218,7 +219,7 @@ public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1A
                         list.add(x);
                     break;
                 case 2:
-                    if(x.getStartDate().getTime() < currentTime){
+                    if(x.getCheckIn().getTime() < currentTime){
                         x.setStatus(3);
                         dao.updateOfOrderDetail(x);
                     }
@@ -226,9 +227,9 @@ public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1A
                         list.add(x);
                     break;
                 case 3:
-                    if(x.getEndDate().getTime() < currentTime){
+                    if(x.getCheckOut().getTime() < currentTime){
                         x.setStatus(4);
-                        dao.cancelOfOrderDetail(x.getId());
+                        dao.cancelOfOrderDetail(x.getId(),new Date(currentTime));
                     }
                     if(position == 0)
                         list.add(x);

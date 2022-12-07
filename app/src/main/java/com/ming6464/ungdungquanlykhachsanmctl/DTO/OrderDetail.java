@@ -11,14 +11,14 @@ public class OrderDetail {
     private int id;
     private String roomID;
     private int orderID,status,amountOfPeople,prepay;
-    private Date startDate,endDate;
+    private Date checkIn,checkOut;
 
-    public OrderDetail(String roomID, int orderID, int amountOfPeople, Date startDate, Date endDate) {
+    public OrderDetail(String roomID, int orderID, int amountOfPeople, Date checkIn, Date checkOut) {
         this.roomID = roomID;
         this.orderID = orderID;
         this.status = 0;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
         this.amountOfPeople = amountOfPeople;
         this.prepay = 0;
     }
@@ -63,20 +63,20 @@ public class OrderDetail {
         this.status = status;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Date getCheckIn() {
+        return checkIn;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setCheckIn(Date checkIn) {
+        this.checkIn = checkIn;
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public Date getCheckOut() {
+        return checkOut;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setCheckOut(Date checkOut) {
+        this.checkOut = checkOut;
     }
 
     public int getPrepay() {
@@ -85,16 +85,5 @@ public class OrderDetail {
 
     public void setPrepay(int prepay) {
         this.prepay = prepay;
-    }
-
-    @Override
-    public String toString() {
-        return "id=" + id +
-                ", roomID=" + roomID +
-                ", orderID=" + orderID +
-                ", status=" + status +
-                ", amountOfPeople=" + amountOfPeople +
-                ", startDate=" + startDate.toString() +
-                ", endDate=" + endDate.toString();
     }
 }

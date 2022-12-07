@@ -29,6 +29,7 @@ import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 public class HoaDonChiTietActivity extends AppCompatActivity {
@@ -149,10 +150,10 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
             rc_service = itemView.findViewById(R.id.itemOrderDetail2_rc_service);
             linear_orderDetail = itemView.findViewById(R.id.itemOrderDetail2_linear_orderDetail2);
             ////
-            tv_checkIn.setText("Check In :  "  + sdf.format(x.getStartDate()) + "h");
-            tv_checkOut.setText("Check Out :  "  + sdf.format(x.getEndDate()) + "h");
+            tv_checkIn.setText("Check In :  "  + sdf.format(x.getCheckIn()) + "h");
+            tv_checkOut.setText("Check Out :  "  + sdf.format(x.getCheckOut()) + "h");
             tv_room.setText(x.getRoomID());
-            int amount_date = (int) (x.getEndDate().getTime() - x.getStartDate().getTime())/(3600000 * 24) + 1;
+            int amount_date = (int) (x.getCheckOut().getTime() - x.getCheckIn().getTime())/(3600000 * 24) + 1;
             int status = x.getStatus();
             int roomPrice = dao.getCategoryWithRoomId(x.getRoomID()).getPrice();
             int serviceFee = dao.getTotalServiceWithOrderDetailId(x.getId());
@@ -273,7 +274,7 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
     }
 
     private void checkOutOrder(){
-        dao.checkOutRoomOfOrder(ordersObj.getId());
+        dao.checkOutRoomOfOrder(ordersObj.getId(), new Date(System.currentTimeMillis()));
         constrain_order.setVisibility(View.GONE);
         pg_load.setVisibility(View.VISIBLE);
         findViewById(R.id.actiHDCT_img_back).setVisibility(View.GONE);

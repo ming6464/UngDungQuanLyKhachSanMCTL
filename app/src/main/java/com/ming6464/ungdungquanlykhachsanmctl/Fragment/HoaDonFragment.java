@@ -26,6 +26,7 @@ import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDB;
 import com.ming6464.ungdungquanlykhachsanmctl.R;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class HoaDonFragment extends Fragment implements ItemHoaDonAdapter.EventOfOrderAdapter {
@@ -97,21 +98,21 @@ public class HoaDonFragment extends Fragment implements ItemHoaDonAdapter.EventO
         for(OrderDetail x : dao.getAllOfOrderDetail()){
             switch (x.getStatus()){
                 case 0:
-                    if(x.getEndDate().getTime() < currentTime){
+                    if(x.getCheckOut().getTime() < currentTime){
                         x.setStatus(1);
                         dao.updateOfOrderDetail(x);
                     }
                     break;
                 case 2:
-                    if(x.getStartDate().getTime() < currentTime){
+                    if(x.getCheckIn().getTime() < currentTime){
                         x.setStatus(3);
                         dao.updateOfOrderDetail(x);
                     }
                     break;
                 case 3:
-                    if(x.getEndDate().getTime() < currentTime){
+                    if(x.getCheckOut().getTime() < currentTime){
                         x.setStatus(4);
-                        dao.cancelOfOrderDetail(x.getId());
+                        dao.cancelOfOrderDetail(x.getId(),new Date(System.currentTimeMillis()));
                     }
                     break;
             }

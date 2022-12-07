@@ -58,7 +58,7 @@ public class ItemOrderDetail1Adapter extends RecyclerView.Adapter<ItemOrderDetai
     public void onBindViewHolder(@NonNull MyViewHolder h, int position) {
         OrderDetail obj = list.get(position);
         People people = dao.getObjOfUser(dao.getObjOfOrders(obj.getOrderID()).getCustomID());
-        Date checkOut = obj.getEndDate(),checkIn = obj.getStartDate();
+        Date checkOut = obj.getCheckOut(),checkIn = obj.getCheckIn();
         h.tv_room.setText(obj.getRoomID());
         h.tv_fullName.setText(people.getFullName());
         h.tv_phoneNumber.setText("Số Điện Thoại :  " + people.getSDT());

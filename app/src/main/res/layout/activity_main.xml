@@ -15,9 +15,9 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/actiMain_tb"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
+            android:layout_height="wrap_content">
             <TextView
-                android:fontFamily="@font/overpass_bold"
+                android:fontFamily="@font/overpass_extrabold"
                 android:textStyle="bold"
                 android:textSize="22sp"
                 android:text="Sơ Đồ Phòng"
@@ -31,14 +31,14 @@
         <FrameLayout
             android:id="@+id/frameLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="2dp"
+            app:labelVisibilityMode="labeled"
             app:itemIconTint="@color/custom_color_menu"
             app:itemTextColor="@color/custom_color_menu"
             app:menu="@menu/menu_bottom_menu" />
