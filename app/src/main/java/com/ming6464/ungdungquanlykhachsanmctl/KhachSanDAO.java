@@ -153,9 +153,23 @@ public abstract class KhachSanDAO {
         Orders obj = getObjOfOrders(id);
         obj.setStatus(1);
         updateOfOrders(obj);
+        int orderNewId = -1;
         for(OrderDetail x : getListWithOrderIdOfOrderDetail(obj.getId())){
-            x.setStatus(1);
-            updateOfOrderDetail(x);
+            if(x.getStatus() == 0){
+                x.setStatus(1);
+                updateOfOrderDetail(x);
+            }
+            else if(x.getStatus() == 2 || x.getStatus() == 3){
+                if(orderNewId < 0){
+                    insertOfOrders(new Orders(obj.getCustomID(),obj.getUID()));
+                    orderNewId = getNewIdOfOrders();
+                }
+                x.setOrderID(orderNewId);
+                updateOfOrderDetail(x);
+                int priceRooms = getPriceWithIdOfRooms(x.getRoomID());
+                int amount_date = (int) (x.getEndDate().getTime() - x.getStartDate().getTime()) / (3600000 * 24) + 1;
+                updateTotalOfOrders(orderNewId, priceRooms * amount_date);
+            }
         }
     }
 
@@ -185,31 +199,11 @@ public abstract class KhachSanDAO {
     @Query("SELECT MIN(startDate) FROM orderdetail WHERE orderID = :id")
     public abstract Date getMinStatDateWithIdOrderOfOrderDetail(int id);
 
-    @Query("SELECT MAX(endDate) FROM orderdetail WHERE orderID = :id")
+    @Query("SELECT MAX(endDate) FROM orderdetail WHERE orderID = :id  AND STATUS != 4")
     public abstract Date getMaxEndDateWithIdOrderOfOrderDetail(int id);
 
     @Query("SELECT * FROM ORDERDETAIL WHERE ROOMID = :roomId AND STATUS = 2")
     public abstract List<OrderDetail> getListReserveWithRoomIdOfOrderDetail(String roomId);
-
-    public OrderDetail getNextReserveOfOrderDetail(int id) {
-        OrderDetail obj = getObjOrderDetail(id), nextOrder = null;
-        List<OrderDetail> list = getListReserveWithRoomIdOfOrderDetail(obj.getRoomID());
-        if (list.size() > 0) {
-            int min, i;
-            nextOrder = list.get(0);
-            min = (int) (nextOrder.getStartDate().getTime() - obj.getEndDate().getTime()) / 3600000;
-            for (OrderDetail x : list) {
-                if (x.getStartDate() == obj.getEndDate())
-                    return x;
-                i = (int) (nextOrder.getStartDate().getTime() - obj.getEndDate().getTime()) / 3600000;
-                if (i < min) {
-                    min = i;
-                    nextOrder = x;
-                }
-            }
-        }
-        return nextOrder;
-    }
 
     public void insertOfOrderDetail(OrderDetail obj) {
         insertObjOfOrderDetail(obj);

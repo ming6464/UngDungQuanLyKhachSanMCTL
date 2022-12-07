@@ -146,33 +146,8 @@
                 />
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tiền Cọc"
-                android:layout_marginTop="5dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/itemOrderDetail2_tv_serviceFee"
-                android:textSize="16sp"
-                android:fontFamily="@font/overpass_extrabold"
-                android:textColor="#124E7E"
-                android:textStyle="bold"
-                />
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1.520.000 đ"
-                android:textStyle="bold"
-                android:layout_marginTop="5dp"
-                android:id="@+id/itemOrderDetail2_tv_deposit"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/itemOrderDetail2_tv_serviceFee"
-                android:textSize="16sp"
-                android:fontFamily="@font/overpass_extrabold"
-                android:textColor="@color/blue"
-                />
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/itemOrderDetail2_tv_deposit"
+                app:layout_constraintTop_toBottomOf="@id/itemOrderDetail2_tv_serviceFee"
                 android:layout_height="wrap_content"
                 android:text="Tiền Phòng"
                 android:layout_marginTop="5dp"
@@ -189,12 +164,28 @@
                 android:layout_marginTop="5dp"
                 android:id="@+id/itemOrderDetail2_tv_roomFee"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/itemOrderDetail2_tv_deposit"
+                app:layout_constraintTop_toBottomOf="@id/itemOrderDetail2_tv_serviceFee"
                 android:textSize="16sp"
                 android:fontFamily="@font/overpass_extrabold"
                 android:textColor="@color/blue"
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:id="@+id/itemOrderDetail2_tv_paySuccess"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/done_30"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/white_corner10"
+            android:fontFamily="@font/overpass_extrabold"
+            android:textColor="#CC007305"
+            android:text="Đã thanh toán tiền phòng"
+            />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.cardview.widget.CardView>

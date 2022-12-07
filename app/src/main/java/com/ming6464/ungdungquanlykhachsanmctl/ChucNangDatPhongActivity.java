@@ -1,6 +1,7 @@
 package com.ming6464.ungdungquanlykhachsanmctl;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -42,7 +43,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemService1Adapter.EventOfItemService1Adapter {
-    private int status,totalService = 0,deposit = 0,total,color,minDeposit = 0,amount_date = 1;
+    private int status,totalService = 0,total,amount_date = 1;
     private String idRoom;
     private List<String> userListString;
     private List<Services> serviceList,serviceList1;
@@ -50,7 +51,8 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
     private NumberFormat format;
     private Spinner sp_customer,sp_amountOfPeople,sp_service;
     private EditText ed_fullName,ed_phoneNumber,ed_CCCD,ed_address;
-    private TextView tv_total,tv_room,tv_checkIn,tv_checkOut,tv_deposit,tv_titleDeposit;
+    private TextView tv_total,tv_room,tv_checkIn,tv_checkOut;
+    private AppCompatCheckBox chk_prepay;
     private RadioButton rdo_male,rdo_newCustomer;
     private KhachSanDAO dao;
     private ItemService1Adapter itemServiceOrderAdapter;
@@ -70,9 +72,7 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
         loadTotal();
         if(status == 2){
             findViewById(R.id.actiCNDP_linear_services).setVisibility(View.GONE);
-            findViewById(R.id.actiCNDP_linear_deposit).setVisibility(View.VISIBLE);
-            minDeposit = Math.round(total * 0.5f);
-            loadDeposit();
+            chk_prepay.setVisibility(View.VISIBLE);
         }else {
             serviceList1 = new ArrayList<>();
             serviceList = dao.getListServiceCategoryWithRoomId(idRoom);
@@ -124,8 +124,7 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
         tv_checkIn = findViewById(R.id.actiCNDP_tv_checkIn);
         tv_checkOut = findViewById(R.id.actiCNDP_tv_checkOut);
         rc_service = findViewById(R.id.actiCNDP_rc_service);
-        tv_deposit = findViewById(R.id.actiCNDP_tv_deposit);
-        tv_titleDeposit = findViewById(R.id.actiCNDP_tv_titleDeposit);
+        chk_prepay = findViewById(R.id.actiCNDP_chk_prepay);
     }
 
     private void handleSpinner() {
@@ -182,11 +181,9 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
         ed_phoneNumber.setText("");
     }
     public void handleActionBtnSave(View view) {
-        if(status == 2){
-            if(color == R.color.coNguoi){
-                CustomToast.makeText(this,"Tiền cọc không đủ !",false).show();
-                return;
-            }
+        if(status == 2 && !chk_prepay.isChecked()){
+            CustomToast.makeText(this,"Thao tác thanh toán cần phải thực hiện trước !",false).show();
+            return;
         }
         int idCustomer,idOrder, amountOfPeople = Integer.parseInt(sp_amountOfPeople.getSelectedItem().toString()),idOrderDetail;
         if(rdo_newCustomer.isChecked()){
@@ -240,7 +237,7 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
         OrderDetail orderDetail = new OrderDetail(idRoom,idOrder,
                 amountOfPeople,checkIn,checkOut);
         if(status == 2){
-            orderDetail.setDeposit(deposit);
+            orderDetail.setPrepay(total);
             orderDetail.setStatus(status);
         }
 
@@ -321,58 +318,4 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
         }
     }
 
-    public void handleActionDeposit(View view) {
-        Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialog_deposit);
-        dialog.setCancelable(false);
-        Window window = dialog.getWindow();
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
-        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        window.getAttributes().windowAnimations = R.style.dialog_slide_left_to_right;
-        //
-        EditText ed_deposit = dialog.findViewById(R.id.dialogDeposit_ed_deposit);
-        TextView yes = dialog.findViewById(R.id.dialogDeposit_tv_yes), no = dialog.findViewById(R.id.dialogDeposit_tv_no),
-                tv_titleMinDeposit = dialog.findViewById(R.id.dialogDeposit_tv_titleMinDeposit);
-        tv_titleMinDeposit.setText("* Cọc Tối thiểu " + format.format(minDeposit) + "K");
-        //
-        ed_deposit.setText(String.valueOf(deposit));
-        //
-        no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.cancel();
-            }
-        });
-        yes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String s_deposit = ed_deposit.getText().toString();
-                if(s_deposit.isEmpty())
-                    CustomToast.makeText(ChucNangDatPhongActivity.this,"Số tiền cọc không đủ !", false).show();
-                else{
-                    int i_deposit = Integer.parseInt(s_deposit);
-                    if(i_deposit >= minDeposit){
-                        deposit = i_deposit;
-                        loadDeposit();
-                        dialog.cancel();
-                    }else
-                        CustomToast.makeText(ChucNangDatPhongActivity.this,"Số tiền cọc không đủ !", false).show();
-                }
-            }
-        });
-        dialog.show();
-    }
-
-    private void loadDeposit(){
-        if(deposit >= minDeposit){
-            color = R.color.blue;
-            tv_titleDeposit.setVisibility(View.GONE);
-        }else{
-            tv_titleDeposit.setVisibility(View.VISIBLE);
-            tv_titleDeposit.setText("* Tiền cọc tối thiểu (50%) " + format.format(minDeposit) + "K");
-            color = R.color.coNguoi;
-        }
-        tv_deposit.setText(format.format(deposit) + "K");
-        tv_deposit.setTextColor(getResources().getColor(color));
-    }
 }

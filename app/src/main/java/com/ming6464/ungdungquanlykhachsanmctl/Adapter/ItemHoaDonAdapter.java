@@ -29,14 +29,13 @@ public class ItemHoaDonAdapter extends RecyclerView.Adapter<ItemHoaDonAdapter.My
     private List<Orders> list;
     private KhachSanDAO dao;
     private NumberFormat format;
-    private SimpleDateFormat sdf,sdf1;
+    private SimpleDateFormat sdf;
 
     public ItemHoaDonAdapter(Context context, EventOfOrderAdapter action){
         this.action = action;
         dao = KhachSanDB.getInstance(context).getDAO();
         format = NumberFormat.getInstance(new Locale("en","EN"));
         sdf = new SimpleDateFormat("dd/MM/yyyy");
-        sdf1 = new SimpleDateFormat("HH");
     }
 
     public void setData(List<Orders> list){
@@ -57,8 +56,8 @@ public class ItemHoaDonAdapter extends RecyclerView.Adapter<ItemHoaDonAdapter.My
         h.tv_fullName.setText(people.getFullName());
         h.tv_phoneNumber.setText("Số Điện Thoại :  " + people.getSDT());
         h.tv_total.setText(format.format(obj.getTotal()) + "K");
-        String status = "Chưa Thanh Toán";
-        int color = Color.RED;
+        String status;
+        int color;
         if(obj.getStatus() == 2){
             h.layout.setBackgroundResource(R.drawable.background_hoadon_huyphong);
             status = "Huỷ";
@@ -67,13 +66,17 @@ public class ItemHoaDonAdapter extends RecyclerView.Adapter<ItemHoaDonAdapter.My
             status = "Thanh Toán";
             h.layout.setBackgroundResource(R.drawable.background_hoadon_thanhtoan);
             color = Color.BLACK;
+        }else {
+            status = "Chưa Thanh Toán";
+            color = Color.RED;
+            h.layout.setBackgroundResource(R.drawable.background_hoadon_chuathanhtoan);
         }
         h.tv_status.setTextColor(color);
         h.tv_status.setText(status);
         h.tv_checkIn.setText("Ngày Nhập :  " +sdf.format(dao.getMinStatDateWithIdOrderOfOrderDetail(obj.getId())));
-        h.tv_hourCheckIn.setText("Giờ :  " +sdf1.format(dao.getMinStatDateWithIdOrderOfOrderDetail(obj.getId())));
+        h.tv_hourCheckIn.setText("Giờ :  14");
         h.tv_checkOut.setText("Ngày Trả :  " +sdf.format(dao.getMaxEndDateWithIdOrderOfOrderDetail(obj.getId())));
-        h.tv_hourCheckOut.setText("Giờ :  " +sdf1.format(dao.getMaxEndDateWithIdOrderOfOrderDetail(obj.getId())));
+        h.tv_hourCheckOut.setText("Giờ :  12");
 
         String rooms = "";
         List<Rooms> list1 = dao.getListWithOrderIdOfRooms(obj.getId());

@@ -16,20 +16,34 @@
         android:padding="10dp"
         android:layout_marginStart="10dp">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_marginTop="15dp"
-            android:id="@+id/itemOrderDetail1_tv_fullName"
-            android:layout_width="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_height="wrap_content"
-            android:background="@drawable/white_corner10"
-            android:gravity="center_horizontal"
-            android:fontFamily="@font/overpass_extrabold"
-            android:text="Nguyễn Gia Minh"
-            android:textStyle="bold"
-            android:textColor="#16013C"
-            android:textSize="18sp"
-            app:textAllCaps="true" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_marginTop="15dp"
+                android:layout_centerInParent="true"
+                android:id="@+id/itemOrderDetail1_tv_fullName"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_corner10"
+                android:gravity="center_horizontal"
+                android:fontFamily="@font/overpass_extrabold"
+                android:text="Nguyễn Gia Minh"
+                android:textStyle="bold"
+                android:textColor="#16013C"
+                android:textSize="18sp"
+                app:textAllCaps="true" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:id="@+id/itemOrderDetail1_img_paySuccess"
+                android:src="@drawable/done_50"
+                android:layout_alignParentEnd="true"
+                />
+        </RelativeLayout>
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_marginTop="10dp"
             android:id="@+id/itemOrderDetail1_tv_phoneNumber"
@@ -126,35 +140,6 @@
                 android:text="Đang Sử Dụng"
                 android:textColor="#DA0909"
                 android:textSize="16sp"
-                app:textAllCaps="false" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:id="@+id/itemOrderDetail1_linear_deposit"
-            android:orientation="horizontal">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/overpass_bold"
-                android:text="Tiền Cọc: "
-                android:textColor="#100423"
-                android:textSize="15sp"
-                app:textAllCaps="true" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/itemOrderDetail1_tv_deposit"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/overpass_semibold"
-                android:gravity="center"
-                android:text="2.000.000 đ"
-                android:textColor="#DA0909"
-                android:textSize="15.5sp"
-                android:textStyle="bold"
                 app:textAllCaps="false" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
