@@ -54,47 +54,66 @@ public class MainActivity extends AppCompatActivity {
     private void addData() {
         if (!share.getCheck2()) {
             share.setCheck2(true);
-            dao.insertOfLoaiPhong(new Categories("Standard",500,2));
-            dao.insertOfLoaiPhong(new Categories("Superior",825,3));
-            dao.insertOfLoaiPhong(new Categories("Deluxe",1200,3));
-            dao.insertOfLoaiPhong(new Categories("Suite",2200,6));
+            dao.insertOfLoaiPhong(new Categories("Phòng Đơn",800,1));
+            dao.insertOfLoaiPhong(new Categories("Phòng Đôi",1200,2));
+            dao.insertOfLoaiPhong(new Categories("Phòng Vip",2200,4));
             //
-            dao.insertOfService(new Services("Trông trẻ", 40));
-            dao.insertOfService(new Services("Đánh giày", 20));
-            dao.insertOfService(new Services("Giặt Đồ", 30));
-            dao.insertOfService(new Services("Spa", 500));
-            dao.insertOfService(new Services("Gym", 30));
-            dao.insertOfService(new Services("Thuê taxi", 20));
-            dao.insertOfService(new Services("Karaoke", 100));
-            dao.insertOfService(new Services("Két bia", 130));
-            dao.insertOfService(new Services("Sting", 10));
-            dao.insertOfService(new Services("Kẹo lạc", 10));
+            dao.insertOfService(new Services("Thuê taxi", 0));
+            dao.insertOfService(new Services("Giặt là", 30));
+            dao.insertOfService(new Services("Ủi đồ", 30));
+            dao.insertOfService(new Services("Giặt khô", 30));
+            dao.insertOfService(new Services("Fitness center / Gym", 30));
+            dao.insertOfService(new Services("Dọn phòng hằng ngày", 40));
+            dao.insertOfService(new Services("Ăn Sáng", 40));
+            dao.insertOfService(new Services("Spa", 100));
+            dao.insertOfService(new Services("Đưa đón sân bay", 250));
+            dao.insertOfService(new Services("Karaoke", 130));
             //rooms
             dao.insertOfRooms(new Rooms("101", 1));
-            dao.insertOfRooms(new Rooms("102", 2));
-            dao.insertOfRooms(new Rooms("103", 3));
-            dao.insertOfRooms(new Rooms("104", 4));
+            dao.insertOfRooms(new Rooms("102", 1));
+            dao.insertOfRooms(new Rooms("103", 1));
+            dao.insertOfRooms(new Rooms("104", 2));
+            dao.insertOfRooms(new Rooms("105", 2));
+            dao.insertOfRooms(new Rooms("106", 3));
             dao.insertOfRooms(new Rooms("201", 1));
-            dao.insertOfRooms(new Rooms("202", 2));
-            dao.insertOfRooms(new Rooms("203", 3));
-            dao.insertOfRooms(new Rooms("204", 4));
-            dao.insertOfRooms(new Rooms("205", 1));
-            dao.insertOfRooms(new Rooms("206", 2));
-            dao.insertOfRooms(new Rooms("301", 3));
-            dao.insertOfRooms(new Rooms("302", 4));
-            dao.insertOfRooms(new Rooms("303", 3));
-            dao.insertOfRooms(new Rooms("304", 4));
-            dao.insertOfRooms(new Rooms("305", 3));
-            dao.insertOfRooms(new Rooms("306", 4));
+            dao.insertOfRooms(new Rooms("202", 1));
+            dao.insertOfRooms(new Rooms("203", 1));
+            dao.insertOfRooms(new Rooms("204", 2));
+            dao.insertOfRooms(new Rooms("205", 2));
+            dao.insertOfRooms(new Rooms("206", 3));
+            dao.insertOfRooms(new Rooms("301", 1));
+            dao.insertOfRooms(new Rooms("302", 1));
+            dao.insertOfRooms(new Rooms("303", 1));
+            dao.insertOfRooms(new Rooms("304", 2));
+            dao.insertOfRooms(new Rooms("305", 2));
+            dao.insertOfRooms(new Rooms("306", 3));
+            dao.insertOfRooms(new Rooms("401", 1));
+            dao.insertOfRooms(new Rooms("402", 1));
+            dao.insertOfRooms(new Rooms("403", 1));
+            dao.insertOfRooms(new Rooms("404", 2));
+            dao.insertOfRooms(new Rooms("405", 2));
+            dao.insertOfRooms(new Rooms("406", 3));
+            dao.insertOfRooms(new Rooms("501", 1));
+            dao.insertOfRooms(new Rooms("502", 1));
+            dao.insertOfRooms(new Rooms("503", 1));
+            dao.insertOfRooms(new Rooms("504", 2));
+            dao.insertOfRooms(new Rooms("505", 2));
+            dao.insertOfRooms(new Rooms("506", 3));
+
             //
             dao.insertOfServiceCategory(new ServiceCategory(1, 1));
             dao.insertOfServiceCategory(new ServiceCategory(1, 2));
             dao.insertOfServiceCategory(new ServiceCategory(1, 3));
+            dao.insertOfServiceCategory(new ServiceCategory(1, 4));
+            dao.insertOfServiceCategory(new ServiceCategory(1, 6));
+
             dao.insertOfServiceCategory(new ServiceCategory(2, 1));
             dao.insertOfServiceCategory(new ServiceCategory(2, 2));
             dao.insertOfServiceCategory(new ServiceCategory(2, 3));
             dao.insertOfServiceCategory(new ServiceCategory(2, 4));
             dao.insertOfServiceCategory(new ServiceCategory(2, 5));
+            dao.insertOfServiceCategory(new ServiceCategory(2, 6));
+
             dao.insertOfServiceCategory(new ServiceCategory(3, 1));
             dao.insertOfServiceCategory(new ServiceCategory(3, 2));
             dao.insertOfServiceCategory(new ServiceCategory(3, 3));
@@ -102,14 +121,8 @@ public class MainActivity extends AppCompatActivity {
             dao.insertOfServiceCategory(new ServiceCategory(3, 5));
             dao.insertOfServiceCategory(new ServiceCategory(3, 6));
             dao.insertOfServiceCategory(new ServiceCategory(3, 7));
-            dao.insertOfServiceCategory(new ServiceCategory(4, 1));
-            dao.insertOfServiceCategory(new ServiceCategory(4, 2));
-            dao.insertOfServiceCategory(new ServiceCategory(4, 3));
-            dao.insertOfServiceCategory(new ServiceCategory(4, 4));
-            dao.insertOfServiceCategory(new ServiceCategory(4, 5));
-            dao.insertOfServiceCategory(new ServiceCategory(4, 6));
-            dao.insertOfServiceCategory(new ServiceCategory(4, 7));
-            dao.insertOfServiceCategory(new ServiceCategory(4, 8));
+            dao.insertOfServiceCategory(new ServiceCategory(3, 8));
+            dao.insertOfServiceCategory(new ServiceCategory(3, 9));
         }
     }
 
@@ -151,7 +164,6 @@ public class MainActivity extends AppCompatActivity {
                         title = "Tài Khoản";
                         logo = R.drawable.yourselt_25;
                         fragment = new FragmentTaiKhoan();
-                        CustomToast.makeText(MainActivity.this, "Đang Update", false).show();
                         break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();

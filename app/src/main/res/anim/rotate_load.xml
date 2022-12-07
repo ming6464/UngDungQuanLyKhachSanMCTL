@@ -4,6 +4,6 @@
         android:pivotY="50%"
         android:fromDegrees="0"
         android:toDegrees="360"
-        android:duration = "2000"
-        android:repeatCount="7"/>
+        android:duration = "3000"
+        android:repeatCount="10"/>
 </set>

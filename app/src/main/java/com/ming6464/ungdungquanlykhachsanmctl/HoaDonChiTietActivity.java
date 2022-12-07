@@ -103,7 +103,8 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
 
     private void handleInfoOrder() {
         addOrderDetail();
-        room = room.substring(0,room.length() - 2);
+        if(totalPrepayUndefined > 0)
+            room = room.substring(0,room.length() - 2);
         tv_totalPrepayCancel.setText(format.format(totalPrepayCancel) + "K");
         tv_totalPrepay.setText(format.format(totalPrepay) + "K");
         tv_totalPrepayUndefined.setText(format.format(totalPrepayUndefined) + "K");
