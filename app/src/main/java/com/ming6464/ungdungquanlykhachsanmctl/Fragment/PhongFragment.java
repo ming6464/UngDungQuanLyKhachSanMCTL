@@ -61,7 +61,6 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
     private Date d_checkIn,d_checkOut;
     private ProgressBar pb_load;
     private TextView tv_checkIn,tv_checkOut;
-    private ImageView img_search;
     public static final String KEY_BUNDLE = "KEY_BUNDLE",KEY_ROOM ="KEY_ROOM",
             KEY_CHECKIN = "KEY_CHECKIN",KEY_CHECKOUT ="KEY_CHECKOUT",
             KEY_STATUS = "KEY_STATUS",KEY_AMOUNT_DATE = "KEY_AMOUNT_DATE";
@@ -89,12 +88,11 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
         calendar = Calendar.getInstance();
         d_checkOut = new Date();
         d_checkIn = new Date();
-        sdf = new SimpleDateFormat("dd/MM/yyyy");
-        sdf1 = new SimpleDateFormat("dd/MM/yyyy HH");
+        sdf = new SimpleDateFormat("dd/MM/yy");
+        sdf1 = new SimpleDateFormat("dd/MM/yy HH");
         dao = KhachSanDB.getInstance(getContext()).getDAO();
         tv_checkIn = view.findViewById(R.id.fragPhong_tv_checkIn);
         tv_checkOut = view.findViewById(R.id.fragPhong_tv_checkOut);
-        img_search = view.findViewById(R.id.fragPhong_img_search);
         rcvRooms = view.findViewById(R.id.rcv_rooms);
         pb_load= view.findViewById(R.id.fragPhong_pg_load);
         roomsAdapter = new RoomsAdapter(this);
@@ -173,11 +171,15 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
         List<String> listCategory = dao.getListNameCategoryWithRoomId(mListRooms);
         roomsAdapter.setData(mListRooms, listCategory);
     }
+    private String formatDate(int date){
+        if(date < 10)
+            return "0" + date;
+        return String.valueOf(date);
+    }
 
     private void handleAction() {
         tv_checkIn.setOnClickListener(this);
         tv_checkOut.setOnClickListener(this);
-        img_search.setOnClickListener(this);
     }
 
     @Override
@@ -188,23 +190,22 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
                 DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        tv_checkIn.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+                        tv_checkIn.setText(formatDate(dayOfMonth) + "/" + (month + 1) + "/" + String.valueOf(year).substring(2));
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
                 break;
-            case R.id.fragPhong_tv_checkOut:
+            default:
                 calendar.setTime(d_checkOut);
                 datePickerDialog = new DatePickerDialog(requireContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        tv_checkOut.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+                        tv_checkOut.setText(formatDate(dayOfMonth) + "/" + (month + 1) + "/" + String.valueOf(year).substring(2));
+                        handleFilterRoom();
                     }
                 },calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
                 break;
-            default:
-                handleFilterRoom();
         }
     }
 }

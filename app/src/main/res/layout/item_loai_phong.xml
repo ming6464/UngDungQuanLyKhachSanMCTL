@@ -22,7 +22,7 @@
             android:fontFamily="@font/overpass_semibold"
             android:textStyle="bold"
             android:text="Tên bài hát"
-            android:background="@drawable/white_corner10"
+            android:background="@drawable/background_name"
             android:textAllCaps="false"
             android:textColor="@color/black"
             android:textSize="21sp" />

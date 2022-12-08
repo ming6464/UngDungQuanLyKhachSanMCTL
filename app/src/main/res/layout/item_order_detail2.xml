@@ -181,7 +181,7 @@
             android:gravity="center"
             android:visibility="gone"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/white_corner10"
+            android:background="@drawable/background_name"
             android:fontFamily="@font/overpass_extrabold"
             android:textColor="#CC007305"
             android:text="Đã thanh toán tiền phòng"

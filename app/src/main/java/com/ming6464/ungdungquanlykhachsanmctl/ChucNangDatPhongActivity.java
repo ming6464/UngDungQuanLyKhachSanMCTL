@@ -185,6 +185,7 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
             CustomToast.makeText(this,"Thao tác thanh toán cần phải thực hiện trước !",false).show();
             return;
         }
+        Orders orders1;
         int idCustomer,idOrder, amountOfPeople = Integer.parseInt(sp_amountOfPeople.getSelectedItem().toString()),idOrderDetail;
         if(rdo_newCustomer.isChecked()){
             String fullName = ed_fullName.getText().toString(),
@@ -220,15 +221,15 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
                 sex = 1;
             dao.insertOfUser(new People(fullName,phoneNumber, cccd,address,sex,0));
             idCustomer = dao.getObjOfUser(phoneNumber).getId();
-            dao.insertOfOrders(new Orders(idCustomer,share.getID()));
+            dao.insertOfOrders(new Orders(idCustomer,share.getID(),checkIn,checkOut));
             idOrder = dao.getNewIdOfOrders();
         }
         else {
             String text = sp_customer.getSelectedItem().toString();
             idCustomer = Integer.parseInt(text.substring(1,text.indexOf(" ")));
-            Orders orders1 = dao.getObjUnpaidWithPeopleIdfOrders(idCustomer,checkIn);
+            orders1 = dao.getObjUnpaidWithPeopleIdfOrders(idCustomer,checkIn);
             if(orders1 == null){
-                dao.insertOfOrders(new Orders(idCustomer,share.getID()));
+                dao.insertOfOrders(new Orders(idCustomer,share.getID(),checkIn,checkOut));
                 idOrder = dao.getNewIdOfOrders();
             }else{
                 idOrder = orders1.getId();
@@ -242,6 +243,7 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
         }
 
         dao.insertOfOrderDetail(orderDetail);
+        dao.reLoadEndOfOrders(idOrder);
         idOrderDetail = dao.getNewIdOfOrderDetail();
         for(ServiceOrder x : serviceOrderList){
             if(x.getAmount() != 0){

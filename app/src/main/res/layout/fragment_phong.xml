@@ -10,99 +10,78 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <RelativeLayout
+            android:layout_margin="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:layout_marginTop="10dp"
-            android:weightSum="15"
+            android:layout_height="30dp"
             android:orientation="horizontal"
-            >
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_weight="13.5"
-                android:layout_height="30dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:weightSum="14">
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textColor="#024880"
-                    android:background="@drawable/backgroud_date"
-                    android:drawableTint="#186BAE"
-                    android:drawableLeft="@drawable/checkin_27"
-                    android:textSize="15sp"
-                    android:gravity="center"
-                    android:id="@+id/fragPhong_tv_checkIn"
-                    android:fontFamily="@font/overpass_semibold"
-                    android:text="20/10/2022" />
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:gravity="center"
-                    android:layout_alignParentTop="true"
-                    android:layout_toRightOf="@id/fragPhong_tv_checkIn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textColor="#024880"
-                    android:background="@drawable/backgroud_time"
-                    android:drawableTint="#186BAE"
-                    android:textSize="15sp"
-                    android:fontFamily="@font/overpass_semibold"
-                    android:text="14h" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/double_next_27"
-                    app:layout_constraintStart_toStartOf="parent" />
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_alignParentTop="true"
-                    android:layout_toLeftOf="@id/fragPhong_tv_hourCheckOut"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textColor="#024880"
-                    android:background="@drawable/backgroud_date"
-                    android:drawableTint="#186BAE"
-                    android:drawableLeft="@drawable/checkin_27"
-                    
-                    android:textSize="15sp"
-                    android:gravity="center"
-                    android:id="@+id/fragPhong_tv_checkOut"
-                    android:fontFamily="@font/overpass_semibold"
-                    android:text="20/10/2022" />
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:gravity="center"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textColor="#024880"
-                    android:background="@drawable/backgroud_time"
-                    android:drawableTint="#186BAE"
-                    android:textSize="15sp"
-                    android:id="@+id/fragPhong_tv_hourCheckOut"
-                    android:fontFamily="@font/overpass_semibold"
-                    android:text="12h" />
-            </RelativeLayout>
+            android:gravity="center_vertical">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/black"
+                android:drawablePadding="10dp"
+                android:background="@drawable/backgroud_date"
+                android:drawableLeft="@drawable/calender_23"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:id="@+id/fragPhong_tv_checkIn"
+                android:fontFamily="@font/overpass_semibold"
+                android:text="20/10/22" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:gravity="center"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@id/fragPhong_tv_checkIn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/black"
+                android:background="@drawable/backgroud_time"
+                android:textSize="15sp"
+                android:fontFamily="@font/overpass_semibold"
+                android:text="14h" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="0dp"
-                android:layout_weight="1.5"
-                android:layout_gravity="center_vertical"
-                android:id="@+id/fragPhong_img_search"
-                android:src="@drawable/search_30"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                />
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/double_next_27"
+                app:layout_constraintStart_toStartOf="parent" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@id/fragPhong_tv_hourCheckOut"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/black"
+                android:background="@drawable/backgroud_date"
+                android:drawableTint="@null"
+                android:drawableLeft="@drawable/calender_23"
+                android:drawablePadding="10dp"
+                android:textSize="15sp"
+                android:gravity="center"
+                android:id="@+id/fragPhong_tv_checkOut"
+                android:fontFamily="@font/overpass_semibold"
+                android:text="20/10/22" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:gravity="center"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/black"
+                android:background="@drawable/backgroud_time"
+                android:textSize="15sp"
+                android:id="@+id/fragPhong_tv_hourCheckOut"
+                android:fontFamily="@font/overpass_semibold"
+                android:text="12h" />
+        </RelativeLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_rooms"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"

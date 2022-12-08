@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:gravity="center|bottom"
+    android:background="@color/white"
+    android:layout_margin="10px"
+    android:layout_height="700px">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/itemCategoryThongKe_tv_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/noto_sans"
+        android:text="3900k"
+        android:textColor="@color/black"
+        android:textSize="40px" />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="15"
+        android:id="@+id/itemCategoryThongKe_tv_statusSuccess"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="35px"
+        android:fontFamily="@font/noto_sans"
+        android:background="#E600BF08"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#99757575"
+        android:id="@+id/itemCategoryThongKe_tv_statusCancel"
+        android:gravity="center"
+        android:text="5"
+        android:textColor="@color/white"
+        android:textSize="35px"
+        app:fontFamily="@font/noto_sans" />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_marginTop="10px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Phòng Vip"
+        android:textColor="@color/black"
+        android:textSize="35px"
+        android:fontFamily="@font/noto_sans"
+        android:id="@+id/itemCategoryThongKe_tv_name"
+        />
+</LinearLayout>
