@@ -28,13 +28,6 @@ public abstract class KhachSanDAO {
     @Insert
     public abstract void insertOfLoaiPhong(Categories obj);
 
-    //hiển thị số lượng loại phòng
-    @Query("Select count(*) from OrderDetail , Rooms Where " +
-            "Rooms.id = OrderDetail.roomID and Categoryid = :id " +
-            " and OrderDetail.status = 1 " +
-            "and OrderDetail.checkIn >= :start and OrderDetail.checkOut <= :end")
-    public abstract int showSoLuong(int id, Date start, Date end);
-
     //services
     @Insert
     public abstract void insertOfService(Services services);
@@ -61,23 +54,12 @@ public abstract class KhachSanDAO {
         return list;
     }
 
-    //show list loại phòng
-    @Query("Select amount from OrderDetail as ASE , ServiceOrder as B " +
-            " Where ASE.id = B.orderDetailID " +
-            "and B.serviceId = :id and ASE.status = 1" +
-            " and ASE.checkIn >= :start and ASE.checkOut <= :end ")
-    public abstract int showCountService(int id, Date start, Date end);
-
-
     //User
     @Insert
     public abstract void insertOfUser(People people);
 
     @Query("SELECT * FROM People WHERE status = :status")
     public abstract List<People> getListWithStatusOfUser(int status);
-
-    @Query("SELECT * FROM People")
-    public abstract List<People> getListUser();
 
     @Query("SELECT * FROM PEOPLE WHERE  SDT = :phoneNumber")
     public abstract People getObjOfUser(String phoneNumber);
@@ -115,9 +97,6 @@ public abstract class KhachSanDAO {
     @Query("SELECT * FROM Rooms")
     public abstract List<Rooms> getAllOfRooms();
 
-    @Update
-    public abstract void updateOfRooms(Rooms obj);
-
     @Query("SELECT price FROM Categories WHERE id = (SELECT categoryID  FROM Rooms WHERE id = :id)")
     public abstract int getPriceWithIdOfRooms(String id);
 
@@ -128,14 +107,8 @@ public abstract class KhachSanDAO {
     @Insert
     public abstract void insertOfOrders(Orders obj);
 
-    @Query("SELECT * FROM Orders")
-    public abstract List<Orders> getAllOfOrders();
-
     @Query("SELECT MAX(id) FROM Orders")
     public abstract int getNewIdOfOrders();
-
-    @Query("SELECT MAX(id) FROM Orders WHERE customID = :id AND status = :status")
-    public abstract int getIdWithPeopleIdOfOrder(int id, int status);
 
     public void updateTotalOfOrders(int id, int money) {
         Orders obj = getObjOfOrders(id);
@@ -265,13 +238,6 @@ public abstract class KhachSanDAO {
 
     @Query("SELECT * FROM SERVICEORDER WHERE ORDERDETAILID = :id")
     public abstract List<ServiceOrder> getListWithOrderDetailIdOfServiceOrder(int id);
-
-    ////
-    public String formatId(int id) {
-        if (id < 10)
-            return "#0" + id;
-        return "#" + id;
-    }
 
     @Query("SELECT * FROM Categories WHERE id = (SELECT categoryID FROM Rooms WHERE id = :id)")
     public abstract Categories getCategoryWithRoomId(String id);

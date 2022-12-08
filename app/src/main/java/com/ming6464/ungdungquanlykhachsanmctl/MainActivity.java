@@ -56,9 +56,8 @@ public class MainActivity extends AppCompatActivity {
             share.setCheck2(true);
             dao.insertOfLoaiPhong(new Categories("Phòng Đơn",800,1));
             dao.insertOfLoaiPhong(new Categories("Phòng Đôi",1200,2));
-            dao.insertOfLoaiPhong(new Categories("Phòng Vip",2200,4));
+            dao.insertOfLoaiPhong(new Categories("Phòng Vip",3200,4));
             //
-            dao.insertOfService(new Services("Thuê taxi", 0));
             dao.insertOfService(new Services("Giặt là", 30));
             dao.insertOfService(new Services("Ủi đồ", 30));
             dao.insertOfService(new Services("Giặt khô", 30));
@@ -68,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
             dao.insertOfService(new Services("Spa", 100));
             dao.insertOfService(new Services("Đưa đón sân bay", 250));
             dao.insertOfService(new Services("Karaoke", 130));
+            dao.insertOfService(new Services("Chăm sóc thú cưng", 100));
+            dao.insertOfService(new Services("Thuê xe tự lái", 900));
             //rooms
             dao.insertOfRooms(new Rooms("101", 1));
             dao.insertOfRooms(new Rooms("102", 1));
@@ -123,6 +124,8 @@ public class MainActivity extends AppCompatActivity {
             dao.insertOfServiceCategory(new ServiceCategory(3, 7));
             dao.insertOfServiceCategory(new ServiceCategory(3, 8));
             dao.insertOfServiceCategory(new ServiceCategory(3, 9));
+            dao.insertOfServiceCategory(new ServiceCategory(3, 10));
+            dao.insertOfServiceCategory(new ServiceCategory(3, 11));
         }
     }
 

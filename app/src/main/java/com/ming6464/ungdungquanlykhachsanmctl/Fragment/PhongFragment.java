@@ -171,6 +171,11 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
         List<String> listCategory = dao.getListNameCategoryWithRoomId(mListRooms);
         roomsAdapter.setData(mListRooms, listCategory);
     }
+    private String formatDate(int date){
+        if(date < 10)
+            return "0" + date;
+        return String.valueOf(date);
+    }
 
     private void handleAction() {
         tv_checkIn.setOnClickListener(this);
@@ -185,7 +190,7 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
                 DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        tv_checkIn.setText(dayOfMonth + "/" + (month + 1) + "/" + String.valueOf(year).substring(2));
+                        tv_checkIn.setText(formatDate(dayOfMonth) + "/" + (month + 1) + "/" + String.valueOf(year).substring(2));
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.show();
@@ -195,7 +200,7 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
                 datePickerDialog = new DatePickerDialog(requireContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        tv_checkOut.setText(dayOfMonth + "/" + (month + 1) + "/" + String.valueOf(year).substring(2));
+                        tv_checkOut.setText(formatDate(dayOfMonth) + "/" + (month + 1) + "/" + String.valueOf(year).substring(2));
                         handleFilterRoom();
                     }
                 },calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));

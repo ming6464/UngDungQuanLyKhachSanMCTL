@@ -80,7 +80,7 @@ public class KhachHangFragment extends Fragment implements UserAdapter.IClickIte
         EditText edtSDT = view.findViewById(R.id.edSoDtNv);
         EditText edtCCCD = view.findViewById(R.id.edCCCDNv);
         EditText edtAddress = view.findViewById(R.id.edAddressNv);
-        view.findViewById(R.id.edPassNv).setVisibility(View.GONE);
+        view.findViewById(R.id.dialogAddNhanVien_inputLayout_pass).setVisibility(View.GONE);
         Button btnUp = view.findViewById(R.id.btnLuuNv);
         Button btnCancle = view.findViewById(R.id.btnCancleNv);
         RadioButton rdoNam = view.findViewById(R.id.rdo_nam);
