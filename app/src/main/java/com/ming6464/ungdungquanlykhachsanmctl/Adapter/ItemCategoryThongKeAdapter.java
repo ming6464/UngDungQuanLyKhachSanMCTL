@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.widget.TextViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ming6464.ungdungquanlykhachsanmctl.R;
@@ -15,34 +14,34 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class ItemCotThongKeAdapter extends RecyclerView.Adapter<ItemCotThongKeAdapter.MyViewHolder> {
+public class ItemCategoryThongKeAdapter extends RecyclerView.Adapter<ItemCategoryThongKeAdapter.MyViewHolder> {
     private List<String> listName;
-    private List<Integer> listSoLieu;
+    private int[] ArrSoLieu;
     private NumberFormat format;
     private int heightView = 0;
-    private ViewGroup.LayoutParams params,params1;
+    private ViewGroup.LayoutParams params;
 
-    public ItemCotThongKeAdapter(){
+    public ItemCategoryThongKeAdapter(){
         format = NumberFormat.getInstance(new Locale("en","EN"));
     }
 
-    public void setData(List<String> name,List<Integer> listSoLieu,int heightView){
+    public void setData(List<String> name,int[] ArrSoLieu,int heightView){
         this.listName = name;
-        this.listSoLieu = listSoLieu;
+        this.ArrSoLieu = ArrSoLieu;
         this.heightView = heightView;
         notifyDataSetChanged();
     }
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cot_thongke,parent,false));
+        return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category_thongke,parent,false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        int slThanhToan = listSoLieu.get(position + 1),
-        total = listSoLieu.get(position),
-        slHuy = listSoLieu.get(position + 2);
+        int slThanhToan = ArrSoLieu[position * 3 + 1],
+        total = ArrSoLieu[position * 3],
+        slHuy = ArrSoLieu[position * 3 + 2];
         holder.tv_name.setText(listName.get(position));
         holder.tv_total.setText(format.format(total) + "K");
 
@@ -54,9 +53,9 @@ public class ItemCotThongKeAdapter extends RecyclerView.Adapter<ItemCotThongKeAd
 
         holder.tv_statusCancel.setVisibility(View.VISIBLE);
         holder.tv_statusCancel.setText(String.valueOf(slHuy));
-        params1 = holder.tv_statusCancel.getLayoutParams();
-        params1.height = slHuy * heightView;
-        holder.tv_statusCancel.setLayoutParams(params1);
+        params = holder.tv_statusCancel.getLayoutParams();
+        params.height = slHuy * heightView;
+        holder.tv_statusCancel.setLayoutParams(params);
 
     }
 
@@ -71,10 +70,10 @@ public class ItemCotThongKeAdapter extends RecyclerView.Adapter<ItemCotThongKeAd
         private TextView tv_total,tv_name,tv_statusSuccess,tv_statusCancel;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            tv_total = itemView.findViewById(R.id.itemCotThongKe_tv_total);
-            tv_name = itemView.findViewById(R.id.itemCotThongKe_tv_name);
-            tv_statusCancel = itemView.findViewById(R.id.itemCotThongKe_tv_statusCancel);
-            tv_statusSuccess = itemView.findViewById(R.id.itemCotThongKe_tv_statusSuccess);
+            tv_total = itemView.findViewById(R.id.itemCategoryThongKe_tv_total);
+            tv_name = itemView.findViewById(R.id.itemCategoryThongKe_tv_name);
+            tv_statusCancel = itemView.findViewById(R.id.itemCategoryThongKe_tv_statusCancel);
+            tv_statusSuccess = itemView.findViewById(R.id.itemCategoryThongKe_tv_statusSuccess);
         }
     }
 }

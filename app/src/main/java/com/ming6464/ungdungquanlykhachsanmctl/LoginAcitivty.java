@@ -65,6 +65,10 @@ public class LoginAcitivty extends AppCompatActivity {
             CustomToast.makeText(LoginAcitivty.this, "Vui Lòng Không Để Trống Thông Tin", false).show();
             return;
         }
+        if(phoneNumber.length() > 10){
+            CustomToast.makeText(LoginAcitivty.this, "Thông tin sai định dạng", false).show();
+            return;
+        }
 
         People people = dao.checkLogin(phoneNumber);
         if (people != null && password.equals(people.getPassowrd())) {

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_margin="10px"
+    android:layout_height="wrap_content">
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Giặt Khô"
+        android:textSize="35px"
+        android:id="@+id/itemServiceThongKe_tv_name"
+        android:textColor="@color/black"
+        android:fontFamily="@font/noto_sans"
+        />
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="11"
+        android:orientation="horizontal">
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="0dp"
+            android:layout_weight="8.5"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/itemServiceThongKe_tv_amount"
+                android:textColor="@color/white"
+                android:text="0"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="70px"
+                android:fontFamily="@font/noto_sans"
+                android:textSize="40px"
+                android:background="#E6025AA1"
+                />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0dp"
+            android:textColor="@color/black"
+            android:text="100k"
+            android:textSize="35px"
+            android:id="@+id/itemServiceThongKe_tv_total"
+            android:fontFamily="@font/noto_sans"
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:layout_weight="2.5"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</LinearLayout>

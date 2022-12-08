@@ -167,9 +167,7 @@ public abstract class KhachSanDAO {
                 }
                 x.setOrderID(orderNewId);
                 updateOfOrderDetail(x);
-                int priceRooms = getPriceWithIdOfRooms(x.getRoomID());
-                int amount_date = (int) (x.getCheckOut().getTime() - x.getCheckIn().getTime()) / (3600000 * 24) + 1;
-                updateTotalOfOrders(orderNewId, priceRooms * amount_date);
+                updateTotalOfOrders(orderNewId, getTotalPriceOrderDetail(orderNewId));
             }
         }
         if(orderNewId > 0)
@@ -332,4 +330,14 @@ public abstract class KhachSanDAO {
 
     @Query("SELECT MAX(CHECKOUT) FROM ORDERDETAIL WHERE ORDERID = :orderId AND STATUS != 4")
     public abstract Date getMaxEndDateOrders(int orderId);
+
+    @Query("SELECT * FROM ORDERDETAIL WHERE ORDERID IN (SELECT id FROM ORDERS WHERE (ENDDATE BETWEEN :startDate AND :endDate) AND status != 0)")
+    public abstract List<OrderDetail> getListOrderDetailWhenEndDateBetweenTime(Date startDate,Date endDate);
+
+    public Integer getTotalPriceOrderDetail(int orderDetailId){
+        OrderDetail x = getObjOrderDetail(orderDetailId);
+        int priceRooms = getPriceWithIdOfRooms(x.getRoomID());
+        int amount_date = (int) (x.getCheckOut().getTime() - x.getCheckIn().getTime()) / (3600000 * 24) + 1;
+        return priceRooms * amount_date;
+    }
 }
