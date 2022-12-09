@@ -252,13 +252,6 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
             }
         }
         //
-        if(dao.getCountOrderDetailWithCheckOut(checkOut)  == 1){
-            Intent intent = new Intent(this,KhachSanReceiver.class);
-            AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(this,idOrderDetail + 1,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-            manager.set(AlarmManager.RTC_WAKEUP,checkOut.getTime(),pendingIntent);
-        }
-        //
         CustomToast.makeText(this, "Đặt thành công !", true).show();
         finish();
     }

@@ -5,7 +5,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     tools:context=".HoaDonChiTietActivity"
     android:layout_width="match_parent"
-    android:padding="5dp"
     android:background="@color/white"
     android:layout_height="match_parent">
     <androidx.appcompat.widget.Toolbar
@@ -22,8 +21,8 @@
         <TextView
             android:fontFamily="@font/overpass_bold"
             android:textStyle="bold"
-            android:textSize="20sp"
-            android:text="Hoá Đơn Chi Tiết"
+            android:textSize="19sp"
+            android:text="Hoá đơn chi tiết"
             android:textColor="@color/black"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
@@ -41,31 +40,33 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/actiHDCT_layout_thanhToan"
+            app:layout_constraintBottom_toTopOf="@id/actiHDCT_linear_pay"
             >
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:orientation="vertical"
-                android:padding="5dp">
+                android:orientation="vertical">
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="match_parent"
+                    android:layout_marginStart="5dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="Thông tin khách hàng"
+                    android:textSize="19sp"
+                    android:text="-Thông tin khách hàng-"
                     android:textStyle="bold"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="10dp"
                     android:textColor="@color/blue"
                     android:fontFamily="@font/overpass_bold"
                     />
                 <com.google.android.material.textfield.TextInputLayout
                     android:textColorHint="#394CF1"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_width="match_parent"
                     app:boxBackgroundColor="@color/white"
                     app:boxBackgroundMode="outline"
                     app:boxCornerRadiusBottomStart="5dp"
                     app:boxCornerRadiusTopStart="5dp"
-                    android:hint="Họ Tên (*)"
+                    android:hint="Họ tên (*)"
                     app:startIconDrawable="@drawable/name_30"
                     app:startIconTint="@null"
                     app:boxCornerRadiusTopEnd="5dp"
@@ -83,15 +84,18 @@
                         android:id="@+id/actiHDCT_ed_fullName"
                         />
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:textColorHint="#394CF1"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_width="match_parent"
                     app:boxBackgroundColor="@color/white"
                     app:boxBackgroundMode="outline"
                     app:boxCornerRadiusBottomStart="5dp"
                     app:boxCornerRadiusTopStart="5dp"
                     app:boxCornerRadiusTopEnd="5dp"
-                    android:hint="Giới Tính (*)"
+                    android:hint="Giới tính (*)"
                     app:startIconDrawable="@drawable/sex_30dp"
                     app:startIconTint="@null"
                     app:boxCornerRadiusBottomEnd="5dp"
@@ -101,7 +105,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Nam"
-                        android:drawablePadding="10dp"
                         android:textSize="17sp"
                         android:fontFamily="@font/overpass_bold"
                         android:focusableInTouchMode="false"
@@ -111,6 +114,8 @@
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:textColorHint="#394CF1"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_width="match_parent"
                     app:boxBackgroundColor="@color/white"
                     app:boxBackgroundMode="outline"
@@ -121,7 +126,7 @@
                     android:layout_marginTop="3dp"
                     app:startIconDrawable="@drawable/call_30"
                     app:startIconTint="@null"
-                    android:hint="Số Điện Thoại (*)"
+                    android:hint="Liên hệ (*)"
                     android:layout_height="wrap_content">
                     <androidx.appcompat.widget.AppCompatEditText
                         android:layout_width="match_parent"
@@ -137,6 +142,8 @@
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:textColorHint="#394CF1"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_width="match_parent"
                     app:boxBackgroundColor="@color/white"
                     app:boxBackgroundMode="outline"
@@ -163,6 +170,8 @@
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:textColorHint="#394CF1"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_width="match_parent"
                     app:boxBackgroundColor="@color/white"
                     app:boxBackgroundMode="outline"
@@ -171,7 +180,7 @@
                     app:boxCornerRadiusTopEnd="5dp"
                     app:boxCornerRadiusBottomEnd="5dp"
                     android:layout_marginTop="3dp"
-                    android:hint="Địa Chỉ (*)"
+                    android:hint="Địa chỉ (*)"
                     app:startIconDrawable="@drawable/address_30"
                     app:startIconTint="@null"
                     android:layout_height="wrap_content">
@@ -188,103 +197,43 @@
                         />
                 </com.google.android.material.textfield.TextInputLayout>
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="5dp"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:layout_marginTop="15dp"
-                    android:text="Chi Tiết Đặt Phòng"
+                    android:textSize="19sp"
+                    android:layout_marginTop="10dp"
+                    android:text="-Chi tiết hoá đơn-"
                     android:textStyle="bold"
-                    android:layout_marginBottom="10dp"
                     android:textColor="@color/blue"
                     android:fontFamily="@font/overpass_bold"
                     />
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:orientation="vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
                     android:id="@+id/actiHDCT_Linear_orderDetail"
                     android:layout_height="wrap_content"/>
                 <View
+                    android:layout_marginTop="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:background="#D5CBCB"
-                    />
-            </LinearLayout>
-        </ScrollView>
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="15dp"
-            android:id="@+id/actiHDCT_layout_thanhToan"
-            app:layout_constraintBottom_toBottomOf="parent">
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:padding="8dp"
-                android:background="@drawable/red7_borderblack12_corner8">
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/blue"
-                    android:textStyle="bold"
-                    android:text="Tổng Tiền Dịch Vụ"
-                    android:fontFamily="@font/overpass_extrabold"
-                    android:textSize="18sp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/actiHDCT_tv_totalService"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/overpass_extrabold"
-                    android:text="3,900K"
-                    android:textColor="@color/blue"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/blue"
-                    android:textStyle="bold"
-                    android:text="Tổng Tiền Phòng"
-                    android:fontFamily="@font/overpass_extrabold"
-                    android:textSize="18sp"
-                    android:layout_marginTop="7dp"
-                    app:layout_constraintTop_toBottomOf="@id/actiHDCT_tv_totalService"
-                    app:layout_constraintStart_toStartOf="parent"
-                    />
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/blue"
-                    android:layout_marginTop="7dp"
-                    android:text="3,900K"
-                    android:id="@+id/actiHDCT_tv_totalRoom"
-                    android:fontFamily="@font/overpass_extrabold"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    app:layout_constraintTop_toBottomOf="@id/actiHDCT_tv_totalService"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="#E80000"
                     />
                 <RelativeLayout
+                    android:paddingEnd="5dp"
+                    android:paddingStart="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="-10dp"
-                    app:layout_constraintTop_toBottomOf="@id/actiHDCT_tv_totalRoom"
-                    android:paddingStart="20dp">
+                    app:layout_constraintTop_toBottomOf="@id/actiHDCT_tv_totalRoom">
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_marginTop="7dp"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/blue"
+                        android:textColor="#CC0C4573"
                         android:textStyle="bold"
-                        android:text="Chưa Thanh Toán"
+                        android:text="Chưa thanh toán"
                         android:fontFamily="@font/overpass_bold"
                         android:textSize="13sp"
                         android:layout_alignParentStart="true"
@@ -305,9 +254,9 @@
                         android:layout_width="wrap_content"
                         android:layout_marginTop="4dp"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/blue"
+                        android:textColor="#CC0C4573"
                         android:textStyle="bold"
-                        android:text="Đã Thanh Toán"
+                        android:text="Đã thanh toán"
                         android:fontFamily="@font/overpass_bold"
                         android:textSize="13sp"
                         android:layout_alignParentStart="true"
@@ -327,10 +276,10 @@
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/blue"
+                        android:textColor="#CC0C4573"
                         android:textStyle="bold"
                         android:layout_marginTop="4dp"
-                        android:text="Chưa Xác Định"
+                        android:text="Đặt trước"
                         android:fontFamily="@font/overpass_bold"
                         android:textSize="13sp"
                         android:layout_alignParentStart="true"
@@ -352,9 +301,9 @@
                         android:layout_width="wrap_content"
                         android:layout_marginTop="4dp"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/blue"
+                        android:textColor="#CC0C4573"
                         android:textStyle="bold"
-                        android:text="Đã Huỷ"
+                        android:text="Đã huỷ"
                         android:layout_below="@id/actiHDCT_tv_totalPrepayUndefined"
                         android:fontFamily="@font/overpass_bold"
                         android:textSize="13sp"
@@ -373,155 +322,185 @@
                         android:textStyle="bold"
                         android:layout_alignParentEnd="true" />
                 </RelativeLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/actiHDCT_linear_pay"
-                android:orientation="vertical">
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#A19B9B"
-                    />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:fontFamily="@font/overpass_extrabold"
-                        android:text="Tổng Tiền"
-                        android:textColor="@color/blue"
-                        android:textSize="19sp"
-                        android:textStyle="bold" />
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        app:layout_goneMarginTop="15dp"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/coNguoi"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:layout_marginTop="10dp"
-                        android:text="3,900K"
-                        android:id="@+id/actiHDCT_tv_total"
-                        android:fontFamily="@font/overpass_extrabold"
-                        android:textStyle="bold"
-                        android:textSize="19sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        />
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="7dp"
-                        app:layout_constraintTop_toBottomOf="@+id/actiHDCT_tv_total"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:fontFamily="@font/overpass_extrabold"
-                        android:text="Thanh Toán"
-                        android:textColor="@color/blue"
-                        android:textSize="19sp"
-                        android:textStyle="bold" />
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        app:layout_goneMarginTop="7dp"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/coNguoi"
-                        android:layout_marginTop="10dp"
-                        app:layout_constraintTop_toBottomOf="@+id/actiHDCT_tv_total"
-                        android:text="3,900K"
-                        android:id="@+id/actiHDCT_tv_totalPay"
-                        android:fontFamily="@font/overpass_extrabold"
-                        android:textStyle="bold"
-                        android:textSize="19sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        />
-                </androidx.constraintlayout.widget.ConstraintLayout>
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="10"
-                    android:gravity="center"
-                    android:layout_marginTop="5dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
                     >
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:textColorHint="#394CF1"
-                        android:layout_width="0dp"
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/blue"
+                        android:textStyle="bold"
+                        android:text="Tiền phòng"
+                        android:fontFamily="@font/overpass_extrabold"
+                        android:textSize="16sp"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintWidth_percent="0.6"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:boxBackgroundColor="@color/white"
-                        app:boxBackgroundMode="outline"
-                        android:hint="Tiền Khách Đưa"
-                        app:boxCornerRadiusBottomStart="5dp"
-                        app:boxCornerRadiusTopStart="5dp"
-                        app:boxCornerRadiusTopEnd="5dp"
-                        android:id="@+id/actiHDCT_inputLayout_1"
-                        app:boxCornerRadiusBottomEnd="5dp"
-                        android:layout_height="65dp">
-                        <androidx.appcompat.widget.AppCompatEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:textSize="17sp"
-                            android:text="0"
-                            android:drawablePadding="10dp"
-                            android:fontFamily="@font/overpass_bold"
-                            android:drawableLeft="@drawable/money_25"
-                            android:inputType="numberDecimal"
-                            android:id="@+id/actiHDCT_ed_moneyOfCustomer"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:layout_width="0dp"
-                        android:id="@+id/actiHDCT_btn_pay"
-                        android:layout_height="55dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/actiHDCT_inputLayout_1"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:background="@drawable/btn_3"
-                        android:drawableStart="@drawable/out_26"
+                        />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/blue"
+                        android:text="3,900K"
+                        android:id="@+id/actiHDCT_tv_totalRoom"
                         android:fontFamily="@font/overpass_extrabold"
-                        android:onClick="handleActionPay"
-                        android:padding="10dp"
-                        android:text="Xác Nhận"
+                        android:textStyle="bold"
+                        android:textSize="17sp"
+                        app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:textColor="@color/white"
-                        android:textSize="15sp" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_height="wrap_content">
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Tiền Thừa"
-                        android:layout_marginEnd="15dp"
-                        android:textColor="@color/blue"
-                        android:textSize="17sp"
-                        android:fontFamily="@font/overpass_bold"
-                        android:textStyle="bold"
                         />
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0K"
-                        android:id="@+id/actiHDCT_tv_changeMoney"
                         android:textColor="@color/blue"
-                        android:textSize="17sp"
-                        android:fontFamily="@font/overpass_bold"
                         android:textStyle="bold"
+                        android:text="Tiền dịch vụ"
+                        android:fontFamily="@font/overpass_extrabold"
+                        android:textSize="16sp"
+                        app:layout_constraintTop_toBottomOf="@+id/actiHDCT_tv_totalRoom"
+                        app:layout_constraintStart_toStartOf="parent"
                         />
-                </androidx.appcompat.widget.LinearLayoutCompat>
-            </androidx.appcompat.widget.LinearLayoutCompat>
 
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/actiHDCT_tv_totalService"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/overpass_extrabold"
+                        android:text="3,900K"
+                        android:textColor="@color/blue"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/actiHDCT_tv_totalRoom" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </ScrollView>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/actiHDCT_linear_pay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#E80000"
+                />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:fontFamily="@font/overpass_extrabold"
+                    android:text="Tổng thanh toán"
+                    android:textColor="@color/blue"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/coNguoi"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="3,900K"
+                    android:id="@+id/actiHDCT_tv_totalPay"
+                    android:fontFamily="@font/overpass_extrabold"
+                    android:textStyle="bold"
+                    android:textSize="19sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                >
+                <com.google.android.material.textfield.TextInputLayout
+                    android:textColorHint="#394CF1"
+                    android:layout_width="0dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintWidth_percent="0.6"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxBackgroundMode="outline"
+                    android:hint="Tiền Khách Đưa"
+                    app:boxCornerRadiusBottomStart="5dp"
+                    app:boxCornerRadiusTopStart="5dp"
+                    app:boxCornerRadiusTopEnd="5dp"
+                    android:id="@+id/actiHDCT_inputLayout_1"
+                    app:boxCornerRadiusBottomEnd="5dp"
+                    android:layout_height="65dp">
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textSize="17sp"
+                        android:text="0"
+                        android:drawablePadding="10dp"
+                        android:fontFamily="@font/overpass_bold"
+                        android:drawableLeft="@drawable/money_25"
+                        android:inputType="numberDecimal"
+                        android:id="@+id/actiHDCT_ed_moneyOfCustomer"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="0dp"
+                    android:id="@+id/actiHDCT_btn_pay"
+                    android:layout_height="55dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/actiHDCT_inputLayout_1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:background="@drawable/btn_3"
+                    android:drawableStart="@drawable/out_26"
+                    android:fontFamily="@font/overpass_extrabold"
+                    android:onClick="handleActionPay"
+                    android:padding="10dp"
+                    android:text="Xác Nhận"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tiền Thừa"
+                    android:layout_marginEnd="15dp"
+                    android:textColor="@color/blue"
+                    android:textSize="17sp"
+                    android:fontFamily="@font/overpass_bold"
+                    android:textStyle="bold"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0K"
+                    android:id="@+id/actiHDCT_tv_changeMoney"
+                    android:textColor="@color/blue"
+                    android:textSize="17sp"
+                    android:fontFamily="@font/overpass_bold"
+                    android:textStyle="bold"
+                    />
+            </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <ProgressBar

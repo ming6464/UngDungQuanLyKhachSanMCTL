@@ -31,11 +31,11 @@
             />
     </androidx.appcompat.widget.Toolbar>
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_below="@id/actiAddService_tb"
+        android:id="@+id/actiAddService_linear_title"
         android:paddingTop="15dp"
         android:paddingEnd="8dp"
-        android:layout_below="@id/actiAddService_tb"
         android:paddingStart="8dp"
-        android:id="@+id/actiAddService_linear_title"
         android:paddingBottom="15dp"
         android:background="#4D454545"
         android:layout_width="match_parent"
@@ -86,69 +86,72 @@
             android:text="Tổng tiền"
             />
     </androidx.appcompat.widget.LinearLayoutCompat>
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="10"
-        android:id="@+id/actiAddService_view_1"
+        android:layout_height="0dp"
         android:layout_below="@id/actiAddService_linear_title"
-        android:orientation="vertical">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/actiAddService_rc_service2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.7dp"
-            android:background="#E6222121"
-            />
-
+        android:layout_above="@id/actiAddService_btn_update"
+        >
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_below="@id/actiAddService_rc_service1"
             android:layout_width="match_parent"
-            android:weightSum="10"
-            android:id="@+id/actiAddService_linear_total"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            >
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="0dp"
-                android:layout_weight="7"
-                android:textSize="17sp"
-                android:textStyle="bold"
-                android:fontFamily="@font/overpass_extrabold"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:text="Tổng Tiền"
+            android:layout_height="match_parent"
+            android:id="@+id/actiAddService_view_1"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/actiAddService_rc_service2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.7dp"
+                android:background="#E6222121"
                 />
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="0dp"
-                android:layout_weight="3"
-                android:id="@+id/actiAddService_tv_total"
-                android:textSize="17sp"
-                android:textStyle="bold"
-                android:fontFamily="@font/overpass_extrabold"
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_below="@id/actiAddService_rc_service1"
+                android:layout_width="match_parent"
+                android:weightSum="10"
+                android:id="@+id/actiAddService_linear_total"
                 android:layout_height="wrap_content"
-                android:textColor="#0C4573"
-                android:text="0 đ"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                >
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_weight="7"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/overpass_extrabold"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="Tổng Tiền"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:id="@+id/actiAddService_tv_total"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/overpass_extrabold"
+                    android:layout_height="wrap_content"
+                    android:textColor="#0C4573"
+                    android:text="0 đ"
+                    />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.7dp"
+                android:background="#E6222121"
+                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:id="@+id/actiAddService_rc_service1"
                 />
         </androidx.appcompat.widget.LinearLayoutCompat>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.7dp"
-            android:background="#E6222121"
-            />
-    </androidx.appcompat.widget.LinearLayoutCompat>
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_below="@id/actiAddService_view_1"
-        android:layout_above="@id/actiAddService_btn_update"
-        android:id="@+id/actiAddService_rc_service1"
-        />
+    </ScrollView>
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

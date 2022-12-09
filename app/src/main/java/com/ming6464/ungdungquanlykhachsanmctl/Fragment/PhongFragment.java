@@ -52,7 +52,6 @@ import java.util.Date;
 import java.util.List;
 
 public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRooms, View.OnClickListener {
-
     public RecyclerView rcvRooms;
     private RoomsAdapter roomsAdapter;
     private List<Rooms> mListRooms;
@@ -60,6 +59,7 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
     private Calendar calendar;
     private Date d_checkIn,d_checkOut;
     private ProgressBar pb_load;
+    private long time = 0;
     private TextView tv_checkIn,tv_checkOut;
     public static final String KEY_BUNDLE = "KEY_BUNDLE",KEY_ROOM ="KEY_ROOM",
             KEY_CHECKIN = "KEY_CHECKIN",KEY_CHECKOUT ="KEY_CHECKOUT",
@@ -107,7 +107,6 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
     @Override
     public void onResume() {
         super.onResume();
-        long time = 0;
         try {
             time = sdf.parse(sdf.format(new Date(System.currentTimeMillis()))).getTime();
         } catch (ParseException e) {
@@ -193,6 +192,7 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
                         tv_checkIn.setText(formatDate(dayOfMonth) + "/" + (month + 1) + "/" + String.valueOf(year).substring(2));
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.getDatePicker().setMinDate(time);
                 datePickerDialog.show();
                 break;
             default:
@@ -204,6 +204,7 @@ public class PhongFragment extends Fragment implements RoomsAdapter.IClickItemRo
                         handleFilterRoom();
                     }
                 },calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.getDatePicker().setMinDate(time);
                 datePickerDialog.show();
                 break;
         }

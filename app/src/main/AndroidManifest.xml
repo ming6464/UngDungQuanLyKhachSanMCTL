@@ -27,8 +27,6 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".KhachSanReceiver" />
-
         <activity
             android:name=".AddServiceActivity"
             android:exported="false" >

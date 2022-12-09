@@ -29,7 +29,7 @@
                 android:gravity="center"
                 android:text="103"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -45,7 +45,7 @@
                     android:textColor="#124E7E"
                     android:textStyle="bold"
                     android:fontFamily="@font/overpass_semibold"
-                    android:textSize="16sp"
+                    android:textSize="15sp"
                     android:id="@+id/itemOrderDetail2_tv_checkIn"
                     />
                 <androidx.appcompat.widget.AppCompatTextView
@@ -55,7 +55,7 @@
                     android:textColor="#124E7E"
                     android:textStyle="bold"
                     android:fontFamily="@font/overpass_semibold"
-                    android:textSize="16sp"
+                    android:textSize="15sp"
                     android:id="@+id/itemOrderDetail2_tv_checkOut"
                     />
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -105,7 +105,7 @@
             android:layout_height="wrap_content"
             android:text="Dịch Vụ"
             android:textSize="16sp"
-            android:fontFamily="@font/overpass_semibold"
+            android:fontFamily="@font/overpass_extrabold"
             android:textColor="#124E7E"
             android:textStyle="bold"
             />
@@ -140,7 +140,7 @@
                 android:id="@+id/itemOrderDetail2_tv_serviceFee"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 android:fontFamily="@font/overpass_extrabold"
                 android:textColor="@color/blue"
                 />
@@ -165,7 +165,7 @@
                 android:id="@+id/itemOrderDetail2_tv_roomFee"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/itemOrderDetail2_tv_serviceFee"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 android:fontFamily="@font/overpass_extrabold"
                 android:textColor="@color/blue"
                 />

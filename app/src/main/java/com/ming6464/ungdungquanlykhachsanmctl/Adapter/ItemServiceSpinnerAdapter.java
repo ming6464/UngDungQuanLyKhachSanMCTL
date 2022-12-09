@@ -58,7 +58,7 @@ public class ItemServiceSpinnerAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         obj = list.get(position);
         viewHolder.tv_name.setText(obj.getName());
-        viewHolder.tv_price.setText(format.format(obj.getPrice()) + "K");
+        viewHolder.tv_price.setText("(" +format.format(obj.getPrice()) + "K)");
         return convertView;
     }
 }
