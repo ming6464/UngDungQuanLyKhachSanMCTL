@@ -8,14 +8,9 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ItemService1Adapter;
 import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ItemService2Adapter;
-import com.ming6464.ungdungquanlykhachsanmctl.DTO.OrderDetail;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.ServiceOrder;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Services;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.Fragment_HoaDon_Phong;
@@ -86,10 +81,9 @@ public class AddServiceActivity extends AppCompatActivity implements ItemService
         Services sv = list.get(position);
         ServiceOrder svo = list2.get(position);
         svo.setAmount(svo.getAmount() + 1);
-        list2.set(position,svo);
         list1.add(sv);
         total += sv.getPrice();
-        itemService1Adapter.notifyItemInserted(list1.size() - 1);
+        itemService1Adapter.setData(list1);
         itemService2Adapter.notifyItemChanged(position);
         loadTotal();
     }
@@ -97,22 +91,25 @@ public class AddServiceActivity extends AppCompatActivity implements ItemService
     @Override
     public void cancel(int position) {
         Services sv = list1.get(position);
-        int index = list.indexOf(sv);
-        ServiceOrder svo = list2.get(index);
+        ServiceOrder svo = list2.get(list.indexOf(sv));
         svo.setAmount(svo.getAmount() - 1);
-        list2.set(position,svo);
         list1.remove(position);
-        total += sv.getPrice();
+        total -= sv.getPrice();
         itemService1Adapter.notifyItemRemoved(position);
-        itemService2Adapter.notifyItemChanged(position);
+        itemService2Adapter.setData(list2);
         loadTotal();
     }
 
     public void handleActionUpdate(View view) {
+        boolean check = false;
         for(ServiceOrder x : list2){
-            if(x.getAmount() > 0)
+            if(x.getAmount() > 0){
+                check = true;
                 dao.insertOfServiceOrder(x);
+            }
         }
+        if(check)
+            CustomToast.makeText(this,"Dịch vụ đã được thêm !",true).show();
         finish();
     }
 

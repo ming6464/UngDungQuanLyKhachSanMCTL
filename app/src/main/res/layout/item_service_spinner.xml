@@ -2,25 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:padding="7dp">
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Trông trẻ"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:fontFamily="@font/overpass_extrabold"
         android:textColor="@color/black"
         android:id="@+id/itemServiceSpinner_tv_name"
         />
     <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="180.000 đ"
+        android:text="(18k)"
         android:id="@+id/itemServiceSpinner_tv_price"
         android:layout_marginStart="5dp"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:fontFamily="@font/overpass_bold"
         android:textColor="@color/coNguoi"
         />

@@ -44,7 +44,7 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
     private ProgressBar pg_load;
     private String room = "";
     private EditText ed_fullName,ed_sex,ed_phoneNumber,ed_CCCD,ed_address,ed_moneyOfCustomer;
-    private TextView tv_totalService,tv_totalRoom,tv_totalPrepayCancel,tv_total,tv_totalPay,tv_changeMoney,tv_totalPrepay,tv_totalPrepayUndefined,tv_totalUnPay;
+    private TextView tv_totalService,tv_totalRoom,tv_totalPrepayCancel,tv_totalPay,tv_changeMoney,tv_totalPrepay,tv_totalPrepayUndefined,tv_totalUnPay;
     private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,8 +112,6 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
         if(money == 0){
             findViewById(R.id.actiHDCT_inputLayout_1).setVisibility(View.GONE);
         }
-
-        tv_total.setText(format.format(ordersObj.getTotal()) + "K");
 
         if(ordersObj.getStatus() != 0){
             findViewById(R.id.actiHDCT_linear_pay).setVisibility(View.GONE);
@@ -226,7 +224,6 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
         ed_CCCD = findViewById(R.id.actiHDCT_ed_CCCD);
         ed_address = findViewById(R.id.actiHDCT_ed_address);
         ed_moneyOfCustomer = findViewById(R.id.actiHDCT_ed_moneyOfCustomer);
-        tv_total = findViewById(R.id.actiHDCT_tv_total);
         tv_totalPay = findViewById(R.id.actiHDCT_tv_totalPay);
         tv_totalRoom = findViewById(R.id.actiHDCT_tv_totalRoom);
         tv_totalService = findViewById(R.id.actiHDCT_tv_totalService);
