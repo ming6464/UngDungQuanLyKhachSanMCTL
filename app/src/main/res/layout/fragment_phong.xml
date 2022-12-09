@@ -23,24 +23,13 @@
                 android:layout_height="match_parent"
                 android:textColor="@color/black"
                 android:drawablePadding="10dp"
-                android:background="@drawable/backgroud_date"
+                android:background="@drawable/background_date_thongke"
                 android:drawableLeft="@drawable/calender_23"
                 android:textSize="15sp"
                 android:gravity="center"
                 android:id="@+id/fragPhong_tv_checkIn"
                 android:fontFamily="@font/overpass_semibold"
                 android:text="20/10/22" />
-            <androidx.appcompat.widget.AppCompatTextView
-                android:gravity="center"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@id/fragPhong_tv_checkIn"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="@color/black"
-                android:background="@drawable/backgroud_time"
-                android:textSize="15sp"
-                android:fontFamily="@font/overpass_semibold"
-                android:text="14h" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
@@ -53,11 +42,11 @@
                 app:layout_constraintStart_toStartOf="parent" />
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_alignParentTop="true"
-                android:layout_toLeftOf="@id/fragPhong_tv_hourCheckOut"
+                android:layout_alignParentEnd="true"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:textColor="@color/black"
-                android:background="@drawable/backgroud_date"
+                android:background="@drawable/background_date_thongke"
                 android:drawableTint="@null"
                 android:drawableLeft="@drawable/calender_23"
                 android:drawablePadding="10dp"
@@ -66,18 +55,6 @@
                 android:id="@+id/fragPhong_tv_checkOut"
                 android:fontFamily="@font/overpass_semibold"
                 android:text="20/10/22" />
-            <androidx.appcompat.widget.AppCompatTextView
-                android:gravity="center"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="@color/black"
-                android:background="@drawable/backgroud_time"
-                android:textSize="15sp"
-                android:id="@+id/fragPhong_tv_hourCheckOut"
-                android:fontFamily="@font/overpass_semibold"
-                android:text="12h" />
         </RelativeLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_rooms"
@@ -98,4 +75,73 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_btn_filter_category"
+        android:src="@drawable/double_user_30"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/fragPhong_img_currentCategory"
+        />
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="right"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/fragPhong_img_currentCategory"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="10dp">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phòng Vip"
+            android:gravity="center_vertical"
+            android:drawablePadding="10dp"
+            android:padding="5dp"
+            android:textStyle="bold"
+            android:background="@color/hoadon_thanhtoan"
+            android:drawableRight="@drawable/vip_40"
+            android:id="@+id/fragPhong_tv_vipRoom"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/overpass"
+            android:textSize="16sp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phòng đôi"
+            android:gravity="center_vertical"
+            android:drawablePadding="10dp"
+            android:padding="5dp"
+            android:textStyle="bold"
+            android:background="@color/hoadon_chuathanhtoan"
+            android:drawableRight="@drawable/double_user_40"
+            android:id="@+id/fragPhong_tv_doubleRoom"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/overpass"
+            android:textSize="16sp"
+            />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phòng đơn"
+            android:gravity="center_vertical"
+            android:drawablePadding="10dp"
+            android:padding="5dp"
+            android:textStyle="bold"
+            android:background="@color/hoadon_thanhtoan"
+            android:drawableRight="@drawable/single_user_40"
+            android:id="@+id/fragPhong_tv_singleRoom"
+            android:textColor="@color/black"
+            android:fontFamily="@font/overpass"
+            android:textSize="16sp"
+            />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.constraintlayout.widget.ConstraintLayout>
