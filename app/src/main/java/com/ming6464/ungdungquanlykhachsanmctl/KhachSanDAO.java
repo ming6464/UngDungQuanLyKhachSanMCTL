@@ -79,6 +79,11 @@ public abstract class KhachSanDAO {
     @Query("SELECT * FROM PEOPLE WHERE status = 0")
     public abstract List<People> getListKhachHangOfUser();
 
+    //
+    //tim kiem search view
+    @Query("select * from PEOPLE where SDT like :s and status = 0")
+    public abstract List<People> getSearchView(String s);
+
     //serviceCategory
     @Insert
     public abstract void insertOfServiceCategory(ServiceCategory obj);

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
+import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDAO;
 import com.ming6464.ungdungquanlykhachsanmctl.R;
 
 import java.util.List;
@@ -24,6 +25,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     private List<People> mListUser;
     private IClickItemUser iClickItemUser;
     private View view;
+    //
+
+
 
     public UserAdapter(IClickItemUser iClickItemUser) {
         this.iClickItemUser = iClickItemUser;
@@ -31,13 +35,15 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     public interface IClickItemUser {
         void updateUser(int position);
-
     }
 
     public void setData(List<People> list) {
         this.mListUser = list;
         notifyDataSetChanged();
     }
+
+
+
 
     @NonNull
     @Override
@@ -53,7 +59,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             return;
         }
         String gioiTinh = "Nam";
-        if(people.getSex() == 0)
+        if (people.getSex() == 0)
             gioiTinh = "Nữ";
         holder.tvName.setText("Họ Tên :  " + people.getFullName());
         holder.tvSex.setText("Giới Tính :  " + gioiTinh);
@@ -80,6 +86,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     public class UserViewHolder extends RecyclerView.ViewHolder {
         TextView tvAddress, tvName, tvSex, tvSdt, tvCccd;
         ImageView imgAvatar;
+
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_user);

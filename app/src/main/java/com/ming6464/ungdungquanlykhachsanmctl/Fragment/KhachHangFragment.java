@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +43,7 @@ public class KhachHangFragment extends Fragment implements UserAdapter.IClickIte
     private UserAdapter userAdapter;
     private List<People> mListUser;
     private KhachSanDAO dao;
+    private SearchView searchView;
 
     public static KhachHangFragment newInstance() {
         return new KhachHangFragment();
@@ -63,11 +65,35 @@ public class KhachHangFragment extends Fragment implements UserAdapter.IClickIte
         super.onViewCreated(view, savedInstanceState);
         rcvUser = view.findViewById(R.id.rcv_user);
         dao = KhachSanDB.getInstance(requireContext()).getDAO();
-        userAdapter = new UserAdapter(this);
-        rcvUser.setLayoutManager(new LinearLayoutManager(getContext()));
-        rcvUser.setAdapter(userAdapter);
+        //chức năng tìm kiếm
+        searchView = view.findViewById(R.id.searchKh);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mListUser.clear();
+                mListUser.addAll(dao.getSearchView("%"+newText+"%"));
+                userAdapter.notifyDataSetChanged();
+                return false;
+            }
+        });
         mListUser = dao.getListKhachHangOfUser();
+        userAdapter = new UserAdapter(this);
+        rcvUser.setAdapter(userAdapter);
+        rcvUser.setLayoutManager(new LinearLayoutManager(getContext()));
         userAdapter.setData(mListUser);
+    }
+
+
+    private void timKiem(String sdt) {
+        List<People> listSearch = new ArrayList<>();
+        for (People people : mListUser) {
+
+        }
     }
 
     @Override
