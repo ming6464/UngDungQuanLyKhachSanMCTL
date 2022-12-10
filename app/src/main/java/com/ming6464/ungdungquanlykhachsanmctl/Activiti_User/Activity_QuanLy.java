@@ -73,17 +73,17 @@ public class Activity_QuanLy extends AppCompatActivity {
                 AlertDialog dialog = builder.create();
                 btnSave.setOnClickListener(v1 -> {
                     //
-                    String name = edName.getText().toString(),sdt = edSdt.getText().toString(),
-                            cccd = edCccd.getText().toString(),pass = edPass.getText().toString(),address = edAddress.getText().toString();
+                    String name = edName.getText().toString(), sdt = edSdt.getText().toString(),
+                            cccd = edCccd.getText().toString(), pass = edPass.getText().toString(), address = edAddress.getText().toString();
                     if (name.isEmpty() || sdt.isEmpty() || cccd.isEmpty() || pass.isEmpty() || address.isEmpty()) {
                         CustomToast.makeText(Activity_QuanLy.this, "Thông tin khách hàng không để trống", false);
                         return;
                     }
-                    if(dao.checkLogin(sdt) != null){
-                        CustomToast.makeText(Activity_QuanLy.this,"Nhân Viên Đã Tồn Tại !",false).show();
+                    if (dao.checkLogin(sdt) != null) {
+                        CustomToast.makeText(Activity_QuanLy.this, "Nhân Viên Đã Tồn Tại !", false).show();
                         return;
                     }
-                    if(!name.matches("^[a-zA-Z][a-zA-Z ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$")){
+                    if (!name.matches("^[a-zA-Z][a-zA-Z ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$")) {
                         CustomToast.makeText(Activity_QuanLy.this, "Tên không phù hợp", false).show();
                         return;
                     }
@@ -95,7 +95,7 @@ public class Activity_QuanLy extends AppCompatActivity {
                         CustomToast.makeText(Activity_QuanLy.this, "CCCD/CMND Không chính xác !", false).show();
                         return;
                     }
-                    if(dao.getObjOfUser(sdt) != null){
+                    if (dao.getObjOfUser(sdt) != null) {
                         CustomToast.makeText(Activity_QuanLy.this, "Số điện thoại đã tồn tại !", false).show();
                         return;
                     }
@@ -107,13 +107,13 @@ public class Activity_QuanLy extends AppCompatActivity {
                     if (rdoNam.isChecked()) {
                         sex = 1;
                     }
-                    People people = new People(name,sdt,cccd,address,sex,1);
+                    People people = new People(name, sdt, cccd, address, sex, 1);
                     people.setPassowrd(pass);
                     dao.insertOfUser(people);
                     list.add(people);
                     CustomToast.makeText(Activity_QuanLy.this, "Thêm Thành Công", true).show();
                     int index = list.size() - 1;
-                    if(list.size() == 0)
+                    if (list.size() == 0)
                         index = 0;
                     adapter.notifyItemInserted(index);
                     dialog.dismiss();
@@ -122,7 +122,7 @@ public class Activity_QuanLy extends AppCompatActivity {
                     dialog.dismiss();
                 });
                 Window window = dialog.getWindow();
-                window.setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+                window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
                 window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 window.getAttributes().windowAnimations = R.style.dialog_slide_left_to_right;
                 dialog.show();
@@ -132,7 +132,10 @@ public class Activity_QuanLy extends AppCompatActivity {
 
     private void handleRecycler() {
         recyclerView.setLayoutManager(new LinearLayoutManager(Activity_QuanLy.this));
-        list = dao.getListWithStatusOfUser(1);
+        list = dao.getListWithStatusOfUser(2);
+        //
+        list.addAll(dao.getListWithStatusOfUser(4));
+        list.addAll(dao.getListWithStatusOfUser(5));
         adapter = new NhanVienAdapter(list, Activity_QuanLy.this);
         recyclerView.setAdapter(adapter);
     }

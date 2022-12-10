@@ -16,6 +16,9 @@ import android.widget.Toast;
 import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.Activity_ThongTin;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LoginAcitivty extends AppCompatActivity {
     private EditText edUser, edPass;
     private KhachSanDAO dao;
@@ -60,7 +63,7 @@ public class LoginAcitivty extends AppCompatActivity {
 
     public void handleActionBtnLogin(View view) {
         String phoneNumber = edUser.getText().toString(),password = edPass.getText().toString();
-
+        People people = dao.checkLogin(phoneNumber);
         if (phoneNumber.isEmpty() || password.isEmpty()) {
             CustomToast.makeText(LoginAcitivty.this, "Vui Lòng Không Để Trống Thông Tin", false).show();
             return;
@@ -69,8 +72,13 @@ public class LoginAcitivty extends AppCompatActivity {
             CustomToast.makeText(LoginAcitivty.this, "Thông tin sai định dạng", false).show();
             return;
         }
+        People p1 = dao.check(4 , edUser.getText().toString());
 
-        People people = dao.checkLogin(phoneNumber);
+        if(p1 != null){
+            CustomToast.makeText(LoginAcitivty.this, "Tài khoản " +p1.getFullName() +" Đã Nghỉ", false).show();
+            return;
+        }
+
         if (people != null && password.equals(people.getPassowrd())) {
             Intent intent = new Intent(LoginAcitivty.this, MainActivity.class);
             startActivity(intent);

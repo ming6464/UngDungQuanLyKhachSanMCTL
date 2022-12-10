@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.ming6464.ungdungquanlykhachsanmctl.CustomToast;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDB;
@@ -55,27 +58,59 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.ViewHo
         }
         holder.tvPassWordNv.setText("Mật Khẩu :  " + people.getPassowrd());
         holder.tvDiaChiNv.setText("Địa Chỉ :  " + people.getAddress());
+        if (people.getStatus() == 2) {
+            holder.tvNameNv.setTextColor(Color.BLACK);
+        } else if (people.getStatus() == 5) {
+            holder.tvNameNv.setTextColor(Color.RED);
+            holder.itemView.setEnabled(false);
+            holder.imgAvatar.setBackgroundResource(R.drawable.back_nghi_viec);
+        }else if(people.getStatus() == 4){
+            holder.imgAvatar.setBackgroundResource(R.drawable.back_nghi_phep);
+        }
+
         holder.imgXoaNv.setOnClickListener(v -> {
+            //get status
+            //tìm theo sdt
+            //a
+            ///cách 2
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setTitle("Cảnh Báo");
-            builder.setMessage("Xóa sẽ làm mất dữ liệu bạn vẫn muốn xóa");
-            builder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+            builder.setTitle("Vui lòng chọn trạng thái của nhân viên");
+            String th1 = "Nghỉ Phép", th2 = "Hủy";
+            int status = people.getStatus();
+            if (status == 2) {
+                th2 = "Nghỉ Việc";
+            } else if (status == 4) {
+                th2 = "Nghỉ Việc";
+                th1 = "Hoạt động trợ lại";
+            } else if (status == 5) {
+                th1 = "Hoạt động trở lại";
+                th2 = "Hủy";
+            }
+
+
+            builder.setNegativeButton(th1, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    db.getDAO().DeleteUser(people);
-                    listNv.remove(index);
-                    notifyItemRemoved(index);
-                    CustomToast.makeText(context, "Xóa Thành Công", true).show();
+                    holder.itemView.setEnabled(false);
+                    CustomToast.makeText(context, "Đã Nghỉ", true);
+                    people.setStatus(5);
+                    db.getDAO().UpdateUser(people);
+                    notifyItemChanged(index);
+                    listNv.set(index, people);
+
                 }
             });
-            builder.setPositiveButton("Cancle", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(th2, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
+                    holder.tvNameNv.setTextColor(Color.BLUE);
+                    holder.itemView.setEnabled(true);
+                    people.setStatus(4);
                 }
             });
             AlertDialog dialog = builder.create();
             dialog.show();
+
         });
         holder.itemView.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
