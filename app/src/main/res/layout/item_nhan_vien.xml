@@ -24,7 +24,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             app:fontFamily="@font/overpass_bold"
             android:layout_marginTop="7dp"
-            android:id="@+id/tvNameNv"
+            android:id="@+id/itemNhanVien_tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/overpass_bold"
@@ -36,7 +36,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             app:fontFamily="@font/overpass_bold"
             android:layout_marginTop="7dp"
-            android:id="@+id/tvSdtNv"
+            android:id="@+id/itemNhanVien_tv_sdt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/overpass_bold"
@@ -48,7 +48,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             app:fontFamily="@font/overpass_bold"
             android:layout_marginTop="7dp"
-            android:id="@+id/tvCccdNv"
+            android:id="@+id/itemNhanVien_tv_cccd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/overpass_bold"
@@ -60,7 +60,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             app:fontFamily="@font/overpass_bold"
             android:layout_marginTop="7dp"
-            android:id="@+id/tvDiaChiNv"
+            android:id="@+id/itemNhanVien_tv_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/overpass_bold"
@@ -84,7 +84,7 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     app:fontFamily="@font/overpass_bold"
                     android:layout_marginTop="7dp"
-                    android:id="@+id/tvGioiTinhNv"
+                    android:id="@+id/itemNhanVien_tv_sex"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/overpass_bold"
@@ -96,7 +96,7 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     app:fontFamily="@font/overpass_bold"
                     android:layout_marginTop="7dp"
-                    android:id="@+id/tvPassWordNv"
+                    android:id="@+id/itemNhanVien_tv_pass"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/overpass_bold"
@@ -108,7 +108,7 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="0dp"
-                android:id="@+id/btnXoaNv"
+                android:id="@+id/itemNhanVien_img_xoa"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:src="@drawable/remove_35"

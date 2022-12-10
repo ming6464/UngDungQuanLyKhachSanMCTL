@@ -1,20 +1,12 @@
 package com.ming6464.ungdungquanlykhachsanmctl.Adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.LinearLayoutCompat;
-import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 import com.ming6464.ungdungquanlykhachsanmctl.R;
 
@@ -42,7 +34,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user_chua, parent, false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_nhan_vien, parent, false);
         return new UserViewHolder(view);
     }
 
@@ -55,11 +47,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         String gioiTinh = "Nam";
         if(people.getSex() == 0)
             gioiTinh = "Nữ";
-        holder.tvName.setText("Họ Tên :  " + people.getFullName());
-        holder.tvSex.setText("Giới Tính :  " + gioiTinh);
-        holder.tvSdt.setText("Số Điện Thoại :  " + people.getSDT());
-        holder.tvCccd.setText("CMND/CCCD :  " + people.getCCCD());
-        holder.tvAddress.setText("Địa chỉ :  " + people.getAddress());
+        holder.tv_name.setText("Họ Tên :  " + people.getFullName());
+        holder.tv_sex.setText("Giới Tính :  " + gioiTinh);
+        holder.tv_sdt.setText("Số Điện Thoại :  " + people.getSDT());
+        holder.tv_cccd.setText("CMND/CCCD :  " + people.getCCCD());
+        holder.tv_address.setText("Địa chỉ :  " + people.getAddress());
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,16 +70,18 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     }
 
     public class UserViewHolder extends RecyclerView.ViewHolder {
-        TextView tvAddress, tvName, tvSex, tvSdt, tvCccd;
-        ImageView imgAvatar;
+        TextView tv_address, tv_name, tv_sex, tv_sdt, tv_cccd;
+        ImageView img_avatar;
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvName = itemView.findViewById(R.id.tv_user);
-            tvSex = itemView.findViewById(R.id.tv_sex);
-            tvSdt = itemView.findViewById(R.id.tv_sdt);
-            tvCccd = itemView.findViewById(R.id.tv_cccd);
-            tvAddress = itemView.findViewById(R.id.tv_address);
-            imgAvatar = itemView.findViewById(R.id.itemUserChua_img_avatar);
+            tv_name = itemView.findViewById(R.id.itemNhanVien_tv_name);
+            tv_sex = itemView.findViewById(R.id.itemNhanVien_tv_sex);
+            tv_sdt = itemView.findViewById(R.id.itemNhanVien_tv_sdt);
+            tv_cccd = itemView.findViewById(R.id.itemNhanVien_tv_cccd);
+            tv_address = itemView.findViewById(R.id.itemNhanVien_tv_address);
+            img_avatar = itemView.findViewById(R.id.itemNhanVien_img_avatar);
+            itemView.findViewById(R.id.itemNhanVien_img_xoa).setVisibility(View.GONE);
+            itemView.findViewById(R.id.itemNhanVien_tv_pass).setVisibility(View.GONE);
         }
     }
 }

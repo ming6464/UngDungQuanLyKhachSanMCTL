@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".Activiti_User.Activity_ThongTin">
+    tools:context=".Activiti_User.ThongTinNguoiDungActivity">
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_thong_tin"
+        android:id="@+id/actiThongTinNguoiDung_tb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/purple_700">
@@ -20,11 +20,11 @@
             android:textColor="@color/white"
             android:textSize="22sp"
             android:fontFamily="@font/overpass_semibold"
-            android:id="@+id/actiThongTin_tv_tbName"
+            android:id="@+id/actiThongTinNguoiDung_tv_tb"
             />
 
         <ImageView
-            android:id="@+id/img_update_thongtin"
+            android:id="@+id/actiThongTinNguoiDung_img_updateInfo"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:onClick="handleActionUpdate"
@@ -41,7 +41,7 @@
         android:src="@drawable/person_1" />
 
     <TextView
-        android:id="@+id/tv_title_thongTin"
+        android:id="@+id/actiThongTinNguoiDung_tv_welcome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -76,8 +76,7 @@
 
     <TextView
         android:layout_marginStart="15dp"
-        android:id="@+id/tv_user_thongtin"
-        
+        android:id="@+id/actiThongTinNguoiDung_tv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
@@ -103,8 +102,7 @@
 
     <TextView
         android:layout_marginStart="15dp"
-        android:id="@+id/tv_sdt_thongtin"
-        
+        android:id="@+id/actiThongTinNguoiDung_tv_sdt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
@@ -130,8 +128,7 @@
 
     <TextView
         android:layout_marginStart="15dp"
-        android:id="@+id/tv_cccd_thongtin"
-        
+        android:id="@+id/actiThongTinNguoiDung_tv_cccd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
@@ -157,8 +154,7 @@
 
     <TextView
         android:layout_marginStart="15dp"
-        android:id="@+id/tv_sex_thongtin"
-        
+        android:id="@+id/actiThongTinNguoiDung_tv_sex"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
@@ -184,8 +180,7 @@
 
     <TextView
         android:layout_marginStart="15dp"
-        android:id="@+id/tv_address_thongtin"
-        
+        android:id="@+id/actiThongTinNguoiDung_tv_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"

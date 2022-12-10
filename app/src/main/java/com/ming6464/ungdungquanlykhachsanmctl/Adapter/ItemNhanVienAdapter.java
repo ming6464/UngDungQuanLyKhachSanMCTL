@@ -24,38 +24,38 @@ import com.ming6464.ungdungquanlykhachsanmctl.R;
 
 import java.util.List;
 
-public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.ViewHolder> {
+public class ItemNhanVienAdapter extends RecyclerView.Adapter<ItemNhanVienAdapter.ViewHolder> {
     private List<People> listNv;
     private Context context;
     KhachSanDB db;
 
-    public NhanVienAdapter(List<People> listNv, Context context) {
+    public ItemNhanVienAdapter(List<People> listNv, Context context) {
         this.listNv = listNv;
         this.context = context;
         this.db = KhachSanDB.getInstance(context);
     }
 
     @Override
-    public NhanVienAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ItemNhanVienAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_nhan_vien, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NhanVienAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ItemNhanVienAdapter.ViewHolder holder, int position) {
         People people = listNv.get(holder.getAdapterPosition());
         int index = position;
-        holder.tvNameNv.setText("Họ và tên : " + people.getFullName());
-        holder.tvCccdNv.setText("CCCD : " + people.getCCCD());
-        holder.tvSdtNv.setText("Số Đt : " + people.getSDT());
+        holder.tv_name.setText("Họ và tên : " + people.getFullName());
+        holder.tv_cccd.setText("CCCD : " + people.getCCCD());
+        holder.tv_sdt.setText("Số Đt : " + people.getSDT());
         if (people.getSex() == 1) {
-            holder.tvGioiTinhNv.setText("Giới Tính :  Nam");
+            holder.tv_sex.setText("Giới Tính :  Nam");
         } else {
-            holder.tvGioiTinhNv.setText("Giới Tính :  Nữ");
-            holder.imgAvatar.setImageResource(R.drawable.businesswoman_100);
+            holder.tv_sex.setText("Giới Tính :  Nữ");
+            holder.img_avatar.setImageResource(R.drawable.businesswoman_100);
         }
-        holder.tvPassWordNv.setText("Mật Khẩu :  " + people.getPassowrd());
-        holder.tvDiaChiNv.setText("Địa Chỉ :  " + people.getAddress());
-        holder.imgXoaNv.setOnClickListener(v -> {
+        holder.tv_pass.setText("Mật Khẩu :  " + people.getPassowrd());
+        holder.tv_address.setText("Địa Chỉ :  " + people.getAddress());
+        holder.img_xoa.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle("Cảnh Báo");
             builder.setMessage("Xóa sẽ làm mất dữ liệu bạn vẫn muốn xóa");
@@ -79,43 +79,38 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.ViewHo
         });
         holder.itemView.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            View view = LayoutInflater.from(context).inflate(R.layout.dialog_add_nhanvien, null);
-            EditText edName = view.findViewById(R.id.edNameNv);
-            EditText edSdt = view.findViewById(R.id.edSoDtNv);
-            EditText edCccd = view.findViewById(R.id.edCCCDNv);
-            EditText edPass = view.findViewById(R.id.edPassNv);
-            EditText edAddress = view.findViewById(R.id.edAddressNv);
-            RadioButton rdoNam = view.findViewById(R.id.rdo_nam);
-            RadioButton rdoNu = view.findViewById(R.id.rdo_nu);
-            Button btnSave = view.findViewById(R.id.btnLuuNv);
-            Button btnCancleNv = view.findViewById(R.id.btnCancleNv);
+            View view = LayoutInflater.from(context).inflate(R.layout.dialog_them_nhanvien, null);
+            EditText ed_name = view.findViewById(R.id.dialogThemNhanVien_ed_name);
+            EditText ed_sdt = view.findViewById(R.id.dialogThemNhanVien_ed_sdt);
+            EditText ed_cccd = view.findViewById(R.id.dialogThemNhanVien_ed_cccd);
+            EditText ed_pass = view.findViewById(R.id.dialogThemNhanVien_ed_pass);
+            EditText ed_address = view.findViewById(R.id.dialogThemNhanVien_ed_address);
+            RadioButton rdo_feMale = view.findViewById(R.id.dialogThemNhanVien_rdo_feMale);
+            Button btn_update = view.findViewById(R.id.dialogThemNhanVien_btn_add);
+            Button btn_cancel = view.findViewById(R.id.dialogThemNhanVien_btn_cancel);
             builder.setView(view);
             AlertDialog dialog = builder.create();
             //fill table
-            edName.setText(people.getFullName());
-            edSdt.setText(people.getSDT());
-            edCccd.setText(people.getCCCD());
-            edPass.setText(people.getPassowrd());
-            edAddress.setText(people.getAddress());
-            TextView tv = view.findViewById(R.id.tvHi1);
-            tv.setText("Cập nhật Nhân Viên");
-            btnSave.setText("Cập nhật");
-            if (people.getSex() == 1) {
-                rdoNam.setChecked(true);
-            } else {
-                rdoNu.setChecked(true);
-            }
-
-            btnSave.setOnClickListener(v1 -> {
-                people.setFullName(edName.getText().toString());
-                people.setSDT(edSdt.getText().toString());
-                people.setCCCD(edCccd.getText().toString());
-                people.setAddress(edAddress.getText().toString());
-                people.setPassowrd(edPass.getText().toString());
-                int sex = 0;
-                if (rdoNam.isChecked()) {
-                    sex = 1;
-                }
+            ed_name.setText(people.getFullName());
+            ed_sdt.setText(people.getSDT());
+            ed_cccd.setText(people.getCCCD());
+            ed_pass.setText(people.getPassowrd());
+            ed_address.setText(people.getAddress());
+            TextView tv_title = view.findViewById(R.id.dialogThemNhanVien_tv_title);
+            tv_title.setText("Cập nhật Nhân Viên");
+            btn_update.setText("Cập nhật");
+            if (people.getSex() == 0) 
+                rdo_feMale.setChecked(true);
+            btn_update.setOnClickListener(v1 -> {
+                people.setFullName(ed_name.getText().toString());
+                people.setSDT(ed_sdt.getText().toString());
+                people.setCCCD(ed_cccd.getText().toString());
+                people.setAddress(ed_address.getText().toString());
+                people.setPassowrd(ed_pass.getText().toString());
+                int sex = 1;
+                if (rdo_feMale.isChecked()) 
+                    sex = 0;
+                
                 people.setSex(sex);
                 //
                 try {
@@ -128,7 +123,7 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.ViewHo
                     CustomToast.makeText(context, "Cập Nhật Thất Bại", false);
                 }
             });
-            btnCancleNv.setOnClickListener(v1 -> {
+            btn_cancel.setOnClickListener(v1 -> {
                 dialog.dismiss();
             });
             Window window = dialog.getWindow();
@@ -146,19 +141,19 @@ public class NhanVienAdapter extends RecyclerView.Adapter<NhanVienAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNameNv, tvSdtNv, tvCccdNv, tvGioiTinhNv, tvPassWordNv, tvDiaChiNv;
-        ImageView imgXoaNv, imgAvatar;
+        TextView tv_name, tv_sdt, tv_cccd, tv_sex, tv_pass, tv_address;
+        ImageView img_xoa, img_avatar;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvNameNv = itemView.findViewById(R.id.tvNameNv);
-            tvSdtNv = itemView.findViewById(R.id.tvSdtNv);
-            tvCccdNv = itemView.findViewById(R.id.tvCccdNv);
-            tvGioiTinhNv = itemView.findViewById(R.id.tvGioiTinhNv);
-            tvPassWordNv = itemView.findViewById(R.id.tvPassWordNv);
-            tvDiaChiNv = itemView.findViewById(R.id.tvDiaChiNv);
-            imgXoaNv = itemView.findViewById(R.id.btnXoaNv);
-            imgAvatar = itemView.findViewById(R.id.itemNhanVien_img_avatar);
+            tv_name = itemView.findViewById(R.id.itemNhanVien_tv_name);
+            tv_sdt = itemView.findViewById(R.id.itemNhanVien_tv_sdt);
+            tv_cccd = itemView.findViewById(R.id.itemNhanVien_tv_cccd);
+            tv_sex = itemView.findViewById(R.id.itemNhanVien_tv_sex);
+            tv_pass = itemView.findViewById(R.id.itemNhanVien_tv_pass);
+            tv_address = itemView.findViewById(R.id.itemNhanVien_tv_address);
+            img_xoa = itemView.findViewById(R.id.itemNhanVien_img_xoa);
+            img_avatar = itemView.findViewById(R.id.itemNhanVien_img_avatar);
         }
     }
 }

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingEnd="8dp"
     android:paddingStart="8dp"
-    android:id="@+id/itemService_linear_title"
+    android:id="@+id/itemDichVu_linear_title"
     android:paddingBottom="15dp"
     android:background="#4D454545"
     android:layout_width="match_parent"
@@ -13,7 +13,7 @@
     android:weightSum="12">
     <androidx.appcompat.widget.AppCompatTextView
         android:fontFamily="@font/overpass_bold"
-        android:id="@+id/itemService_tv_stt"
+        android:id="@+id/itemDichVu_tv_stt"
         android:textColor="@color/black"
         android:layout_weight="1"
         android:textSize="17sp"
@@ -23,7 +23,7 @@
         />
     <androidx.appcompat.widget.AppCompatTextView
         android:fontFamily="@font/overpass_bold"
-        android:id="@+id/tvName"
+        android:id="@+id/itemDichVu_name"
         android:textColor="@color/black"
         android:layout_weight="8"
         android:textSize="17sp"
@@ -33,7 +33,7 @@
         />
     <androidx.appcompat.widget.AppCompatTextView
         android:fontFamily="@font/overpass_bold"
-        android:id="@+id/tvPrice"
+        android:id="@+id/itemDichVu_price"
         android:textColor="@color/black"
         android:layout_weight="3"
         android:textSize="17sp"

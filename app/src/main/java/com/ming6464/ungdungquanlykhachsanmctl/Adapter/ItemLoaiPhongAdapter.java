@@ -14,10 +14,10 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
-public class LoaiPhongAdapter extends RecyclerView.Adapter<LoaiPhongAdapter.MyViewHolder> {
+public class ItemLoaiPhongAdapter extends RecyclerView.Adapter<ItemLoaiPhongAdapter.MyViewHolder> {
     private List<Categories> list;
     private NumberFormat format;
-    public LoaiPhongAdapter(){
+    public ItemLoaiPhongAdapter(){
         format = NumberFormat.getInstance(new Locale("en","EN"));
     }
 

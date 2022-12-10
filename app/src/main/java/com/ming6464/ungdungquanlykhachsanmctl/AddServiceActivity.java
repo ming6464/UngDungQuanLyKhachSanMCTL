@@ -13,7 +13,7 @@ import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ItemService1Adapter;
 import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ItemService2Adapter;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.ServiceOrder;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Services;
-import com.ming6464.ungdungquanlykhachsanmctl.Fragment.Fragment_HoaDon_Phong;
+import com.ming6464.ungdungquanlykhachsanmctl.Fragment.HoaDonPhongFragment;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ public class AddServiceActivity extends AppCompatActivity implements ItemService
         setContentView(R.layout.activity_add_service);
         dao = KhachSanDB.getInstance(this).getDAO();
         format = NumberFormat.getInstance(new Locale("en","EN"));
-        idRoom = getIntent().getStringExtra(Fragment_HoaDon_Phong.KEY_ROOMID);
+        idRoom = getIntent().getStringExtra(HoaDonPhongFragment.KEY_ROOMID);
         idOrderDetail = dao.getWithRoomIdOfOrderDetail(idRoom).getOrderID();
         anhXa();
         setSupportActionBar(tb);

@@ -1,13 +1,12 @@
 package com.ming6464.ungdungquanlykhachsanmctl;
 
-import static com.ming6464.ungdungquanlykhachsanmctl.Fragment.HoaDonFragment.KEY_ORDER;
+import static com.ming6464.ungdungquanlykhachsanmctl.Fragment.HoaDonTongFragment.KEY_ORDER;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 

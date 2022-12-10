@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".Activiti_User.Update_ThongTin">
+    tools:context=".Activiti_User.UpdateThongTinActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_thong_tin"
@@ -21,7 +21,7 @@
             android:textColor="@color/white"
             android:textSize="22sp"
             android:fontFamily="@font/overpass_semibold"
-            android:id="@+id/actiUThongTin_tv_tbName"
+            android:id="@+id/actiUpdateThongTin_tv_tb"
             />
     </androidx.appcompat.widget.Toolbar>
 
@@ -33,7 +33,7 @@
         android:src="@drawable/person_1" />
 
     <TextView
-        android:id="@+id/tv_update"
+        android:id="@+id/actiUpdateThongTin_tv_welcome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -82,7 +82,7 @@
             android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/edU"
+                android:id="@+id/actiUpdateThongTin_ed_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/overpass_bold"
@@ -108,7 +108,7 @@
             android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/edN"
+                android:id="@+id/actiUpdateThongTin_ed_sdt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/overpass_bold"
@@ -141,7 +141,6 @@
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/rdo1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -150,7 +149,7 @@
                     android:text="Nam" />
 
                 <RadioButton
-                    android:id="@+id/rdo2"
+                    android:id="@+id/actiUpdateThongTin_rdo_feMale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -177,7 +176,7 @@
             android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/edA"
+                android:id="@+id/actiUpdateThongTin_ed_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/overpass_bold"

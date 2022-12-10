@@ -25,9 +25,9 @@ import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
-import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.Activity_QuanLy;
-import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.Activity_ThongKe;
-import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.Activity_ThongTin;
+import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.QuanLyActivity;
+import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.ThongKeActivity;
+import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.ThongTinNguoiDungActivity;
 import com.ming6464.ungdungquanlykhachsanmctl.CustomToast;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDAO;
@@ -37,7 +37,7 @@ import com.ming6464.ungdungquanlykhachsanmctl.LoginAcitivty;
 import com.ming6464.ungdungquanlykhachsanmctl.R;
 
 
-public class FragmentTaiKhoan extends Fragment {
+public class TaiKhoanFragment extends Fragment {
     private Intent intent;
     private ImageView img_avatar;
     private TextView tv_welcomeUser;
@@ -46,10 +46,6 @@ public class FragmentTaiKhoan extends Fragment {
     private KhachSanDAO dao;
     private People people;
     private NavigationView navigationView;
-    public FragmentTaiKhoan() {
-        // Required empty public constructor
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,14 +58,14 @@ public class FragmentTaiKhoan extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         check = true;
         tv_welcomeUser = view.findViewById(R.id.fragTaiKhoan_tv_welcomeUser);
-        img_avatar = view.findViewById(R.id.actiThongTin_img_avatar);
+        img_avatar = view.findViewById(R.id.fragTaiKhoan_img_avatar);
         navigationView = view.findViewById(R.id.nava);
         dao = KhachSanDB.getInstance(requireContext()).getDAO();
         share = new KhachSanSharedPreferences(requireContext());
         view.findViewById(R.id.fragTaiKhoan_linear_infoUser).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(requireContext(),Activity_ThongTin.class);
+                intent = new Intent(requireContext(), ThongTinNguoiDungActivity.class);
                 startActivity(intent);
             }
         });
@@ -94,9 +90,9 @@ public class FragmentTaiKhoan extends Fragment {
                     case R.id.menu_2:
                         check = false;
                         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_update_password, null);
-                        EditText edt_password = view.findViewById(R.id.dialogUpdatePassword_ed_oldPass);
-                        EditText edt_newPassword = view.findViewById(R.id.dialogUpdatePassword_ed_newPass);
-                        EditText edt_confimPass = view.findViewById(R.id.dialogUpdatePassword_ed_reNewPass);
+                        EditText ed_password = view.findViewById(R.id.dialogUpdatePassword_ed_oldPass);
+                        EditText ed_newPassword = view.findViewById(R.id.dialogUpdatePassword_ed_newPass);
+                        EditText ed_confimPass = view.findViewById(R.id.dialogUpdatePassword_ed_reNewPass);
                         Button btnSaveChange = view.findViewById(R.id.dialogUpdatePassword_btn_yes);
                         ImageButton btnCanceChange = view.findViewById(R.id.dialogUpdatePassword_imgBtn_cancel);
                         People people = dao.getObjOfUser(share.getID());
@@ -114,9 +110,9 @@ public class FragmentTaiKhoan extends Fragment {
                         btnSaveChange.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                String oldpassword = edt_password.getText().toString();
-                                String newPassword = edt_newPassword.getText().toString();
-                                String confimPass = edt_confimPass.getText().toString();
+                                String oldpassword = ed_password.getText().toString();
+                                String newPassword = ed_newPassword.getText().toString();
+                                String confimPass = ed_confimPass.getText().toString();
                                 if (oldpassword.isEmpty() || newPassword.isEmpty() || confimPass.isEmpty()) {
                                     CustomToast.makeText(getContext(), "Thông tin thiếu !", false).show();
                                     return;
@@ -170,10 +166,10 @@ public class FragmentTaiKhoan extends Fragment {
                         dialog.show();
                         break;
                     case R.id.menu_5:
-                        intent = new Intent(getActivity(), Activity_QuanLy.class);
+                        intent = new Intent(getActivity(), QuanLyActivity.class);
                         break;
                     case R.id.menu_6:
-                        intent = new Intent(getActivity(), Activity_ThongKe.class);
+                        intent = new Intent(getActivity(), ThongKeActivity.class);
                         break;
                 }
                 if(check)
