@@ -79,6 +79,11 @@ public abstract class KhachSanDAO {
     @Query("SELECT * FROM PEOPLE WHERE status = 0")
     public abstract List<People> getListKhachHangOfUser();
 
+    //
+    //tim kiem search view
+    @Query("select * from PEOPLE where SDT like :s and status = 0")
+    public abstract List<People> getSearchView(String s);
+
     //serviceCategory
     @Insert
     public abstract void insertOfServiceCategory(ServiceCategory obj);
@@ -128,14 +133,13 @@ public abstract class KhachSanDAO {
         obj.setEndDate(endDate);
         updateOfOrders(obj);
         int orderNewId = -1;
-        for(OrderDetail x : getListWithOrderIdOfOrderDetail(obj.getId())){
-            if(x.getStatus() == 0){
+        for (OrderDetail x : getListWithOrderIdOfOrderDetail(obj.getId())) {
+            if (x.getStatus() == 0) {
                 x.setStatus(1);
                 updateOfOrderDetail(x);
-            }
-            else if(x.getStatus() == 2 || x.getStatus() == 3){
-                if(orderNewId < 0){
-                    insertOfOrders(new Orders(obj.getCustomID(),obj.getUID(),obj.getStartDate(),obj.getEndDate()));
+            } else if (x.getStatus() == 2 || x.getStatus() == 3) {
+                if (orderNewId < 0) {
+                    insertOfOrders(new Orders(obj.getCustomID(), obj.getUID(), obj.getStartDate(), obj.getEndDate()));
                     orderNewId = getNewIdOfOrders();
                 }
                 x.setOrderID(orderNewId);
@@ -143,7 +147,7 @@ public abstract class KhachSanDAO {
                 updateTotalOfOrders(orderNewId, getTotalPriceOrderDetail(orderNewId));
             }
         }
-        if(orderNewId > 0)
+        if (orderNewId > 0)
             reLoadEndOfOrders(orderNewId);
     }
 
@@ -152,9 +156,9 @@ public abstract class KhachSanDAO {
     public abstract List<Orders> getListWithStatusOfOrders(int status);
 
     @Query("SELECT * FROM ORDERS WHERE CUSTOMID = :peopleId AND status = 0 AND id IN (SELECT ORDERID FROM ORDERDETAIL WHERE checkIn = :checkIn GROUP BY ORDERID)")
-    public abstract Orders getObjUnpaidWithPeopleIdfOrders(int peopleId,Date checkIn);
+    public abstract Orders getObjUnpaidWithPeopleIdfOrders(int peopleId, Date checkIn);
 
-    public void reLoadEndOfOrders(int id){
+    public void reLoadEndOfOrders(int id) {
         Orders obj = getObjOfOrders(id);
         obj.setEndDate(getMaxEndDateOrders(id));
         updateOfOrders(obj);
@@ -195,13 +199,13 @@ public abstract class KhachSanDAO {
     @Query("SELECT MAX(id) FROM orderdetail")
     public abstract int getNewIdOfOrderDetail();
 
-    public void cancelOfOrderDetail(int id,Date endDate) {
+    public void cancelOfOrderDetail(int id, Date endDate) {
         OrderDetail obj = getObjOrderDetail(id);
         obj.setStatus(4);
         updateOfOrderDetail(obj);
         boolean check = true;
-        for(OrderDetail x : getListWithOrderIdOfOrderDetail(obj.getOrderID())){
-            if(x.getStatus() != 4){
+        for (OrderDetail x : getListWithOrderIdOfOrderDetail(obj.getOrderID())) {
+            if (x.getStatus() != 4) {
                 check = false;
                 break;
             }
@@ -211,7 +215,7 @@ public abstract class KhachSanDAO {
             orders.setStatus(2);
             orders.setEndDate(endDate);
             updateOfOrders(orders);
-        }else
+        } else
             reLoadEndOfOrders(obj.getOrderID());
     }
 
@@ -263,23 +267,28 @@ public abstract class KhachSanDAO {
     @Query("SELECT * FROM People Where SDT = :user")
     public abstract People checkLogin(String user);
 
+
+    //
+    @Query("Select * from People where status =:sta and SDT = :sdt")
+    public abstract People check(int sta, String sdt);
+
     //get data
     @Query("SELECT * FROM People Where SDT =:sdt")
     public abstract People getUserBy(String sdt);
 
     @Query("SELECT SUM(PRICE * AMOUNT) FROM SERVICES AS A, SERVICEORDER WHERE A.ID = SERVICEID AND ORDERDETAILID = :id")
     public abstract int getTotalServiceWithOrderDetailId(int id);
-    
-    @Query("SELECT ROOMID FROM ORDERDETAIL WHERE ((:checkIn BETWEEN checkIn AND checkOut) OR (checkIn BETWEEN :checkIn AND :checkOut)) AND (STATUS != 1 AND STATUS != 4)")
-    public abstract List<String> getListRoomIdBusyWithTime (Date checkIn,Date checkOut);
 
-    public List<Rooms> getListRoomWithTime(Date checkIn, Date checkOut){
+    @Query("SELECT ROOMID FROM ORDERDETAIL WHERE ((:checkIn BETWEEN checkIn AND checkOut) OR (checkIn BETWEEN :checkIn AND :checkOut)) AND (STATUS != 1 AND STATUS != 4)")
+    public abstract List<String> getListRoomIdBusyWithTime(Date checkIn, Date checkOut);
+
+    public List<Rooms> getListRoomWithTime(Date checkIn, Date checkOut) {
         List<Rooms> list = new ArrayList<>();
-        if(checkIn.getTime() < checkOut.getTime()){
+        if (checkIn.getTime() < checkOut.getTime()) {
             list = getAllOfRooms();
-            List<String> listRoomId = getListRoomIdBusyWithTime(checkIn,checkOut);
-            for(Rooms x : list){
-                if(listRoomId.contains(x.getId()))
+            List<String> listRoomId = getListRoomIdBusyWithTime(checkIn, checkOut);
+            for (Rooms x : list) {
+                if (listRoomId.contains(x.getId()))
                     x.setStatus(1);
                 else
                     x.setStatus(0);
@@ -298,9 +307,9 @@ public abstract class KhachSanDAO {
     public abstract Date getMaxEndDateOrders(int orderId);
 
     @Query("SELECT * FROM ORDERDETAIL WHERE ORDERID IN (SELECT id FROM ORDERS WHERE (ENDDATE BETWEEN :startDate AND :endDate) AND status != 0)")
-    public abstract List<OrderDetail> getListOrderDetailWhenEndDateBetweenTime(Date startDate,Date endDate);
+    public abstract List<OrderDetail> getListOrderDetailWhenEndDateBetweenTime(Date startDate, Date endDate);
 
-    public Integer getTotalPriceOrderDetail(int orderDetailId){
+    public Integer getTotalPriceOrderDetail(int orderDetailId) {
         OrderDetail x = getObjOrderDetail(orderDetailId);
         int priceRooms = getPriceWithIdOfRooms(x.getRoomID());
         int amount_date = (int) (x.getCheckOut().getTime() - x.getCheckIn().getTime()) / (3600000 * 24) + 1;
