@@ -8,22 +8,20 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ming6464.ungdungquanlykhachsanmctl.Adapter.LoaiPhongAdapter;
+import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ItemLoaiPhongAdapter;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Categories;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDAO;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDB;
 import com.ming6464.ungdungquanlykhachsanmctl.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LoaiPhongFragment extends Fragment{
-    private LoaiPhongAdapter loaiPhongAdapter;
+    private ItemLoaiPhongAdapter itemLoaiPhongAdapter;
     private KhachSanDAO dao;
     public static LoaiPhongFragment newInstance() {
         LoaiPhongFragment fragment = new LoaiPhongFragment();
@@ -46,8 +44,8 @@ public class LoaiPhongFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
         dao = KhachSanDB.getInstance(requireContext()).getDAO();
         RecyclerView recyclerView = requireView().findViewById(R.id.fragLoaiPhong_rc);
-        loaiPhongAdapter = new LoaiPhongAdapter();
-        recyclerView.setAdapter(loaiPhongAdapter);
+        itemLoaiPhongAdapter = new ItemLoaiPhongAdapter();
+        recyclerView.setAdapter(itemLoaiPhongAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
     }
 
@@ -55,7 +53,7 @@ public class LoaiPhongFragment extends Fragment{
     public void onResume() {
         super.onResume();
         List<Categories> listLoaiPhong = dao.getAllOfLoaiPhong();
-        loaiPhongAdapter.setData(listLoaiPhong);
+        itemLoaiPhongAdapter.setData(listLoaiPhong);
     }
 
 }

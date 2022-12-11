@@ -9,7 +9,7 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/tvHi1"
+        android:id="@+id/dialogThemNhanVien_tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/overpass_bold"
@@ -36,7 +36,7 @@
         app:startIconTint="@null">
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edNameNv"
+            android:id="@+id/dialogThemNhanVien_ed_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/overpass_bold"
@@ -63,7 +63,7 @@
         app:startIconTint="@null">
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edSoDtNv"
+            android:id="@+id/dialogThemNhanVien_ed_sdt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/overpass_bold"
@@ -90,7 +90,7 @@
         app:startIconTint="@null">
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edCCCDNv"
+            android:id="@+id/dialogThemNhanVien_ed_cccd"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/overpass_bold"
@@ -117,7 +117,7 @@
         app:startIconTint="#03A9F4">
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edPassNv"
+            android:id="@+id/dialogThemNhanVien_ed_pass"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/overpass_bold"
@@ -149,7 +149,7 @@
             app:startIconTint="@null">
 
             <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/edAddressNv"
+                android:id="@+id/dialogThemNhanVien_ed_address"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/overpass_bold"
@@ -181,18 +181,16 @@
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/rdo_nam"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
                     android:fontFamily="@font/overpass_bold"
                     android:text="Nam" />
 
                 <RadioButton
-                    android:id="@+id/rdo_nu"
+                    android:checked="true"
+                    android:id="@+id/dialogThemNhanVien_rdo_feMale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
                     android:layout_marginLeft="30dp"
                     android:fontFamily="@font/overpass_bold"
                     android:text="Nữ" />
@@ -210,7 +208,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnLuuNv"
+            android:id="@+id/dialogThemNhanVien_btn_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="50dp"
@@ -221,7 +219,7 @@
             android:textSize="12dp" />
 
         <Button
-            android:id="@+id/btnCancleNv"
+            android:id="@+id/dialogThemNhanVien_btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/coNguoi"

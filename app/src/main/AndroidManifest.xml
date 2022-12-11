@@ -35,7 +35,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Activiti_User.Update_ThongTin"
+            android:name=".Activiti_User.UpdateThongTinActivity"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
@@ -56,21 +56,21 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Activiti_User.Activity_ThongKe"
+            android:name=".Activiti_User.ThongKeActivity"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Activiti_User.Activity_QuanLy"
+            android:name=".Activiti_User.QuanLyActivity"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Activiti_User.Activity_ThongTin"
+            android:name=".Activiti_User.ThongTinNguoiDungActivity"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"

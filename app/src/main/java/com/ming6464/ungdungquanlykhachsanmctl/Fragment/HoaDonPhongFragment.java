@@ -23,7 +23,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ItemOrderDetail1Adapter;
 import com.ming6464.ungdungquanlykhachsanmctl.AddServiceActivity;
@@ -39,19 +38,19 @@ import java.util.Date;
 import java.util.List;
 
 
-public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1Adapter.OnEventOfOrderDetailAdpater {
+public class HoaDonPhongFragment extends Fragment implements ItemOrderDetail1Adapter.OnEventOfOrderDetailAdpater {
     private List<OrderDetail> list;
     private KhachSanDAO dao;
     private Spinner sp_status;
     private SwipeRefreshLayout rf_rcHoaDonPhong;
     private ItemOrderDetail1Adapter adapter;
     public static final String KEY_ROOMID = "KEY_ROOMID";
-    public static Fragment_HoaDon_Phong newInstance() {
-        Fragment_HoaDon_Phong fragment = new Fragment_HoaDon_Phong();
+    public static HoaDonPhongFragment newInstance() {
+        HoaDonPhongFragment fragment = new HoaDonPhongFragment();
         return fragment;
     }
 
-    public Fragment_HoaDon_Phong() {
+    public HoaDonPhongFragment() {
         // Required empty public constructor
     }
 
@@ -60,7 +59,7 @@ public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1A
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment__hoa_don__phong, container, false);
+        View view = inflater.inflate(R.layout.fragment_hoa_don_phong, container, false);
         return view;
     }
 
@@ -70,7 +69,7 @@ public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1A
         list = new ArrayList<>();
         RecyclerView rc_orderDetail = view.findViewById(R.id.fragHoaDonPhong_rc);
         sp_status = view.findViewById(R.id.fragHoaDonPhong_sp_status);
-        rf_rcHoaDonPhong = view.findViewById(R.id.fragHoaDon_rf_rcHoaDonPhong);
+        rf_rcHoaDonPhong = view.findViewById(R.id.fragHoaDonPhong_rf_rc);
         dao = KhachSanDB.getInstance(requireContext()).getDAO();
         adapter = new ItemOrderDetail1Adapter(requireContext(),this);
         rc_orderDetail.setAdapter(adapter);
@@ -121,7 +120,7 @@ public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1A
         int status = obj.getStatus();
         if(status == 4 || status == 1){
             Intent intent = new Intent(requireContext(), HoaDonChiTietActivity.class);
-            intent.putExtra(HoaDonFragment.KEY_ORDER,dao.getObjOfOrders(obj.getOrderID()));
+            intent.putExtra(HoaDonTongFragment.KEY_ORDER,dao.getObjOfOrders(obj.getOrderID()));
             startActivity(intent);
         }else {
             Dialog dialog = new Dialog(requireContext());
@@ -138,7 +137,7 @@ public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1A
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(requireContext(), HoaDonChiTietActivity.class);
-                    intent.putExtra(HoaDonFragment.KEY_ORDER,dao.getObjOfOrders(obj.getOrderID()));
+                    intent.putExtra(HoaDonTongFragment.KEY_ORDER,dao.getObjOfOrders(obj.getOrderID()));
                     startActivity(intent);
                     dialog.cancel();
                 }

@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.DatePicker;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -40,7 +38,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class Activity_ThongKe extends AppCompatActivity {
+public class ThongKeActivity extends AppCompatActivity {
     private List<Integer> listIdCategory,listIdService;
     private int[] arrSoLieuCategory,arrSoLieuService;
     private List<String> listNameCategory,listNameService;

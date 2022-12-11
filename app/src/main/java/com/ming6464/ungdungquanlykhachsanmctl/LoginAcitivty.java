@@ -3,32 +3,23 @@ package com.ming6464.ungdungquanlykhachsanmctl;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.Activity_ThongTin;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class LoginAcitivty extends AppCompatActivity {
-    private EditText edUser, edPass;
+    private EditText ed_sdt, ed_pass;
     private KhachSanDAO dao;
     private KhachSanSharedPreferences share;
-    private CheckBox chk;
+    private CheckBox rdo_remember;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_acitivty);
+        setContentView(R.layout.activity_login);
         share = new KhachSanSharedPreferences(this);
         dao = KhachSanDB.getInstance(this).getDAO();
         anhXa();
@@ -37,18 +28,18 @@ public class LoginAcitivty extends AppCompatActivity {
     }
 
     private void anhXa() {
-        edUser = findViewById(R.id.edUser);
-        edPass = findViewById(R.id.edPass);
-        chk = findViewById(R.id.chkCheck);
+        ed_sdt = findViewById(R.id.actiLogin_ed_sdt);
+        ed_pass = findViewById(R.id.actiLogin_ed_pass);
+        rdo_remember = findViewById(R.id.actiLogin_rdo_remember);
     }
 
     private void checkRemember() {
         share.getID();
         String sdt = share.getSDT();
         if(sdt != null){
-            edUser.setText(sdt);
-            edPass.setText(share.getPassword());
-            chk.setChecked(true);
+            ed_sdt.setText(sdt);
+            ed_pass.setText(share.getPassword());
+            rdo_remember.setChecked(true);
         }
     }
 
@@ -62,31 +53,31 @@ public class LoginAcitivty extends AppCompatActivity {
     }
 
     public void handleActionBtnLogin(View view) {
-        String phoneNumber = edUser.getText().toString(),password = edPass.getText().toString();
-        People people = dao.checkLogin(phoneNumber);
+        String phoneNumber = ed_sdt.getText().toString(),password = ed_pass.getText().toString();
+
         if (phoneNumber.isEmpty() || password.isEmpty()) {
-            CustomToast.makeText(LoginAcitivty.this, "Vui Lòng Không Để Trống Thông Tin", false).show();
+            CustomToast.makeText(LoginAcitivty.this, "Vui Lòng Không Để Trống Thông Tin !", false).show();
             return;
         }
-        if(phoneNumber.length() > 10){
-            CustomToast.makeText(LoginAcitivty.this, "Thông tin sai định dạng", false).show();
-            return;
-        }
-        People p1 = dao.check(4 , edUser.getText().toString());
-
-        if(p1 != null){
-            CustomToast.makeText(LoginAcitivty.this, "Tài khoản " +p1.getFullName() +" Đã Nghỉ", false).show();
+        if(!phoneNumber.matches("^0\\d{9}")){
+            CustomToast.makeText(LoginAcitivty.this, "Số điện thoại hoặc mật khẩu chưa chính xác !", false).show();
             return;
         }
 
+        People people = dao.checkLogin(phoneNumber);
         if (people != null && password.equals(people.getPassowrd())) {
+            if(people.getStatus() == 4)
+                CustomToast.makeText(LoginAcitivty.this, "Tài khoản đang trong thời gian nghỉ phép !", false).show();
+            else if(people.getStatus() == 5)
+                CustomToast.makeText(LoginAcitivty.this, "Tài khoản đã bị cấm !", false).show();
+
             Intent intent = new Intent(LoginAcitivty.this, MainActivity.class);
             startActivity(intent);
-            share.setAccount(people,chk.isChecked());
-            CustomToast.makeText(LoginAcitivty.this, "Đăng Nhập Thành Công", true).show();
+            share.setAccount(people,rdo_remember.isChecked());
+            CustomToast.makeText(LoginAcitivty.this, "Đăng Nhập Thành Công !", true).show();
             finish();
             return;
         }
-        CustomToast.makeText(LoginAcitivty.this, "Đăng Nhập Thất Bại", false).show();
+        CustomToast.makeText(LoginAcitivty.this, "Đăng Nhập Thất Bại !", false).show();
     }
 }

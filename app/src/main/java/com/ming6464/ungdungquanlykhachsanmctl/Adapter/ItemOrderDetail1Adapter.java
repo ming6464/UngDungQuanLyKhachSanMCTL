@@ -77,12 +77,12 @@ public class ItemOrderDetail1Adapter extends RecyclerView.Adapter<ItemOrderDetai
             status = "Đặt Trước";
             h.btn_detail.setText("chức năng");
             h.linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_dattruoc);
-            
+
         }else if(i_status == 4){
             status = "Huỷ";
             h.btn_detail.setText("Tới hoá đơn tổng");
             h.linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_huyphong);
-            
+
         }else {
             status = "Có Thể Nhận Phòng";
             h.btn_detail.setText("Chức năng");

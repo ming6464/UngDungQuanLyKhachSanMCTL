@@ -25,9 +25,9 @@ import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
-import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.Activity_QuanLy;
-import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.Activity_ThongKe;
-import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.Activity_ThongTin;
+import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.QuanLyActivity;
+import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.ThongKeActivity;
+import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.ThongTinNguoiDungActivity;
 import com.ming6464.ungdungquanlykhachsanmctl.CustomToast;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDAO;
@@ -37,7 +37,7 @@ import com.ming6464.ungdungquanlykhachsanmctl.LoginAcitivty;
 import com.ming6464.ungdungquanlykhachsanmctl.R;
 
 
-public class FragmentTaiKhoan extends Fragment {
+public class TaiKhoanFragment extends Fragment {
     private Intent intent;
     private ImageView img_avatar;
     private TextView tv_welcomeUser;
@@ -46,7 +46,7 @@ public class FragmentTaiKhoan extends Fragment {
     private KhachSanDAO dao;
     private People people;
     private NavigationView navigationView;
-    public FragmentTaiKhoan() {
+    public TaiKhoanFragment() {
         // Required empty public constructor
     }
 
@@ -69,7 +69,7 @@ public class FragmentTaiKhoan extends Fragment {
         view.findViewById(R.id.fragTaiKhoan_linear_infoUser).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(requireContext(),Activity_ThongTin.class);
+                intent = new Intent(requireContext(), ThongTinNguoiDungActivity.class);
                 startActivity(intent);
             }
         });
@@ -170,10 +170,10 @@ public class FragmentTaiKhoan extends Fragment {
                         dialog.show();
                         break;
                     case R.id.menu_5:
-                        intent = new Intent(getActivity(), Activity_QuanLy.class);
+                        intent = new Intent(getActivity(), QuanLyActivity.class);
                         break;
                     case R.id.menu_6:
-                        intent = new Intent(getActivity(), Activity_ThongKe.class);
+                        intent = new Intent(getActivity(), ThongKeActivity.class);
                         break;
                 }
                 if(check)

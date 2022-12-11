@@ -17,7 +17,7 @@ public class ManHinhChaoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_man_hinh_chao);
 
-        img_load = findViewById(R.id.img_load);
+        img_load = findViewById(R.id.actiManHinhChao_img_load);
 
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.rotate_load);
         img_load.startAnimation(animation);

@@ -5,19 +5,8 @@ import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import android.app.AlarmManager;
-import android.app.Dialog;
-import android.app.PendingIntent;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -25,7 +14,6 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.Activity_QuanLy;
 import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ItemService1Adapter;
 import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ItemServiceSpinnerAdapter;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.OrderDetail;
@@ -33,7 +21,7 @@ import com.ming6464.ungdungquanlykhachsanmctl.DTO.Orders;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.ServiceOrder;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Services;
-import com.ming6464.ungdungquanlykhachsanmctl.Fragment.PhongFragment;
+import com.ming6464.ungdungquanlykhachsanmctl.Fragment.SoDoPhongFragment;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -90,12 +78,12 @@ public class ChucNangDatPhongActivity extends AppCompatActivity implements ItemS
 
     private void hanldeDataBundle() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy  HH");
-        Bundle bundle = getIntent().getBundleExtra(PhongFragment.KEY_BUNDLE);
-        idRoom = bundle.getString(PhongFragment.KEY_ROOM);
-        status = bundle.getInt(PhongFragment.KEY_STATUS);
-        checkOut = new Date(bundle.getLong(PhongFragment.KEY_CHECKOUT));
-        checkIn = new Date(bundle.getLong(PhongFragment.KEY_CHECKIN));
-        amount_date = bundle.getInt(PhongFragment.KEY_AMOUNT_DATE);
+        Bundle bundle = getIntent().getBundleExtra(SoDoPhongFragment.KEY_BUNDLE);
+        idRoom = bundle.getString(SoDoPhongFragment.KEY_ROOM);
+        status = bundle.getInt(SoDoPhongFragment.KEY_STATUS);
+        checkOut = new Date(bundle.getLong(SoDoPhongFragment.KEY_CHECKOUT));
+        checkIn = new Date(bundle.getLong(SoDoPhongFragment.KEY_CHECKIN));
+        amount_date = bundle.getInt(SoDoPhongFragment.KEY_AMOUNT_DATE);
         tv_room.setText(idRoom);
         tv_checkOut.setText(sdf.format(checkOut) + "h");
         tv_checkIn.setText(sdf.format(checkIn) + "h");
