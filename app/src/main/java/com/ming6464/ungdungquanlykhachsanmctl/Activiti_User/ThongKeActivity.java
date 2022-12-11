@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.DatePicker;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -40,7 +38,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class Activity_ThongKe extends AppCompatActivity {
+public class ThongKeActivity extends AppCompatActivity {
     private List<Integer> listIdCategory,listIdService;
     private int[] arrSoLieuCategory,arrSoLieuService;
     private List<String> listNameCategory,listNameService;
@@ -143,23 +141,15 @@ public class Activity_ThongKe extends AppCompatActivity {
 
     public void handleActionTvCheckIn(View view) {
         calendar.setTimeInMillis(startDate.getTime());
-        datePicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                tv_checkIn.setText(formatDate(dayOfMonth) + "/" + (month + 1) + "/" + year);
-            }
-        },calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+        datePicker = new DatePickerDialog(this, (view1, year, month, dayOfMonth) -> tv_checkIn.setText(formatDate(dayOfMonth) + "/" + (month + 1) + "/" + year),calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
         datePicker.show();
     }
 
     public void handleActionTvCheckOut(View view) {
         calendar.setTimeInMillis(endDate.getTime());
-        datePicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                tv_checkOut.setText(formatDate(dayOfMonth) + "/" + (month + 1) + "/" + year);
-                filterDuLieu();
-            }
+        datePicker = new DatePickerDialog(this, (view1, year, month, dayOfMonth) -> {
+            tv_checkOut.setText(formatDate(dayOfMonth) + "/" + (month + 1) + "/" + year);
+            filterDuLieu();
         },calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
         datePicker.show();
     }
@@ -239,13 +229,10 @@ public class Activity_ThongKe extends AppCompatActivity {
         tb.setEnabled(false);
         linear_thongKe.setVisibility(View.GONE);
         pg.setVisibility(View.VISIBLE);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                tb.setEnabled(true);
-                linear_thongKe.setVisibility(View.VISIBLE);
-                pg.setVisibility(View.GONE);
-            }
+        new Handler().postDelayed(() -> {
+            tb.setEnabled(true);
+            linear_thongKe.setVisibility(View.VISIBLE);
+            pg.setVisibility(View.GONE);
         },600);
     }
 }

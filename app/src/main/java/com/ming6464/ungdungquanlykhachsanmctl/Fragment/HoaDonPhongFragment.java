@@ -23,7 +23,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ItemOrderDetail1Adapter;
 import com.ming6464.ungdungquanlykhachsanmctl.AddServiceActivity;
@@ -39,29 +38,22 @@ import java.util.Date;
 import java.util.List;
 
 
-public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1Adapter.OnEventOfOrderDetailAdpater {
+public class HoaDonPhongFragment extends Fragment implements ItemOrderDetail1Adapter.OnEventOfOrderDetailAdpater {
     private List<OrderDetail> list;
     private KhachSanDAO dao;
     private Spinner sp_status;
     private SwipeRefreshLayout rf_rcHoaDonPhong;
     private ItemOrderDetail1Adapter adapter;
     public static final String KEY_ROOMID = "KEY_ROOMID";
-    public static Fragment_HoaDon_Phong newInstance() {
-        Fragment_HoaDon_Phong fragment = new Fragment_HoaDon_Phong();
-        return fragment;
-    }
-
-    public Fragment_HoaDon_Phong() {
-        // Required empty public constructor
+    public static HoaDonPhongFragment newInstance() {
+        return new HoaDonPhongFragment();
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment__hoa_don__phong, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_hoa_don_phong, container, false);
     }
 
     @Override
@@ -70,7 +62,7 @@ public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1A
         list = new ArrayList<>();
         RecyclerView rc_orderDetail = view.findViewById(R.id.fragHoaDonPhong_rc);
         sp_status = view.findViewById(R.id.fragHoaDonPhong_sp_status);
-        rf_rcHoaDonPhong = view.findViewById(R.id.fragHoaDon_rf_rcHoaDonPhong);
+        rf_rcHoaDonPhong = view.findViewById(R.id.fragHoaDonPhong_rf_rc);
         dao = KhachSanDB.getInstance(requireContext()).getDAO();
         adapter = new ItemOrderDetail1Adapter(requireContext(),this);
         rc_orderDetail.setAdapter(adapter);
@@ -80,13 +72,10 @@ public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1A
     }
 
     private void handleAction() {
-        rf_rcHoaDonPhong.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                int position = sp_status.getSelectedItemPosition();
-                loadData(position);
-                rf_rcHoaDonPhong.setRefreshing(false);
-            }
+        rf_rcHoaDonPhong.setOnRefreshListener(() -> {
+            int position = sp_status.getSelectedItemPosition();
+            loadData(position);
+            rf_rcHoaDonPhong.setRefreshing(false);
         });
     }
 
@@ -121,7 +110,7 @@ public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1A
         int status = obj.getStatus();
         if(status == 4 || status == 1){
             Intent intent = new Intent(requireContext(), HoaDonChiTietActivity.class);
-            intent.putExtra(HoaDonFragment.KEY_ORDER,dao.getObjOfOrders(obj.getOrderID()));
+            intent.putExtra(HoaDonTongFragment.KEY_ORDER,dao.getObjOfOrders(obj.getOrderID()));
             startActivity(intent);
         }else {
             Dialog dialog = new Dialog(requireContext());
@@ -134,39 +123,30 @@ public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1A
             //
             Button btn_toOrder = dialog.findViewById(R.id.dialogBottmsheet_btn_toOrder);
             //
-            btn_toOrder.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(requireContext(), HoaDonChiTietActivity.class);
-                    intent.putExtra(HoaDonFragment.KEY_ORDER,dao.getObjOfOrders(obj.getOrderID()));
-                    startActivity(intent);
-                    dialog.cancel();
-                }
+            btn_toOrder.setOnClickListener(v -> {
+                Intent intent = new Intent(requireContext(), HoaDonChiTietActivity.class);
+                intent.putExtra(HoaDonTongFragment.KEY_ORDER,dao.getObjOfOrders(obj.getOrderID()));
+                startActivity(intent);
+                dialog.cancel();
             });
             if(status == 0){
                 Button btn_checkOut = dialog.findViewById(R.id.dialogBottmsheet_btn_checkOut),
                         btn_addService = dialog.findViewById(R.id.dialogBottmsheet_btn_addService);
                 btn_checkOut.setVisibility(View.VISIBLE);
                 btn_addService.setVisibility(View.VISIBLE);
-                btn_checkOut.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        obj.setStatus(1);
-                        dao.updateOfOrderDetail(obj);
-                        list.remove(position);
-                        adapter.notifyItemRemoved(position);
-                        CustomToast.makeText(requireContext(),"Phòng " + obj.getRoomID() + " đã trả thành công !",true).show();
-                        dialog.cancel();
-                    }
+                btn_checkOut.setOnClickListener(v -> {
+                    obj.setStatus(1);
+                    dao.updateOfOrderDetail(obj);
+                    list.remove(position);
+                    adapter.notifyItemRemoved(position);
+                    CustomToast.makeText(requireContext(),"Phòng " + obj.getRoomID() + " đã trả thành công !",true).show();
+                    dialog.cancel();
                 });
-                btn_addService.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(requireContext(), AddServiceActivity.class);
-                        intent.putExtra(KEY_ROOMID,obj.getRoomID());
-                        startActivity(intent);
-                        dialog.cancel();
-                    }
+                btn_addService.setOnClickListener(v -> {
+                    Intent intent = new Intent(requireContext(), AddServiceActivity.class);
+                    intent.putExtra(KEY_ROOMID,obj.getRoomID());
+                    startActivity(intent);
+                    dialog.cancel();
                 });
             }else{
                 Button btn_checkIn = dialog.findViewById(R.id.dialogBottmsheet_btn_checkIn),
@@ -174,27 +154,21 @@ public class Fragment_HoaDon_Phong extends Fragment implements ItemOrderDetail1A
                 btn_cancel.setVisibility(View.VISIBLE);
                 if(status == 3){
                     btn_checkIn.setVisibility(View.VISIBLE);
-                    btn_checkIn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            obj.setStatus(0);
-                            dao.updateOfOrderDetail(obj);
-                            adapter.notifyItemChanged(position);
-                            CustomToast.makeText(requireContext(),"Phòng " + obj.getRoomID() + " đã nhận phòng thành công !",true).show();
-                            dialog.cancel();
-                        }
+                    btn_checkIn.setOnClickListener(v -> {
+                        obj.setStatus(0);
+                        dao.updateOfOrderDetail(obj);
+                        adapter.notifyItemChanged(position);
+                        CustomToast.makeText(requireContext(),"Phòng " + obj.getRoomID() + " đã nhận phòng thành công !",true).show();
+                        dialog.cancel();
                     });
                 }
-                btn_cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        obj.setStatus(4);
-                        dao.cancelOfOrderDetail(obj.getId(),new Date(System.currentTimeMillis()));
-                        list.remove(position);
-                        adapter.notifyItemRemoved(position);
-                        CustomToast.makeText(requireContext(),"Phòng " + obj.getRoomID() + " đã huỷ phòng thành công !",true).show();
-                        dialog.cancel();
-                    }
+                btn_cancel.setOnClickListener(v -> {
+                    obj.setStatus(4);
+                    dao.cancelOfOrderDetail(obj.getId(),new Date(System.currentTimeMillis()));
+                    list.remove(position);
+                    adapter.notifyItemRemoved(position);
+                    CustomToast.makeText(requireContext(),"Phòng " + obj.getRoomID() + " đã huỷ phòng thành công !",true).show();
+                    dialog.cancel();
                 });
             }
             dialog.show();

@@ -48,7 +48,7 @@ public class ItemHoaDonAdapter extends RecyclerView.Adapter<ItemHoaDonAdapter.My
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_hoa_don,parent,false));
+        return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_hoa_don_tong,parent,false));
     }
 
     @Override
@@ -93,12 +93,7 @@ public class ItemHoaDonAdapter extends RecyclerView.Adapter<ItemHoaDonAdapter.My
         }
         h.tv_rooms.setText("Số Phòng :  " + rooms);
 
-        h.btn_detail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                action.show(h.getAdapterPosition());
-            }
-        });
+        h.btn_detail.setOnClickListener(v -> action.show(h.getAdapterPosition()));
 
     }
 
@@ -119,17 +114,17 @@ public class ItemHoaDonAdapter extends RecyclerView.Adapter<ItemHoaDonAdapter.My
         private LinearLayoutCompat layout;
         public MyViewHolder(@NonNull View i) {
             super(i);
-            tv_fullName = i.findViewById(R.id.itemHoaDon_tv_fullName);
-            tv_start = i.findViewById(R.id.itemHoaDon_tv_start);
-            tv_end = i.findViewById(R.id.itemHoaDon_tv_end);
-            tv_status = i.findViewById(R.id.itemHoaDon_tv_status);
-            tv_total = i.findViewById(R.id.itemHoaDon_tv_total);
-            tv_rooms = i.findViewById(R.id.itemHoaDon_tv_rooms);
-            btn_detail = i.findViewById(R.id.itemHoaDon_btn_detail);
-            tv_hourStart = i.findViewById(R.id.itemHoaDon_tv_hourStart);
-            tv_hourEnd = i.findViewById(R.id.itemHoaDon_tv_hourEnd);
-            layout = i.findViewById(R.id.itemHoaDon_layout_linearHoaDon);
-            tv_phoneNumber = i.findViewById(R.id.itemHoaDon_tv_phoneNumber);
+            tv_fullName = i.findViewById(R.id.itemHoaDonTong_tv_fullName);
+            tv_start = i.findViewById(R.id.itemHoaDonTong_tv_start);
+            tv_end = i.findViewById(R.id.itemHoaDonTong_tv_end);
+            tv_status = i.findViewById(R.id.itemHoaDonTong_tv_status);
+            tv_total = i.findViewById(R.id.itemHoaDonTong_tv_total);
+            tv_rooms = i.findViewById(R.id.itemHoaDonTong_tv_rooms);
+            btn_detail = i.findViewById(R.id.itemHoaDonTong_btn_detail);
+            tv_hourStart = i.findViewById(R.id.itemHoaDonTong_tv_hourStart);
+            tv_hourEnd = i.findViewById(R.id.itemHoaDonTong_tv_hourEnd);
+            layout = i.findViewById(R.id.itemHoaDonTong_layout_linearHoaDon);
+            tv_phoneNumber = i.findViewById(R.id.itemHoaDonTong_tv_phoneNumber);
         }
     }
 }

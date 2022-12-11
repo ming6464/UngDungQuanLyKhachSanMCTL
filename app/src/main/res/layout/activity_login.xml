@@ -42,7 +42,7 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edUser"
+            android:id="@+id/actiLogin_ed_sdt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_baseline_call_24"
@@ -66,7 +66,7 @@
         android:layout_margin="12dp"
         android:layout_height="wrap_content">
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edPass"
+            android:id="@+id/actiLogin_ed_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableTint="#03A9F4"
@@ -78,7 +78,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnLogin"
+        android:id="@+id/actiLogin_btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
@@ -103,7 +103,7 @@
             android:orientation="horizontal">
 
             <CheckBox
-                android:id="@+id/chkCheck"
+                android:id="@+id/actiLogin_rdo_remember"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Lưu Thông Tin"
@@ -113,6 +113,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/actiLogin_tv_forgotPass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

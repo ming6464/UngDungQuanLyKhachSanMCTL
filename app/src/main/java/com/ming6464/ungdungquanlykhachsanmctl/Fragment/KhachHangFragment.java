@@ -21,7 +21,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.SearchView;
 import android.widget.TextView;
-import com.ming6464.ungdungquanlykhachsanmctl.Adapter.UserAdapter;
+
+import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ItemNhanVienAdapter;
 import com.ming6464.ungdungquanlykhachsanmctl.CustomToast;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDAO;
@@ -29,15 +30,11 @@ import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDB;
 import com.ming6464.ungdungquanlykhachsanmctl.R;
 import java.util.List;
 
-public class KhachHangFragment extends Fragment implements UserAdapter.IClickItemUser {
+public class KhachHangFragment extends Fragment implements ItemNhanVienAdapter.EventOfItemNhanVienAdapter {
     public RecyclerView rcvUser;
-    private UserAdapter userAdapter;
+    private ItemNhanVienAdapter userAdapter;
     private List<People> mListUser;
     private KhachSanDAO dao;
-
-    public static KhachHangFragment newInstance() {
-        return new KhachHangFragment();
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,54 +68,51 @@ public class KhachHangFragment extends Fragment implements UserAdapter.IClickIte
             }
         });
         mListUser = dao.getListKhachHangOfUser();
-        userAdapter = new UserAdapter(this);
+        userAdapter = new ItemNhanVienAdapter(this);
         rcvUser.setAdapter(userAdapter);
         rcvUser.setLayoutManager(new LinearLayoutManager(getContext()));
         userAdapter.setData(mListUser);
     }
 
+
+
     @Override
-    public void updateUser(int position) {
+    public void onUpdate(int position) {
         People people = mListUser.get(position);
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_add_nhanvien, null);
-        EditText edtUsername = view.findViewById(R.id.edNameNv);
-        EditText edtSDT = view.findViewById(R.id.edSoDtNv);
-        EditText edtCCCD = view.findViewById(R.id.edCCCDNv);
-        EditText edtAddress = view.findViewById(R.id.edAddressNv);
+        View view = inflater.inflate(R.layout.dialog_them_nhanvien, null);
+        EditText ed_Username = view.findViewById(R.id.dialogThemNhanVien_ed_name);
+        EditText ed_SDT = view.findViewById(R.id.dialogThemNhanVien_ed_sdt);
+        EditText ed_CCCD = view.findViewById(R.id.dialogThemNhanVien_ed_cccd);
+        EditText ed_Address = view.findViewById(R.id.dialogThemNhanVien_ed_address);
         view.findViewById(R.id.dialogAddNhanVien_inputLayout_pass).setVisibility(View.GONE);
-        Button btnUp = view.findViewById(R.id.btnLuuNv);
-        Button btnCancle = view.findViewById(R.id.btnCancleNv);
-        RadioButton rdoNam = view.findViewById(R.id.rdo_nam);
-        RadioButton rdoNu = view.findViewById(R.id.rdo_nu);
-        TextView tv = view.findViewById(R.id.tvHi1);
+        Button btn_update = view.findViewById(R.id.dialogThemNhanVien_btn_add);
+        Button btn_cancle = view.findViewById(R.id.dialogThemNhanVien_btn_cancel);
+        RadioButton rdo_feMale = view.findViewById(R.id.dialogThemNhanVien_rdo_feMale);
+        TextView tv = view.findViewById(R.id.dialogThemNhanVien_tv_title);
         tv.setText("Cập nhật Khách Hàng");
-        btnUp.setText("Cập nhật");
+        btn_update.setText("Cập nhật");
 
         //set data
-        edtUsername.setText(people.getFullName());
-        edtSDT.setText(people.getSDT());
-        edtCCCD.setText(people.getCCCD());
-        edtAddress.setText(people.getAddress());
-        if (people.getSex() == 1) {
-            rdoNam.setChecked(true);
-        } else {
-            rdoNu.setChecked(true);
-        }
+        ed_Username.setText(people.getFullName());
+        ed_SDT.setText(people.getSDT());
+        ed_CCCD.setText(people.getCCCD());
+        ed_Address.setText(people.getAddress());
+        if (people.getSex() == 0)
+            rdo_feMale.setChecked(true);
         builder.setView(view);
         //
         AlertDialog dialog = builder.create();
 
-        btnUp.setOnClickListener(v -> {
-            String strUsername = edtUsername.getText().toString().trim();
-            String strSDT = edtSDT.getText().toString().trim();
-            String strCCCD = edtCCCD.getText().toString().trim();
-            String strAddress = edtAddress.getText().toString().trim();
-            int sex = 0;
-            if (rdoNam.isChecked()) {
-                sex = 1;
-            }//
+        btn_update.setOnClickListener(v -> {
+            String strUsername = ed_Username.getText().toString().trim();
+            String strSDT = ed_SDT.getText().toString().trim();
+            String strCCCD = ed_CCCD.getText().toString().trim();
+            String strAddress = ed_Address.getText().toString().trim();
+            int sex = 1;
+            if (rdo_feMale.isChecked())
+                sex = 0;
 
             people.setFullName(strUsername);
             people.setSDT(strSDT);
@@ -131,7 +125,7 @@ public class KhachHangFragment extends Fragment implements UserAdapter.IClickIte
             dialog.dismiss();
 
         });
-        btnCancle.setOnClickListener(v -> {
+        btn_cancle.setOnClickListener(v -> {
             dialog.dismiss();
         });
 
@@ -140,5 +134,9 @@ public class KhachHangFragment extends Fragment implements UserAdapter.IClickIte
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         window.getAttributes().windowAnimations = R.style.dialog_slide_left_to_right;
         dialog.show();
+    }
+
+    @Override
+    public void onDelete(int position) {
     }
 }

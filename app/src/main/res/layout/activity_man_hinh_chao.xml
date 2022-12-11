@@ -6,9 +6,15 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".ManHinhChaoActivity">
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/actiManHinhChao_gui_h1"
+        app:layout_constraintGuide_percent="0.7"
+        />
 
     <ImageView
-        android:id="@+id/imageView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="50dp"
@@ -20,15 +26,12 @@
         app:layout_constraintVertical_bias="0.23000002" />
 
     <ImageView
-        android:id="@+id/img_load"
+        android:id="@+id/actiManHinhChao_img_load"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="212dp"
         android:src="@drawable/loading"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/actiManHinhChao_gui_h1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
 

@@ -1,6 +1,5 @@
 package com.ming6464.ungdungquanlykhachsanmctl.Adapter;
 
-import android.content.Context;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,20 +8,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.view.menu.MenuView;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
-import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Rooms;
 import com.ming6464.ungdungquanlykhachsanmctl.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.RoomsViewHolder>{
+public class ItemRoomAdapter extends RecyclerView.Adapter<ItemRoomAdapter.RoomsViewHolder>{
 
     private List<Rooms> mListRooms;
     private List<String> listCategory;
@@ -33,7 +27,7 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.RoomsViewHol
         this.listCategory = listCategory;
         notifyDataSetChanged();
     }
-    public RoomsAdapter(IClickItemRooms iClickItemRooms) {
+    public ItemRoomAdapter(IClickItemRooms iClickItemRooms) {
         this.iClickItemRooms = iClickItemRooms;
     }
     public interface IClickItemRooms {
@@ -62,12 +56,7 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.RoomsViewHol
         else
             holder.cardView.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.datTruoc));
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                iClickItemRooms.datPhong(rooms);
-            }
-        });
+        holder.cardView.setOnClickListener(v -> iClickItemRooms.datPhong(rooms));
 
 
     }
@@ -86,9 +75,9 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.RoomsViewHol
 
         public RoomsViewHolder(@NonNull View itemView) {
             super(itemView);
-            tv_room_name = itemView.findViewById(R.id.tv_room_name);
+            tv_room_name = itemView.findViewById(R.id.itemRooms_tv_name);
             cardView = itemView.findViewById(R.id.card_rooms);
-            tv_room_catogory = itemView.findViewById(R.id.tv_room_category);
+            tv_room_catogory = itemView.findViewById(R.id.itemRooms_tv_category);
         }
     }
 }

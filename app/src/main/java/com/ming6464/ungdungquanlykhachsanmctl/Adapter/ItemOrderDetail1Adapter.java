@@ -77,12 +77,12 @@ public class ItemOrderDetail1Adapter extends RecyclerView.Adapter<ItemOrderDetai
             status = "Đặt Trước";
             h.btn_detail.setText("chức năng");
             h.linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_dattruoc);
-            
+
         }else if(i_status == 4){
             status = "Huỷ";
             h.btn_detail.setText("Tới hoá đơn tổng");
             h.linear_orderDetail.setBackgroundResource(R.drawable.background_hoadon_huyphong);
-            
+
         }else {
             status = "Có Thể Nhận Phòng";
             h.btn_detail.setText("Chức năng");
@@ -100,12 +100,7 @@ public class ItemOrderDetail1Adapter extends RecyclerView.Adapter<ItemOrderDetai
         int amount_date = (int)(checkOut.getTime() - checkIn.getTime())/(3600000 * 24) + 1,
                 price_room = dao.getPriceWithIdOfRooms(obj.getRoomID());
         h.tv_total.setText(numberFormat.format(price_room * amount_date + dao.getTotalServiceWithOrderDetailId(obj.getId())) + "K");
-        h.btn_detail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                action.click(h.getAdapterPosition());
-            }
-        });
+        h.btn_detail.setOnClickListener(v -> action.click(h.getAdapterPosition()));
     }
 
     @Override

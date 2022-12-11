@@ -59,12 +59,7 @@ public class ItemService2Adapter extends RecyclerView.Adapter<ItemService2Adapte
         h.tv_stt.setText(String.valueOf(position));
         h.tv_total.setText(format.format(sv.getPrice() * obj.getAmount()) + "K");
         h.tv_name.setText(sv.getName());
-        h.linear_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                action.add(h.getAdapterPosition());
-            }
-        });
+        h.linear_layout.setOnClickListener(v -> action.add(h.getAdapterPosition()));
     }
 
     @Override

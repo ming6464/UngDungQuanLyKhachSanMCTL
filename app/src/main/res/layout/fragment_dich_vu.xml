@@ -10,9 +10,7 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:paddingTop="15dp"
         android:paddingEnd="8dp"
-        android:layout_below="@id/actiAddService_tb"
         android:paddingStart="8dp"
-        android:id="@+id/actiAddService_linear_title"
         android:paddingBottom="15dp"
         android:background="#4D454545"
         android:layout_width="match_parent"
@@ -46,7 +44,7 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewDichVu"
+        android:id="@+id/fragDichVu_rc"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

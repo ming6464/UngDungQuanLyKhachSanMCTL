@@ -3,32 +3,23 @@ package com.ming6464.ungdungquanlykhachsanmctl;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.android.material.navigation.NavigationView;
-import com.ming6464.ungdungquanlykhachsanmctl.Activiti_User.Activity_ThongTin;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Categories;
-import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Rooms;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.ServiceCategory;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Services;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.DichVuFragment;
-import com.ming6464.ungdungquanlykhachsanmctl.Fragment.FragmentTaiKhoan;
-import com.ming6464.ungdungquanlykhachsanmctl.Fragment.Fragment_Tab_HoaDon;
+import com.ming6464.ungdungquanlykhachsanmctl.Fragment.TaiKhoanFragment;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.HoaDonFragment;
 import com.ming6464.ungdungquanlykhachsanmctl.Fragment.KhachHangFragment;
-import com.ming6464.ungdungquanlykhachsanmctl.Fragment.SoDoFragment;
+import com.ming6464.ungdungquanlykhachsanmctl.Fragment.PhongFragment;
 
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -131,49 +122,46 @@ public class MainActivity extends AppCompatActivity {
 
     //sk gọi frm
     private void goiPhonFragment() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new SoDoFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new PhongFragment()).commit();
     }
 
     //sk click
     private void Click() {
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fragment = null;
-                String title = null;
-                int logo = 0;
-                switch (item.getItemId()) {
-                    case R.id.menu_bottom1:
-                        title = "Sơ Đồ Phòng";
-                        logo = R.drawable.home_25;
-                        fragment = new SoDoFragment();
-                        break;
-                    case R.id.menu_bottom2:
-                        title = "Khách Hàng";
-                        logo = R.drawable.customer_25;
-                        fragment = new KhachHangFragment();
-                        break;
-                    case R.id.menu_bottom3:
-                        title = "Dịch Vụ";
-                        logo = R.drawable.services_24;
-                        fragment = new DichVuFragment();
-                        break;
-                    case R.id.menu_bottom4:
-                        title = "Hóa Đơn";
-                        logo = R.drawable.order_25;
-                        fragment = new Fragment_Tab_HoaDon();
-                        break;
-                    case R.id.menu_bottom5:
-                        title = "Tài Khoản";
-                        logo = R.drawable.yourselt_25;
-                        fragment = new FragmentTaiKhoan();
-                        break;
-                }
-                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
-                tv_titleTb.setText(title);
-                toolbar.setLogo(logo);
-                return true;
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            Fragment fragment = null;
+            String title = null;
+            int logo = 0;
+            switch (item.getItemId()) {
+                case R.id.menu_bottom1:
+                    title = "Sơ Đồ Phòng";
+                    logo = R.drawable.home_25;
+                    fragment = new PhongFragment();
+                    break;
+                case R.id.menu_bottom2:
+                    title = "Khách Hàng";
+                    logo = R.drawable.customer_25;
+                    fragment = new KhachHangFragment();
+                    break;
+                case R.id.menu_bottom3:
+                    title = "Dịch Vụ";
+                    logo = R.drawable.services_24;
+                    fragment = new DichVuFragment();
+                    break;
+                case R.id.menu_bottom4:
+                    title = "Hóa Đơn";
+                    logo = R.drawable.order_25;
+                    fragment = new HoaDonFragment();
+                    break;
+                case R.id.menu_bottom5:
+                    title = "Tài Khoản";
+                    logo = R.drawable.yourselt_25;
+                    fragment = new TaiKhoanFragment();
+                    break;
             }
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
+            tv_titleTb.setText(title);
+            toolbar.setLogo(logo);
+            return true;
         });
     }
 

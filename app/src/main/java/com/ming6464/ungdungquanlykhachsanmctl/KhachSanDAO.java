@@ -174,14 +174,8 @@ public abstract class KhachSanDAO {
     @Query("SELECT * FROM orderdetail")
     public abstract List<OrderDetail> getAllOfOrderDetail();
 
-    @Query("SELECT * FROM orderdetail WHERE status = :status")
-    public abstract List<OrderDetail> getListWithStatusOfOrderDetail(int status);
-
     @Query("SELECT * FROM orderdetail WHERE orderID = :id")
     public abstract List<OrderDetail> getListWithOrderIdOfOrderDetail(int id);
-
-    @Query("SELECT * FROM ORDERDETAIL WHERE ROOMID = :roomId AND STATUS = 2")
-    public abstract List<OrderDetail> getListReserveWithRoomIdOfOrderDetail(String roomId);
 
     public void insertOfOrderDetail(OrderDetail obj) {
         insertObjOfOrderDetail(obj);
@@ -296,12 +290,6 @@ public abstract class KhachSanDAO {
         }
         return list;
     }
-
-    @Query("SELECT COUNT(*) FROM ORDERDETAIL WHERE checkOut = :checkOut AND STATUS != 1")
-    public abstract int getCountOrderDetailWithCheckOut(Date checkOut);
-
-    @Query("SELECT * FROM ORDERDETAIL WHERE checkOut = :checkout AND (STATUS = 0 OR STATUS = 4)")
-    public abstract List<OrderDetail> getListOrderDetailCheckOut(Date checkout);
 
     @Query("SELECT MAX(CHECKOUT) FROM ORDERDETAIL WHERE ORDERID = :orderId AND STATUS != 4")
     public abstract Date getMaxEndDateOrders(int orderId);
