@@ -1,7 +1,6 @@
 package com.ming6464.ungdungquanlykhachsanmctl.Fragment;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -17,25 +16,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.SearchView;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.material.textfield.TextInputLayout;
 import com.ming6464.ungdungquanlykhachsanmctl.Adapter.UserAdapter;
 import com.ming6464.ungdungquanlykhachsanmctl.CustomToast;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDAO;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDB;
 import com.ming6464.ungdungquanlykhachsanmctl.R;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class KhachHangFragment extends Fragment implements UserAdapter.IClickItemUser {
@@ -43,7 +34,6 @@ public class KhachHangFragment extends Fragment implements UserAdapter.IClickIte
     private UserAdapter userAdapter;
     private List<People> mListUser;
     private KhachSanDAO dao;
-    private SearchView searchView;
 
     public static KhachHangFragment newInstance() {
         return new KhachHangFragment();
@@ -66,7 +56,7 @@ public class KhachHangFragment extends Fragment implements UserAdapter.IClickIte
         rcvUser = view.findViewById(R.id.rcv_user);
         dao = KhachSanDB.getInstance(requireContext()).getDAO();
         //chức năng tìm kiếm
-        searchView = view.findViewById(R.id.searchKh);
+        SearchView searchView = view.findViewById(R.id.searchKh);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -75,9 +65,8 @@ public class KhachHangFragment extends Fragment implements UserAdapter.IClickIte
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                mListUser.clear();
-                mListUser.addAll(dao.getSearchView("%"+newText+"%"));
-                userAdapter.notifyDataSetChanged();
+                mListUser = dao.getSearchView("%"+newText+"%");
+                userAdapter.setData(mListUser);
                 return false;
             }
         });
@@ -86,14 +75,6 @@ public class KhachHangFragment extends Fragment implements UserAdapter.IClickIte
         rcvUser.setAdapter(userAdapter);
         rcvUser.setLayoutManager(new LinearLayoutManager(getContext()));
         userAdapter.setData(mListUser);
-    }
-
-
-    private void timKiem(String sdt) {
-        List<People> listSearch = new ArrayList<>();
-        for (People people : mListUser) {
-
-        }
     }
 
     @Override
@@ -157,6 +138,7 @@ public class KhachHangFragment extends Fragment implements UserAdapter.IClickIte
         Window window = dialog.getWindow();
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        window.getAttributes().windowAnimations = R.style.dialog_slide_left_to_right;
         dialog.show();
     }
 }
