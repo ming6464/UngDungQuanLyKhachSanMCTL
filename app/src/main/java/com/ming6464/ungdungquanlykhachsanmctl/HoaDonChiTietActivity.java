@@ -53,12 +53,9 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
         ordersObj = (Orders) getIntent().getSerializableExtra(KEY_ORDER);
         customerObj = dao.getObjOfUser(ordersObj.getCustomID());
         anhXa();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                constrain_order.setVisibility(View.VISIBLE);
-                pg_load.setVisibility(View.GONE);
-            }
+        new Handler().postDelayed(() -> {
+            constrain_order.setVisibility(View.VISIBLE);
+            pg_load.setVisibility(View.GONE);
         },800);
         format = NumberFormat.getInstance(new Locale("en","EN"));
         handleToolbar();
@@ -244,16 +241,8 @@ public class HoaDonChiTietActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Lưu Ý !");
                 builder.setMessage("Các phòng " + room + " đều vẫn chưa được sử dụng. Việc thanh toán sẽ tạo ra 1 hoá đơn tổng mới");
-                builder.setPositiveButton("Xác Nhận", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        checkOutOrder();
-                    }
-                });
-                builder.setNegativeButton("Huỷ", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
+                builder.setPositiveButton("Xác Nhận", (dialog, which) -> checkOutOrder());
+                builder.setNegativeButton("Huỷ", (dialog, which) -> {
                 });
                 builder.show();
                 return;

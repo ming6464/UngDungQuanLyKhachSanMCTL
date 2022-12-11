@@ -46,11 +46,6 @@ public class TaiKhoanFragment extends Fragment {
     private KhachSanDAO dao;
     private People people;
     private NavigationView navigationView;
-    public TaiKhoanFragment() {
-        // Required empty public constructor
-    }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -66,12 +61,9 @@ public class TaiKhoanFragment extends Fragment {
         navigationView = view.findViewById(R.id.nava);
         dao = KhachSanDB.getInstance(requireContext()).getDAO();
         share = new KhachSanSharedPreferences(requireContext());
-        view.findViewById(R.id.fragTaiKhoan_linear_infoUser).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent = new Intent(requireContext(), ThongTinNguoiDungActivity.class);
-                startActivity(intent);
-            }
+        view.findViewById(R.id.fragTaiKhoan_linear_infoUser).setOnClickListener(v -> {
+            intent = new Intent(requireContext(), ThongTinNguoiDungActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -87,100 +79,82 @@ public class TaiKhoanFragment extends Fragment {
             navigationView.getMenu().findItem(R.id.menu_5).setVisible(false);
             navigationView.getMenu().findItem(R.id.menu_6).setVisible(false);
         }
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.menu_2:
-                        check = false;
-                        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_update_password, null);
-                        EditText edt_password = view.findViewById(R.id.dialogUpdatePassword_ed_oldPass);
-                        EditText edt_newPassword = view.findViewById(R.id.dialogUpdatePassword_ed_newPass);
-                        EditText edt_confimPass = view.findViewById(R.id.dialogUpdatePassword_ed_reNewPass);
-                        Button btnSaveChange = view.findViewById(R.id.dialogUpdatePassword_btn_yes);
-                        ImageButton btnCanceChange = view.findViewById(R.id.dialogUpdatePassword_imgBtn_cancel);
-                        People people = dao.getObjOfUser(share.getID());
+        navigationView.setNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.menu_2:
+                    check = false;
+                    View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_update_password, null);
+                    EditText edt_password = view.findViewById(R.id.dialogUpdatePassword_ed_oldPass);
+                    EditText edt_newPassword = view.findViewById(R.id.dialogUpdatePassword_ed_newPass);
+                    EditText edt_confimPass = view.findViewById(R.id.dialogUpdatePassword_ed_reNewPass);
+                    Button btnSaveChange = view.findViewById(R.id.dialogUpdatePassword_btn_yes);
+                    ImageButton btnCanceChange = view.findViewById(R.id.dialogUpdatePassword_imgBtn_cancel);
+                    People people = dao.getObjOfUser(share.getID());
 
-                        AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
-                        builder1.setView(view);
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+                    builder1.setView(view);
 
-                        AlertDialog dialog1 = builder1.create();
-                        Window window = dialog1.getWindow();
-                        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
-                        window.getAttributes().windowAnimations = R.style.dialog_slide_left_to_right;
-                        dialog1.show();
+                    AlertDialog dialog1 = builder1.create();
+                    Window window = dialog1.getWindow();
+                    window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    window.setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+                    window.getAttributes().windowAnimations = R.style.dialog_slide_left_to_right;
+                    dialog1.show();
 
-                        btnSaveChange.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                String oldpassword = edt_password.getText().toString();
-                                String newPassword = edt_newPassword.getText().toString();
-                                String confimPass = edt_confimPass.getText().toString();
-                                if (oldpassword.isEmpty() || newPassword.isEmpty() || confimPass.isEmpty()) {
-                                    CustomToast.makeText(getContext(), "Thông tin thiếu !", false).show();
-                                    return;
-                                }
-                                if (newPassword.length() < 3) {
-                                    CustomToast.makeText(getContext(), "Độ dài mật khẩu phải ít nhất 3 ký tự", false).show();
-                                    return;
-                                }
+                    btnSaveChange.setOnClickListener(v -> {
+                        String oldpassword = edt_password.getText().toString();
+                        String newPassword = edt_newPassword.getText().toString();
+                        String confimPass = edt_confimPass.getText().toString();
+                        if (oldpassword.isEmpty() || newPassword.isEmpty() || confimPass.isEmpty()) {
+                            CustomToast.makeText(getContext(), "Thông tin thiếu !", false).show();
+                            return;
+                        }
+                        if (newPassword.length() < 3) {
+                            CustomToast.makeText(getContext(), "Độ dài mật khẩu phải ít nhất 3 ký tự", false).show();
+                            return;
+                        }
 
-                                if (!newPassword.equals(confimPass)) {
-                                    CustomToast.makeText(getContext(), "Mật khẩu mới không khớp. Mời nhập lại", false).show();
-                                    return;
-                                }
-                                if(!people.getPassowrd().equals(oldpassword)){
-                                    CustomToast.makeText(getContext(), "Mật khẩu sai !", false).show();
-                                    return;
-                                }
-                                people.setPassowrd(newPassword);
-                                dao.UpdateUser(people);
-                                CustomToast.makeText(getContext(),"Đổi mật khẩu thành công",true).show();
-                                dialog1.dismiss();
-                            }
-                        });
-                        btnCanceChange.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                dialog1.cancel();
-                            }
-                        });
-                        break;
-                    case R.id.menu_3:
-                        check = false;
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                        builder.setTitle("Đăng Xuất");
-                        builder.setMessage("Bạn có chắc là muốn đăng xuất không ");
-                        builder.setNegativeButton("Có", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                intent = new Intent(getActivity(), LoginAcitivty.class);
-                                startActivity(intent);
-                                getActivity().finish();
-                                CustomToast.makeText(getContext(), "Đăng Xuất Thành Công", true).show();
-                            }
-                        });
-                        builder.setPositiveButton("Không", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        });
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-                        break;
-                    case R.id.menu_5:
-                        intent = new Intent(getActivity(), QuanLyActivity.class);
-                        break;
-                    case R.id.menu_6:
-                        intent = new Intent(getActivity(), ThongKeActivity.class);
-                        break;
-                }
-                if(check)
-                    startActivity(intent);
-                check = true;
-                return false;
+                        if (!newPassword.equals(confimPass)) {
+                            CustomToast.makeText(getContext(), "Mật khẩu mới không khớp. Mời nhập lại", false).show();
+                            return;
+                        }
+                        if(!people.getPassowrd().equals(oldpassword)){
+                            CustomToast.makeText(getContext(), "Mật khẩu sai !", false).show();
+                            return;
+                        }
+                        people.setPassowrd(newPassword);
+                        dao.UpdateUser(people);
+                        CustomToast.makeText(getContext(),"Đổi mật khẩu thành công",true).show();
+                        dialog1.dismiss();
+                    });
+                    btnCanceChange.setOnClickListener(v -> dialog1.cancel());
+                    break;
+                case R.id.menu_3:
+                    check = false;
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("Đăng Xuất");
+                    builder.setMessage("Bạn có chắc là muốn đăng xuất không ");
+                    builder.setNegativeButton("Có", (dialog, which) -> {
+                        intent = new Intent(getActivity(), LoginAcitivty.class);
+                        startActivity(intent);
+                        getActivity().finish();
+                        CustomToast.makeText(getContext(), "Đăng Xuất Thành Công", true).show();
+                    });
+                    builder.setPositiveButton("Không", (dialog, which) -> {});
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    break;
+                case R.id.menu_5:
+                    intent = new Intent(getActivity(), QuanLyActivity.class);
+                    break;
+                case R.id.menu_6:
+                    intent = new Intent(getActivity(), ThongKeActivity.class);
+                    break;
             }
+            if(check)
+                startActivity(intent);
+            check = true;
+            return false;
         });
     }
 

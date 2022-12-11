@@ -3,6 +3,7 @@ package com.ming6464.ungdungquanlykhachsanmctl.Fragment;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -29,24 +30,25 @@ public class HoaDonFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_hoa_don, container, false);
+        return inflater.inflate(R.layout.fragment_hoa_don, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         tabLayout = view.findViewById(R.id.fragHoaDon_tab);
         viewPager2 = view.findViewById(R.id.fragHoaDon_viewPager);
         FragmentAdapter adapter = new FragmentAdapter(requireActivity(), new Fragment[]{HoaDonPhongFragment.newInstance(), HoaDonTongFragment.newInstance()});
         viewPager2.setAdapter(adapter);
-        new TabLayoutMediator(tabLayout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
-            @Override
-            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                switch (position) {
-                    case 0:
-                        tab.setText("Hóa Đơn Phòng");
-                        break;
-                    case 1:
-                        tab.setText("Hóa Đơn Tổng");
-                        break;
-                }
+        new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
+            switch (position) {
+                case 0:
+                    tab.setText("Hóa Đơn Phòng");
+                    break;
+                case 1:
+                    tab.setText("Hóa Đơn Tổng");
+                    break;
             }
         }).attach();
-        return view;
     }
 }

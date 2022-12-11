@@ -56,12 +56,7 @@ public class ItemRoomAdapter extends RecyclerView.Adapter<ItemRoomAdapter.RoomsV
         else
             holder.cardView.setCardBackgroundColor(holder.itemView.getResources().getColor(R.color.datTruoc));
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                iClickItemRooms.datPhong(rooms);
-            }
-        });
+        holder.cardView.setOnClickListener(v -> iClickItemRooms.datPhong(rooms));
 
 
     }
@@ -80,9 +75,9 @@ public class ItemRoomAdapter extends RecyclerView.Adapter<ItemRoomAdapter.RoomsV
 
         public RoomsViewHolder(@NonNull View itemView) {
             super(itemView);
-            tv_room_name = itemView.findViewById(R.id.tv_room_name);
+            tv_room_name = itemView.findViewById(R.id.itemRooms_tv_name);
             cardView = itemView.findViewById(R.id.card_rooms);
-            tv_room_catogory = itemView.findViewById(R.id.tv_room_category);
+            tv_room_catogory = itemView.findViewById(R.id.itemRooms_tv_category);
         }
     }
 }

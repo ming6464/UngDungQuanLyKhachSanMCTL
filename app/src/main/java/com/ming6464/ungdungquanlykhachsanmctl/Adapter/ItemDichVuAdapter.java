@@ -6,14 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.Services;
 import com.ming6464.ungdungquanlykhachsanmctl.R;
-
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
@@ -39,7 +36,7 @@ public class ItemDichVuAdapter extends RecyclerView.Adapter<ItemDichVuAdapter.Vi
 
     @Override
     public ItemDichVuAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dichvu,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dich_vu,parent,false);
         return new ViewHolder(view);
     }
 

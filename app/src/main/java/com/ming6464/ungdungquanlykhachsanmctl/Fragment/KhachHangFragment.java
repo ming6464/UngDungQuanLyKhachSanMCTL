@@ -21,7 +21,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.SearchView;
 import android.widget.TextView;
-import com.ming6464.ungdungquanlykhachsanmctl.Adapter.UserAdapter;
+
+import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ItemNhanVienAdapter;
 import com.ming6464.ungdungquanlykhachsanmctl.CustomToast;
 import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDAO;
@@ -29,15 +30,11 @@ import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDB;
 import com.ming6464.ungdungquanlykhachsanmctl.R;
 import java.util.List;
 
-public class KhachHangFragment extends Fragment implements UserAdapter.IClickItemUser {
+public class KhachHangFragment extends Fragment implements ItemNhanVienAdapter.EventOfItemNhanVienAdapter {
     public RecyclerView rcvUser;
-    private UserAdapter userAdapter;
+    private ItemNhanVienAdapter userAdapter;
     private List<People> mListUser;
     private KhachSanDAO dao;
-
-    public static KhachHangFragment newInstance() {
-        return new KhachHangFragment();
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,14 +68,16 @@ public class KhachHangFragment extends Fragment implements UserAdapter.IClickIte
             }
         });
         mListUser = dao.getListKhachHangOfUser();
-        userAdapter = new UserAdapter(this);
+        userAdapter = new ItemNhanVienAdapter(this);
         rcvUser.setAdapter(userAdapter);
         rcvUser.setLayoutManager(new LinearLayoutManager(getContext()));
         userAdapter.setData(mListUser);
     }
 
+
+
     @Override
-    public void updateUser(int position) {
+    public void onUpdate(int position) {
         People people = mListUser.get(position);
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = getLayoutInflater();
@@ -135,5 +134,9 @@ public class KhachHangFragment extends Fragment implements UserAdapter.IClickIte
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         window.getAttributes().windowAnimations = R.style.dialog_slide_left_to_right;
         dialog.show();
+    }
+
+    @Override
+    public void onDelete(int position) {
     }
 }

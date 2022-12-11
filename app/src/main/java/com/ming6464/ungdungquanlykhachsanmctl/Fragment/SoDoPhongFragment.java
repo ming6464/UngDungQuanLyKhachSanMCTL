@@ -68,7 +68,6 @@ public class SoDoPhongFragment extends Fragment implements ItemRoomAdapter.IClic
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_so_do_phong, container, false);
     }
 
@@ -124,22 +123,19 @@ public class SoDoPhongFragment extends Fragment implements ItemRoomAdapter.IClic
             new AlertDialog.Builder(getContext())
                     .setTitle("Xác nhận đặt phòng")
                     .setMessage("Bạn có muốn đặt phòng không?")
-                    .setPositiveButton("Có", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(requireContext(), ChucNangDatPhongActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString(KEY_ROOM,rooms.getId());
-                            bundle.putLong(KEY_CHECKIN,d_checkIn.getTime());
-                            bundle.putLong(KEY_CHECKOUT,d_checkOut.getTime());
-                            bundle.putInt(KEY_AMOUNT_DATE,(int)(d_checkOut.getTime() - d_checkIn.getTime())/(3600000*24) + 1);
-                            int status = 0;
-                            if(System.currentTimeMillis() < (d_checkIn.getTime()))
-                                status  = 2;
-                            bundle.putInt(KEY_STATUS,status);
-                            intent.putExtra(KEY_BUNDLE,bundle);
-                            startActivity(intent);
-                        }
+                    .setPositiveButton("Có", (dialog, which) -> {
+                        Intent intent = new Intent(requireContext(), ChucNangDatPhongActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString(KEY_ROOM,rooms.getId());
+                        bundle.putLong(KEY_CHECKIN,d_checkIn.getTime());
+                        bundle.putLong(KEY_CHECKOUT,d_checkOut.getTime());
+                        bundle.putInt(KEY_AMOUNT_DATE,(int)(d_checkOut.getTime() - d_checkIn.getTime())/(3600000*24) + 1);
+                        int status1 = 0;
+                        if(System.currentTimeMillis() < (d_checkIn.getTime()))
+                            status1 = 2;
+                        bundle.putInt(KEY_STATUS, status1);
+                        intent.putExtra(KEY_BUNDLE,bundle);
+                        startActivity(intent);
                     })
                     .setNegativeButton("Huỷ",null)
                     .show();
@@ -150,12 +146,9 @@ public class SoDoPhongFragment extends Fragment implements ItemRoomAdapter.IClic
         pb_load.setVisibility(View.VISIBLE);
     }
     private void endLoad(){
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                rcvRooms.setVisibility(View.VISIBLE);
-                pb_load.setVisibility(View.GONE);
-            }
+        new Handler().postDelayed(() -> {
+            rcvRooms.setVisibility(View.VISIBLE);
+            pb_load.setVisibility(View.GONE);
         },600);
     }
     private void handleFilterRoom(){
@@ -214,12 +207,9 @@ public class SoDoPhongFragment extends Fragment implements ItemRoomAdapter.IClic
                 break;
             case R.id.fragSoDoPhong_tv_checkOut:
                 calendar.setTime(d_checkOut);
-                datePickerDialog = new DatePickerDialog(requireContext(), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        tv_checkOut.setText(formatDate(dayOfMonth) + "/" + (month + 1) + "/" + year);
-                        handleFilterRoom();
-                    }
+                datePickerDialog = new DatePickerDialog(requireContext(), (view, year, month, dayOfMonth) -> {
+                    tv_checkOut.setText(formatDate(dayOfMonth) + "/" + (month + 1) + "/" + year);
+                    handleFilterRoom();
                 },calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.getDatePicker().setMinDate(time);
                 datePickerDialog.show();

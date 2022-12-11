@@ -127,44 +127,41 @@ public class MainActivity extends AppCompatActivity {
 
     //sk click
     private void Click() {
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fragment = null;
-                String title = null;
-                int logo = 0;
-                switch (item.getItemId()) {
-                    case R.id.menu_bottom1:
-                        title = "Sơ Đồ Phòng";
-                        logo = R.drawable.home_25;
-                        fragment = new PhongFragment();
-                        break;
-                    case R.id.menu_bottom2:
-                        title = "Khách Hàng";
-                        logo = R.drawable.customer_25;
-                        fragment = new KhachHangFragment();
-                        break;
-                    case R.id.menu_bottom3:
-                        title = "Dịch Vụ";
-                        logo = R.drawable.services_24;
-                        fragment = new DichVuFragment();
-                        break;
-                    case R.id.menu_bottom4:
-                        title = "Hóa Đơn";
-                        logo = R.drawable.order_25;
-                        fragment = new HoaDonFragment();
-                        break;
-                    case R.id.menu_bottom5:
-                        title = "Tài Khoản";
-                        logo = R.drawable.yourselt_25;
-                        fragment = new TaiKhoanFragment();
-                        break;
-                }
-                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
-                tv_titleTb.setText(title);
-                toolbar.setLogo(logo);
-                return true;
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            Fragment fragment = null;
+            String title = null;
+            int logo = 0;
+            switch (item.getItemId()) {
+                case R.id.menu_bottom1:
+                    title = "Sơ Đồ Phòng";
+                    logo = R.drawable.home_25;
+                    fragment = new PhongFragment();
+                    break;
+                case R.id.menu_bottom2:
+                    title = "Khách Hàng";
+                    logo = R.drawable.customer_25;
+                    fragment = new KhachHangFragment();
+                    break;
+                case R.id.menu_bottom3:
+                    title = "Dịch Vụ";
+                    logo = R.drawable.services_24;
+                    fragment = new DichVuFragment();
+                    break;
+                case R.id.menu_bottom4:
+                    title = "Hóa Đơn";
+                    logo = R.drawable.order_25;
+                    fragment = new HoaDonFragment();
+                    break;
+                case R.id.menu_bottom5:
+                    title = "Tài Khoản";
+                    logo = R.drawable.yourselt_25;
+                    fragment = new TaiKhoanFragment();
+                    break;
             }
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
+            tv_titleTb.setText(title);
+            toolbar.setLogo(logo);
+            return true;
         });
     }
 

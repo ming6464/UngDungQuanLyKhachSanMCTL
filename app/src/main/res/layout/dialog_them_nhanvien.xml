@@ -181,13 +181,14 @@
                 android:orientation="horizontal">
 
                 <RadioButton
+                    android:id="@+id/dialogThemNhanVien_rdo_male"
+                    android:checked="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/overpass_bold"
                     android:text="Nam" />
 
                 <RadioButton
-                    android:checked="true"
                     android:id="@+id/dialogThemNhanVien_rdo_feMale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

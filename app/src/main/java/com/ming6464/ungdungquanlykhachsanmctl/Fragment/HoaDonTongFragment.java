@@ -65,12 +65,9 @@ public class HoaDonTongFragment extends Fragment implements ItemHoaDonAdapter.Ev
     }
 
     private void handleAction() {
-        rf_rcHoaDon.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                loadData(sp_status.getSelectedItemPosition());
-                rf_rcHoaDon.setRefreshing(false);
-            }
+        rf_rcHoaDon.setOnRefreshListener(() -> {
+            loadData(sp_status.getSelectedItemPosition());
+            rf_rcHoaDon.setRefreshing(false);
         });
     }
 

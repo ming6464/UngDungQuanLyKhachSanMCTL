@@ -1,6 +1,9 @@
 package com.ming6464.ungdungquanlykhachsanmctl.Fragment;
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,10 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DichVuFragment extends Fragment {
-    public static DichVuFragment newInstance() {
-        return new DichVuFragment();
-    }
-
     RecyclerView recyclerView;
     List<Services> list;
     ItemDichVuAdapter itemDichVuAdapter;
@@ -31,10 +30,13 @@ public class DichVuFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_dich_vu, container, false);
-        recyclerView = view.findViewById(R.id.fragDichVu_rc);
+        return inflater.inflate(R.layout.fragment_dich_vu, container, false);
+    }
 
-        //
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        recyclerView = view.findViewById(R.id.fragDichVu_rc);
         itemDichVuAdapter = new ItemDichVuAdapter(requireContext(),list);
         list = new ArrayList<>();
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
@@ -42,8 +44,5 @@ public class DichVuFragment extends Fragment {
         list = KhachSanDB.getInstance(getContext()).getDAO().getAllService();
         itemDichVuAdapter.setData(list);
         recyclerView.setAdapter(itemDichVuAdapter);
-
-        return view;
     }
-
 }

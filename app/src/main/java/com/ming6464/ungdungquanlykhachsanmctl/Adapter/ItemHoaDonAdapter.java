@@ -93,12 +93,7 @@ public class ItemHoaDonAdapter extends RecyclerView.Adapter<ItemHoaDonAdapter.My
         }
         h.tv_rooms.setText("Số Phòng :  " + rooms);
 
-        h.btn_detail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                action.show(h.getAdapterPosition());
-            }
-        });
+        h.btn_detail.setOnClickListener(v -> action.show(h.getAdapterPosition()));
 
     }
 
