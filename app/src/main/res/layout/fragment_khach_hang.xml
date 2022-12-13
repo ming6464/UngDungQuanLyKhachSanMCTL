@@ -7,15 +7,15 @@
     android:orientation="vertical"
     android:padding="10dp"
     tools:context=".Fragment.KhachHangFragment">
-    <SearchView
+    <androidx.appcompat.widget.SearchView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/searchKh"
+        android:id="@+id/fragKhachHang_search"
         android:queryHint="Tìm nhân viên"
         android:iconifiedByDefault="false"
         />
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_user"
+        android:id="@+id/fragKhachHang_rc"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

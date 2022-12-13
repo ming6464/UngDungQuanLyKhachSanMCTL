@@ -183,23 +183,73 @@
                 <RadioButton
                     android:id="@+id/dialogThemNhanVien_rdo_male"
                     android:checked="true"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/overpass_bold"
                     android:text="Nam" />
 
                 <RadioButton
                     android:id="@+id/dialogThemNhanVien_rdo_feMale"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
                     android:fontFamily="@font/overpass_bold"
                     android:text="Nữ" />
             </RadioGroup>
         </LinearLayout>
     </LinearLayout>
-
-
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:visibility="gone"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:id="@+id/dialogThemNhanVien_linear_status"
+        android:orientation="vertical">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Trạng thái"
+            android:textSize="19sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/overpass_bold"
+            />
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton
+                android:textSize="15sp"
+                android:fontFamily="@font/overpass"
+                android:checked="true"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Hoạt động"
+                android:id="@+id/dialogThemNhanVien_rdo_active"
+                />
+            <RadioButton
+                android:textSize="15sp"
+                android:fontFamily="@font/overpass"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Chuyển ca"
+                android:id="@+id/dialogThemNhanVien_rdo_transferShift"
+                />
+            <RadioButton
+                android:textSize="15sp"
+                android:fontFamily="@font/overpass"
+                android:layout_gravity="right"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Nghỉ việc"
+                android:id="@+id/dialogThemNhanVien_rdo_inActive"
+                />
+        </RadioGroup>
+    </androidx.appcompat.widget.LinearLayoutCompat>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

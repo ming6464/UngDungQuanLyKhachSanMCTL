@@ -20,18 +20,26 @@ public class ThongTinNguoiDungActivity extends AppCompatActivity {
     private KhachSanDAO dao;
     private String sdt;
     private TextView tv_name, tv_sdt, tv_cccd, tv_sex, tv_address, tv_welcome;
-    private ImageView img_avatar;
+    private ImageView img_avatar,img_edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thong_tin_nguoi_dung);
+        sdt = new KhachSanSharedPreferences(this).getSDT2();
         dao = KhachSanDB.getInstance(this).getDAO();
         anhXa();
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        sdt = new KhachSanSharedPreferences(this).getSDT2();
+        addAction();
+    }
+
+    private void addAction() {
+        img_edit.setOnClickListener(v -> {
+            Intent intent = new Intent(ThongTinNguoiDungActivity.this, UpdateThongTinActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void anhXa() {
@@ -43,6 +51,7 @@ public class ThongTinNguoiDungActivity extends AppCompatActivity {
         tv_address = findViewById(R.id.actiThongTinNguoiDung_tv_address);
         img_avatar = findViewById(R.id.actiThongTinNguoiDung_img_avatar);
         toolbar = findViewById(R.id.actiThongTinNguoiDung_tb);
+        img_edit = findViewById(R.id.actiThongTinNguoidung_img_edit);
     }
 
     @Override
@@ -66,6 +75,8 @@ public class ThongTinNguoiDungActivity extends AppCompatActivity {
         if(index > 1)
             name = name.substring(index);
         tv_welcome.setText("Welcome to " + name);
+        if(people.getStatus() != 2)
+            img_edit.setVisibility(View.GONE);
     }
 
     @Override
@@ -77,12 +88,5 @@ public class ThongTinNguoiDungActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    public void handleActionUpdate(View view) {
-        Intent intent = new Intent(ThongTinNguoiDungActivity.this, UpdateThongTinActivity.class);
-        startActivity(intent);
-    }
-
-    //
 
 }

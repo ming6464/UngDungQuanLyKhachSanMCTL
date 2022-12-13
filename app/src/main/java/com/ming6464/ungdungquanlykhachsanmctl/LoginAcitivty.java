@@ -66,11 +66,14 @@ public class LoginAcitivty extends AppCompatActivity {
 
         People people = dao.checkLogin(phoneNumber);
         if (people != null && password.equals(people.getPassowrd())) {
-            if(people.getStatus() == 4)
-                CustomToast.makeText(LoginAcitivty.this, "Tài khoản đang trong thời gian nghỉ phép !", false).show();
-            else if(people.getStatus() == 5)
-                CustomToast.makeText(LoginAcitivty.this, "Tài khoản đã bị cấm !", false).show();
-
+            if(people.getStatus() == 4){
+                CustomToast.makeText(LoginAcitivty.this, "Tài khoản tạm thời ngừng hoạt động !", false).show();
+                return;
+            }
+            else if(people.getStatus() == 5){
+                CustomToast.makeText(LoginAcitivty.this, "Tài khoản đã bị ngừng hoạt động !", false).show();
+                return;
+            }
             Intent intent = new Intent(LoginAcitivty.this, MainActivity.class);
             startActivity(intent);
             share.setAccount(people,rdo_remember.isChecked());
