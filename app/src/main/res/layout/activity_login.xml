@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,151 +7,120 @@
     android:orientation="vertical"
     android:background="@color/white"
     tools:context=".LoginAcitivty">
-
-    <ImageView
-        android:layout_width="300dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="40dp"
-        android:src="@drawable/logo123" />
-
-    <TextView
+    <androidx.constraintlayout.widget.Guideline
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
+        android:orientation="horizontal"
+        android:id="@+id/actiLogin_gui_h1"
+        app:layout_constraintGuide_percent="0.31"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="250dp"
+        android:layout_height="0dp"
+        android:src="@drawable/logo123"
+        app:layout_constraintBottom_toTopOf="@+id/actiLogin_tv_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/actiLogin_gui_h1"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Đăng Nhập"
-        android:fontFamily="@font/overpass_semibold"
-        android:textColor="#2196F3"
-        android:textSize="26dp"
+        android:text="Sign to continue"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/actiLogin_tv_title"
+        android:fontFamily="@font/overpass_extrabold"
+        android:textColor="#66000000"
+        android:textSize="17dp"
         android:textStyle="bold" />
-
-    <com.google.android.material.textfield.TextInputLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        app:layout_constraintTop_toBottomOf="@id/actiLogin_gui_h1"
         android:layout_width="match_parent"
-        app:boxBackgroundColor="@color/white"
-        app:boxBackgroundMode="outline"
-        android:hint="Số Điện Thoại"
-        app:boxCornerRadiusBottomEnd="10dp"
-        app:boxCornerRadiusTopEnd="10dp"
-        app:boxCornerRadiusTopStart="10dp"
-        app:boxCornerRadiusBottomStart="10dp"
-        app:boxStrokeColor="#302D2D"
-        android:textSize="14sp"
-        android:layout_margin="12dp"
-        android:layout_height="wrap_content">
-
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
         <androidx.appcompat.widget.AppCompatEditText
+            android:textSize="17sp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
             android:id="@+id/actiLogin_ed_sdt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_baseline_call_24"
+            android:drawableTint="#03A9F4"
+            android:drawableLeft="@drawable/call_24"
             android:drawablePadding="10dp"
+            android:textColor="#03A9F4"
+            android:paddingLeft="15dp"
             android:fontFamily="@font/overpass_bold"
             android:inputType="numberDecimal"
-            android:padding="18dp" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:hint="Số điện thoại"
+            android:background="@drawable/background_edittext_login" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        app:boxBackgroundColor="@color/white"
-        app:boxBackgroundMode="outline"
-        android:hint="Password"
-        app:boxCornerRadiusBottomEnd="10dp"
-        app:boxCornerRadiusTopEnd="10dp"
-        app:boxCornerRadiusTopStart="10dp"
-        app:boxCornerRadiusBottomStart="10dp"
-        app:boxStrokeColor="#302D2D"
-        android:textSize="14sp"
-        android:layout_margin="12dp"
-        android:layout_height="wrap_content">
         <androidx.appcompat.widget.AppCompatEditText
+            android:textSize="17sp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
             android:id="@+id/actiLogin_ed_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableTint="#03A9F4"
-            android:drawableLeft="@drawable/key_30"
+            android:drawableLeft="@drawable/key_24"
             android:drawablePadding="10dp"
+            android:textColor="#03A9F4"
+            android:paddingLeft="15dp"
             android:fontFamily="@font/overpass_bold"
             android:inputType="textPassword"
-            android:padding="18dp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/actiLogin_btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:textColor="@color/white"
-        android:backgroundTint="#03A9F4"
-        android:padding="12dp"
-        android:onClick="handleActionBtnLogin"
-        android:fontFamily="@font/overpass_bold"
-        android:text="Đăng Nhập" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:orientation="horizontal">
+            android:hint="Mật khẩu"
+            android:background="@drawable/background_edittext_login" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
             android:orientation="horizontal">
 
             <CheckBox
                 android:id="@+id/actiLogin_rdo_remember"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="Lưu Thông Tin"
                 android:fontFamily="@font/overpass_bold"
                 android:textColor="#00B0FF" />
 
+            <TextView
+                android:id="@+id/actiLogin_tv_forgotPass"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:text="Quên Mật Khẩu"
+                android:fontFamily="@font/overpass_bold"
+                android:textColor="#2196F3"
+                android:textSize="15dp" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/actiLogin_tv_forgotPass"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/actiLogin_btn_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="70dp"
-            android:layout_weight="1"
-            android:text="Quên Mật Khẩu"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_6"
+            android:textSize="20sp"
+            android:onClick="handleActionBtnLogin"
             android:fontFamily="@font/overpass_bold"
-            android:textColor="#2196F3"
-            android:textSize="15dp" />
-    </LinearLayout>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+            android:text="Đăng Nhập" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="7dp"
-            android:background="#D5CBCB"
-            app:layout_constraintBottom_toTopOf="@+id/textView3"
-            tools:layout_editor_absoluteX="12dp" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/overpass_bold"
-            android:gravity="center"
-            android:textSize="15sp"
-            android:text="MTC hotel management app"
-            android:textColor="#03A9F4"
-            android:textStyle="italic"
-            android:layout_marginBottom="10dp"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
