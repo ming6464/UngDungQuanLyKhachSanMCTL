@@ -22,9 +22,15 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="12dp"
         android:src="@drawable/add_30" />
+    <androidx.appcompat.widget.SearchView
+        app:layout_constraintTop_toBottomOf="@id/actiQuanLy_tb"
+        android:id="@+id/actiQuanLy_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
-        app:layout_constraintTop_toBottomOf="@id/actiQuanLy_tb"
+        app:layout_constraintTop_toBottomOf="@id/actiQuanLy_search"
         android:id="@+id/actiQuanLy_rc_nhanVien"
         android:layout_width="match_parent"
         android:layout_height="0dp"

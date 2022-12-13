@@ -64,6 +64,12 @@ public abstract class KhachSanDAO {
     @Query("SELECT * FROM PEOPLE WHERE  SDT = :phoneNumber")
     public abstract People getObjOfUser(String phoneNumber);
 
+    @Query("SELECT count(*) FROM PEOPLE WHERE  SDT = :phoneNumber")
+    public abstract Integer getAmountWithPhoneNumberPeople(String phoneNumber);
+
+    @Query("SELECT count(*) FROM PEOPLE WHERE  CCCD = :cccd")
+    public abstract Integer getAmountWithCCCDPeople(String cccd);
+
     @Query("SELECT * FROM PEOPLE WHERE cccd = :CCCD_or_CMND")
     public abstract People getObjWithCCCDOfUser(String CCCD_or_CMND);
 
@@ -79,10 +85,11 @@ public abstract class KhachSanDAO {
     @Query("SELECT * FROM PEOPLE WHERE status = 0")
     public abstract List<People> getListKhachHangOfUser();
 
-    //
-    //tim kiem search view
     @Query("select * from PEOPLE where SDT like :s and status = 0")
-    public abstract List<People> getSearchView(String s);
+    public abstract List<People> searchKhachHangWithPhoneNumber(String s);
+
+    @Query("select * from PEOPLE where SDT like :s and status !=0 AND status != 2")
+    public abstract List<People> searchNhanVienWithPhoneNumber(String s);
 
     //serviceCategory
     @Insert

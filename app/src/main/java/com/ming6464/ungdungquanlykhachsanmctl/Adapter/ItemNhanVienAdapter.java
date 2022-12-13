@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ItemNhanVienAdapter extends RecyclerView.Adapter<ItemNhanVienAdapter.ViewHolder> {
     private List<People> listNv;
-    private EventOfItemNhanVienAdapter action;
+    private final EventOfItemNhanVienAdapter action;
 
     public ItemNhanVienAdapter(EventOfItemNhanVienAdapter action) {
         this.action = action;
@@ -33,24 +33,31 @@ public class ItemNhanVienAdapter extends RecyclerView.Adapter<ItemNhanVienAdapte
     @Override
     public void onBindViewHolder(@NonNull ItemNhanVienAdapter.ViewHolder holder, int position) {
         People people = listNv.get(holder.getAdapterPosition());
+        int status = people.getStatus();
         holder.tv_name.setText("Họ và tên : " + people.getFullName());
         holder.tv_cccd.setText("CCCD : " + people.getCCCD());
         holder.tv_sdt.setText("Số Đt : " + people.getSDT());
         if (people.getSex() == 1) {
             holder.tv_sex.setText("Giới Tính :  Nam");
+            holder.img_avatar.setImageResource(R.drawable.businessman_100);
         } else {
             holder.tv_sex.setText("Giới Tính :  Nữ");
             holder.img_avatar.setImageResource(R.drawable.businesswoman_100);
         }
         holder.tv_address.setText("Địa Chỉ :  " + people.getAddress());
-        if(people.getStatus() == 0){
-            holder.img_xoa.setVisibility(View.GONE);
+        if(status == 0){
+            holder.img_avatar.setBackgroundResource(R.drawable.background_avatar_nhanvien);
             holder.tv_pass.setVisibility(View.GONE);
-        }else
+        }
+        else{
             holder.tv_pass.setText("Mật Khẩu :  " + people.getPassowrd());
-        holder.img_xoa.setOnClickListener(v -> {
-            action.onDelete(holder.getAdapterPosition());
-        });
+            if(status == 4)
+                holder.img_avatar.setBackgroundResource(R.drawable.background_avatar_nhanvienchuyenca);
+            else if(status == 5)
+                holder.img_avatar.setBackgroundResource(R.drawable.background_avatar_nhanviennghiviec);
+            else
+                holder.img_avatar.setBackgroundResource(R.drawable.background_avatar_nhanvien);
+        }
         holder.itemView.setOnClickListener(v -> {
             action.onUpdate(holder.getAdapterPosition());
         });
@@ -64,12 +71,11 @@ public class ItemNhanVienAdapter extends RecyclerView.Adapter<ItemNhanVienAdapte
     }
     public interface EventOfItemNhanVienAdapter{
         void onUpdate(int position);
-        void onDelete(int position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tv_name, tv_sdt, tv_cccd, tv_sex, tv_pass, tv_address;
-        ImageView img_xoa, img_avatar;
+        ImageView img_avatar;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -79,7 +85,6 @@ public class ItemNhanVienAdapter extends RecyclerView.Adapter<ItemNhanVienAdapte
             tv_sex = itemView.findViewById(R.id.itemNhanVien_tv_sex);
             tv_pass = itemView.findViewById(R.id.itemNhanVien_tv_pass);
             tv_address = itemView.findViewById(R.id.itemNhanVien_tv_address);
-            img_xoa = itemView.findViewById(R.id.itemNhanVien_img_xoa);
             img_avatar = itemView.findViewById(R.id.itemNhanVien_img_avatar);
         }
     }

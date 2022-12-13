@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +20,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.ming6464.ungdungquanlykhachsanmctl.Adapter.ItemNhanVienAdapter;
@@ -50,11 +50,11 @@ public class KhachHangFragment extends Fragment implements ItemNhanVienAdapter.E
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rcvUser = view.findViewById(R.id.rcv_user);
+        rcvUser = view.findViewById(R.id.fragKhachHang_rc);
         dao = KhachSanDB.getInstance(requireContext()).getDAO();
         //chức năng tìm kiếm
-        SearchView searchView = view.findViewById(R.id.searchKh);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        SearchView searchView = view.findViewById(R.id.fragKhachHang_search);
+        searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
@@ -62,7 +62,7 @@ public class KhachHangFragment extends Fragment implements ItemNhanVienAdapter.E
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                mListUser = dao.getSearchView("%"+newText+"%");
+                mListUser = dao.searchKhachHangWithPhoneNumber("%"+newText+"%");
                 userAdapter.setData(mListUser);
                 return false;
             }
@@ -106,24 +106,44 @@ public class KhachHangFragment extends Fragment implements ItemNhanVienAdapter.E
         AlertDialog dialog = builder.create();
 
         btn_update.setOnClickListener(v -> {
-            String strUsername = ed_Username.getText().toString().trim();
-            String strSDT = ed_SDT.getText().toString().trim();
-            String strCCCD = ed_CCCD.getText().toString().trim();
-            String strAddress = ed_Address.getText().toString().trim();
+            String name = ed_Username.getText().toString(),
+                    sdt = ed_SDT.getText().toString(),
+                    cccd = ed_CCCD.getText().toString(),
+                    address = ed_Address.getText().toString();
             int sex = 1;
             if (rdo_feMale.isChecked())
                 sex = 0;
-
-            people.setFullName(strUsername);
-            people.setSDT(strSDT);
-            people.setCCCD(strCCCD);
-            people.setAddress(strAddress);
+            if(name.isEmpty() || sdt.isEmpty() || cccd.isEmpty() || address.isEmpty()){
+                CustomToast.makeText(requireContext(), "Thông tin không được bỏ trống !", false).show();
+                return;
+            }
+            if(!name.matches("^[a-zA-Z ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$")){
+                CustomToast.makeText(requireContext(), "Tên không phù hợp", false).show();
+                return;
+            }
+            if(!sdt.matches("^0\\d{9}$")){
+                CustomToast.makeText(requireContext(), "Số điện thoại không đúng !", false).show();
+                return;
+            }else if(dao.getAmountWithPhoneNumberPeople(sdt) > 1) {
+                CustomToast.makeText(requireContext(), "Số điện thoại đã tồn tại !", false).show();
+                return;
+            }
+            if(cccd.length() != 12){
+                CustomToast.makeText(requireContext(), "CCCD/CMND Không chính xác !", false).show();
+                return;
+            }else if(dao.getAmountWithCCCDPeople(cccd) > 1){
+                CustomToast.makeText(requireContext(), "CCCD/CMND đã tồn tại !", false).show();
+                return;
+            }
+            people.setFullName(name);
+            people.setSDT(sdt);
+            people.setCCCD(cccd);
+            people.setAddress(address);
             people.setSex(sex);
             dao.UpdateUser(people);
             CustomToast.makeText(getContext(), "Cập nhật Thành Công", true).show();
             userAdapter.notifyItemChanged(position);
-            dialog.dismiss();
-
+            dialog.dismiss();//
         });
         btn_cancle.setOnClickListener(v -> {
             dialog.dismiss();
@@ -136,7 +156,4 @@ public class KhachHangFragment extends Fragment implements ItemNhanVienAdapter.E
         dialog.show();
     }
 
-    @Override
-    public void onDelete(int position) {
-    }
 }
