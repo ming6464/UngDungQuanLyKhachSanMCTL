@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".QuenMatKhauActivity">
+    <androidx.appcompat.widget.AppCompatTextView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/actiLogin_gui_h2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/wave__1"
+        />
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/actiLogin_gui_h1"
+        app:layout_constraintGuide_percent="0.31"
+        />
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/actiLogin_gui_h2"
+        app:layout_constraintGuide_percent="0.6"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="250dp"
+        android:layout_height="0dp"
+        android:src="@drawable/logo_1"
+        app:layout_constraintBottom_toTopOf="@+id/actiLogin_tv_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/actiLogin_gui_h1"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Forgot password"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/actiLogin_tv_title"
+        android:fontFamily="@font/overpass_extrabold"
+        android:textColor="@color/white"
+        android:textSize="17dp"
+        android:textStyle="bold" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        app:layout_constraintTop_toBottomOf="@id/actiLogin_gui_h1">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/actiQuenMatKhau_ed_sdt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/background_edittext_login"
+            android:drawableLeft="@drawable/call_24"
+            android:drawablePadding="10dp"
+            android:drawableTint="#03A9F4"
+            android:fontFamily="@font/overpass_bold"
+            android:hint="Số điện thoại"
+            android:inputType="numberDecimal"
+            android:paddingLeft="15dp"
+            android:textColor="#03A9F4"
+            android:textSize="17sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/actiQuenMatKhau_btn_guiYeuCau"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/btn_6"
+            android:fontFamily="@font/overpass_bold"
+            android:onClick="handleActionBtnGuiYeuCau"
+            android:text="Gửi yêu cầu"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/actiQuenMatKhau_img_close"
+        android:layout_width="wrap_content"
+        app:backgroundTint="@color/white"
+        android:layout_height="wrap_content"
+        android:src="@drawable/close_23"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="handleActionBackToDangNhap"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        />
+    <ProgressBar
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/actiQuenMatKhau_pg_load"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

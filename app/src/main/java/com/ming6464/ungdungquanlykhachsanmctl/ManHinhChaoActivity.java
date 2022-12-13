@@ -24,7 +24,7 @@ public class ManHinhChaoActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(ManHinhChaoActivity.this, LoginAcitivty.class));
+                startActivity(new Intent(ManHinhChaoActivity.this, DangNhapAcitivty.class));
                 ManHinhChaoActivity.this.finish();
             }
         },2000);
