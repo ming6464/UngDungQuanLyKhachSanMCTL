@@ -6,41 +6,55 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".LoginAcitivty">
+    tools:context=".DangNhapAcitivty">
+    <androidx.appcompat.widget.AppCompatTextView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/actiDangNhap_gui_h2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/wave__1"
+        />
     <androidx.constraintlayout.widget.Guideline
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:id="@+id/actiLogin_gui_h1"
+        android:id="@+id/actiDangNhap_gui_h1"
         app:layout_constraintGuide_percent="0.31"
+        />
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/actiDangNhap_gui_h2"
+        app:layout_constraintGuide_percent="0.6"
         />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="250dp"
         android:layout_height="0dp"
-        android:src="@drawable/logo123"
-        app:layout_constraintBottom_toTopOf="@+id/actiLogin_tv_title"
+        android:src="@drawable/logo_1"
+        app:layout_constraintBottom_toTopOf="@+id/actiDangNhap_tv_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <TextView
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/actiLogin_gui_h1"
+        app:layout_constraintBottom_toTopOf="@id/actiDangNhap_gui_h1"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Sign to continue"
         android:layout_marginBottom="10dp"
-        android:id="@+id/actiLogin_tv_title"
+        android:id="@+id/actiDangNhap_tv_title"
         android:fontFamily="@font/overpass_extrabold"
-        android:textColor="#66000000"
+        android:textColor="@color/white"
         android:textSize="17dp"
         android:textStyle="bold" />
     <androidx.appcompat.widget.LinearLayoutCompat
         android:paddingEnd="10dp"
         android:paddingStart="10dp"
-        app:layout_constraintTop_toBottomOf="@id/actiLogin_gui_h1"
+        app:layout_constraintTop_toBottomOf="@id/actiDangNhap_gui_h1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -48,7 +62,7 @@
             android:textSize="17sp"
             android:layout_marginEnd="15dp"
             android:layout_marginStart="15dp"
-            android:id="@+id/actiLogin_ed_sdt"
+            android:id="@+id/actiDangNhap_ed_sdt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableTint="#03A9F4"
@@ -66,7 +80,7 @@
             android:layout_marginEnd="15dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
-            android:id="@+id/actiLogin_ed_pass"
+            android:id="@+id/actiDangNhap_ed_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableTint="#03A9F4"
@@ -88,28 +102,29 @@
             android:orientation="horizontal">
 
             <CheckBox
-                android:id="@+id/actiLogin_rdo_remember"
+                android:id="@+id/actiDangNhap_rdo_remember"
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:textSize="16sp"
                 android:layout_height="wrap_content"
-                android:text="Lưu Thông Tin"
+                android:text="Lưu thông tin"
                 android:fontFamily="@font/overpass_bold"
-                android:textColor="#00B0FF" />
+                android:textColor="#2196F3" />
 
             <TextView
-                android:id="@+id/actiLogin_tv_forgotPass"
+                android:onClick="handleActionQuenMatKhau"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:layout_weight="1"
-                android:text="Quên Mật Khẩu"
+                android:text="Quên mật khẩu ?"
                 android:fontFamily="@font/overpass_bold"
                 android:textColor="#2196F3"
-                android:textSize="15dp" />
+                android:textSize="17dp" />
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/actiLogin_btn_login"
+            android:id="@+id/actiDangNhap_btn_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -118,7 +133,7 @@
             android:textColor="@color/white"
             android:background="@drawable/btn_6"
             android:textSize="20sp"
-            android:onClick="handleActionBtnLogin"
+            android:onClick="handleActionBtnDangNhap"
             android:fontFamily="@font/overpass_bold"
             android:text="Đăng Nhập" />
     </androidx.appcompat.widget.LinearLayoutCompat>

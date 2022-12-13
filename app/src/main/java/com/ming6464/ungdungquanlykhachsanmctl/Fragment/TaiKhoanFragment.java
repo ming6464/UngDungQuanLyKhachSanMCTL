@@ -1,7 +1,6 @@
 package com.ming6464.ungdungquanlykhachsanmctl.Fragment;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -12,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -33,7 +31,7 @@ import com.ming6464.ungdungquanlykhachsanmctl.DTO.People;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDAO;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanDB;
 import com.ming6464.ungdungquanlykhachsanmctl.KhachSanSharedPreferences;
-import com.ming6464.ungdungquanlykhachsanmctl.LoginAcitivty;
+import com.ming6464.ungdungquanlykhachsanmctl.DangNhapAcitivty;
 import com.ming6464.ungdungquanlykhachsanmctl.R;
 
 
@@ -135,7 +133,7 @@ public class TaiKhoanFragment extends Fragment {
                     builder.setTitle("Đăng Xuất");
                     builder.setMessage("Bạn có chắc là muốn đăng xuất không ");
                     builder.setNegativeButton("Có", (dialog, which) -> {
-                        intent = new Intent(getActivity(), LoginAcitivty.class);
+                        intent = new Intent(getActivity(), DangNhapAcitivty.class);
                         startActivity(intent);
                         getActivity().finish();
                         CustomToast.makeText(getContext(), "Đăng Xuất Thành Công", true).show();
