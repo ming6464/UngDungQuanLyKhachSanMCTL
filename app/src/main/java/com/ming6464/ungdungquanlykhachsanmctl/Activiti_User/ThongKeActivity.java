@@ -216,6 +216,7 @@ public class ThongKeActivity extends AppCompatActivity {
             return "0" + date;
         return String.valueOf(date);
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {

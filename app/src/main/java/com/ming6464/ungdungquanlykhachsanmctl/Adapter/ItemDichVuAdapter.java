@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class ItemDichVuAdapter extends RecyclerView.Adapter<ItemDichVuAdapter.ViewHolder> {
-    Context context;
-    List<Services> listService;
+    private Context context;
+    private List<Services> listService;
     private NumberFormat format;
 
     public ItemDichVuAdapter(Context context, List<Services> listService) {
