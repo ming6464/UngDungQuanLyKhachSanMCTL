@@ -44,7 +44,7 @@ public class HoaDonPhongFragment extends Fragment implements ItemOrderDetail1Ada
     private Spinner sp_status;
     private SwipeRefreshLayout rf_rcHoaDonPhong;
     private ItemOrderDetail1Adapter adapter;
-    public static final String KEY_ROOMID = "KEY_ROOMID";
+    public static final String KEY_ORDERDETAILID = "KEY_ORDERDETAILID";
     public static HoaDonPhongFragment newInstance() {
         return new HoaDonPhongFragment();
     }
@@ -144,7 +144,7 @@ public class HoaDonPhongFragment extends Fragment implements ItemOrderDetail1Ada
                 });
                 btn_addService.setOnClickListener(v -> {
                     Intent intent = new Intent(requireContext(), AddServiceActivity.class);
-                    intent.putExtra(KEY_ROOMID,obj.getRoomID());
+                    intent.putExtra(KEY_ORDERDETAILID,obj.getId());
                     startActivity(intent);
                     dialog.cancel();
                 });
