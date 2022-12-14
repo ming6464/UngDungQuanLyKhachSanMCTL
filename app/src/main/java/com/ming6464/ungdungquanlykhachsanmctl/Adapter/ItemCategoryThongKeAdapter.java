@@ -16,7 +16,6 @@ public class ItemCategoryThongKeAdapter extends RecyclerView.Adapter<ItemCategor
     private int[] ArrSoLieu;
     private NumberFormat format;
     private int heightView = 0;
-    private ViewGroup.LayoutParams params;
 
     public ItemCategoryThongKeAdapter(){
         format = NumberFormat.getInstance(new Locale("en","EN"));
@@ -44,7 +43,7 @@ public class ItemCategoryThongKeAdapter extends RecyclerView.Adapter<ItemCategor
 
         holder.tv_statusSuccess.setVisibility(View.VISIBLE);
         holder.tv_statusSuccess.setText(String.valueOf(slThanhToan));
-        params = holder.tv_statusSuccess.getLayoutParams();
+        ViewGroup.LayoutParams params = holder.tv_statusSuccess.getLayoutParams();
         params.height = slThanhToan * heightView;
         holder.tv_statusSuccess.setLayoutParams(params);
 

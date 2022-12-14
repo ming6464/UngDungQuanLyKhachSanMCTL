@@ -89,8 +89,4 @@ public class DangNhapAcitivty extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void handleActionBackToSignIn(View view) {
-        finish();
-    }
-
 }

@@ -21,12 +21,9 @@ public class ManHinhChaoActivity extends AppCompatActivity {
 
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.rotate_load);
         img_load.startAnimation(animation);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity(new Intent(ManHinhChaoActivity.this, DangNhapAcitivty.class));
-                ManHinhChaoActivity.this.finish();
-            }
+        new Handler().postDelayed(() -> {
+            startActivity(new Intent(ManHinhChaoActivity.this, DangNhapAcitivty.class));
+            ManHinhChaoActivity.this.finish();
         },2000);
     }
 }

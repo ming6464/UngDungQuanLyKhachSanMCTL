@@ -60,24 +60,21 @@ public class QuenMatKhauActivity extends AppCompatActivity {
 
 
         //hide loađ
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                ed_sdt.setFocusableInTouchMode(true);
-                img_close.setEnabled(true);
-                btn_guiYeuCau.setEnabled(true);
-                pg_load.setVisibility(View.GONE);
-                if(pass != null){
-                    CustomToast.makeText(QuenMatKhauActivity.this,"Mật khẩu của bạn là: " + pass,true).show();
-                    finish();
-                }else{
-                    if(check)
-                        CustomToast.makeText(QuenMatKhauActivity.this,"Số điện thoại không tồn tại !",false).show();
-                    else
-                        CustomToast.makeText(QuenMatKhauActivity.this,"Số điện thoại bị cấm !",false).show();
-                }
-
+        new Handler().postDelayed(() -> {
+            ed_sdt.setFocusableInTouchMode(true);
+            img_close.setEnabled(true);
+            btn_guiYeuCau.setEnabled(true);
+            pg_load.setVisibility(View.GONE);
+            if(pass != null){
+                CustomToast.makeText(QuenMatKhauActivity.this,"Mật khẩu của bạn là: " + pass,true).show();
+                finish();
+            }else{
+                if(check)
+                    CustomToast.makeText(QuenMatKhauActivity.this,"Số điện thoại không tồn tại !",false).show();
+                else
+                    CustomToast.makeText(QuenMatKhauActivity.this,"Số điện thoại bị cấm !",false).show();
             }
+
         },1000);
         //
 
