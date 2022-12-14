@@ -24,9 +24,9 @@ public class AddServiceActivity extends AppCompatActivity implements ItemService
     private List<Services> list,list1;
     private List<ServiceOrder> list2;
     private int idOrderDetail,total = 0;
-    private String idRoom;
     private TextView tv_total;
     private Toolbar tb;
+    private String idRoom;
     private NumberFormat format;
     private ItemService2Adapter itemService2Adapter;
     private ItemService1Adapter itemService1Adapter;
@@ -39,8 +39,8 @@ public class AddServiceActivity extends AppCompatActivity implements ItemService
         setContentView(R.layout.activity_add_service);
         dao = KhachSanDB.getInstance(this).getDAO();
         format = NumberFormat.getInstance(new Locale("en","EN"));
-        idRoom = getIntent().getStringExtra(HoaDonPhongFragment.KEY_ROOMID);
-        idOrderDetail = dao.getWithRoomIdOfOrderDetail(idRoom).getOrderID();
+        idOrderDetail = getIntent().getIntExtra(HoaDonPhongFragment.KEY_ORDERDETAILID,0);
+        idRoom = dao.getObjOrderDetail(idOrderDetail).getRoomID();
         anhXa();
         setSupportActionBar(tb);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
